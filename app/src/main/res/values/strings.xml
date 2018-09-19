@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Foodie</string>
+    <string name="map">Map</string>
+    <string name="profile">Profile</string>
+    <string name="search">Search</string>
+    <string name="lottery">Lottery</string>
+    <string name="like">Like</string>
+
+
 </resources>
