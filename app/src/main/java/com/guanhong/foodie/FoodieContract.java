@@ -14,9 +14,7 @@ public interface FoodieContract {
 
         void showSearchUi();
 
-        void setButtonColor();
 
-        void setCursor(int i);
     }
 
     interface Presenter extends BasePresenter {
@@ -25,7 +23,7 @@ public interface FoodieContract {
 
         void transToLiked();
 
-        void transToLottery();
+        void transToLotto();
 
         void transToProfile();
 
