@@ -11,6 +11,7 @@ import android.util.Log;
 import com.guanhong.foodie.liked.LikedFragment;
 import com.guanhong.foodie.lottery.LotteryFragment;
 import com.guanhong.foodie.map.MapFragment;
+import com.guanhong.foodie.map.MapPresenter;
 import com.guanhong.foodie.profile.ProfileFragment;
 import com.guanhong.foodie.search.SearchFragment;
 import com.guanhong.foodie.util.Constants;
@@ -23,11 +24,14 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
     private FoodieContract.View mFoodieView;
 
-    private LikedFragment mLikedFragment;
-    private LotteryFragment mLotteryFragment;
     private MapFragment mMapFragment;
     private ProfileFragment mProfileFragment;
     private SearchFragment mSearchFragment;
+    private LotteryFragment mLotteryFragment;
+    private LikedFragment mLikedFragment;
+
+
+    private MapPresenter mMapPresenter;
 
     private ViewPager mViewPager;
 
@@ -36,10 +40,11 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
     @SuppressLint("RestrictedApi")
     public FoodiePresenter(FoodieContract.View foodieView, ViewPager viewPager) {
-        mFoodieView = checkNotNull(foodieView, "foodieView cannot be null!");
+//        mFoodieView = checkNotNull(foodieView, "foodieView cannot be null!");
+        mFoodieView = foodieView;
         mFoodieView.setPresenter(this);
 
-        mFoodieView = foodieView;
+//        mFoodieView = foodieView;
         mViewPager = viewPager;
 
         init();
@@ -60,8 +65,22 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     public void transToMap() {
 
         Log.d(Constants.TAG, "  transToMap");
-        mViewPager.setCurrentItem(0);
 
+//        if(mMapFragment == null){
+//            Log.d(Constants.TAG, "  mMapFragment == null???");
+//
+//            mMapFragment = MapFragment.newInstance();
+//        }
+
+        if(mMapPresenter == null){
+            Log.d(Constants.TAG, "  mMapPresenter == null???  " +mMapPresenter);
+
+            mMapPresenter = new MapPresenter(MapFragment.newInstance());
+
+            Log.d(Constants.TAG, "  mMapPresenter =   " +mMapPresenter);
+        }
+
+        mViewPager.setCurrentItem(0);
         mFoodieView.showMapUi();
     }
 
@@ -78,8 +97,6 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         mViewPager.setCurrentItem(1);
         mFoodieView.showProfileUi();
     }
-
-
 
     @Override
     public void transToSearch() {
@@ -99,6 +116,11 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     @Override
     public void transToLiked() {
         Log.d(Constants.TAG, "  transToLiked");
+
+//        if(mLikedFragment == null){
+//            Log.d(Constants.TAG, "  mLikeFragment == null???");
+//
+//        }
         mViewPager.setCurrentItem(4);
         mFoodieView.showLikedUi();
     }

@@ -5,6 +5,7 @@
     <string name="search">Search</string>
     <string name="lottery">Lotto</string>
     <string name="like">Like</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>

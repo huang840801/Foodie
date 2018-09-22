@@ -33,6 +33,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     private List<Fragment> fragments = new ArrayList<>();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +104,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         Log.d(Constants.TAG, "  hello   transToSearch");
 
     }
-
 
     @Override
     public void setPresenter(FoodieContract.Presenter presenter) {
