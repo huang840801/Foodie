@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.restaurant.RestaurantFragment;
 import com.guanhong.foodie.util.Constants;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
@@ -56,6 +57,8 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
     private GroundOverlay imageOverlay;
 
+    private Fragment mRestaurantFragment;
+
     public MapFragment() {
 
     }
@@ -71,7 +74,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
         mGoogleMapView = (MapView) rootView.findViewById(R.id.mapView);
         mContext = getContext();
-
+        mPresenter = new MapPresenter(this);
 
         mGoogleMapView.onCreate(savedInstanceState);
         mGoogleMapView.onResume();
@@ -82,8 +85,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     @SuppressLint("RestrictedApi")
     @Override
     public void setPresenter(MapContract.Presenter presenter) {
-        Log.d(Constants.TAG, "  mPresenter = " + mPresenter);
-
         mPresenter = checkNotNull(presenter);
     }
 
@@ -92,10 +93,10 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         super.onViewCreated(view, savedInstanceState);
 
 
-//        mPresenter.start();
-        mGoogleMapView.getMapAsync(this);
+        mPresenter.start();
+//        mGoogleMapView.getMapAsync(this);
 
-
+////////////////////////////////////////////////////////////////////////////////
 //        int num = 29;
 //        boolean hasAnswer = false;
 //        for (int i = 1; i < num / 2; i++) {
@@ -108,24 +109,25 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 //        if (!hasAnswer) {
 //            Log.d(Constants.TAG + "根號 ", num + "開根號 = 無解!");
 //        }
-
-        double num = 8;
-        double cost =num;
-        double i;
-//        double answer = num/2;
-        for ( i = 1; i < num / 2; i=i+0.1) {
-            if (num-(i * i)<cost) {
-                cost = num - i*i;
-
-            }
-        }
-        Log.d(Constants.TAG + "根號 ", num + "開根號 =  " + i);
-        Log.d(Constants.TAG + "根號 ",  "cost =  " + cost);
-
-//        if (!hasAnswer) {
-//            Log.d(Constants.TAG + "根號 ", num + "開根號 = 無解!");
+////////////////////////////////////////////////////////////////////////////////
+//        double num = 10;
+//        double p = 0, n = 0;
+//        double i;
+//        for (i = 1; i < num; i = i + 0.1) {
+//            if (num - (i * i) <= 0) {
+//                p = i - 0.1;
+//                n = i;
+//                break;
+//            }
+//        }
+//
+//        if (num - (p * p) < (n * n) - num) {
+//            Log.d(Constants.TAG + "根號 ", num + "開根號 = p =  " + p);
+//        } else {
+//            Log.d(Constants.TAG + "根號 ", num + "開根號 = n =  " + n);
 //        }
 
+////////////////////////////////////////////////////////////////////////////////
 
     }
 
@@ -184,49 +186,51 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 //        TextView num = marker.findViewById(R.id.num_textView);
 //        num.setText("35");
 
-        int height = 100;
-        int width = 100;
-        BitmapDrawable bitmapDrawable = (BitmapDrawable)getResources().getDrawable(R.drawable.marker_blue);
-        Bitmap b = bitmapDrawable.getBitmap();
-        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-
-
 
 
 
         Marker customMarker = googleMap.addMarker(new MarkerOptions()
                 .position(test)
 //                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
-                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                .icon(BitmapDescriptorFactory.fromBitmap(getMarker()))
                 .title("AppWorks School")
                 .flat(true)
                 .snippet("Hello"));
 
 
         // For zooming automatically to the location of the marker
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(test).zoom(8).build();
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(test).zoom(12).build();
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         mGoogleMap.setOnInfoWindowClickListener(this);
     }
 
+    private Bitmap getMarker() {
+        int height = 100;
+        int width = 100;
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.marker_blue);
+        Bitmap b = bitmapDrawable.getBitmap();
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+
+        return smallMarker;
+    }
+
     @Override
     public void onInfoWindowClick(Marker marker) {
-        Log.d(Constants.TAG ,  "  onInfoWindowClick");
+        Log.d(Constants.TAG, "  onInfoWindowClick");
+
+        mRestaurantFragment = new RestaurantFragment();
+
+
     }
 
 
     @Override
     public void showMap() {
+        Log.d(Constants.TAG, "  MapPresenter  showMap");
         mGoogleMapView.getMapAsync(this);
     }
 
-//    @Override
-//    public boolean onMarkerClick(Marker marker) {
-//        Log.d(Constants.TAG ,  "  onMarkerClick");
-//
-//        return false;
-//    }
 //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=24.1674116,120.6679557&radius=5000&types=bank&sensor=true&key=AIzaSyC9nSWENfNXaPrQ9pMFtvxL5NSwbpMiEE
 
 }

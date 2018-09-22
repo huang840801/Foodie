@@ -15,17 +15,15 @@ public class MapPresenter implements MapContract.Presenter {
     @SuppressLint("RestrictedApi")
     public MapPresenter(MapContract.View mapView) {
 
-//        mMapView = checkNotNull(mapView, "mapView cannot be null");
-        mMapView = mapView;
+        mMapView = checkNotNull(mapView, "mapView cannot be null");
+//        mMapView = mapView;
         mMapView.setPresenter(this);
-        Log.d(Constants.TAG, "  mMapView = "+mMapView);
+//        Log.d(Constants.TAG, "  mMapView = "+mMapView);
 
     }
 
     @Override
     public void start() {
-        Log.d(Constants.TAG, "  showMap");
-
         mMapView.showMap();
     }
 }

@@ -8,7 +8,7 @@ import android.util.Log;
 
 import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.FoodiePresenter;
-import com.guanhong.foodie.MyViewPagerAdapter;
+import com.guanhong.foodie.ViewPagerAdapter;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.liked.LikedFragment;
 import com.guanhong.foodie.lottery.LotteryFragment;
@@ -25,12 +25,12 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     private FoodieContract.Presenter mPresenter;
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private MyViewPagerAdapter viewPagerAdapter;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+    private ViewPagerAdapter mViewPagerAdapter;
     //TabLayout标签
-    private String[] titles;
-    private List<Fragment> fragments = new ArrayList<>();
+    private String[] mTitles;
+    private List<Fragment> mFragmentList = new ArrayList<>();
 
 
 
@@ -44,10 +44,10 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         setContentView(R.layout.activity_main);
 
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        mViewPager = (ViewPager) findViewById(R.id.view_pager);
 
-        titles = new String[]{
+        mTitles = new String[]{
                 getResources().getString(R.string.map),
                 getResources().getString(R.string.profile),
                 getResources().getString(R.string.search),
@@ -56,26 +56,26 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         };
 
         //设置TabLayout标签的显示方式
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
         //循环注入标签
-        for (String tab : titles) {
-            tabLayout.addTab(tabLayout.newTab().setText(tab));
+        for (String tab : mTitles) {
+            mTabLayout.addTab(mTabLayout.newTab().setText(tab));
         }
 
 
-        fragments.add(new MapFragment());
-        fragments.add(new ProfileFragment());
-        fragments.add(new SearchFragment());
-        fragments.add(new LotteryFragment());
-        fragments.add(new LikedFragment());
-        viewPagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager(), titles, fragments);
-        viewPager.setAdapter(viewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+        mFragmentList.add(new MapFragment());
+        mFragmentList.add(new ProfileFragment());
+        mFragmentList.add(new SearchFragment());
+        mFragmentList.add(new LotteryFragment());
+        mFragmentList.add(new LikedFragment());
+        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mTitles, mFragmentList);
+        mViewPager.setAdapter(mViewPagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
 
-        mPresenter = new FoodiePresenter(this, viewPager);
+        mPresenter = new FoodiePresenter(this, mViewPager);
         mPresenter.start();
         //设置TabLayout点击事件
-        tabLayout.setOnTabSelectedListener(this);
+        mTabLayout.setOnTabSelectedListener(this);
     }
 
 
@@ -113,7 +113,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-//        viewPager.setCurrentItem(tab.getPosition());
+//        mViewPager.setCurrentItem(tab.getPosition());
         Log.d(Constants.TAG, "  tab = " + tab.getPosition());
 
         switch (tab.getPosition()) {
