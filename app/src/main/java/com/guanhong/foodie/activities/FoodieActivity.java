@@ -100,10 +100,9 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 //        } else {
         mViewPager.setVisibility(View.VISIBLE);
         mTabLayout.setVisibility(View.VISIBLE);
-        
-        
-        
-            super.onBackPressed();
+
+
+        super.onBackPressed();
 //        }
     }
 
@@ -138,7 +137,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         Log.d(Constants.TAG, "  hello   transToRestaurant");
         mViewPager.setVisibility(View.GONE);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, mRestaurantFragment, "" );
+        fragmentTransaction.replace(R.id.fragment_container, mRestaurantFragment, "");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
@@ -191,7 +190,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     }
 
-    public void transToDetail(){
+    public void transToDetail() {
         mPresenter.tranToDetail();
 
 

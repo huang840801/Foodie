@@ -19,11 +19,10 @@ import com.guanhong.foodie.objects.Article;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
 
-public class RestaurantFragment extends Fragment implements RestaurantContract.View{
+public class RestaurantFragment extends Fragment implements RestaurantContract.View {
 
     private RestaurantContract.Presenter mPresenter;
     private RestaurantDetailAdapter mRestaurantDetailAdapter;
-
 
 
     @Override
@@ -67,13 +66,14 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         mPresenter.showTabLayout();
     }
 
-    public static RestaurantFragment newInstance(){return new RestaurantFragment();}
-
+    public static RestaurantFragment newInstance() {
+        return new RestaurantFragment();
+    }
 
 
     @Override
     public void setTabLayoutVisibility(boolean visible) {
-        ((FoodieActivity)getActivity()).setTabLayoutVisibility(visible);
+        ((FoodieActivity) getActivity()).setTabLayoutVisibility(visible);
     }
 
     @Override

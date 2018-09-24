@@ -15,9 +15,9 @@ public interface RestaurantContract {
 
     interface Presenter extends BasePresenter {
 
-       void showTabLayout();
+        void showTabLayout();
 
-       void hideTabLayout();
+        void hideTabLayout();
 
 
     }

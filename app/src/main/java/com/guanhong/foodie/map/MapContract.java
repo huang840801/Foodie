@@ -5,7 +5,7 @@ import com.guanhong.foodie.BaseView;
 
 public interface MapContract {
 
-    interface View extends BaseView<Presenter>{
+    interface View extends BaseView<Presenter> {
 
         void showMap();
     }
