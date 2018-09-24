@@ -8,14 +8,14 @@
     tools:context=".activities.LoginActivity">
 
     <!--<ImageView-->
-        <!--android:id="@+id/imageView4"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="660dp"-->
-        <!--android:alpha=""-->
-        <!--android:src="@drawable/login_background1"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
+    <!--android:id="@+id/imageView4"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="660dp"-->
+    <!--android:alpha=""-->
+    <!--android:src="@drawable/login_background1"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent" />-->
     <ImageView
         android:id="@+id/imageView_foodie"
         android:layout_width="wrap_content"
@@ -29,15 +29,15 @@
         app:srcCompat="@drawable/foodie_transparent" />
 
     <EditText
-        android:id="@+id/edittext_name"
+        android:id="@+id/edittext_email"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/login_edittext"
+        android:hint="@string/Email"
         android:paddingStart="10dp"
-        android:hint="@string/your_name"
         app:layout_constraintBottom_toTopOf="@+id/edittext_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -50,8 +50,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/login_edittext"
-        android:paddingStart="10dp"
         android:hint="@string/password"
+        android:paddingStart="10dp"
         app:layout_constraintBottom_toTopOf="@+id/button_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -64,6 +64,8 @@
         android:layout_marginStart="70dp"
         android:background="@drawable/corner_bg_login_button"
         android:text="@string/register"
+        android:textColor="#ffffff"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -74,8 +76,8 @@
         android:layout_marginBottom="80dp"
         android:layout_marginEnd="70dp"
         android:background="@drawable/corner_bg_login_button"
-
         android:text="@string/login"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
