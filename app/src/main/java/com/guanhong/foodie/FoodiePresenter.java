@@ -5,6 +5,7 @@ import static android.support.v4.util.Preconditions.checkNotNull;
 import android.annotation.SuppressLint;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
@@ -72,13 +73,13 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 //            mMapFragment = MapFragment.newInstance();
 //        }
 
-        if(mMapPresenter == null){
-            Log.d(Constants.TAG, "  mMapPresenter == null???  " +mMapPresenter);
-
-            mMapPresenter = new MapPresenter(MapFragment.newInstance());
-
-            Log.d(Constants.TAG, "  mMapPresenter =   " +mMapPresenter);
-        }
+//        if(mMapPresenter == null){
+//            Log.d(Constants.TAG, "  mMapPresenter == null???  " +mMapPresenter);
+//
+//            mMapPresenter = new MapPresenter(MapFragment.newInstance());
+//
+//            Log.d(Constants.TAG, "  mMapPresenter =   " +mMapPresenter);
+//        }
 
         mViewPager.setCurrentItem(0);
         mFoodieView.showMapUi();
@@ -105,6 +106,8 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         mFoodieView.showSearchUi();
     }
 
+
+
     @Override
     public void transToLotto() {
         Log.d(Constants.TAG, "  transToLotto");
@@ -117,13 +120,19 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     public void transToLiked() {
         Log.d(Constants.TAG, "  transToLiked");
 
-//        if(mLikedFragment == null){
-//            Log.d(Constants.TAG, "  mLikeFragment == null???");
-//
-//        }
         mViewPager.setCurrentItem(4);
         mFoodieView.showLikedUi();
     }
 
+    @Override
+    public void tranToDetail() {
+        Log.d(Constants.TAG, "  transToDetail");
 
+
+//        mViewPager.setCurrentItem(5);
+        mFoodieView.showRestaurantUi();
+
+
+
+    }
 }

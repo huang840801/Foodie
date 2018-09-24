@@ -7,9 +7,18 @@ public interface RestaurantContract {
 
     interface View extends BaseView<Presenter> {
 
+        void setTabLayoutVisibility(boolean visible);
+
+        void showArticle();
+
     }
 
     interface Presenter extends BasePresenter {
+
+       void showTabLayout();
+
+       void hideTabLayout();
+
 
     }
 }

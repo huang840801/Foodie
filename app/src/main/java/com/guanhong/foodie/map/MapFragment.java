@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.restaurant.RestaurantFragment;
 import com.guanhong.foodie.util.Constants;
 
@@ -95,6 +96,9 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
         mPresenter.start();
 //        mGoogleMapView.getMapAsync(this);
+
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 //        int num = 29;
@@ -193,7 +197,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
                 .position(test)
 //                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
                 .icon(BitmapDescriptorFactory.fromBitmap(getMarker()))
-                .title("AppWorks School")
+                .title(getString(R.string.AppWorks))
                 .flat(true)
                 .snippet("Hello"));
 
@@ -220,6 +224,9 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         Log.d(Constants.TAG, "  onInfoWindowClick");
 
         mRestaurantFragment = new RestaurantFragment();
+
+//        ((FoodieActivity)getActivity()).setTabLayoutVisibility(false);
+        ((FoodieActivity)getActivity()).transToDetail();
 
 
     }

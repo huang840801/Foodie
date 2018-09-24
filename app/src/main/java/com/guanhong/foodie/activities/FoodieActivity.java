@@ -3,8 +3,10 @@ package com.guanhong.foodie.activities;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
 
 import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.FoodiePresenter;
@@ -14,6 +16,7 @@ import com.guanhong.foodie.liked.LikedFragment;
 import com.guanhong.foodie.lottery.LotteryFragment;
 import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.profile.ProfileFragment;
+import com.guanhong.foodie.restaurant.RestaurantFragment;
 import com.guanhong.foodie.search.SearchFragment;
 import com.guanhong.foodie.util.Constants;
 
@@ -32,7 +35,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     private String[] mTitles;
     private List<Fragment> mFragmentList = new ArrayList<>();
 
-
+    private RestaurantFragment mRestaurantFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +59,13 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         };
 
         //设置TabLayout标签的显示方式
-        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         //循环注入标签
         for (String tab : mTitles) {
             mTabLayout.addTab(mTabLayout.newTab().setText(tab));
         }
+
+        mRestaurantFragment = new RestaurantFragment();
 
 
         mFragmentList.add(new MapFragment());
@@ -68,6 +73,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         mFragmentList.add(new SearchFragment());
         mFragmentList.add(new LotteryFragment());
         mFragmentList.add(new LikedFragment());
+//        mFragmentList.add(mRestaurantFragment);
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mTitles, mFragmentList);
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
@@ -78,6 +84,28 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         mTabLayout.setOnTabSelectedListener(this);
     }
 
+    public void setTabLayoutVisibility(boolean isVisible) {
+        if (mTabLayout != null) {
+            mTabLayout.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d(Constants.TAG, "onBackPressed: ");
+
+//        if (mTabLayout == null) {
+//            Log.d(Constants.TAG, "onBackPressed: ");
+//            mTabLayout.setVisibility(View.VISIBLE);
+//        } else {
+        mViewPager.setVisibility(View.VISIBLE);
+        mTabLayout.setVisibility(View.VISIBLE);
+        
+        
+        
+            super.onBackPressed();
+//        }
+    }
 
     @Override
     public void showMapUi() {
@@ -102,6 +130,17 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     public void showSearchUi() {
         Log.d(Constants.TAG, "  hello   transToSearch");
+
+    }
+
+    @Override
+    public void showRestaurantUi() {
+        Log.d(Constants.TAG, "  hello   transToRestaurant");
+        mViewPager.setVisibility(View.GONE);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mRestaurantFragment, "" );
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
 
     }
 
@@ -149,6 +188,12 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+
+    public void transToDetail(){
+        mPresenter.tranToDetail();
+
 
     }
 }

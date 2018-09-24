@@ -4,6 +4,8 @@ public interface FoodieContract {
 
     interface View extends BaseView<Presenter> {
 
+//        void setTabLayoutVisibility();
+
         void showMapUi();
 
         void showLikedUi();
@@ -14,7 +16,7 @@ public interface FoodieContract {
 
         void showSearchUi();
 
-
+        void showRestaurantUi();
     }
 
     interface Presenter extends BasePresenter {
@@ -28,5 +30,7 @@ public interface FoodieContract {
         void transToProfile();
 
         void transToSearch();
+
+        void tranToDetail();
     }
 }
