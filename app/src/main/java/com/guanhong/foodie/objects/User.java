@@ -3,13 +3,11 @@ package com.guanhong.foodie.objects;
 public class User {
     private String mName;
     private String mEmail;
-    private String mImage;
     private String mId;
 
     public User() {
         mName = "";
         mEmail = "";
-        mImage = "";
         mId = "";
     }
 
@@ -27,14 +25,6 @@ public class User {
 
     public void setEmail(String email) {
         mEmail = email;
-    }
-
-    public String getImage() {
-        return mImage;
-    }
-
-    public void setImage(String image) {
-        mImage = image;
     }
 
     public String getId() {

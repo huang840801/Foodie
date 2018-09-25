@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.FoodiePresenter;
 import com.guanhong.foodie.ViewPagerAdapter;

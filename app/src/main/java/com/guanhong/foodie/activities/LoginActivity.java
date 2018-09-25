@@ -3,6 +3,7 @@ package com.guanhong.foodie.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,11 +15,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.objects.User;
 import com.guanhong.foodie.util.Constants;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
+    private EditText mNameEditText;
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
     private Button mRegisterButton;
@@ -26,21 +31,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private String mUserId;
+    private String mName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         init();
-        getFirebase();
+        LoginWithFirebase();
 
         mRegisterButton.setOnClickListener(this);
         mLoginButton.setOnClickListener(this);
 
     }
 
-    private void getFirebase() {
+    private void LoginWithFirebase() {
 
         mAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -48,8 +53,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Log.d(Constants.TAG, "登入:  " + user.getUid());
-                    mUserId = user.getUid();
+
+                    writeNewUser(user);
+
+                    Log.d(Constants.TAG, " Id:  " + user.getUid());
+                    Log.d(Constants.TAG, " email:  " + user.getEmail());
+//                    Log.d(Constants.TAG, " user1Id:  " + user1.getId());
+//                    Log.d(Constants.TAG, " user1email:  " + user1.getEmail());
+//                    Log.d(Constants.TAG, " key:  " + key);
+//                    Id:  H09DaWAN7WPaXmSnKAvQHw5qhlY2
 
                     Intent intent = new Intent(LoginActivity.this, FoodieActivity.class);
                     startActivity(intent);
@@ -63,14 +75,31 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
+    private void writeNewUser(FirebaseUser user) {
+        Log.d(Constants.TAG, " writeNewUser ");
+
+        FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = userDatabase.getReference("user");
+
+
+        User user1 = new User();
+        user1.setName(mName);
+        user1.setEmail(user.getEmail());
+        user1.setId(user.getUid());
+
+        myRef.child(user.getUid()).setValue(user1);
+    }
+
     private void init() {
         setContentView(R.layout.activity_login);
 
+        mNameEditText = findViewById(R.id.edittext_name);
         mEmailEditText = findViewById(R.id.edittext_email);
         mPasswordEditText = findViewById(R.id.edittext_password);
         mRegisterButton = findViewById(R.id.button_register);
         mLoginButton = findViewById(R.id.button_login);
 
+        mPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
     }
 
@@ -92,19 +121,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         final String email = mEmailEditText.getText().toString();
         final String password = mPasswordEditText.getText().toString();
+        mName = mNameEditText.getText().toString();
 
         if (view.getId() == R.id.button_register) {
-            Log.d(Constants.TAG, "  mNameEditText");
-            if ("".equals(email) || "".equals(password)) {
+
+            if ("".equals(email) || "".equals(password) || "".equals(mName)) {
                 Toast.makeText(this, R.string.cannot_be_empty, Toast.LENGTH_SHORT).show();
 
             } else {
                 register(email, password);
             }
 
-
         } else if (view.getId() == R.id.button_login) {
-            if ("".equals(email) || "".equals(password)) {
+            if ("".equals(email) || "".equals(password) || "".equals(mName)) {
                 Toast.makeText(this, R.string.cannot_be_empty, Toast.LENGTH_SHORT).show();
             } else {
                 mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -128,19 +157,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 String message = task.isSuccessful() ? "註冊成功" : "註冊失敗";
-                Log.d(Constants.TAG, "  message: "+ message);
+                Log.d(Constants.TAG, "  message: " + message);
 
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
+
                     Intent intent = new Intent(LoginActivity.this, FoodieActivity.class);
                     startActivity(intent);
                     finish();
-                }else if(password.length()<6){
+                } else if (password.length() < 6) {
                     Toast.makeText(LoginActivity.this, "密碼不能小於六碼!", Toast.LENGTH_SHORT).show();
 
-                }else if(!email.contains("@")){
+                } else if (!email.contains("@")) {
                     Toast.makeText(LoginActivity.this, "Email 格式錯誤!", Toast.LENGTH_SHORT).show();
 
-                }else {
+                } else {
                     Toast.makeText(LoginActivity.this, "該用戶已存在!", Toast.LENGTH_SHORT).show();
 
                 }

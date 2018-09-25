@@ -12,6 +12,7 @@
     <string name="register">register</string>
     <string name="login">login</string>
     <string name="cannot_be_empty">cannot be empty</string>
+    <string name="name">Name</string>
 
 
 </resources>

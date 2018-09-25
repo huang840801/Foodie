@@ -1,23 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f7f8f9"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="#f7f8f9">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageView_user"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="profile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/taeyeon"
+        app:civ_border_color="#e6e7e7e7"
+        app:civ_border_width="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:text="Taeyeon"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imageView_user"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_userEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="123456@gmail.com"
+        app:layout_constraintStart_toEndOf="@+id/imageView_user"
+        app:layout_constraintTop_toBottomOf="@+id/textView_userName" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_user"
+        app:srcCompat="@drawable/coin" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        app:layout_constraintStart_toEndOf="@+id/textView_coin_count"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:srcCompat="@drawable/hand" />
+
+    <TextView
+        android:id="@+id/textView_coin_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="168"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/textView_article_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="12"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+
+    <!--<View-->
+    <!--android:id="@+id/divider"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:layout_marginEnd="16dp"-->
+    <!--android:layout_marginStart="16dp"-->
+    <!--android:layout_marginTop="16dp"-->
+    <!--android:background="#e7e7e7"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="1.0"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/imageView3" />-->
+
+    <ImageView
+        android:id="@+id/imageView_plus"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_user"
+        app:srcCompat="@drawable/plus" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="5000dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="8dp"
+        android:background="#dad4d4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3">
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_profile_article"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
