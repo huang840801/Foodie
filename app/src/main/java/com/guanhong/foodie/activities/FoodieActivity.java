@@ -24,6 +24,8 @@ import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.map.MapPresenter;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.objects.User;
+import com.guanhong.foodie.post.PostFragment;
+import com.guanhong.foodie.post.PostPresenter;
 import com.guanhong.foodie.profile.ProfileFragment;
 import com.guanhong.foodie.restaurant.RestaurantFragment;
 import com.guanhong.foodie.restaurant.RestaurantPresenter;
@@ -43,10 +45,13 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     private SearchFragment mSearchFragment;
     private LottoFragment mLottoFragment;
     private LikedFragment mLikedFragment;
+    private RestaurantFragment mRestaurantFragment;
+    private PostFragment mPostFragment;
 
     private MapPresenter mMapPresenter;
     private LikedPresenter mLikedPresenter;
     private RestaurantPresenter mRestaurantPresenter;
+    private PostPresenter mPostPresenter;
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -55,7 +60,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     private String[] mTitles;
     private List<Fragment> mFragmentList = new ArrayList<>();
 
-    private RestaurantFragment mRestaurantFragment;
 
     private Restaurant mRestaurant;
 
@@ -222,6 +226,21 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void showPostArticleUi() {
+        mViewPager.setVisibility(View.GONE);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (mPostFragment == null) {
+            mPostFragment = PostFragment.newInstance();
+        }
+
+        mPostPresenter = new PostPresenter(mPostFragment);
+
+        fragmentTransaction.replace(R.id.fragment_container, mPostFragment, "");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
 
     @Override
     public void setPresenter(FoodieContract.Presenter presenter) {
@@ -273,6 +292,10 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     public void transToRestaurant(Restaurant restaurant) {
 //        Log.d("restaurant ", " FoodieActivity : " + restaurant);
         mPresenter.tranToRestaurant(restaurant);
+    }
+
+    public void transToPostArticle(){
+        mPresenter.transToPostArticle();
     }
     public void pickPicture() {
         Intent picker = new Intent(Intent.ACTION_GET_CONTENT);

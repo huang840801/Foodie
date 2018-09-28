@@ -19,6 +19,8 @@ public interface FoodieContract {
         void showSearchUi();
 
         void showRestaurantUi(Restaurant restaurant);
+
+        void showPostArticleUi();
     }
 
     interface Presenter extends BasePresenter {
@@ -35,5 +37,7 @@ public interface FoodieContract {
         void transToSearch();
 
         void tranToRestaurant(Restaurant restaurant);
+
+        void transToPostArticle();
     }
 }

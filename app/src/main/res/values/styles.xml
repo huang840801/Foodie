@@ -5,7 +5,19 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">#cedc17</item>
+
+
+    </style>
+    <!--<style name="roomRatingBar" parent="@android:style/Widget.RatingBar">-->
+        <!--<item name="android:progressDrawable">@drawable/ratingbar_full</item>-->
+        <!--<item name="android:minHeight">24dip</item>-->
+        <!--<item name="android:maxHeight">24dip</item>-->
+    <!--</style>-->
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#a6a6a6</item>
+        <item name="colorControlActivated">#efe74b</item>
     </style>
 
 </resources>

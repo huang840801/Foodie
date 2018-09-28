@@ -1,6 +1,5 @@
 package com.guanhong.foodie.map;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.location.Address;
@@ -38,7 +37,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 
 public class MapFragment extends Fragment implements MapContract.View, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
@@ -94,7 +93,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         return rootView;
     }
 
-    @SuppressLint("RestrictedApi")
     @Override
     public void setPresenter(MapContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);

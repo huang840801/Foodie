@@ -121,4 +121,9 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
 
     }
+
+    @Override
+    public void transToPostArticle() {
+        mFoodieView.showPostArticleUi();
+    }
 }

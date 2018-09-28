@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
-        android:text="Taeyeon"
+        android:text="GuanHong"
         android:textColor="#000000"
         android:textSize="25dp"
         android:textStyle="bold"
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:text="168"
+        android:text="0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:text="12"
+        android:text="0"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
@@ -95,7 +95,7 @@
     <!--app:layout_constraintTop_toBottomOf="@+id/imageView3" />-->
 
     <ImageView
-        android:id="@+id/imageView_plus"
+        android:id="@+id/imageView_prpfile_post_article"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="36dp"

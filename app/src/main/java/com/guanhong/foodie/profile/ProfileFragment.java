@@ -24,6 +24,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private TextView mUserEmail;
     private TextView mCoinCount;
     private TextView mArticleCount;
+    private ImageView mImageViewPost;
 
     private Typeface mTypeface;
 
@@ -41,8 +42,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         mUserEmail = v.findViewById(R.id.textView_userEmail);
         mCoinCount = v.findViewById(R.id.textView_coin_count);
         mArticleCount = v.findViewById(R.id.textView_article_count);
+        mImageViewPost = v.findViewById(R.id.imageView_prpfile_post_article);
 
         mUserImageView.setOnClickListener(this);
+        mImageViewPost.setOnClickListener(this);
 
         return v;
     }
@@ -77,5 +80,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         if(view.getId() == R.id.imageView_user){
             ((FoodieActivity)getActivity()).pickPicture();
         }
+        if (view.getId() == R.id.imageView_prpfile_post_article) {
+            ((FoodieActivity)getActivity()).transToPostArticle();
+
+        }
+
     }
 }

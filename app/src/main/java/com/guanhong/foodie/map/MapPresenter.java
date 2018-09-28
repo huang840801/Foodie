@@ -1,7 +1,6 @@
 package com.guanhong.foodie.map;
 
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -30,7 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 
 public class MapPresenter implements MapContract.Presenter {
 
@@ -38,7 +38,6 @@ public class MapPresenter implements MapContract.Presenter {
 
     private Context mContext;
 
-    @SuppressLint("RestrictedApi")
     public MapPresenter(MapContract.View mapView, Context context) {
 
         mMapView = checkNotNull(mapView, "mapView cannot be null");
