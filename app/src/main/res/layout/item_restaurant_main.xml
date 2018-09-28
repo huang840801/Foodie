@@ -12,14 +12,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <!--<ImageView-->
-        <!--android:id="@+id/recyclerview_photo"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="225dp"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--android:src="@drawable/appworks"/>-->
+
+    <com.rd.PageIndicatorView
+        android:id="@+id/indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="16dp"
+        app:piv_dynamicCount="true"
+        app:piv_selectedColor="#0baae5"
+        app:piv_unselectedColor="#a5cdcdcd"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerview_photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:piv_animationType="drop"
+        app:piv_interactiveAnimation="true" />
 
     <TextView
         android:id="@+id/textView_restaurant_name"
@@ -120,7 +127,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/corners_bg"
-        android:hint="Comments"
+        android:hint="@string/say_something"
         android:paddingStart="5dp"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -2,6 +2,7 @@ package com.guanhong.foodie.restaurant;
 
 import com.guanhong.foodie.BasePresenter;
 import com.guanhong.foodie.BaseView;
+import com.guanhong.foodie.objects.Restaurant;
 
 public interface RestaurantContract {
 
@@ -9,8 +10,7 @@ public interface RestaurantContract {
 
         void setTabLayoutVisibility(boolean visible);
 
-        void showArticle();
-
+        void showRestaurant(Restaurant restaurant);
     }
 
     interface Presenter extends BasePresenter {

@@ -1,23 +1,26 @@
 package com.guanhong.foodie;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
 
 import android.annotation.SuppressLint;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import com.guanhong.foodie.liked.LikedFragment;
-import com.guanhong.foodie.lottery.LotteryFragment;
+import com.guanhong.foodie.liked.LikedPresenter;
+import com.guanhong.foodie.lotto.LottoFragment;
 import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.map.MapPresenter;
+import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.profile.ProfileFragment;
+import com.guanhong.foodie.restaurant.RestaurantFragment;
+import com.guanhong.foodie.restaurant.RestaurantPresenter;
 import com.guanhong.foodie.search.SearchFragment;
 import com.guanhong.foodie.util.Constants;
 
 import java.util.ArrayList;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 
 public class FoodiePresenter implements FoodieContract.Presenter {
@@ -28,21 +31,22 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     private MapFragment mMapFragment;
     private ProfileFragment mProfileFragment;
     private SearchFragment mSearchFragment;
-    private LotteryFragment mLotteryFragment;
+    private LottoFragment mLottoFragment;
     private LikedFragment mLikedFragment;
 
 
     private MapPresenter mMapPresenter;
+    private RestaurantPresenter mRestaurantPresenter;
+    private LikedPresenter mLikedPresenter;
 
     private ViewPager mViewPager;
 
     private ArrayList<Fragment> mFragmentArrayList;
 
 
-    @SuppressLint("RestrictedApi")
     public FoodiePresenter(FoodieContract.View foodieView, ViewPager viewPager) {
-//        mFoodieView = checkNotNull(foodieView, "foodieView cannot be null!");
-        mFoodieView = foodieView;
+        mFoodieView = checkNotNull(foodieView, "foodieView cannot be null!");
+//        mFoodieView = foodieView;
         mFoodieView.setPresenter(this);
 
 //        mFoodieView = foodieView;
@@ -67,32 +71,12 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
         Log.d(Constants.TAG, "  transToMap");
 
-//        if(mMapFragment == null){
-//            Log.d(Constants.TAG, "  mMapFragment == null???");
-//
-//            mMapFragment = MapFragment.newInstance();
-//        }
-
-//        if(mMapPresenter == null){
-//            Log.d(Constants.TAG, "  mMapPresenter == null???  " +mMapPresenter);
-//
-//            mMapPresenter = new MapPresenter(MapFragment.newInstance());
-//
-//            Log.d(Constants.TAG, "  mMapPresenter =   " +mMapPresenter);
-//        }
-
         mViewPager.setCurrentItem(0);
         mFoodieView.showMapUi();
     }
 
     @Override
     public void transToProfile() {
-//        int i, total=0;
-//        for(i=0 ; i<=10 ; i++){
-//            total = total+i;
-//        }
-//        Log.d(Constants.TAG, "  i = " + total);
-
 
         Log.d(Constants.TAG, "  transToProfile");
         mViewPager.setCurrentItem(1);
@@ -120,17 +104,19 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     public void transToLiked() {
         Log.d(Constants.TAG, "  transToLiked");
 
+//        LikedFragment likedFragment = LikedFragment.newInstance();
+//        mLikedPresenter = new LikedPresenter(likedFragment);
+
         mViewPager.setCurrentItem(4);
         mFoodieView.showLikedUi();
     }
 
     @Override
-    public void tranToDetail() {
-        Log.d(Constants.TAG, "  transToDetail");
+    public void tranToRestaurant(Restaurant restaurant) {
+        Log.d("restaurant ", " FoodiePresenter : " + restaurant);
 
 
-//        mViewPager.setCurrentItem(5);
-        mFoodieView.showRestaurantUi();
+        mFoodieView.showRestaurantUi(restaurant);
 
 
 

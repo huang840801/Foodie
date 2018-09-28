@@ -13,6 +13,7 @@
     <string name="login">login</string>
     <string name="cannot_be_empty">cannot be empty</string>
     <string name="name">Name</string>
+    <string name="say_something">Say something</string>
 
 
 </resources>

@@ -1,6 +1,8 @@
 package com.guanhong.foodie.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.InputType;
@@ -32,6 +34,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private String mName;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +61,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                     Log.d(Constants.TAG, " Id:  " + user.getUid());
                     Log.d(Constants.TAG, " email:  " + user.getEmail());
-//                    Log.d(Constants.TAG, " user1Id:  " + user1.getId());
-//                    Log.d(Constants.TAG, " user1email:  " + user1.getEmail());
-//                    Log.d(Constants.TAG, " key:  " + key);
-//                    Id:  H09DaWAN7WPaXmSnKAvQHw5qhlY2
+
 
                     Intent intent = new Intent(LoginActivity.this, FoodieActivity.class);
                     startActivity(intent);
                     finish();
 
                 } else {
+
 //                    Toast.makeText(LoginActivity.this, "登入失敗!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -76,22 +77,25 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void writeNewUser(FirebaseUser user) {
-        Log.d(Constants.TAG, " writeNewUser ");
+        Log.d(Constants.TAG, " writeNewUser " + mName);
 
-        FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = userDatabase.getReference("user");
+//        FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = userDatabase.getReference("user");
+        if (mName != null) {
+            SharedPreferences userName = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
+            userName.edit()
+                    .putString("userName", mName)
+                    .putString("userEmail", user.getEmail())
+                    .putString("userUid", user.getUid())
+                    .commit();
+        }
 
-
-        User user1 = new User();
-        user1.setName(mName);
-        user1.setEmail(user.getEmail());
-        user1.setId(user.getUid());
-
-        myRef.child(user.getUid()).setValue(user1);
     }
 
     private void init() {
         setContentView(R.layout.activity_login);
+
+        mContext = this;
 
         mNameEditText = findViewById(R.id.edittext_name);
         mEmailEditText = findViewById(R.id.edittext_email);
@@ -161,9 +165,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 if (task.isSuccessful()) {
 
-                    Intent intent = new Intent(LoginActivity.this, FoodieActivity.class);
-                    startActivity(intent);
-                    finish();
+//                    SharedPreferences userName = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
+//                    userName.edit()
+//                            .putString("userName", mName)
+//                            .putString("userEmail", email)
+//                            .commit();
+
+//                    Intent intent = new Intent(LoginActivity.this, FoodieActivity.class);
+//                    startActivity(intent);
+//                    finish();
                 } else if (password.length() < 6) {
                     Toast.makeText(LoginActivity.this, "密碼不能小於六碼!", Toast.LENGTH_SHORT).show();
 

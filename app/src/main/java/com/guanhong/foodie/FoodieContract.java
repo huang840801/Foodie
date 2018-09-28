@@ -1,5 +1,7 @@
 package com.guanhong.foodie;
 
+import com.guanhong.foodie.objects.Restaurant;
+
 public interface FoodieContract {
 
     interface View extends BaseView<Presenter> {
@@ -16,10 +18,11 @@ public interface FoodieContract {
 
         void showSearchUi();
 
-        void showRestaurantUi();
+        void showRestaurantUi(Restaurant restaurant);
     }
 
     interface Presenter extends BasePresenter {
+
 
         void transToMap();
 
@@ -31,6 +34,6 @@ public interface FoodieContract {
 
         void transToSearch();
 
-        void tranToDetail();
+        void tranToRestaurant(Restaurant restaurant);
     }
 }

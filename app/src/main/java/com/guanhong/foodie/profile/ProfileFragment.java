@@ -14,9 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.activities.FoodieActivity;
 import com.squareup.picasso.Picasso;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private ImageView mUserImageView;
     private TextView mUserName;
@@ -41,6 +42,8 @@ public class ProfileFragment extends Fragment {
         mCoinCount = v.findViewById(R.id.textView_coin_count);
         mArticleCount = v.findViewById(R.id.textView_article_count);
 
+        mUserImageView.setOnClickListener(this);
+
         return v;
     }
 
@@ -50,6 +53,10 @@ public class ProfileFragment extends Fragment {
 
         setTypeFace();
 
+    }
+
+    public static ProfileFragment newInstance(){
+        return new ProfileFragment();
     }
 
     private void setTypeFace() {
@@ -62,5 +69,13 @@ public class ProfileFragment extends Fragment {
 
 
 
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if(view.getId() == R.id.imageView_user){
+            ((FoodieActivity)getActivity()).pickPicture();
+        }
     }
 }

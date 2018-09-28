@@ -18,4 +18,7 @@ public class SearchFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_search, container, false);
         return v;
     }
+    public static SearchFragment newInstance(){
+        return new SearchFragment();
+    }
 }

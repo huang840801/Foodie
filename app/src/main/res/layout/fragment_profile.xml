@@ -12,7 +12,7 @@
         android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/taeyeon"
+        android:src="@drawable/icon_portrait02"
         app:civ_border_color="#e6e7e7e7"
         app:civ_border_width="1dp"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,4 +1,4 @@
-package com.guanhong.foodie.lottery;
+package com.guanhong.foodie.lotto;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,11 +10,15 @@ import android.view.ViewGroup;
 
 import com.guanhong.foodie.R;
 
-public class LotteryFragment extends Fragment {
+public class LottoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_lottery, container, false);
         return v;
     }
+    public static LottoFragment newInstance(){
+        return new LottoFragment();
+    }
+
 }

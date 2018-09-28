@@ -1,5 +1,8 @@
 package com.guanhong.foodie.activities;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,10 +18,15 @@ import com.guanhong.foodie.FoodiePresenter;
 import com.guanhong.foodie.ViewPagerAdapter;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.liked.LikedFragment;
-import com.guanhong.foodie.lottery.LotteryFragment;
+import com.guanhong.foodie.liked.LikedPresenter;
+import com.guanhong.foodie.lotto.LottoFragment;
 import com.guanhong.foodie.map.MapFragment;
+import com.guanhong.foodie.map.MapPresenter;
+import com.guanhong.foodie.objects.Restaurant;
+import com.guanhong.foodie.objects.User;
 import com.guanhong.foodie.profile.ProfileFragment;
 import com.guanhong.foodie.restaurant.RestaurantFragment;
+import com.guanhong.foodie.restaurant.RestaurantPresenter;
 import com.guanhong.foodie.search.SearchFragment;
 import com.guanhong.foodie.util.Constants;
 
@@ -30,6 +38,16 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     private FoodieContract.Presenter mPresenter;
 
+    private MapFragment mMapFragment;
+    private ProfileFragment mProfileFragment;
+    private SearchFragment mSearchFragment;
+    private LottoFragment mLottoFragment;
+    private LikedFragment mLikedFragment;
+
+    private MapPresenter mMapPresenter;
+    private LikedPresenter mLikedPresenter;
+    private RestaurantPresenter mRestaurantPresenter;
+
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private ViewPagerAdapter mViewPagerAdapter;
@@ -39,15 +57,44 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     private RestaurantFragment mRestaurantFragment;
 
+    private Restaurant mRestaurant;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
+        saveUserData();
+    }
+
+    private void saveUserData() {
+        SharedPreferences userData = this.getSharedPreferences("userData", Context.MODE_PRIVATE);
+        String name = userData.getString("userName", "");
+        String email = userData.getString("userEmail", "");
+        String uid = userData.getString("userUid", "");
+
+
+        Log.d(Constants.TAG, " userName : " + name);
+        Log.d(Constants.TAG, " userEmail : " + email);
+        Log.d(Constants.TAG, " userUid : " + uid);
+
+        FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = userDatabase.getReference("user");
+
+        User user1 = new User();
+        user1.setName(name);
+        user1.setEmail(email);
+        user1.setId(uid);
+
+        myRef.child(uid).setValue(user1);
+
+
+
     }
 
     private void init() {
 
         setContentView(R.layout.activity_main);
+
 
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -67,14 +114,39 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
             mTabLayout.addTab(mTabLayout.newTab().setText(tab));
         }
 
-        mRestaurantFragment = new RestaurantFragment();
 
+        if (mMapFragment == null) {
+            mMapFragment = MapFragment.newInstance();
+            mMapPresenter = new MapPresenter(mMapFragment, this);
+        }
+        if (mProfileFragment == null) {
+            mProfileFragment = ProfileFragment.newInstance();
+        }
+        if (mSearchFragment == null) {
+            mSearchFragment = SearchFragment.newInstance();
+        }
+        if (mLottoFragment == null) {
+            mLottoFragment = LottoFragment.newInstance();
+        }
+        if (mLikedFragment == null) {
+            mLikedFragment = LikedFragment.newInstance();
+            mLikedPresenter = new LikedPresenter(mLikedFragment);
 
-        mFragmentList.add(new MapFragment());
-        mFragmentList.add(new ProfileFragment());
-        mFragmentList.add(new SearchFragment());
-        mFragmentList.add(new LotteryFragment());
-        mFragmentList.add(new LikedFragment());
+        }
+//        if (mRestaurantFragment == null) {
+//            mRestaurantFragment = RestaurantFragment.newInstance();
+//        }
+
+        mFragmentList.add(mMapFragment);
+        mFragmentList.add(mProfileFragment);
+        mFragmentList.add(mSearchFragment);
+        mFragmentList.add(mLottoFragment);
+        mFragmentList.add(mLikedFragment);
+//        mFragmentList.add(new MapFragment());
+//        mFragmentList.add(new ProfileFragment());
+//        mFragmentList.add(new SearchFragment());
+//        mFragmentList.add(new LottoFragment());
+//        mFragmentList.add(new LikedFragment());
 //        mFragmentList.add(mRestaurantFragment);
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mTitles, mFragmentList);
         mViewPager.setAdapter(mViewPagerAdapter);
@@ -130,20 +202,26 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     @Override
     public void showSearchUi() {
-        Log.d(Constants.TAG, "  hello   transToSearch");
+//        Log.d(Constants.TAG, "  hello   transToSearch");
 
     }
 
     @Override
-    public void showRestaurantUi() {
+    public void showRestaurantUi(Restaurant restaurant) {
         Log.d(Constants.TAG, "  hello   transToRestaurant");
         mViewPager.setVisibility(View.GONE);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        if (mRestaurantFragment == null) {
+            mRestaurantFragment = RestaurantFragment.newInstance();
+        }
+
+        mRestaurantPresenter = new RestaurantPresenter(mRestaurantFragment, restaurant);
+
         fragmentTransaction.replace(R.id.fragment_container, mRestaurantFragment, "");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
     }
+
 
     @Override
     public void setPresenter(FoodieContract.Presenter presenter) {
@@ -192,9 +270,15 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     }
 
-    public void transToDetail() {
-        mPresenter.tranToDetail();
-
-
+    public void transToRestaurant(Restaurant restaurant) {
+//        Log.d("restaurant ", " FoodieActivity : " + restaurant);
+        mPresenter.tranToRestaurant(restaurant);
+    }
+    public void pickPicture() {
+        Intent picker = new Intent(Intent.ACTION_GET_CONTENT);
+        picker.setType("image/*");
+        picker.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        Intent destIntent = Intent.createChooser(picker, null);
+        startActivityForResult(destIntent, Constants.PICKER);
     }
 }

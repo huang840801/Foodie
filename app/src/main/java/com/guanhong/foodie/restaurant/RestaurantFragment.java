@@ -1,6 +1,5 @@
 package com.guanhong.foodie.restaurant;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,23 +14,35 @@ import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.RestaurantDetailAdapter;
-import com.guanhong.foodie.objects.Article;
+import com.guanhong.foodie.objects.Restaurant;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 
 public class RestaurantFragment extends Fragment implements RestaurantContract.View {
 
     private RestaurantContract.Presenter mPresenter;
     private RestaurantDetailAdapter mRestaurantDetailAdapter;
 
+    private Restaurant mRestaurant;
+
+
+    public RestaurantFragment() {
+
+    }
+
+    public static RestaurantFragment newInstance() {
+        return new RestaurantFragment();
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPresenter = new RestaurantPresenter(this);
+//        mPresenter = new RestaurantPresenter(this);
         mPresenter.hideTabLayout();
-        mRestaurantDetailAdapter = new RestaurantDetailAdapter(new Article(), mPresenter);
+        mRestaurantDetailAdapter = new RestaurantDetailAdapter(new Restaurant(), mPresenter);
 
     }
 
@@ -42,7 +53,11 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerview_restaurant);
         recyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext()));
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mRestaurantDetailAdapter);
+        recyclerView.smoothScrollToPosition(0);
+
+//        recyclerView.scrollToPosition(0);
 
         return root;
     }
@@ -53,7 +68,6 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         mPresenter.start();
     }
 
-    @SuppressLint("RestrictedApi")
     @Override
     public void setPresenter(RestaurantContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
@@ -66,10 +80,6 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         mPresenter.showTabLayout();
     }
 
-    public static RestaurantFragment newInstance() {
-        return new RestaurantFragment();
-    }
-
 
     @Override
     public void setTabLayoutVisibility(boolean visible) {
@@ -77,7 +87,9 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     }
 
     @Override
-    public void showArticle() {
-
+    public void showRestaurant(Restaurant restaurant) {
+        mRestaurantDetailAdapter.updateRestaurant(restaurant);
     }
+
+
 }

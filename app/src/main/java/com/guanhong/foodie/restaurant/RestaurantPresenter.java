@@ -1,12 +1,17 @@
 package com.guanhong.foodie.restaurant;
 
-import android.annotation.SuppressLint;
+import android.util.Log;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
+import com.guanhong.foodie.objects.Restaurant;
+import com.guanhong.foodie.util.Constants;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
 
 public class RestaurantPresenter implements RestaurantContract.Presenter {
 
     private RestaurantContract.View mRestaurantView;
+    private Restaurant mRestaurant;
 
     @Override
     public void showTabLayout() {
@@ -20,15 +25,19 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
 
     }
 
-    @SuppressLint("RestrictedApi")
-    public RestaurantPresenter(RestaurantContract.View restaurantView) {
+    public RestaurantPresenter(RestaurantContract.View restaurantView, Restaurant restaurant) {
+
 
         mRestaurantView = checkNotNull(restaurantView, "detailView cannot be null!");
         mRestaurantView.setPresenter(this);
+
+        mRestaurant =restaurant;
+
+        Log.d(Constants.TAG, " RestaurantPresenter  " + restaurant);
     }
 
     @Override
     public void start() {
-        mRestaurantView.showArticle();
+        mRestaurantView.showRestaurant(mRestaurant);
     }
 }
