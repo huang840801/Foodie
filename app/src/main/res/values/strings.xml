@@ -14,6 +14,11 @@
     <string name="cannot_be_empty">cannot be empty</string>
     <string name="name">Name</string>
     <string name="say_something">Say something</string>
+    <string name="restaurant_name">店名</string>
+    <string name="location">位置</string>
+    <string name="what_did_you_eat">你吃了什麼</string>
+    <string name="price">價格</string>
+    <string name="post">發文</string>
 
 
 </resources>
