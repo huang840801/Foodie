@@ -1,14 +1,10 @@
 package com.guanhong.foodie.activities;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,12 +12,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -45,7 +39,6 @@ import com.guanhong.foodie.restaurant.RestaurantPresenter;
 import com.guanhong.foodie.search.SearchFragment;
 import com.guanhong.foodie.util.Constants;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,7 +104,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         user1.setImage(image);
 
         myRef.child(uid).setValue(user1);
-
 
 
     }
@@ -222,6 +214,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 //            Log.d(Constants.TAG, "onBackPressed: ");
 //            mTabLayout.setVisibility(View.VISIBLE);
 //        } else {
+        mPresenter.checkPostMapExist();
         mViewPager.setVisibility(View.VISIBLE);
         mTabLayout.setVisibility(View.VISIBLE);
 
@@ -251,18 +244,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
                     .putString("userImage", String.valueOf(uri))
                     .commit();
 
-            //抽象資料的接口
-//            ContentResolver cr = this.getContentResolver();
-//            try {
-//                //由抽象資料接口轉換圖檔路徑為Bitmap
-//                Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
-//
-//            } catch (FileNotFoundException e) {
-//                Log.e("Exception", e.getMessage(),e);
-//            }
         }
-
-
 
 
     }
@@ -303,16 +285,13 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     public void showPostArticleUi() {
         mViewPager.setVisibility(View.GONE);
-//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//        if (mPostFragment == null) {
-//            mPostFragment = PostFragment.newInstance();
-//        }
-//
-//        mPostPresenter = new PostPresenter(mPostFragment);
-//
-//        fragmentTransaction.replace(R.id.fragment_container, mPostFragment, "");
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
+
+    }
+
+    @Override
+    public void showPostChildMapUi() {
+        mViewPager.setVisibility(View.GONE);
+
     }
 
 
@@ -368,22 +347,30 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         mPresenter.tranToRestaurant(restaurant);
     }
 
-    public void transToPostArticle(){
+    public void transToPostArticle() {
         mPresenter.transToPostArticle();
     }
+
+    public void transToPostChildMap() {
+        mPresenter.transToPostChildMap();
+    }
+
+
+
     public void pickPicture() {
-//        Intent picker = new Intent(Intent.ACTION_GET_CONTENT);
-//        picker.setType("image/*");
-//        picker.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-//        Intent destIntent = Intent.createChooser(picker, null);
-//        startActivityForResult(destIntent, Constants.PICKER);
+
 
         Intent intent = new Intent();
         //開啟Pictures畫面Type設定為image
         intent.setType("image/*");
-        //使用Intent.ACTION_GET_CONTENT這個Action                                            //會開啟選取圖檔視窗讓您選取手機內圖檔
+        //使用Intent.ACTION_GET_CONTENT這個Action
+        //會開啟選取圖檔視窗讓您選取手機內圖檔
         intent.setAction(Intent.ACTION_GET_CONTENT);
         //取得相片後返回本畫面
         startActivityForResult(intent, 1);
+    }
+
+    public void transToPostArticle(String addressLine) {
+        mPresenter.transToPostArticle(addressLine);
     }
 }

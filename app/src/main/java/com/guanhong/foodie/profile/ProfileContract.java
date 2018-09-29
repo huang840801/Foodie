@@ -6,18 +6,20 @@ import android.net.Uri;
 
 import com.guanhong.foodie.BasePresenter;
 import com.guanhong.foodie.BaseView;
+import com.guanhong.foodie.objects.User;
 
 public interface ProfileContract {
 
     interface View extends BaseView<Presenter>{
 
-        void showMypicture(Bitmap bitmap);
+        void showUserPicture(Bitmap bitmap);
+
+        void showUserData(User user);
     }
 
     interface Presenter extends BasePresenter{
 
 
-        void uploadToFirebase(String path);
 
         void updateUserImageToFireBase(String url);
 

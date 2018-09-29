@@ -20,4 +20,6 @@
     <string name="what_did_you_eat">你吃了什麼</string>
     <string name="price">價格</string>
     <string name="post">發文</string>
+    <string name="sure">確定</string>
+    <string name="cancel">取消</string>
 </resources>

@@ -1,13 +1,14 @@
 package com.guanhong.foodie.post;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -22,7 +23,7 @@ import com.guanhong.foodie.util.Constants;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class PostFragment extends Fragment implements PostContract.View, View.OnClickListener, View.OnTouchListener, RatingBar.OnRatingBarChangeListener {
+public class PostFragment extends Fragment implements PostContract.View, View.OnClickListener, RatingBar.OnRatingBarChangeListener {
 
     private PostContract.Presenter mPresenter;
 
@@ -45,7 +46,8 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private RatingBar mRatingBar;
     private LinearLayout mLinearLayout;
 
-    int starCount = 0;
+   private int mStarCount = 0;
+   private String mAddress;
 
     public static PostFragment newInstance() {
         return new PostFragment();
@@ -86,11 +88,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mRecyclerViewPhoto = rootView.findViewById(R.id.recyclerview_post_photo);
         mImageViewAddPhoto = rootView.findViewById(R.id.imageView_post_add_pictures);
         mEditTextContent = rootView.findViewById(R.id.edittext_post_content);
-//        mStar1 = rootView.findViewById(R.id.imageView_post_star1);
-//        mStar2 = rootView.findViewById(R.id.imageView_post_star2);
-//        mStar3 = rootView.findViewById(R.id.imageView_post_star3);
-//        mStar4 = rootView.findViewById(R.id.imageView_post_star4);
-//        mStar5 = rootView.findViewById(R.id.imageView_post_star5);
+
 
         mRatingBar = rootView.findViewById(R.id.ratingBar2);
         mPostArticle = rootView.findViewById(R.id.textview_post_post);
@@ -103,11 +101,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mImageViewAddPhoto.setOnClickListener(this);
         mPostArticle.setOnClickListener(this);
         mRatingBar.setOnRatingBarChangeListener(this);
-//        mStar1.setOnTouchListener(this);
-//        mStar2.setOnTouchListener(this);
-//        mStar3.setOnTouchListener(this);
-//        mStar4.setOnTouchListener(this);
-//        mStar5.setOnTouchListener(this);
 
         return rootView;
     }
@@ -115,6 +108,21 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        Bundle bundle = getArguments();
+//        if (bundle != null) {
+//            mAddress = bundle.getString("address");
+//            Log.d(Constants.TAG, "  mAddress = " + mAddress);
+//            Log.d(Constants.TAG, "  bundle != null " );
+//        }
+//        Log.d(Constants.TAG, "  bundle = null " );
+
     }
 
     @Override
@@ -123,10 +131,24 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     }
 
     @Override
+    public void showAddress(final String addressLine) {
+
+        Log.d(Constants.TAG, "   " + addressLine );
+//        mTextViewRestaurantLocation.setText(addressLine);
+   mTextViewRestaurantLocation.post(new Runnable() {
+       @Override
+       public void run() {
+           mTextViewRestaurantLocation.setText(addressLine);
+       }
+   });
+
+    }
+
+    @Override
     public void onClick(View view) {
 
         if (view.getId() == R.id.imageView_post_location){
-
+            ((FoodieActivity)getActivity()).transToPostChildMap();
 
         } if (view.getId() == R.id.imageView_post_addMenu){
 
@@ -146,60 +168,10 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
     }
 
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-
-//        if (view.getId() == R.id.imageView_post_star1){
-//            mStar1.setImageResource(R.drawable.star_selected);
-//            mStar2.setImageResource(R.drawable.star_unselected);
-//            mStar3.setImageResource(R.drawable.star_unselected);
-//            mStar4.setImageResource(R.drawable.star_unselected);
-//            mStar5.setImageResource(R.drawable.star_unselected);
-//
-//            starCount = 1;
-//
-//        } if (view.getId() == R.id.imageView_post_star2){
-//            mStar1.setImageResource(R.drawable.star_selected);
-//            mStar2.setImageResource(R.drawable.star_selected);
-//            mStar3.setImageResource(R.drawable.star_unselected);
-//            mStar4.setImageResource(R.drawable.star_unselected);
-//            mStar5.setImageResource(R.drawable.star_unselected);
-//
-//            starCount = 2;
-//        } if (view.getId() == R.id.imageView_post_star3){
-//            mStar1.setImageResource(R.drawable.star_selected);
-//            mStar2.setImageResource(R.drawable.star_selected);
-//            mStar3.setImageResource(R.drawable.star_selected);
-//            mStar4.setImageResource(R.drawable.star_unselected);
-//            mStar5.setImageResource(R.drawable.star_unselected);
-//
-//            starCount = 3;
-//        } if (view.getId() == R.id.imageView_post_star4){
-//            mStar1.setImageResource(R.drawable.star_selected);
-//            mStar2.setImageResource(R.drawable.star_selected);
-//            mStar3.setImageResource(R.drawable.star_selected);
-//            mStar4.setImageResource(R.drawable.star_selected);
-//            mStar5.setImageResource(R.drawable.star_unselected);
-//
-//            starCount = 4;
-//        } if (view.getId() == R.id.imageView_post_star5){
-//            mStar1.setImageResource(R.drawable.star_selected);
-//            mStar2.setImageResource(R.drawable.star_selected);
-//            mStar3.setImageResource(R.drawable.star_selected);
-//            mStar4.setImageResource(R.drawable.star_selected);
-//            mStar5.setImageResource(R.drawable.star_selected);
-//
-//            starCount = 5;
-//        }
-//        Log.d(Constants.TAG, "  starCount = " + starCount);
-
-        return false;
-    }
 
     @Override
     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-        starCount = (int) v;
-
-        Log.d(Constants.TAG, "  starCount = " + starCount);
+        mStarCount = (int) v;
+        Log.d(Constants.TAG, "  mStarCount = " + mStarCount);
     }
 }

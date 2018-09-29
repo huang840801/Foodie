@@ -23,6 +23,8 @@ public interface FoodieContract {
         void showRestaurantUi(Restaurant restaurant);
 
         void showPostArticleUi();
+
+        void showPostChildMapUi();
     }
 
     interface Presenter extends BasePresenter {
@@ -42,6 +44,10 @@ public interface FoodieContract {
 
         void transToPostArticle();
 
+        void transToPostChildMap();
 
+        void checkPostMapExist();
+
+        void transToPostArticle(String addressLine);
     }
 }

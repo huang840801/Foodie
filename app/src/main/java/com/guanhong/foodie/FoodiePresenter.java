@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -18,6 +19,8 @@ import com.guanhong.foodie.map.MapPresenter;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.post.PostFragment;
 import com.guanhong.foodie.post.PostPresenter;
+import com.guanhong.foodie.postchildmap.PostChildMapFragment;
+import com.guanhong.foodie.postchildmap.PostChildMapPresenter;
 import com.guanhong.foodie.profile.ProfileFragment;
 import com.guanhong.foodie.profile.ProfilePresenter;
 import com.guanhong.foodie.restaurant.RestaurantFragment;
@@ -45,6 +48,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     private LikedFragment mLikedFragment;
     private RestaurantFragment mRestaurantFragment;
     private PostFragment mPostFragment;
+    private PostChildMapFragment mPostChildMapFragment;
 
 
     private MapPresenter mMapPresenter;
@@ -52,6 +56,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     private RestaurantPresenter mRestaurantPresenter;
     private LikedPresenter mLikedPresenter;
     private PostPresenter mPostPresenter;
+    private PostChildMapPresenter mPostChildMapPresenter;
 
     private ViewPager mViewPager;
 
@@ -154,6 +159,51 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         }
 
         mPostPresenter = new PostPresenter(mPostFragment);
+
+        fragmentTransaction.replace(R.id.fragment_container, mPostFragment, "");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        mFoodieView.showPostArticleUi();
+    }
+
+    @Override
+    public void transToPostChildMap() {
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        if (mPostChildMapFragment == null) {
+            mPostChildMapFragment = PostChildMapFragment.newInstance();
+        }
+
+        mPostChildMapPresenter = new PostChildMapPresenter(mPostChildMapFragment);
+
+        fragmentTransaction.replace(R.id.fragment_container, mPostChildMapFragment, "");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        mFoodieView.showPostChildMapUi();
+    }
+
+    @Override
+    public void checkPostMapExist() {
+        if (mPostChildMapFragment != null || mProfileFragment!=null) {
+            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+            fragmentTransaction.remove(mPostChildMapFragment);
+            fragmentTransaction.remove(mPostFragment);
+            fragmentTransaction.commit();
+
+        }
+    }
+
+    @Override
+    public void transToPostArticle(String addressLine) {
+//        Bundle bundle = new Bundle();
+//        bundle.putString("address", addressLine);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        if (mPostFragment == null) {
+            mPostFragment = PostFragment.newInstance();
+//            mPostFragment.setArguments(bundle);
+        }
+
+        mPostPresenter = new PostPresenter(mPostFragment);
+        mPostPresenter.setAddress(addressLine);
 
         fragmentTransaction.replace(R.id.fragment_container, mPostFragment, "");
         fragmentTransaction.addToBackStack(null);

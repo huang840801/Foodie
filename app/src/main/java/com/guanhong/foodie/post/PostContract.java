@@ -9,6 +9,7 @@ public interface PostContract {
 
         void setTabLayoutVisibility(boolean visible);
 
+        void showAddress(String addressLine);
     }
 
     interface Presenter extends BasePresenter{

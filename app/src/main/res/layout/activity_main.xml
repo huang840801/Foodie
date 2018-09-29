@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00bbd3"
+    android:background="@color/main_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.guanhong.foodie.activities.FoodieActivity">
 
@@ -11,9 +11,9 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="#fdec17"
-        app:tabTextColor="#98e3ed"
-        app:tabSelectedTextColor="#fdfdfe"
+        app:tabIndicatorColor="@color/tab_indicator"
+        app:tabTextColor="@color/tab_text_normal"
+        app:tabSelectedTextColor="@color/tab_text_selected"
         android:layout_marginTop="60dp"
         />
 

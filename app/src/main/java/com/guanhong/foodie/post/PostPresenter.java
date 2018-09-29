@@ -33,4 +33,8 @@ public class PostPresenter implements PostContract.Presenter{
         mPostView.setTabLayoutVisibility(false);
 
     }
+
+    public void setAddress(String addressLine) {
+        mPostView.showAddress(addressLine);
+    }
 }

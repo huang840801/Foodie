@@ -1,9 +1,12 @@
 package com.guanhong.foodie.profile;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,10 +20,12 @@ import android.widget.TextView;
 
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
+import com.guanhong.foodie.objects.User;
 import com.guanhong.foodie.util.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -113,7 +118,24 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
 
 
     @Override
-    public void showMypicture(Bitmap bitmap) {
-        mUserImageView.setImageBitmap(bitmap);
+    public void showUserPicture(Bitmap bitmap) {
+    }
+
+    @Override
+    public void showUserData(User user) {
+
+        mUserName.setText(user.getName());
+        mUserEmail.setText(user.getEmail());
+
+        ContentResolver cr = mContext.getContentResolver();
+        try {
+            //由抽象資料接口轉換圖檔路徑為Bitmap
+            Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.parse(user.getImage())));
+            mUserImageView.setImageBitmap(bitmap);
+        } catch (FileNotFoundException e) {
+            Log.e("Exception", e.getMessage(), e);
+        }
+
+
     }
 }
