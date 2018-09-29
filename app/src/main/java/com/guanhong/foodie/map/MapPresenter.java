@@ -134,7 +134,6 @@ public class MapPresenter implements MapContract.Presenter {
             }
         });
 
-
     }
 
     @Override

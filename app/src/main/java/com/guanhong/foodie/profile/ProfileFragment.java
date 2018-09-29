@@ -2,11 +2,13 @@ package com.guanhong.foodie.profile;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +17,18 @@ import android.widget.TextView;
 
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
+import com.guanhong.foodie.util.Constants;
 import com.squareup.picasso.Picasso;
 
-public class ProfileFragment extends Fragment implements View.OnClickListener {
+import java.io.File;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+
+public class ProfileFragment extends Fragment implements ProfileContract.View, View.OnClickListener {
+
+    private ProfileContract.Presenter mPresenter;
+
+
 
     private ImageView mUserImageView;
     private TextView mUserName;
@@ -54,7 +65,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+        Log.d(Constants.TAG, " onViewCreated mPresenter: " +mPresenter);
+
         setTypeFace();
+        mPresenter.getUserImage(mContext);
 
     }
 
@@ -85,5 +100,20 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
         }
 
+    }
+
+    @Override
+    public void setPresenter(ProfileContract.Presenter presenter) {
+        mPresenter = checkNotNull(presenter);
+        Log.d(Constants.TAG, " setPresenter mPresenter: " +mPresenter);
+
+        mPresenter.start();
+    }
+
+
+
+    @Override
+    public void showMypicture(Bitmap bitmap) {
+        mUserImageView.setImageBitmap(bitmap);
     }
 }

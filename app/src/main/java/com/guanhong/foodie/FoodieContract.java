@@ -1,5 +1,7 @@
 package com.guanhong.foodie;
 
+import android.net.Uri;
+
 import com.guanhong.foodie.objects.Restaurant;
 
 public interface FoodieContract {
@@ -39,5 +41,7 @@ public interface FoodieContract {
         void tranToRestaurant(Restaurant restaurant);
 
         void transToPostArticle();
+
+
     }
 }

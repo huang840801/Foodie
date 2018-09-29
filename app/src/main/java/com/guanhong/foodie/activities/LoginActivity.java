@@ -133,7 +133,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 Toast.makeText(this, R.string.cannot_be_empty, Toast.LENGTH_SHORT).show();
 
             } else {
-                register(email, password);
+                register(email, password, mName);
             }
 
         } else if (view.getId() == R.id.button_login) {
@@ -155,7 +155,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
-    private void register(final String email, final String password) {
+    private void register(final String email, final String password, String name) {
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -165,16 +165,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 if (task.isSuccessful()) {
 
-//                    SharedPreferences userName = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-//                    userName.edit()
-//                            .putString("userName", mName)
-//                            .putString("userEmail", email)
-//                            .commit();
-
-//                    Intent intent = new Intent(LoginActivity.this, FoodieActivity.class);
-//                    startActivity(intent);
-//                    finish();
+                    FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = userDatabase.getReference("user");
                 } else if (password.length() < 6) {
+
                     Toast.makeText(LoginActivity.this, "密碼不能小於六碼!", Toast.LENGTH_SHORT).show();
 
                 } else if (!email.contains("@")) {

@@ -4,11 +4,13 @@ public class User {
     private String mName;
     private String mEmail;
     private String mId;
+    private String mImage;
 
     public User() {
         mName = "";
         mEmail = "";
         mId = "";
+        mImage = "";
     }
 
     public String getName() {
@@ -33,5 +35,13 @@ public class User {
 
     public void setId(String id) {
         mId = id;
+    }
+
+    public String getImage() {
+        return mImage;
+    }
+
+    public void setImage(String image) {
+        mImage = image;
     }
 }

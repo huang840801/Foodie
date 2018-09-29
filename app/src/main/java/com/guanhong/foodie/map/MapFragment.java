@@ -67,8 +67,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
     private Restaurant mRestaurant;
 
-
-
     public MapFragment() {
 
     }
@@ -148,6 +146,14 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
         mGoogleMap = googleMap;
 
+        mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                Log.d(Constants.TAG, "  lat = " + latLng.latitude);
+                Log.d(Constants.TAG, "  lng = " + latLng.longitude);
+            }
+        });
+
         mPresenter.createCustomMarker(mContext, "0");
 
         mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
@@ -196,7 +202,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
         for (LatLng latLng : locations) {
-            Marker marker = mGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromBitmap(mBitmap)));
+            mGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromBitmap(mBitmap)));
             builder.include(latLng);
         }
 

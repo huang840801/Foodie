@@ -5,149 +5,189 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f4efc3">
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/post_restaurant_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/restaurant_name"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/post_restaurant_location"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/location"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/post_restaurant_name" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/edittext_post_restaurant_name"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="30dp"
-        android:text=""
-        android:paddingStart="2dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:background="@drawable/corner_bg_post_edittext"
-        app:layout_constraintStart_toEndOf="@+id/post_restaurant_name"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/post_restaurant_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/restaurant_name"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView_post_location"
-        android:layout_width="38dp"
-        android:layout_height="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/post_restaurant_location"
-        app:layout_constraintEnd_toStartOf="@+id/edittext_post_restaurant_name"
-        app:layout_constraintStart_toEndOf="@+id/post_restaurant_location"
-        app:srcCompat="@drawable/marker_blue" />
+        <TextView
+            android:id="@+id/post_restaurant_location"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/location"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/post_restaurant_name" />
 
-    <TextView
-        android:id="@+id/textview_post_restaurant_location"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:paddingStart="2dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:background="@drawable/corner_bg_post_edittext"
-        android:text=""
-        app:layout_constraintBottom_toBottomOf="@+id/imageView_post_location"
-        app:layout_constraintStart_toStartOf="@+id/edittext_post_restaurant_name" />
+        <EditText
+            android:id="@+id/edittext_post_restaurant_name"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/corner_bg_post_edittext"
+            android:paddingBottom="2dp"
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:text=""
+            app:layout_constraintStart_toEndOf="@+id/post_restaurant_name"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/edittext_post_menu"
-        android:layout_width="224dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="68dp"
-        android:background="@drawable/corner_bg_post_edittext"
-        android:hint="@string/what_did_you_eat"
-        android:paddingStart="2dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        app:layout_constraintStart_toStartOf="@+id/post_restaurant_location"
-        app:layout_constraintTop_toBottomOf="@+id/post_restaurant_location" />
+        <ImageView
+            android:id="@+id/imageView_post_location"
+            android:layout_width="38dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/post_restaurant_location"
+            app:layout_constraintEnd_toStartOf="@+id/edittext_post_restaurant_name"
+            app:layout_constraintStart_toEndOf="@+id/post_restaurant_location"
+            app:srcCompat="@drawable/marker_blue" />
 
-    <EditText
-        android:id="@+id/edittext_post_price"
-        android:layout_width="55dp"
-        android:layout_height="30dp"
-        android:background="@drawable/corner_bg_post_edittext"
-        android:hint="@string/price"
-        android:paddingStart="2dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/textview_post_restaurant_location"
-        app:layout_constraintTop_toTopOf="@+id/edittext_post_menu" />
+        <TextView
+            android:id="@+id/textview_post_restaurant_location"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:background="@drawable/corner_bg_post_edittext"
+            android:paddingBottom="2dp"
+            android:paddingStart="2dp"
+            android:paddingTop="2dp"
+            android:text=""
+            app:layout_constraintBottom_toBottomOf="@+id/imageView_post_location"
+            app:layout_constraintStart_toStartOf="@+id/edittext_post_restaurant_name" />
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/linearlayout">-->
 
-    <ImageView
-        android:id="@+id/imageView_post_add"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="@+id/post_restaurant_location"
-        app:layout_constraintTop_toBottomOf="@+id/post_restaurant_location"
-        app:srcCompat="@drawable/add_menu" />
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="344dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_post_addMenu">
 
-    <ImageView
-        android:id="@+id/imageView_post_subtract"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="@+id/textview_post_restaurant_location"
-        app:layout_constraintTop_toBottomOf="@+id/textview_post_restaurant_location"
-        app:srcCompat="@drawable/subtract_menu" />
+            <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal">-->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview_post_photo"
-        android:layout_width="293dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_post_menu" />
+                <!--<EditText-->
+                    <!--android:id="@+id/edittext_post_menu"-->
+                    <!--android:layout_width="274dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:background="@drawable/corner_bg_post_edittext"-->
+                    <!--android:hint="@string/what_did_you_eat"-->
+                    <!--android:paddingBottom="2dp"-->
+                    <!--android:paddingStart="2dp"-->
+                    <!--android:paddingTop="2dp"-->
+                    <!--tools:layout_editor_absoluteX="32dp"-->
+                    <!--tools:layout_editor_absoluteY="174dp" />-->
 
-    <ImageView
-        android:id="@+id/imageView_post_add_pictures"
-        android:layout_width="47dp"
-        android:layout_height="66dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/recyclerview_post_photo"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_post_menu"
-        app:srcCompat="@drawable/picture" />
+                <!--<EditText-->
+                    <!--android:id="@+id/edittext_post_price"-->
+                    <!--android:layout_width="55dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:background="@drawable/corner_bg_post_edittext"-->
+                    <!--android:hint="@string/price"-->
+                    <!--android:paddingBottom="2dp"-->
+                    <!--android:paddingStart="2dp"-->
+                    <!--android:paddingTop="2dp"-->
+                    <!--tools:layout_editor_absoluteX="273dp"-->
+                    <!--tools:layout_editor_absoluteY="174dp" />-->
 
-    <EditText
-        android:id="@+id/edittext_post_content"
-        android:layout_width="330dp"
-        android:layout_height="151dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/corner_bg_post_edittext"
-        android:gravity="left"
-        android:paddingStart="2dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        android:hint="今天來到了XXX餐館..."
-        app:layout_constraintStart_toStartOf="@+id/recyclerview_post_photo"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerview_post_photo" />
+            <!--</LinearLayout>-->
 
-    <!--<ImageView-->
+            <include layout="@layout/child_menu"/>
+            <!--<include layout="@layout/child_menu"/>-->
+            <!--<include layout="@layout/child_menu"/>-->
+            <!--<include layout="@layout/child_menu"/>-->
+            <!--<include layout="@layout/child_menu"/>-->
+            <!--<include layout="@layout/child_menu"/>-->
+            <!--<include layout="@layout/child_menu"/>-->
+            <!--<include layout="@layout/child_menu"/>-->
+            <!--<include layout="@layout/child_menu"/>-->
+            <!--<include layout="@layout/child_menu"/>-->
+
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/imageView_post_addMenu"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="@+id/post_restaurant_location"
+            app:layout_constraintTop_toBottomOf="@+id/post_restaurant_location"
+            app:srcCompat="@drawable/add_menu" />
+
+        <ImageView
+            android:id="@+id/imageView_post_subtractMenu"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="72dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintEnd_toEndOf="@+id/textview_post_restaurant_location"
+            app:layout_constraintTop_toBottomOf="@+id/textview_post_restaurant_location"
+            app:srcCompat="@drawable/subtract_menu" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_post_photo"
+            android:layout_width="293dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <ImageView
+            android:id="@+id/imageView_post_add_pictures"
+            android:layout_width="47dp"
+            android:layout_height="66dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/recyclerview_post_photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/recyclerview_post_photo"
+            app:srcCompat="@drawable/picture" />
+
+        <EditText
+            android:id="@+id/edittext_post_content"
+            android:layout_width="330dp"
+            android:layout_height="151dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/corner_bg_post_edittext"
+            android:gravity="left"
+            android:hint="今天來到了XXX餐館..."
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            app:layout_constraintStart_toStartOf="@+id/recyclerview_post_photo"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerview_post_photo" />
+
+        <!--<ImageView-->
         <!--android:id="@+id/imageView_post_star1"-->
         <!--android:layout_width="50dp"-->
         <!--android:layout_height="50dp"-->
@@ -157,7 +197,7 @@
         <!--app:layout_constraintTop_toBottomOf="@+id/edittext_post_content"-->
         <!--app:srcCompat="@drawable/star_unselected" />-->
 
-    <!--<ImageView-->
+        <!--<ImageView-->
         <!--android:id="@+id/imageView_post_star2"-->
         <!--android:layout_width="50dp"-->
         <!--android:layout_height="50dp"-->
@@ -167,7 +207,7 @@
         <!--app:layout_constraintTop_toBottomOf="@+id/edittext_post_content"-->
         <!--app:srcCompat="@drawable/star_unselected" />-->
 
-    <!--<ImageView-->
+        <!--<ImageView-->
         <!--android:id="@+id/imageView_post_star3"-->
         <!--android:layout_width="50dp"-->
         <!--android:layout_height="50dp"-->
@@ -177,7 +217,7 @@
         <!--app:layout_constraintTop_toBottomOf="@+id/edittext_post_content"-->
         <!--app:srcCompat="@drawable/star_unselected" />-->
 
-    <!--<ImageView-->
+        <!--<ImageView-->
         <!--android:id="@+id/imageView_post_star4"-->
         <!--android:layout_width="50dp"-->
         <!--android:layout_height="50dp"-->
@@ -187,7 +227,7 @@
         <!--app:layout_constraintTop_toBottomOf="@+id/edittext_post_content"-->
         <!--app:srcCompat="@drawable/star_unselected" />-->
 
-    <!--<ImageView-->
+        <!--<ImageView-->
         <!--android:id="@+id/imageView_post_star5"-->
         <!--android:layout_width="50dp"-->
         <!--android:layout_height="50dp"-->
@@ -197,31 +237,33 @@
         <!--app:layout_constraintTop_toBottomOf="@+id/edittext_post_content"-->
         <!--app:srcCompat="@drawable/star_unselected" />-->
 
-    <RatingBar
-        android:id="@+id/ratingBar2"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:theme="@style/RatingBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.392"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_post_content" />
+        <RatingBar
+            android:id="@+id/ratingBar2"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:theme="@style/RatingBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.392"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_post_content" />
 
-    <TextView
-        android:id="@+id/textview_post_post"
-        android:layout_width="80dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/corner_bg_post_edittext"
-        android:gravity="center"
-        android:text="@string/post"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.436"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
+        <TextView
+            android:id="@+id/textview_post_post"
+            android:layout_width="80dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/corner_bg_post_edittext"
+            android:gravity="center"
+            android:text="@string/post"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.436"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
+
+
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -21,7 +22,7 @@ import com.guanhong.foodie.util.Constants;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class PostFragment extends Fragment implements PostContract.View, View.OnClickListener, View.OnTouchListener {
+public class PostFragment extends Fragment implements PostContract.View, View.OnClickListener, View.OnTouchListener, RatingBar.OnRatingBarChangeListener {
 
     private PostContract.Presenter mPresenter;
 
@@ -42,6 +43,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private ImageView mStar5;
     private TextView mPostArticle;
     private RatingBar mRatingBar;
+    private LinearLayout mLinearLayout;
 
     int starCount = 0;
 
@@ -77,8 +79,8 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mEditTextRestaurantName = rootView.findViewById(R.id.edittext_post_restaurant_name);
         mTextViewRestaurantLocation = rootView.findViewById(R.id.textview_post_restaurant_location);
         mImageViewMarker = rootView.findViewById(R.id.imageView_post_location);
-        mImageViewAddMenu = rootView.findViewById(R.id.imageView_post_add);
-        mImageViewSubtractMenu = rootView.findViewById(R.id.imageView_post_subtract);
+        mImageViewAddMenu = rootView.findViewById(R.id.imageView_post_addMenu);
+        mImageViewSubtractMenu = rootView.findViewById(R.id.imageView_post_subtractMenu);
         mEditTextMenu = rootView.findViewById(R.id.edittext_post_menu);
         mEditTextPrice = rootView.findViewById(R.id.edittext_post_price);
         mRecyclerViewPhoto = rootView.findViewById(R.id.recyclerview_post_photo);
@@ -89,18 +91,10 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 //        mStar3 = rootView.findViewById(R.id.imageView_post_star3);
 //        mStar4 = rootView.findViewById(R.id.imageView_post_star4);
 //        mStar5 = rootView.findViewById(R.id.imageView_post_star5);
-        mPostArticle = rootView.findViewById(R.id.textview_post_post);
 
         mRatingBar = rootView.findViewById(R.id.ratingBar2);
-        mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                starCount = (int) v;
-
-                Log.d(Constants.TAG, "  starCount = " + starCount);
-
-            }
-        });
+        mPostArticle = rootView.findViewById(R.id.textview_post_post);
+        mLinearLayout = rootView.findViewById(R.id.linearLayout);
 
 
         mImageViewMarker.setOnClickListener(this);
@@ -108,6 +102,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mImageViewSubtractMenu.setOnClickListener(this);
         mImageViewAddPhoto.setOnClickListener(this);
         mPostArticle.setOnClickListener(this);
+        mRatingBar.setOnRatingBarChangeListener(this);
 //        mStar1.setOnTouchListener(this);
 //        mStar2.setOnTouchListener(this);
 //        mStar3.setOnTouchListener(this);
@@ -132,9 +127,16 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
         if (view.getId() == R.id.imageView_post_location){
 
-        } if (view.getId() == R.id.imageView_post_add){
 
-        } if (view.getId() == R.id.imageView_post_subtract){
+        } if (view.getId() == R.id.imageView_post_addMenu){
+
+
+                mLinearLayout.addView(mEditTextMenu);
+                mLinearLayout.addView(mEditTextPrice);
+
+        } if (view.getId() == R.id.imageView_post_subtractMenu){
+            mLinearLayout.removeView(mEditTextMenu);
+            mLinearLayout.removeView(mEditTextPrice);
 
         } if (view.getId() == R.id.imageView_post_add_pictures){
 
@@ -192,5 +194,12 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 //        Log.d(Constants.TAG, "  starCount = " + starCount);
 
         return false;
+    }
+
+    @Override
+    public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+        starCount = (int) v;
+
+        Log.d(Constants.TAG, "  starCount = " + starCount);
     }
 }

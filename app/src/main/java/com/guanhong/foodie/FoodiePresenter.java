@@ -2,7 +2,11 @@ package com.guanhong.foodie;
 
 
 import android.annotation.SuppressLint;
+import android.app.FragmentManager;
+import android.content.Context;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
@@ -12,7 +16,10 @@ import com.guanhong.foodie.lotto.LottoFragment;
 import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.map.MapPresenter;
 import com.guanhong.foodie.objects.Restaurant;
+import com.guanhong.foodie.post.PostFragment;
+import com.guanhong.foodie.post.PostPresenter;
 import com.guanhong.foodie.profile.ProfileFragment;
+import com.guanhong.foodie.profile.ProfilePresenter;
 import com.guanhong.foodie.restaurant.RestaurantFragment;
 import com.guanhong.foodie.restaurant.RestaurantPresenter;
 import com.guanhong.foodie.search.SearchFragment;
@@ -27,40 +34,41 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
 
     private FoodieContract.View mFoodieView;
+    private android.support.v4.app.FragmentManager mFragmentManager;
+
+    private Context mContext;
 
     private MapFragment mMapFragment;
     private ProfileFragment mProfileFragment;
     private SearchFragment mSearchFragment;
     private LottoFragment mLottoFragment;
     private LikedFragment mLikedFragment;
+    private RestaurantFragment mRestaurantFragment;
+    private PostFragment mPostFragment;
 
 
     private MapPresenter mMapPresenter;
+    private ProfilePresenter mProfilePresenter;
     private RestaurantPresenter mRestaurantPresenter;
     private LikedPresenter mLikedPresenter;
+    private PostPresenter mPostPresenter;
 
     private ViewPager mViewPager;
 
     private ArrayList<Fragment> mFragmentArrayList;
 
 
-    public FoodiePresenter(FoodieContract.View foodieView, ViewPager viewPager) {
+    public FoodiePresenter(FoodieContract.View foodieView, ViewPager viewPager, android.support.v4.app.FragmentManager supportFragmentManager, Context context) {
         mFoodieView = checkNotNull(foodieView, "foodieView cannot be null!");
 //        mFoodieView = foodieView;
         mFoodieView.setPresenter(this);
 
 //        mFoodieView = foodieView;
         mViewPager = viewPager;
-
-        init();
+        mFragmentManager = supportFragmentManager;
+        mContext = context;
     }
 
-    private void init() {
-
-//        mViewPager.setAdapter(mAdapter);
-
-
-    }
 
     @Override
     public void start() {
@@ -79,6 +87,14 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     public void transToProfile() {
 
         Log.d(Constants.TAG, "  transToProfile");
+
+//        if(mProfileFragment == null){
+//            mProfileFragment = ProfileFragment.newInstance();
+//        }
+//
+//        mProfilePresenter = new ProfilePresenter(mProfileFragment, mContext);
+
+
         mViewPager.setCurrentItem(1);
         mFoodieView.showProfileUi();
     }
@@ -89,7 +105,6 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         mViewPager.setCurrentItem(2);
         mFoodieView.showSearchUi();
     }
-
 
 
     @Override
@@ -114,16 +129,37 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     @Override
     public void tranToRestaurant(Restaurant restaurant) {
         Log.d("restaurant ", " FoodiePresenter : " + restaurant);
+//     FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        if (mRestaurantFragment == null) {
+            mRestaurantFragment = RestaurantFragment.newInstance();
+        }
 
+        mRestaurantPresenter = new RestaurantPresenter(mRestaurantFragment, restaurant);
+
+        fragmentTransaction.replace(R.id.fragment_container, mRestaurantFragment, "");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
 
         mFoodieView.showRestaurantUi(restaurant);
-
 
 
     }
 
     @Override
     public void transToPostArticle() {
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        if (mPostFragment == null) {
+            mPostFragment = PostFragment.newInstance();
+        }
+
+        mPostPresenter = new PostPresenter(mPostFragment);
+
+        fragmentTransaction.replace(R.id.fragment_container, mPostFragment, "");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
         mFoodieView.showPostArticleUi();
     }
+
+
 }

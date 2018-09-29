@@ -16,9 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.util.Constants;
-
-import java.util.ArrayList;
 
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
@@ -31,7 +30,8 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     private ImageView mStar4;
     private ImageView mStar5;
 
-    private ArrayList<String> mStringRestaurantName = new ArrayList<>();
+//    private ArrayList<String> mStringRestaurantName = new ArrayList<>();
+    private String mStringRestaurantName;
 
     public CustomInfoWindowAdapter(Activity context) {
         mContext = context;
@@ -40,10 +40,12 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     @Override
     public View getInfoWindow(final Marker marker) {
 
+
+
         View view = mContext.getLayoutInflater().inflate(R.layout.custom_marker_info_layout, null);
 
 
-        mRestaurantName = view.findViewById(R.id.num_textView);
+        mRestaurantName = view.findViewById(R.id.infoWindow_restaurant_textView);
         mStar1 = view.findViewById(R.id.imageView_marker_star1);
         mStar2 = view.findViewById(R.id.imageView_marker_star2);
         mStar3 = view.findViewById(R.id.imageView_marker_star3);
@@ -63,15 +65,33 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
                     double lng = Double.parseDouble(snapshot.child("lng").getValue() +"");
 
 
-                    if(marker.getPosition().longitude == lng && marker.getPosition().latitude == lat){
-                        Log.d(Constants.TAG, "CustomInfoWindowAdapter marker: " + marker.getPosition().longitude);
-                        Log.d(Constants.TAG, "CustomInfoWindowAdapter marker: " + marker.getPosition().latitude);
-                        Log.d(Constants.TAG, "CustomInfoWindowAdapter marker: " + snapshot.child("restaurantName").getValue());
 
-                        mStringRestaurantName.add(snapshot.child("restaurantName").getValue()+ "");
+                    if(marker.getPosition().longitude == lng && marker.getPosition().latitude == lat){
+//                        Log.d(Constants.TAG, "CustomInfoWindowAdapter marker: " + marker.getPosition().longitude);
+//                        Log.d(Constants.TAG, "CustomInfoWindowAdapter marker: " + marker.getPosition().latitude);
+//                        Log.d(Constants.TAG, "CustomInfoWindowAdapter marker: " + snapshot.child("restaurantName").getValue());
+
+//                        mStringRestaurantName.add(snapshot.child("restaurantName").getValue()+ "");
+                        mStringRestaurantName = snapshot.child("restaurantName").getValue()+ "";
+
+//                        new Thread(){
+//                           Activity mActivity = (FoodieActivity)
+//                        }
+
+                        mRestaurantName.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mRestaurantName.setText(mStringRestaurantName);
+                            }
+                        });
+
+
+
+
 
 //                        mRestaurantName.setText(snapshot.child("restaurantName").getValue() +"");
-//                        mRestaurantName.setText("Hello");
+//                        mRestaurantName.setText(mStringRestaurantName);
+//                        Log.d(Constants.TAG, " CustomInfoWindowAdapter mRestaurantName.getText() : " + mRestaurantName.getText());
 
                     }
 
@@ -84,15 +104,15 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
             }
         });
 
-        Log.d(Constants.TAG, "CustomInfoWindowAdapter String : " + mStringRestaurantName);
+//        Log.d(Constants.TAG, "CustomInfoWindowAdapter String : " + mStringRestaurantName);
 
 
 //        mRestaurantName.setText(mStringRestaurantName);
-        mStar1.setImageResource(R.drawable.star_selected);
-        mStar2.setImageResource(R.drawable.star_selected);
-        mStar3.setImageResource(R.drawable.star_selected);
-        mStar4.setImageResource(R.drawable.star_selected);
-        mStar5.setImageResource(R.drawable.star_unselected);
+//        mStar1.setImageResource(R.drawable.star_selected);
+//        mStar2.setImageResource(R.drawable.star_selected);
+//        mStar3.setImageResource(R.drawable.star_selected);
+//        mStar4.setImageResource(R.drawable.star_selected);
+//        mStar5.setImageResource(R.drawable.star_unselected);
 
 
         return view;

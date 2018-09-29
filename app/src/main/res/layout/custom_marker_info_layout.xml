@@ -11,7 +11,7 @@
     <!--android:layout_marginLeft="8dp"-->
     <!--android:src="@drawable/custom_marker"/>-->
     <TextView
-        android:id="@+id/num_textView"
+        android:id="@+id/infoWindow_restaurant_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
