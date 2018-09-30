@@ -8,6 +8,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.util.Constants;
 
+import java.util.ArrayList;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PostPresenter implements PostContract.Presenter{
@@ -63,5 +65,9 @@ public class PostPresenter implements PostContract.Presenter{
 
     public void setAddress(String addressLine) {
         mPostView.showAddress(addressLine);
+    }
+
+    public void getPictures(ArrayList<String> stringArrayListExtra) {
+        mPostView.showPictures(stringArrayListExtra);
     }
 }

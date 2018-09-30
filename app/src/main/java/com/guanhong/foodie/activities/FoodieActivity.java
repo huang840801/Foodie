@@ -17,6 +17,11 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 
+import com.foamtrace.photopicker.ImageCaptureManager;
+import com.foamtrace.photopicker.ImageConfig;
+import com.foamtrace.photopicker.PhotoPickerActivity;
+import com.foamtrace.photopicker.SelectModel;
+import com.foamtrace.photopicker.intent.PhotoPickerIntent;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.guanhong.foodie.FoodieContract;
@@ -116,6 +121,13 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         setContentView(R.layout.activity_main);
 
         requestAppPermissions();
+
+        ImageConfig config = new ImageConfig();
+        config.minHeight = 400;
+        config.minWidth = 400;
+        config.mimeType = new String[]{"image/jpeg", "image/png"}; // 图片类型 image/gif ...
+        config.minSize = 1 * 1024 * 1024; // 1Mb 图片大小
+
 
         mContext = this;
 
@@ -226,31 +238,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 //        }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-//         if (requestCode == Constants.PICKER && resultCode == Activity.RESULT_OK) {
-//            Uri uri = data.getData();
-//            Log.d("URI!!!!!!! ", "onActivityResult: " + uri);
-//            mPresenter.passUri(uri);
-//            mProfilePresenter.getNewPicture(uri);
-//        }
-
-        if (resultCode == RESULT_OK) {
-            Uri uri = data.getData();
-            Log.d("hello uri???", uri.toString());
-
-            mProfilePresenter.getPicture(uri);
-            SharedPreferences userName = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-            userName.edit()
-                    .putString("userImage", String.valueOf(uri))
-                    .commit();
-
-        }
-
-
-    }
 
     @Override
     public void showMapUi() {
@@ -359,9 +346,69 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     }
 
 
+    public void transToPostArticle(String addressLine) {
+        mPresenter.transToPostArticle(addressLine);
+    }
 
-    public void pickMyPicture() {
+    public void transToPostProfile() {
+        mPresenter.transToProfile();
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//        Uri uri = data.getData();
+//        Log.d("hello uri???", uri.toString());
+//
+//        mProfilePresenter.getPicture(uri);
+//        SharedPreferences userImage = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
+//        userImage.edit()
+//                .putString("userImage", String.valueOf(uri))
+//                .commit();
+
+        if (resultCode == RESULT_OK) {
+
+            if (requestCode == Constants.SINGLE_PICKER) {
+//                Log.d("SINGLE_PICKER ", data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT) + "");
+//                Uri uri = Uri.parse(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT).get(0));
+//                Log.d("SINGLE_PICKER uri = ", String.valueOf(uri));
+
+                Uri uri = data.getData();
+                Log.d("hello uri???", uri.toString());
+                mProfilePresenter.getPicture(uri);
+                SharedPreferences userImage = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
+                userImage.edit()
+                        .putString("userImage", String.valueOf(uri))
+                        .commit();
+
+            } else if (requestCode == Constants.MULTIPLE_PICKER) {
+                Log.d("MULTIPLE_PICKER ", data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT) + "");
+                mPresenter.getPostRestaurantPictures(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT));
+            }
+
+//            switch (requestCode) {
+//                case 1:
+//                    Log.d("requestCode = 1 " , data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT) +"");
+//
+//                case 10 :
+//                    Log.d("requestCode = 10 " , data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT) +"");
+//
+//
+//
+//            }
+
+        }
+
+
+    }
+
+    public void pickSinglePicture() {
+
+//        PhotoPickerIntent intent = new PhotoPickerIntent(FoodieActivity.this);
+//        intent.setSelectModel(SelectModel.SINGLE);
+//        intent.setShowCarema(true); // 是否显示拍照， 默认false
+//// intent.setImageConfig(config);
+//        startActivityForResult(intent, Constants.SINGLE_PICKER);
 
         Intent intent = new Intent();
         //開啟Pictures畫面Type設定為image
@@ -370,12 +417,22 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         //會開啟選取圖檔視窗讓您選取手機內圖檔
         intent.setAction(Intent.ACTION_GET_CONTENT);
         //取得相片後返回本畫面
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, Constants.SINGLE_PICKER);
     }
 
-    public void transToPostArticle(String addressLine) {
-        mPresenter.transToPostArticle(addressLine);
-    } public void transToPostProfile() {
-        mPresenter.transToProfile();
+
+    public void pickMultiplePictures() {
+
+        ArrayList<String> picturesList = new ArrayList<>();
+
+
+        PhotoPickerIntent intent = new PhotoPickerIntent(FoodieActivity.this);
+        intent.setSelectModel(SelectModel.MULTI);
+//        intent.setShowCarema(true);
+        intent.setMaxTotal(10);
+        intent.setSelectedPaths(picturesList);
+
+        startActivityForResult(intent, Constants.MULTIPLE_PICKER);
+
     }
 }

@@ -21,12 +21,12 @@ import java.util.ArrayList;
 
 public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<String> mPictures;
+    private ArrayList<String> mPictureList;
     private Context mContext;
 
 
     public RestaurantPhotoGalleryAdapter(ArrayList<String> restaurantPictures) {
-            this.mPictures = restaurantPictures;
+            this.mPictureList = restaurantPictures;
     }
 
     @NonNull
@@ -47,7 +47,6 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
 
         if (holder instanceof RestaurantGalleryItemViewHolder) {
             ((RestaurantGalleryItemViewHolder)holder).bindData(position);
-
 
 //            if(mPictures.size()>0){
 //
@@ -87,8 +86,8 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
 //        }
 
         public void bindData(int position) {
-            int positionInPhoto = position % mPictures.size();
-            Picasso.get().load(mPictures.get(positionInPhoto)).placeholder(R.drawable.all_picture_placeholder).into(mImagePictures);
+            int positionInPhoto = position % mPictureList.size();
+            Picasso.get().load(mPictureList.get(positionInPhoto)).placeholder(R.drawable.all_picture_placeholder).into(mImagePictures);
         }
     }
 }

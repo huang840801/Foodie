@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,12 +22,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
+import com.guanhong.foodie.adapters.PostArticlePhotoAdapter;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Author;
 import com.guanhong.foodie.objects.Menu;
 import com.guanhong.foodie.util.Constants;
+import com.guanhong.foodie.util.SpaceItemDecoration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,6 +67,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private TextView mPostArticle;
     private RatingBar mRatingBar;
     private LinearLayout mLinearLayout;
+
 
     private int mStarCount = 0;
     private String mAddress;
@@ -113,6 +118,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mImageViewAddPhoto = rootView.findViewById(R.id.imageView_post_add_pictures);
         mEditTextContent = rootView.findViewById(R.id.edittext_post_content);
 
+        mRecyclerViewPhoto = rootView.findViewById(R.id.recyclerview_post_photo);
 
         mRatingBar = rootView.findViewById(R.id.ratingBar2);
         mPostArticle = rootView.findViewById(R.id.textview_post_post);
@@ -167,6 +173,18 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     }
 
     @Override
+    public void showPictures(ArrayList<String> stringArrayListExtra) {
+
+        mRecyclerViewPhoto.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
+        mRecyclerViewPhoto.setHasFixedSize(true);
+        mRecyclerViewPhoto.setAdapter(new PostArticlePhotoAdapter(stringArrayListExtra));
+        mRecyclerViewPhoto.addItemDecoration(new SpaceItemDecoration(2));
+
+        mRecyclerViewPhoto.smoothScrollToPosition(0);
+
+    }
+
+    @Override
     public void onClick(View view) {
 
         if (view.getId() == R.id.imageView_post_location) {
@@ -179,7 +197,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
             subtractMenu();
         }
         if (view.getId() == R.id.imageView_post_add_pictures) {
-            
+            ((FoodieActivity)getActivity()).pickMultiplePictures();
         }
         if (view.getId() == R.id.textview_post_post) {
             getArticleData();

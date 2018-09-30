@@ -95,7 +95,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     public void onClick(View view) {
 
         if(view.getId() == R.id.imageView_user){
-            ((FoodieActivity)getActivity()).pickMyPicture();
+            ((FoodieActivity)getActivity()).pickSinglePicture();
         }
         if (view.getId() == R.id.imageView_prpfile_post_article) {
             ((FoodieActivity)getActivity()).transToPostArticle();

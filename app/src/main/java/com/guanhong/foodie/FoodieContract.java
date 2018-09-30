@@ -4,6 +4,8 @@ import android.net.Uri;
 
 import com.guanhong.foodie.objects.Restaurant;
 
+import java.util.ArrayList;
+
 public interface FoodieContract {
 
     interface View extends BaseView<Presenter> {
@@ -49,5 +51,7 @@ public interface FoodieContract {
         void checkPostMapExist();
 
         void transToPostArticle(String addressLine);
+
+        void getPostRestaurantPictures(ArrayList<String> stringArrayListExtra);
     }
 }

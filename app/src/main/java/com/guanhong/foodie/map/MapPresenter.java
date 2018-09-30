@@ -97,36 +97,36 @@ public class MapPresenter implements MapContract.Presenter {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d(Constants.TAG, "onDataChange: " + dataSnapshot);
-
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("lat_lng").getValue());
-                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("restaurantName").getValue());
-                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("starCount").getValue());
-
-
-
-                    restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
-                    restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
-                    restaurant.setStarCount(Integer.valueOf(snapshot.child("starCount").getValue().toString()));
-//                    restaurant.setRestaurantPictures(snapshot.child("restaurantName").getValue().toString());
-//                    Log.d(Constants.TAG, "onDataChangepictures: " + snapshot.child("pictures").getChildrenCount());
-
-                    ArrayList<String> pictures = new ArrayList<>();
-                    for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
-                        pictures.add(snapshot.child("pictures").child(String.valueOf(i)).getValue() +"");
-                    }
-
-//                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(0));
-//                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(1));
-
-                    restaurant.setRestaurantPictures(pictures);
-
-                }
-
-                Log.d("restaurant ", " MapPresenter : " + restaurant);
-
-                mMapView.showRestaurantUi(restaurant);
+//                Log.d(Constants.TAG, "onDataChange: " + dataSnapshot);
+//
+//                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("lat_lng").getValue());
+//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("restaurantName").getValue());
+//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("starCount").getValue());
+//
+//
+//
+//                    restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
+//                    restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
+//                    restaurant.setStarCount(Integer.valueOf(snapshot.child("starCount").getValue().toString()));
+////                    restaurant.setRestaurantPictures(snapshot.child("restaurantName").getValue().toString());
+////                    Log.d(Constants.TAG, "onDataChangepictures: " + snapshot.child("pictures").getChildrenCount());
+//
+//                    ArrayList<String> pictures = new ArrayList<>();
+//                    for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
+//                        pictures.add(snapshot.child("pictures").child(String.valueOf(i)).getValue() +"");
+//                    }
+//
+////                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(0));
+////                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(1));
+//
+//                    restaurant.setRestaurantPictures(pictures);
+//
+//                }
+//
+//                Log.d("restaurant ", " MapPresenter : " + restaurant);
+//
+//                mMapView.showRestaurantUi(restaurant);
             }
 
             @Override
@@ -145,13 +145,50 @@ public class MapPresenter implements MapContract.Presenter {
             }
         });
 
-
-
-
-
-        query.addValueEventListener(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d(Constants.TAG, "onDataChange: " + dataSnapshot);
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("lat_lng").getValue());
+                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("restaurantName").getValue());
+                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("starCount").getValue());
+
+
+                    restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
+                    restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
+                    restaurant.setStarCount(Integer.valueOf(snapshot.child("starCount").getValue().toString()));
+//                    restaurant.setRestaurantPictures(snapshot.child("restaurantName").getValue().toString());
+//                    Log.d(Constants.TAG, "onDataChangepictures: " + snapshot.child("pictures").getChildrenCount());
+
+                    ArrayList<String> pictures = new ArrayList<>();
+                    for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
+                        pictures.add(snapshot.child("pictures").child(String.valueOf(i)).getValue() + "");
+                    }
+
+//                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(0));
+//                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(1));
+
+                    restaurant.setRestaurantPictures(pictures);
+
+                }
+
+                Log.d("restaurant ", " MapPresenter : " + restaurant);
+
+                mMapView.showRestaurantUi(restaurant);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+//        query.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 //                Log.d(Constants.TAG, "onDataChange: " + dataSnapshot);
 //
@@ -188,13 +225,13 @@ public class MapPresenter implements MapContract.Presenter {
 //                mMapView.setRestaurantData(restaurant);
 
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
     }
 

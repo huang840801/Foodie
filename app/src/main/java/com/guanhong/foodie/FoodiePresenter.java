@@ -211,5 +211,10 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         mFoodieView.showPostArticleUi();
     }
 
+    @Override
+    public void getPostRestaurantPictures(ArrayList<String> stringArrayListExtra) {
+        mPostPresenter.getPictures(stringArrayListExtra);
+    }
+
 
 }

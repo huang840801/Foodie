@@ -13,6 +13,7 @@ public class Constants {
     public static final int VIEWTYPE_RESTAURANT_COMMENT = 4;
 
     // Request Code
-    public static final int PICKER = 21;
+    public static final int SINGLE_PICKER = 21;
+    public static final int MULTIPLE_PICKER = 22;
 
 }
