@@ -70,8 +70,8 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    double lat = Double.parseDouble(snapshot.child("lat").getValue() +"");
-                    double lng = Double.parseDouble(snapshot.child("lng").getValue() +"");
+                    double lat = Double.parseDouble(snapshot.child("latLng").child("latitude").getValue() +"");
+                    double lng = Double.parseDouble(snapshot.child("latLng").child("longitude").getValue() +"");
 
 
 

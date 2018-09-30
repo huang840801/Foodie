@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.location.Geocoder;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -79,18 +81,22 @@ public class MapPresenter implements MapContract.Presenter {
     }
 
     @Override
-    public void getRestaurantData(String lat_lng) {
+    public void getRestaurantData(String address) {
 
         final Restaurant restaurant = new Restaurant();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
 
-        Query query = databaseReference.orderByChild("lat_lng").equalTo(lat_lng);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query query = databaseReference.orderByChild("location").equalTo(address);
+        query.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Log.d(Constants.TAG, "onDataChange: " + dataSnapshot);
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
@@ -111,8 +117,8 @@ public class MapPresenter implements MapContract.Presenter {
                         pictures.add(snapshot.child("pictures").child(String.valueOf(i)).getValue() +"");
                     }
 
-                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(0));
-                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(1));
+//                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(0));
+//                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(1));
 
                     restaurant.setRestaurantPictures(pictures);
 
@@ -120,8 +126,64 @@ public class MapPresenter implements MapContract.Presenter {
 
                 Log.d("restaurant ", " MapPresenter : " + restaurant);
 
-
                 mMapView.showRestaurantUi(restaurant);
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+//                Log.d(Constants.TAG, "onDataChange: " + dataSnapshot);
+//
+//                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("lat_lng").getValue());
+//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("restaurantName").getValue());
+//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("starCount").getValue());
+//
+//
+//
+//                    restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
+//                    restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
+//                    restaurant.setStarCount(Integer.valueOf(snapshot.child("starCount").getValue().toString()));
+////                    restaurant.setRestaurantPictures(snapshot.child("restaurantName").getValue().toString());
+////                    Log.d(Constants.TAG, "onDataChangepictures: " + snapshot.child("pictures").getChildrenCount());
+//
+//                    ArrayList<String> pictures = new ArrayList<>();
+//                    for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
+//                        pictures.add(snapshot.child("pictures").child(String.valueOf(i)).getValue() +"");
+//                    }
+//
+////                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(0));
+////                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(1));
+//
+//                    restaurant.setRestaurantPictures(pictures);
+//
+//                }
+//
+//                Log.d("restaurant ", " MapPresenter : " + restaurant);
+//
+//
+//                mMapView.showRestaurantUi(restaurant);
 
 //                mMapView.setRestaurantData(restaurant);
 
@@ -155,7 +217,7 @@ public class MapPresenter implements MapContract.Presenter {
                     Log.d(Constants.TAG, "onDataChange: " + snapshot.child("lng").getValue());
                     Log.d(Constants.TAG, "onDataChange: " + snapshot.child("restaurantName").getValue());
                     Log.d(Constants.TAG, "onDataChange: " + snapshot.child("starCount").getValue());
-                    locations.add((new LatLng(Double.parseDouble("" + snapshot.child("lat").getValue()), Double.parseDouble("" + snapshot.child("lng").getValue()))));
+                    locations.add((new LatLng(Double.parseDouble("" + snapshot.child("latLng").child("latitude").getValue()), Double.parseDouble("" + snapshot.child("latLng").child("longitude").getValue()))));
 //                    markerTitle.add(snapshot.child("starCount").getValue() +"");
                 }
 

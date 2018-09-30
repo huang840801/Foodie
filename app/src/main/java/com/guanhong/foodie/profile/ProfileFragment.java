@@ -2,7 +2,6 @@ package com.guanhong.foodie.profile;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -22,9 +21,7 @@ import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.objects.User;
 import com.guanhong.foodie.util.Constants;
-import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -98,7 +95,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     public void onClick(View view) {
 
         if(view.getId() == R.id.imageView_user){
-            ((FoodieActivity)getActivity()).pickPicture();
+            ((FoodieActivity)getActivity()).pickMyPicture();
         }
         if (view.getId() == R.id.imageView_prpfile_post_article) {
             ((FoodieActivity)getActivity()).transToPostArticle();

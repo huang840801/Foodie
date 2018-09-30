@@ -2,6 +2,8 @@ package com.guanhong.foodie.post;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +20,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.objects.Article;
@@ -25,7 +28,10 @@ import com.guanhong.foodie.objects.Author;
 import com.guanhong.foodie.objects.Menu;
 import com.guanhong.foodie.util.Constants;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -165,7 +171,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
         if (view.getId() == R.id.imageView_post_location) {
             ((FoodieActivity) getActivity()).transToPostChildMap();
-
         }
         if (view.getId() == R.id.imageView_post_addMenu) {
             addMenu();
@@ -174,12 +179,10 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
             subtractMenu();
         }
         if (view.getId() == R.id.imageView_post_add_pictures) {
-
+            
         }
         if (view.getId() == R.id.textview_post_post) {
-
             getArticleData();
-
         }
 
     }
@@ -255,10 +258,27 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
         }
 
+
+
+
         String restaurantName = mEditTextRestaurantName.getText().toString();
         String address = mTextViewRestaurantLocation.getText().toString();
         String content = mEditTextContent.getText().toString();
         int starCount = mStarCount;
+
+        Geocoder geoCoder = new Geocoder(mContext, Locale.getDefault());
+        List<Address> addressLocation = null;
+        try {
+            addressLocation = geoCoder.getFromLocationName(address, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        double latitude = addressLocation.get(0).getLatitude();
+        double longitude = addressLocation.get(0).getLongitude();
+
+        Log.d(Constants.TAG, "  latitude = " + latitude);
+        Log.d(Constants.TAG, "  longitude = " + longitude);
+
 
         article.setAuthor(author);
         article.setRestaurantName(restaurantName);
@@ -267,6 +287,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         article.setPictures(pictures);
         article.setContent(content);
         article.setStarCount(starCount);
+        article.setLatLng(new LatLng(addressLocation.get(0).getLatitude(), addressLocation.get(0).getLongitude()));
 
         mPresenter.postArticle(article);
 

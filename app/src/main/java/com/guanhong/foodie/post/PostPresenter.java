@@ -51,11 +51,13 @@ public class PostPresenter implements PostContract.Presenter{
         Log.d(Constants.TAG, " postArticle  getMenus = " + article.getMenus().get(0).getDishPrice());
         Log.d(Constants.TAG, " postArticle mStarCount = " + article.getContent());
         Log.d(Constants.TAG, " postArticle getStarCount = " + article.getStarCount());
+        Log.d(Constants.TAG, " postArticle latitude = " + article.getLatLng().latitude);
+        Log.d(Constants.TAG, " postArticle longitude = " + article.getLatLng().longitude);
 
-        FirebaseDatabase emailDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myArticleDataBase = emailDatabase.getReference("article");
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myArticleDataBase = firebaseDatabase.getReference("restaurant");
 
-        myArticleDataBase.push().setValue(article);
+        myArticleDataBase.child(article.getLocation()).setValue(article);
 
     }
 

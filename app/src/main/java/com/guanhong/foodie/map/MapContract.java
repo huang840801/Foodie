@@ -29,7 +29,7 @@ public interface MapContract {
 
         void createCustomMarker(Context context, String title);
 
-        void getRestaurantData(String lat_lng);
+        void getRestaurantData(String address);
 
         void addMarker();
     }

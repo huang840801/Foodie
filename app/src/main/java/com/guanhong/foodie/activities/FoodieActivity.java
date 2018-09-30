@@ -360,7 +360,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
 
 
-    public void pickPicture() {
+    public void pickMyPicture() {
 
 
         Intent intent = new Intent();

@@ -1,5 +1,7 @@
 package com.guanhong.foodie.objects;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 
 public class Article {
@@ -10,6 +12,8 @@ public class Article {
     private ArrayList<String> mPictures;
     private String mContent;
     private int mStarCount;
+    private LatLng mLatLng;
+
 
     public Article() {
         mAuthor = new Author();
@@ -19,6 +23,7 @@ public class Article {
         mPictures = new ArrayList<>();
         mContent = "";
         mStarCount = 0;
+        mLatLng = new LatLng(0,0);
     }
 
     public Author getAuthor() {
@@ -75,5 +80,13 @@ public class Article {
 
     public void setStarCount(int starCount) {
         mStarCount = starCount;
+    }
+
+    public LatLng getLatLng() {
+        return mLatLng;
+    }
+
+    public void setLatLng(LatLng latLng) {
+        mLatLng = latLng;
     }
 }

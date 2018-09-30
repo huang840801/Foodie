@@ -237,18 +237,19 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
         String lat = marker.getPosition().latitude + "";
         String lng = marker.getPosition().longitude + "";
-        String lat_lng = lat + "_" + lng;
+        LatLng latLng = new LatLng(marker.getPosition().latitude, marker.getPosition().longitude);
+//        String lat_lng = lat + "_" + lng;
 
         Geocoder geocoder = new Geocoder(mContext, Locale.TRADITIONAL_CHINESE);
         try {
             List<Address> addressList = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
             Log.d(Constants.TAG, "  address = " + addressList.get(0).getAddressLine(0));
+            mPresenter.getRestaurantData(addressList.get(0).getAddressLine(0));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        mPresenter.getRestaurantData(lat_lng);
 
 
 //        mRestaurantFragment = new RestaurantFragment(lat, lng);
