@@ -1,8 +1,8 @@
 package com.guanhong.foodie.post;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,10 +16,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
+import com.guanhong.foodie.objects.Article;
+import com.guanhong.foodie.objects.Author;
+import com.guanhong.foodie.objects.Menu;
 import com.guanhong.foodie.util.Constants;
+
+import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -27,13 +33,19 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
     private PostContract.Presenter mPresenter;
 
+    private Context mContext;
+
     private EditText mEditTextRestaurantName;
     private TextView mTextViewRestaurantLocation;
     private ImageView mImageViewMarker;
     private ImageView mImageViewAddMenu;
     private ImageView mImageViewSubtractMenu;
-    private EditText mEditTextMenu;
-    private EditText mEditTextPrice;
+    private EditText mEditTextMenu1;
+    private EditText mEditTextPrice1;
+    private EditText mEditTextMenu2;
+    private EditText mEditTextPrice2;
+    private EditText mEditTextMenu3;
+    private EditText mEditTextPrice3;
     private RecyclerView mRecyclerViewPhoto;
     private ImageView mImageViewAddPhoto;
     private EditText mEditTextContent;
@@ -46,8 +58,8 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private RatingBar mRatingBar;
     private LinearLayout mLinearLayout;
 
-   private int mStarCount = 0;
-   private String mAddress;
+    private int mStarCount = 0;
+    private String mAddress;
 
     public static PostFragment newInstance() {
         return new PostFragment();
@@ -78,13 +90,19 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
         View rootView = inflater.inflate(R.layout.fragment_post, container, false);
 
+        mContext = getContext();
+
         mEditTextRestaurantName = rootView.findViewById(R.id.edittext_post_restaurant_name);
         mTextViewRestaurantLocation = rootView.findViewById(R.id.textview_post_restaurant_location);
         mImageViewMarker = rootView.findViewById(R.id.imageView_post_location);
         mImageViewAddMenu = rootView.findViewById(R.id.imageView_post_addMenu);
         mImageViewSubtractMenu = rootView.findViewById(R.id.imageView_post_subtractMenu);
-        mEditTextMenu = rootView.findViewById(R.id.edittext_post_menu);
-        mEditTextPrice = rootView.findViewById(R.id.edittext_post_price);
+        mEditTextMenu1 = rootView.findViewById(R.id.edittext_post_menu1);
+        mEditTextPrice1 = rootView.findViewById(R.id.edittext_post_price1);
+        mEditTextMenu2 = rootView.findViewById(R.id.edittext_post_menu2);
+        mEditTextPrice2 = rootView.findViewById(R.id.edittext_post_price2);
+        mEditTextMenu3 = rootView.findViewById(R.id.edittext_post_menu3);
+        mEditTextPrice3 = rootView.findViewById(R.id.edittext_post_price3);
         mRecyclerViewPhoto = rootView.findViewById(R.id.recyclerview_post_photo);
         mImageViewAddPhoto = rootView.findViewById(R.id.imageView_post_add_pictures);
         mEditTextContent = rootView.findViewById(R.id.edittext_post_content);
@@ -93,6 +111,11 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mRatingBar = rootView.findViewById(R.id.ratingBar2);
         mPostArticle = rootView.findViewById(R.id.textview_post_post);
         mLinearLayout = rootView.findViewById(R.id.linearLayout);
+
+        mEditTextMenu2.setVisibility(View.GONE);
+        mEditTextPrice2.setVisibility(View.GONE);
+        mEditTextMenu3.setVisibility(View.GONE);
+        mEditTextPrice3.setVisibility(View.GONE);
 
 
         mImageViewMarker.setOnClickListener(this);
@@ -115,13 +138,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     @Override
     public void onResume() {
         super.onResume();
-//        Bundle bundle = getArguments();
-//        if (bundle != null) {
-//            mAddress = bundle.getString("address");
-//            Log.d(Constants.TAG, "  mAddress = " + mAddress);
-//            Log.d(Constants.TAG, "  bundle != null " );
-//        }
-//        Log.d(Constants.TAG, "  bundle = null " );
 
     }
 
@@ -133,38 +149,128 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     @Override
     public void showAddress(final String addressLine) {
 
-        Log.d(Constants.TAG, "   " + addressLine );
+        Log.d(Constants.TAG, "   " + addressLine);
 //        mTextViewRestaurantLocation.setText(addressLine);
-   mTextViewRestaurantLocation.post(new Runnable() {
-       @Override
-       public void run() {
-           mTextViewRestaurantLocation.setText(addressLine);
-       }
-   });
+        mTextViewRestaurantLocation.post(new Runnable() {
+            @Override
+            public void run() {
+                mTextViewRestaurantLocation.setText(addressLine);
+            }
+        });
 
     }
 
     @Override
     public void onClick(View view) {
 
-        if (view.getId() == R.id.imageView_post_location){
-            ((FoodieActivity)getActivity()).transToPostChildMap();
-
-        } if (view.getId() == R.id.imageView_post_addMenu){
-
-
-                mLinearLayout.addView(mEditTextMenu);
-                mLinearLayout.addView(mEditTextPrice);
-
-        } if (view.getId() == R.id.imageView_post_subtractMenu){
-            mLinearLayout.removeView(mEditTextMenu);
-            mLinearLayout.removeView(mEditTextPrice);
-
-        } if (view.getId() == R.id.imageView_post_add_pictures){
-
-        } if (view.getId() == R.id.textview_post_post){
+        if (view.getId() == R.id.imageView_post_location) {
+            ((FoodieActivity) getActivity()).transToPostChildMap();
 
         }
+        if (view.getId() == R.id.imageView_post_addMenu) {
+            addMenu();
+        }
+        if (view.getId() == R.id.imageView_post_subtractMenu) {
+            subtractMenu();
+        }
+        if (view.getId() == R.id.imageView_post_add_pictures) {
+
+        }
+        if (view.getId() == R.id.textview_post_post) {
+
+            getArticleData();
+
+        }
+
+    }
+
+    private void subtractMenu() {
+        if (mEditTextMenu3.getVisibility() == View.VISIBLE && mEditTextPrice3.getVisibility() == View.VISIBLE) {
+            mEditTextMenu3.setVisibility(View.GONE);
+            mEditTextPrice3.setVisibility(View.GONE);
+        } else if (mEditTextMenu2.getVisibility() == View.VISIBLE && mEditTextPrice2.getVisibility() == View.VISIBLE) {
+            mEditTextMenu2.setVisibility(View.GONE);
+            mEditTextPrice2.setVisibility(View.GONE);
+        } else {
+            Toast.makeText(mContext, R.string.at_least_one, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void addMenu() {
+        if (mEditTextMenu2.getVisibility() == View.GONE && mEditTextPrice2.getVisibility() == View.GONE) {
+            mEditTextMenu2.setVisibility(View.VISIBLE);
+            mEditTextPrice2.setVisibility(View.VISIBLE);
+        } else if (mEditTextMenu3.getVisibility() == View.GONE && mEditTextPrice3.getVisibility() == View.GONE) {
+            mEditTextMenu3.setVisibility(View.VISIBLE);
+            mEditTextPrice3.setVisibility(View.VISIBLE);
+        } else if (mEditTextMenu3.getVisibility() == View.VISIBLE && mEditTextPrice3.getVisibility() == View.VISIBLE) {
+            Toast.makeText(mContext, R.string.too_much, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void getArticleData() {
+
+        Article article = new Article();
+        Author author = new Author();
+        ArrayList<Menu> menus = new ArrayList<>();
+        ArrayList<String> pictures = new ArrayList<>();
+//        Menu menu = new Menu();
+
+        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
+        String uid = userData.getString("userUid", "");
+        String name = userData.getString("userName", "");
+        String image = userData.getString("userImage", "");
+
+        author.setId(uid);
+        author.setName(name);
+        author.setImage(image);
+
+        Menu menu1 = new Menu();
+
+        String dishName1 = mEditTextMenu1.getText().toString();
+        String dishPrice1 = mEditTextPrice1.getText().toString();
+
+        menu1.setDishName(dishName1);
+        menu1.setDishPrice(dishPrice1);
+        menus.add(menu1);
+
+        if (mEditTextMenu2.getVisibility() == View.VISIBLE && mEditTextPrice2.getVisibility() == View.VISIBLE) {
+            Menu menu2 = new Menu();
+            String dishName2 = mEditTextMenu2.getText().toString();
+            String dishPrice2 = mEditTextPrice2.getText().toString();
+
+            menu2.setDishName(dishName2);
+            menu2.setDishPrice(dishPrice2);
+            menus.add(menu2);
+
+        }
+        if (mEditTextMenu3.getVisibility() == View.VISIBLE && mEditTextPrice3.getVisibility() == View.VISIBLE) {
+            Menu menu3 = new Menu();
+            String dishName3 = mEditTextMenu3.getText().toString();
+            String dishPrice3 = mEditTextPrice3.getText().toString();
+
+            menu3.setDishName(dishName3);
+            menu3.setDishPrice(dishPrice3);
+            menus.add(menu3);
+
+        }
+
+        String restaurantName = mEditTextRestaurantName.getText().toString();
+        String address = mTextViewRestaurantLocation.getText().toString();
+        String content = mEditTextContent.getText().toString();
+        int starCount = mStarCount;
+
+        article.setAuthor(author);
+        article.setRestaurantName(restaurantName);
+        article.setLocation(address);
+        article.setMenus(menus);
+        article.setPictures(pictures);
+        article.setContent(content);
+        article.setStarCount(starCount);
+
+        mPresenter.postArticle(article);
+
+        ((FoodieActivity)getActivity()).transToPostProfile();
 
     }
 

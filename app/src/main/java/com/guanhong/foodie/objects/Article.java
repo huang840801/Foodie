@@ -3,33 +3,22 @@ package com.guanhong.foodie.objects;
 import java.util.ArrayList;
 
 public class Article {
-    private String mId;
     private Author mAuthor;
-    private String mTitle;
-    private String mContent;
-    private int mCreatedTime;
-    private String mPlace;
+    private String mRestaurantName;
+    private String mLocation;
+    private ArrayList<Menu> mMenus;
     private ArrayList<String> mPictures;
-    private int mInterests;
-    private boolean mInterestedIn;
+    private String mContent;
+    private int mStarCount;
 
     public Article() {
-        mId = "";
         mAuthor = new Author();
-        mTitle = "";
-        mContent = "";
-        mCreatedTime = -1;
-        mPlace = "";
+        mRestaurantName = "";
+        mLocation = "";
+        mMenus = new ArrayList<>();
         mPictures = new ArrayList<>();
-        mInterests = -1;
-        mInterestedIn = false;
-    }
-    public String getId() {
-        return mId;
-    }
-
-    public void setId(String id) {
-        mId = id;
+        mContent = "";
+        mStarCount = 0;
     }
 
     public Author getAuthor() {
@@ -40,36 +29,28 @@ public class Article {
         mAuthor = author;
     }
 
-    public String getTitle() {
-        return mTitle;
+    public String getRestaurantName() {
+        return mRestaurantName;
     }
 
-    public void setTitle(String title) {
-        mTitle = title;
+    public void setRestaurantName(String restaurantName) {
+        mRestaurantName = restaurantName;
     }
 
-    public String getContent() {
-        return mContent;
+    public String getLocation() {
+        return mLocation;
     }
 
-    public void setContent(String content) {
-        mContent = content;
+    public void setLocation(String location) {
+        mLocation = location;
     }
 
-    public int getCreatedTime() {
-        return mCreatedTime;
+    public ArrayList<Menu> getMenus() {
+        return mMenus;
     }
 
-    public void setCreatedTime(int createdTime) {
-        mCreatedTime = createdTime;
-    }
-
-    public String getPlace() {
-        return mPlace;
-    }
-
-    public void setPlace(String place) {
-        mPlace = place;
+    public void setMenus(ArrayList<Menu> menus) {
+        mMenus = menus;
     }
 
     public ArrayList<String> getPictures() {
@@ -80,20 +61,19 @@ public class Article {
         mPictures = pictures;
     }
 
-    public int getInterests() {
-        return mInterests;
+    public String getContent() {
+        return mContent;
     }
 
-    public void setInterests(int interests) {
-        mInterests = interests;
+    public void setContent(String content) {
+        mContent = content;
     }
 
-    public boolean isInterestedIn() {
-        return mInterestedIn;
+    public int getStarCount() {
+        return mStarCount;
     }
 
-    public void setInterestedIn(boolean interestedIn) {
-        mInterestedIn = interestedIn;
+    public void setStarCount(int starCount) {
+        mStarCount = starCount;
     }
-
 }

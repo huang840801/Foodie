@@ -2,6 +2,7 @@ package com.guanhong.foodie.post;
 
 import com.guanhong.foodie.BasePresenter;
 import com.guanhong.foodie.BaseView;
+import com.guanhong.foodie.objects.Article;
 
 public interface PostContract {
 
@@ -17,5 +18,7 @@ public interface PostContract {
         void showTabLayout();
 
         void hideTabLayout();
+
+        void postArticle(Article article);
     }
 }

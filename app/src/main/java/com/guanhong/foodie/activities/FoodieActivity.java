@@ -89,6 +89,9 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         String image = userData.getString("userImage", "");
 
 
+//        int i =9/10;
+//        int j =9%10;
+//        Log.d(Constants.TAG, " iiiiiiii : " + i +"jjjj"+j);
         Log.d(Constants.TAG, " userName : " + name);
         Log.d(Constants.TAG, " userEmail : " + email);
         Log.d(Constants.TAG, " userUid : " + uid);
@@ -372,5 +375,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     public void transToPostArticle(String addressLine) {
         mPresenter.transToPostArticle(addressLine);
+    } public void transToPostProfile() {
+        mPresenter.transToProfile();
     }
 }

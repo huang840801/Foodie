@@ -21,6 +21,8 @@
     <string name="post">發文</string>
     <string name="sure">確定</string>
     <string name="cancel">取消</string>
+    <string name="at_least_one">至少要寫一項!</string>
+    <string name="too_much">你吃太多囉!!!!</string>
 
 
 </resources>

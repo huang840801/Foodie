@@ -206,7 +206,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
             builder.include(latLng);
         }
 
-        mGoogleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter((FoodieActivity) mContext));
+        mGoogleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter((FoodieActivity) mContext, mContext));
 
 //        builder.include(customMarkerLocationOne);
 //        builder.include(locations.get(0));

@@ -1,6 +1,9 @@
 package com.guanhong.foodie.custom;
 
 import android.app.Activity;
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +24,8 @@ import com.guanhong.foodie.util.Constants;
 
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
-    private Activity mContext;
+    private Activity mActivityContext;
+    private Context mContext;
 
     private TextView mRestaurantName;
     private ImageView mStar1;
@@ -30,11 +34,14 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     private ImageView mStar4;
     private ImageView mStar5;
 
+    private Handler mHandler;
+
 //    private ArrayList<String> mStringRestaurantName = new ArrayList<>();
     private String mStringRestaurantName;
 
-    public CustomInfoWindowAdapter(Activity context) {
-        mContext = context;
+    public CustomInfoWindowAdapter(Activity context, Context context1) {
+        mActivityContext = context;
+        mContext = context1;
     }
 
     @Override
@@ -42,7 +49,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
 
 
-        View view = mContext.getLayoutInflater().inflate(R.layout.custom_marker_info_layout, null);
+        View view = mActivityContext.getLayoutInflater().inflate(R.layout.custom_marker_info_layout, null);
 
 
         mRestaurantName = view.findViewById(R.id.infoWindow_restaurant_textView);
@@ -51,6 +58,8 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         mStar3 = view.findViewById(R.id.imageView_marker_star3);
         mStar4 = view.findViewById(R.id.imageView_marker_star4);
         mStar5 = view.findViewById(R.id.imageView_marker_star5);
+
+        searchName();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
@@ -67,32 +76,47 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
 
                     if(marker.getPosition().longitude == lng && marker.getPosition().latitude == lat){
-//                        Log.d(Constants.TAG, "CustomInfoWindowAdapter marker: " + marker.getPosition().longitude);
-//                        Log.d(Constants.TAG, "CustomInfoWindowAdapter marker: " + marker.getPosition().latitude);
-//                        Log.d(Constants.TAG, "CustomInfoWindowAdapter marker: " + snapshot.child("restaurantName").getValue());
 
 //                        mStringRestaurantName.add(snapshot.child("restaurantName").getValue()+ "");
+
+
                         mStringRestaurantName = snapshot.child("restaurantName").getValue()+ "";
-
-//                        new Thread(){
-//                           Activity mActivity = (FoodieActivity)
-//                        }
-
-                        mRestaurantName.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                mRestaurantName.setText(mStringRestaurantName);
-                            }
-                        });
+                        Log.d(Constants.TAG, "CustomInfoWindowAdapter String : " + mStringRestaurantName);
 
 
+                        Message message = mHandler.obtainMessage();
+                        message.what = 1;
+                        mHandler.sendMessage(message);
 
 
+//                        Activity activity = (Activity)mRestaurantName.getContext();
+//                        activity.runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                mRestaurantName.setText(mStringRestaurantName);
+//                            }
+//                        });
 
-//                        mRestaurantName.setText(snapshot.child("restaurantName").getValue() +"");
-//                        mRestaurantName.setText(mStringRestaurantName);
-//                        Log.d(Constants.TAG, " CustomInfoWindowAdapter mRestaurantName.getText() : " + mRestaurantName.getText());
+//                        ((FoodieActivity)mContext).runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                mRestaurantName.setText(mStringRestaurantName);
+//                            }
+//                        });
 
+//                        new Handler(mContext.getMainLooper()).post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                mRestaurantName.setText(mStringRestaurantName);
+//                            }
+//                        });
+
+//                        mRestaurantName.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                mRestaurantName.setText(mStringRestaurantName);
+//                            }
+//                        });
                     }
 
                 }
@@ -106,6 +130,19 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
 //        Log.d(Constants.TAG, "CustomInfoWindowAdapter String : " + mStringRestaurantName);
 
+         mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+
+                if(msg.what == 1){
+                    Log.d(Constants.TAG, "CustomInfoWindowAdapter String : " + mStringRestaurantName);
+
+                    mRestaurantName.setText(mStringRestaurantName);
+                }
+
+            }
+        };
 
 //        mRestaurantName.setText(mStringRestaurantName);
 //        mStar1.setImageResource(R.drawable.star_selected);
@@ -116,6 +153,9 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
 
         return view;
+    }
+
+    private void searchName() {
     }
 
     @Override
