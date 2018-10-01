@@ -58,7 +58,6 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
         mTextViewRestaurantName.setText(mStringRestaurantName);
         if (mStarCount == 5) {
-            Log.d(Constants.TAG, "CustomInfoWindowAdapter mStarCount == 5  " );
 
             mStar1.setImageResource(R.drawable.star_selected);
             mStar2.setImageResource(R.drawable.star_selected);
@@ -67,7 +66,6 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
             mStar5.setImageResource(R.drawable.star_selected);
         }
         if (mStarCount == 4) {
-            Log.d(Constants.TAG, "CustomInfoWindowAdapter mStarCount == 4  " );
 
             mStar1.setImageResource(R.drawable.star_selected);
             mStar2.setImageResource(R.drawable.star_selected);
@@ -96,7 +94,6 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
             mStar4.setImageResource(R.drawable.star_unselected);
             mStar5.setImageResource(R.drawable.star_unselected);
         }
-
 
         return mView;
     }

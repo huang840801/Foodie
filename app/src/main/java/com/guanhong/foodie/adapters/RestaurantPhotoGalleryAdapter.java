@@ -1,8 +1,13 @@
 package com.guanhong.foodie.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +22,9 @@ import com.guanhong.foodie.util.Constants;
 import com.guanhong.foodie.util.ImageFromLruCache;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
@@ -26,7 +34,9 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
 
 
     public RestaurantPhotoGalleryAdapter(ArrayList<String> restaurantPictures) {
-            this.mPictureList = restaurantPictures;
+        this.mPictureList = restaurantPictures;
+        if (mPictureList.size() > 0) {
+        }
     }
 
     @NonNull
@@ -41,27 +51,9 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-//        Log.d(Constants.TAG, "LLruCache imageview : " + ((RestaurantGalleryItemViewHolder) holder).getImagePictures());
-//        Log.d(Constants.TAG, "LLruCache imageUrl : " + mPictures.get(position % mPictures.size()));
-
-
         if (holder instanceof RestaurantGalleryItemViewHolder) {
-            ((RestaurantGalleryItemViewHolder)holder).bindData(position);
+            ((RestaurantGalleryItemViewHolder) holder).bindData(position);
 
-//            if(mPictures.size()>0){
-//
-//                DisplayMetrics displayMetrics = new DisplayMetrics();
-//                ((FoodieActivity) mContext).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//
-//                ((RestaurantGalleryItemViewHolder) holder).getImagePictures()
-//                        .setLayoutParams(new FrameLayout.LayoutParams(displayMetrics.widthPixels,
-//                                mContext.getResources().getDimensionPixelSize(R.dimen.gallery_item_detail_height)));
-//
-//                ((RestaurantGalleryItemViewHolder) holder).getImagePictures()
-//                        .setTag(mPictures.get(position % mPictures.size()));
-//                new ImageFromLruCache().set(((RestaurantGalleryItemViewHolder) holder).getImagePictures(),
-//                        mPictures.get(position % mPictures.size()));
-//            }
         }
 
     }
@@ -81,13 +73,30 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
             mImagePictures = itemView.findViewById(R.id.imageView_restaurant_top);
         }
 
-//        public ImageView getImagePictures() {
-//            return mImagePictures;
-//        }
 
         public void bindData(int position) {
             int positionInPhoto = position % mPictureList.size();
-            Picasso.get().load(mPictureList.get(positionInPhoto)).placeholder(R.drawable.all_picture_placeholder).into(mImagePictures);
+            Log.d(Constants.TAG, "RestaurantPhotoGalleryAdapter: " + mPictureList.get(0));
+
+//            Bitmap bitmap = null;
+//            byte[] bitmapArray;
+//            bitmapArray = Base64.decode(mPictureList.get(positionInPhoto), Base64.DEFAULT);
+//            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
+//            mImagePictures.setImageBitmap(bitmap);
+            if (mPictureList.get(positionInPhoto).contains("storage")) {
+                Uri uri = Uri.fromFile(new File(mPictureList.get(positionInPhoto)));
+//                String url = mPictureList.get(0);
+//                try {
+//                    URLEncoder.encode(url, "UTF-8");
+//                } catch (UnsupportedEncodingException e) {
+//                    e.printStackTrace();
+//                }
+
+                Picasso.get().load(uri).placeholder(R.drawable.all_picture_placeholder).into(mImagePictures);
+            }else {
+                Picasso.get().load(mPictureList.get(positionInPhoto)).placeholder(R.drawable.all_picture_placeholder).into(mImagePictures);
+
+            }
         }
     }
 }
