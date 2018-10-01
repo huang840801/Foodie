@@ -68,6 +68,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private RatingBar mRatingBar;
     private LinearLayout mLinearLayout;
 
+    private ArrayList<String> mPictureList;
 
     private int mStarCount = 0;
     private String mAddress;
@@ -173,11 +174,13 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     }
 
     @Override
-    public void showPictures(ArrayList<String> stringArrayListExtra) {
+    public void showPictures(ArrayList<String> pictureArrayListExtra) {
+
+        mPictureList = pictureArrayListExtra;
 
         mRecyclerViewPhoto.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
         mRecyclerViewPhoto.setHasFixedSize(true);
-        mRecyclerViewPhoto.setAdapter(new PostArticlePhotoAdapter(stringArrayListExtra));
+        mRecyclerViewPhoto.setAdapter(new PostArticlePhotoAdapter(pictureArrayListExtra));
         mRecyclerViewPhoto.addItemDecoration(new SpaceItemDecoration(2));
 
         mRecyclerViewPhoto.smoothScrollToPosition(0);
@@ -297,7 +300,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         Log.d(Constants.TAG, "  latitude = " + latitude);
         Log.d(Constants.TAG, "  longitude = " + longitude);
 
-
         article.setAuthor(author);
         article.setRestaurantName(restaurantName);
         article.setLocation(address);
@@ -306,6 +308,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         article.setContent(content);
         article.setStarCount(starCount);
         article.setLatLng(new LatLng(addressLocation.get(0).getLatitude(), addressLocation.get(0).getLongitude()));
+        article.setPictures(mPictureList);
 
         mPresenter.postArticle(article);
 

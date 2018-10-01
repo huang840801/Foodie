@@ -3,9 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg"
+    android:background="@drawable/gradient"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.guanhong.foodie.activities.FoodieActivity">
+
+
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
@@ -14,9 +17,12 @@
         app:tabIndicatorColor="@color/tab_indicator"
         app:tabTextColor="@color/tab_text_normal"
         app:tabSelectedTextColor="@color/tab_text_selected"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="25dp"
         />
-
+    <!--<color name="main_bg">#00bbd3</color>-->
+    <!--<color name="tab_indicator">#fdec17</color>-->
+    <!--<color name="tab_text_normal">#98e3ed</color>-->
+    <!--<color name="tab_text_selected">#fdfdfe</color>-->
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_below="@id/tab_layout"

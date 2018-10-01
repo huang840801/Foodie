@@ -16,7 +16,7 @@ public interface MapContract {
 
         void showMap();
 
-        void showCustomMarker(Bitmap bitmap);
+        void setMarkerBitmap(Bitmap bitmap);
 
         void showRestaurantUi(Restaurant restaurant);
 

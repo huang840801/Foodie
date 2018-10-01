@@ -81,8 +81,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                     Log.d(Constants.TAG, " email = " + email);
                     Log.d(Constants.TAG, " image = " + image);
 
-
-
                     ContentResolver cr = mContext.getContentResolver();
                     try {
                         //由抽象資料接口轉換圖檔路徑為Bitmap

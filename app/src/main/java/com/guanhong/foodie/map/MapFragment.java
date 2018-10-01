@@ -27,6 +27,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.custom.CustomInfoWindowAdapter;
@@ -67,6 +73,10 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
     private Restaurant mRestaurant;
 
+    private CustomInfoWindowAdapter mCustomInfoWindowAdapter;
+    private String mRestaurantName;
+    private String mStarCount;
+
     public MapFragment() {
 
     }
@@ -87,7 +97,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         mGoogleMapView.onCreate(savedInstanceState);
         mGoogleMapView.onResume();
 
-
         return rootView;
     }
 
@@ -99,21 +108,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         mPresenter.start();
-//        mGoogleMapView.getMapAsync(this);
-
-
-//        int[] ints = {3, 4, 5, 1};
-//        for (int i = 0; i < ints.length; i++) {
-//
-//            if(ints[i]<0) {
-//                0 -ints[i] =
-//            }
-//        }
-
-
     }
 
 
@@ -145,56 +140,56 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     public void onMapReady(GoogleMap googleMap) {
 
         mGoogleMap = googleMap;
-
-        mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                Log.d(Constants.TAG, "  lat = " + latLng.latitude);
-                Log.d(Constants.TAG, "  lng = " + latLng.longitude);
-            }
-        });
-
-        mPresenter.createCustomMarker(mContext, "0");
+        mPresenter.createCustomMarker(mContext, "");
 
         mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
-
                 mPresenter.addMarker();
-
-
-
-//                LatLng customMarkerLocationOne = new LatLng(25.042487, 121.564879);
-//                LatLng customMarkerLocationTwo = new LatLng(25.042452, 121.563611);
-//                LatLng customMarkerLocationThree = new LatLng(25.062609, 121.565398);
-
-
-//                mGoogleMap.addMarker(new MarkerOptions().position(customMarkerLocationOne).icon(BitmapDescriptorFactory.fromBitmap(mBitmap)));
-//                mGoogleMap.addMarker(new MarkerOptions().position(customMarkerLocationTwo).icon(BitmapDescriptorFactory.fromBitmap(mBitmap)));
-//                mGoogleMap.addMarker(new MarkerOptions().position(customMarkerLocationThree).icon(BitmapDescriptorFactory.fromBitmap(mBitmap)));
-
-
-//                mGoogleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter((FoodieActivity) mContext));
-//
-//                LatLngBounds.Builder builder = new LatLngBounds.Builder();
-//                builder.include(customMarkerLocationOne);
-//                builder.include(customMarkerLocationTwo);
-//                LatLngBounds bounds = builder.build();
-//
-//                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 200);
-//                mGoogleMap.moveCamera(cameraUpdate);
-//                mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(13), 2000, null);
-
-
             }
         });
 
-
-        // For zooming automatically to the location of the marker
-//        CameraPosition cameraPosition = new CameraPosition.Builder().target(test).zoom(12).build();
-//        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
         mGoogleMap.setOnInfoWindowClickListener(this);
+        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(final Marker marker) {
+                Log.d(Constants.TAG, "onMarkerClick: ");
+
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
+
+                Query query = databaseReference.orderByValue();
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                            double lat = Double.parseDouble(snapshot.child("latLng").child("latitude").getValue() + "");
+                            double lng = Double.parseDouble(snapshot.child("latLng").child("longitude").getValue() + "");
+
+                            if (marker.getPosition().longitude == lng && marker.getPosition().latitude == lat) {
+
+                                mRestaurantName = snapshot.child("restaurantName").getValue() + "";
+                                mStarCount = snapshot.child("starCount").getValue() + "";
+
+                                mCustomInfoWindowAdapter.setMarkerData(mRestaurantName,mStarCount);
+
+                                marker.showInfoWindow();
+//                                mCustomInfoWindowAdapter.getInfoWindow(marker);
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -206,39 +201,22 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
             builder.include(latLng);
         }
 
-        mGoogleMap.setInfoWindowAdapter(new CustomInfoWindowAdapter((FoodieActivity) mContext, mContext));
+        mCustomInfoWindowAdapter = new CustomInfoWindowAdapter((FoodieActivity) mContext, mContext);
+        mGoogleMap.setInfoWindowAdapter(mCustomInfoWindowAdapter);
 
-//        builder.include(customMarkerLocationOne);
-//        builder.include(locations.get(0));
         LatLngBounds bounds = builder.build();
 
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 200);
         mGoogleMap.moveCamera(cameraUpdate);
         mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(13), 2000, null);
 
-
     }
-//    private Bitmap getMarker() {
-//        int height = 100;
-//        int width = 100;
-//        BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.marker_blue);
-//        Bitmap b = bitmapDrawable.getBitmap();
-//        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-
-//        return mPresenter.createCustomMarker(mContext, "6");
-//    }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
 
         Log.d(Constants.TAG, "  lat = " + marker.getPosition().latitude);
         Log.d(Constants.TAG, "  lng = " + marker.getPosition().longitude);
-
-
-        String lat = marker.getPosition().latitude + "";
-        String lng = marker.getPosition().longitude + "";
-        LatLng latLng = new LatLng(marker.getPosition().latitude, marker.getPosition().longitude);
-//        String lat_lng = lat + "_" + lng;
 
         Geocoder geocoder = new Geocoder(mContext, Locale.TRADITIONAL_CHINESE);
         try {
@@ -250,34 +228,23 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
             e.printStackTrace();
         }
 
-
-
-//        mRestaurantFragment = new RestaurantFragment(lat, lng);
-
-
     }
-
 
     @Override
     public void showMap() {
-        Log.d(Constants.TAG, "  MapPresenter  showMap");
+//        Log.d(Constants.TAG, "  MapPresenter  showMap");
         mGoogleMapView.getMapAsync(this);
     }
 
     @Override
-    public void showCustomMarker(Bitmap bitmap) {
-
+    public void setMarkerBitmap(Bitmap bitmap) {
         mBitmap = bitmap;
     }
 
     @Override
     public void showRestaurantUi(Restaurant restaurant) {
         Log.d("restaurant ", " MapFragment : " + restaurant);
-
-
         ((FoodieActivity) getActivity()).transToRestaurant(restaurant);
-
-
     }
 
 

@@ -3,9 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="main_bg">#00bbd3</color>
-    <color name="tab_indicator">#fdec17</color>
-    <color name="tab_text_normal">#98e3ed</color>
-    <color name="tab_text_selected">#fdfdfe</color>
     <color name="deep_gray">#555555</color>
+    <color name="main_bg">#becb50</color>
+    <color name="tab_indicator">#ffab00</color>
+    <color name="tab_text_normal">#d8d9ce</color>
+    <color name="tab_text_selected">#558b2f</color>
 </resources>

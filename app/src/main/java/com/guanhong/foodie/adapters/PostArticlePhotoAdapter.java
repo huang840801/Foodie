@@ -85,19 +85,19 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
                 matrix.postScale(scaleWidth, scaleHeight);
                 bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
 
-                Bitmap output = bitmap;
-                Canvas canvas = new Canvas(output);
-                final Paint paint = new Paint();
-                final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-                final RectF rectF = new RectF(new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
-                final float roundPx = 14;
-                paint.setAntiAlias(true);
-                canvas.drawARGB(0, 0, 0, 0);
-                paint.setColor(Color.BLACK);
-                canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-                final Rect src = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-                canvas.drawBitmap(bitmap, src, rect, paint);
+//                Bitmap output = bitmap;
+//                Canvas canvas = new Canvas(output);
+//                final Paint paint = new Paint();
+//                final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+//                final RectF rectF = new RectF(new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()));
+//                final float roundPx = 14;
+//                paint.setAntiAlias(true);
+//                canvas.drawARGB(0, 0, 0, 0);
+//                paint.setColor(Color.BLACK);
+//                canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+//                paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+//                final Rect src = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+//                canvas.drawBitmap(bitmap, src, rect, paint);
 
 
 //                Paint paint = new Paint();

@@ -22,6 +22,7 @@ android {
 }
 
 dependencies {
+
     implementation 'com.foamtrace:photopicker:1.0'
     implementation 'com.romandanylyk:pageindicatorview:1.0.1'
     implementation 'com.google.guava:guava:24.1-android'

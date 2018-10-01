@@ -18,7 +18,7 @@
         android:layout_marginRight="2dp"
         android:layout_marginTop="2dp"
         android:gravity="center"
-        android:text=""
+        android:text="@string/AppWorks"
         android:textColor="#ce8223"
         android:textSize="25dp"
         android:textStyle="bold" />
