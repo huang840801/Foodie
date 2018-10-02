@@ -2,6 +2,7 @@ package com.guanhong.foodie;
 
 import android.net.Uri;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.guanhong.foodie.objects.Restaurant;
 
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public interface FoodieContract {
 
         void checkPostMapExist();
 
-        void transToPostArticle(String addressLine);
+        void transToPostArticle(String addressLine, LatLng latLng);
 
         void getPostRestaurantPictures(ArrayList<String> stringArrayListExtra);
     }

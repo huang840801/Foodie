@@ -16,4 +16,7 @@ public class Constants {
     public static final int SINGLE_PICKER = 21;
     public static final int MULTIPLE_PICKER = 22;
 
+    //latlng save digits
+    public static final int LATLNG_SAVE_DIGITS = 8;
+
 }

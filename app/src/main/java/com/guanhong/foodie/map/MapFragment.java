@@ -155,14 +155,32 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
             public boolean onMarkerClick(final Marker marker) {
                 Log.d(Constants.TAG, "onMarkerClick: ");
 
+                Log.d(Constants.TAG, " hongtest MapFragment marker : " + marker.getPosition().latitude);
+                Log.d(Constants.TAG, " hongtest MapFragment marker : " + marker.getPosition().longitude);
+
+
+                String lat = String.valueOf(marker.getPosition().latitude).replace(".", "@");
+                String lng = String.valueOf(marker.getPosition().longitude ).replace(".", "@");
+//                lat = lat.substring(0, Constants.LATLNG_SAVE_DIGITS);
+//                lng = lng.substring(0, Constants.LATLNG_SAVE_DIGITS);
+                String key = (lat + "_" + lng );
+                Log.d(Constants.TAG, " hongtest MapFragment: " + lat);
+                Log.d(Constants.TAG, " hongtest MapFragment: " + lng);
+                Log.d(Constants.TAG, " hongtest MapFragment: " + key);
                 FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
+                DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(key);
+//                DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(key);
 
                 Query query = databaseReference.orderByValue();
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot);
+                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").getValue());
+                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").child("latitude").getValue());
+                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").child("longitude").getValue());
 
                             double lat = Double.parseDouble(snapshot.child("latLng").child("latitude").getValue() + "");
                             double lng = Double.parseDouble(snapshot.child("latLng").child("longitude").getValue() + "");
@@ -172,11 +190,10 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
                                 mRestaurantName = snapshot.child("restaurantName").getValue() + "";
                                 mStarCount = snapshot.child("starCount").getValue() + "";
 
-                                mCustomInfoWindowAdapter.setMarkerData(mRestaurantName,mStarCount);
+                                mCustomInfoWindowAdapter.setMarkerData(mRestaurantName, mStarCount);
 
                                 marker.showInfoWindow();
-//                                mCustomInfoWindowAdapter.getInfoWindow(marker);
-
+                                break;
                             }
                         }
                     }
@@ -197,6 +214,9 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
         for (LatLng latLng : locations) {
+
+            Log.d(Constants.TAG, " hongtest MapFragment showMarker : " + latLng.latitude);
+            Log.d(Constants.TAG, " hongtest MapFragment showMarker : " + latLng.longitude);
             mGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromBitmap(mBitmap)));
             builder.include(latLng);
         }

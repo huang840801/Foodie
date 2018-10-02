@@ -4,4 +4,5 @@
     <color name="tab_indicator">#ffab00</color>
     <color name="tab_text_normal">#d8d9ce</color>
     <color name="tab_text_selected">#ffffff</color>
+    <color name="profile_main_bg">#f7f8f9</color>
 </resources>

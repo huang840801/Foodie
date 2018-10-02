@@ -12,7 +12,7 @@ public interface PostChildMapContract {
 
         void showMap();
 
-        void showDialog(String addressLine);
+        void showDialog(String addressLine, LatLng latLng);
     }
     
     interface Presenter extends BasePresenter{

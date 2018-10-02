@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -22,8 +23,13 @@ import com.foamtrace.photopicker.ImageConfig;
 import com.foamtrace.photopicker.PhotoPickerActivity;
 import com.foamtrace.photopicker.SelectModel;
 import com.foamtrace.photopicker.intent.PhotoPickerIntent;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.FoodiePresenter;
 import com.guanhong.foodie.ViewPagerAdapter;
@@ -81,7 +87,42 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        String s = "123_456";
+        Log.d(Constants.TAG, "onCreateonCreate: " + s.length());
+        Log.d(Constants.TAG, "onCreateonCreate: " + s.indexOf(s.length()-1));
+        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring(s.indexOf("_")));
+        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring(s.indexOf("_")+1));
+        Log.d(Constants.TAG, "onCreateonCreate: " + s.indexOf("_"));
+//        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring("_", s.indexOf(s.length())));
+
+
         super.onCreate(savedInstanceState);
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+//        DatabaseReference databaseReference = firebaseDatabase.getReference("25@036225899999998_121@5585139e");
+        DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child("25@036225899999998_121@5585139e");
+
+        Query query = databaseReference.orderByValue();
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+//                    Log.d(Constants.TAG, "onMarkerClick: " + snapshot);
+//                    Log.d(Constants.TAG, "onMarkerClick: " + snapshot.child("restaurantName").getValue());
+//                    Log.d(Constants.TAG, "onMarkerClick: " + snapshot.child("starCount").getValue());
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         init();
         saveUserData();
     }
@@ -148,7 +189,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
-        mPresenter = new FoodiePresenter(this, mViewPager, getSupportFragmentManager(), mContext);
+        mPresenter = new FoodiePresenter(this, mViewPager, getSupportFragmentManager());
         mPresenter.start();
         //设置TabLayout点击事件
         mTabLayout.setOnTabSelectedListener(this);
@@ -346,8 +387,8 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     }
 
 
-    public void transToPostArticle(String addressLine) {
-        mPresenter.transToPostArticle(addressLine);
+    public void transToPostArticle(String addressLine, LatLng latLng) {
+        mPresenter.transToPostArticle(addressLine, latLng);
     }
 
     public void transToPostProfile() {
@@ -400,6 +441,12 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         }
 
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        onLowMemory();
     }
 
     public void pickSinglePicture() {

@@ -13,6 +13,7 @@ public class Article {
     private String mContent;
     private int mStarCount;
     private LatLng mLatLng;
+    private String lat_lng;
 
 
     public Article() {
@@ -23,7 +24,8 @@ public class Article {
         mPictures = new ArrayList<>();
         mContent = "";
         mStarCount = 0;
-        mLatLng = new LatLng(0,0);
+        mLatLng = new LatLng(0, 0);
+        lat_lng = "";
     }
 
     public Author getAuthor() {
@@ -88,5 +90,13 @@ public class Article {
 
     public void setLatLng(LatLng latLng) {
         mLatLng = latLng;
+    }
+
+    public String getLat_lng() {
+        return lat_lng;
+    }
+
+    public void setLat_lng(String lat_lng) {
+        this.lat_lng = lat_lng;
     }
 }

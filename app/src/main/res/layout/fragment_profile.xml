@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f7f8f9">
+    android:background="@color/profile_main_bg">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView_user"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/icon_portrait02"
         app:civ_border_color="#e6e7e7e7"
         app:civ_border_width="1dp"
@@ -22,41 +22,44 @@
         android:id="@+id/textView_userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="28dp"
         android:text="GuanHong"
         android:textColor="#000000"
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageView_user"
-        app:layout_constraintTop_toTopOf="@+id/imageView_user" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_userEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:text="123456@gmail.com"
-        app:layout_constraintStart_toEndOf="@+id/imageView_user"
+        app:layout_constraintStart_toStartOf="@+id/textView_userName"
         app:layout_constraintTop_toBottomOf="@+id/textView_userName" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="148dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_user"
-        app:srcCompat="@drawable/coin" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_user"
+        app:srcCompat="@drawable/coin"
+        tools:layout_editor_absoluteY="100dp" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginStart="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_user"
+
         app:layout_constraintStart_toEndOf="@+id/textView_coin_count"
         app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/hand" />
 
     <TextView
@@ -64,8 +67,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
         android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
@@ -74,46 +77,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
         android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
-
-    <!--<View-->
-    <!--android:id="@+id/divider"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="1dp"-->
-    <!--android:layout_marginEnd="16dp"-->
-    <!--android:layout_marginStart="16dp"-->
-    <!--android:layout_marginTop="16dp"-->
-    <!--android:background="#e7e7e7"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintHorizontal_bias="1.0"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/imageView3" />-->
-
-    <ImageView
-        android:id="@+id/imageView_prpfile_post_article"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_user"
-        app:srcCompat="@drawable/plus" />
+    <View
+    android:id="@+id/divider"
+    android:layout_width="0dp"
+    android:layout_height="1dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:background="#e7e7e7"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="5000dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="8dp"
-        android:background="#dad4d4"
+        android:layout_height="wrap_content"
+        android:background="@color/profile_main_bg"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3">
-
+        app:layout_constraintTop_toBottomOf="@+id/divider">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview_profile_article"
@@ -126,5 +116,29 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
     </android.support.constraint.ConstraintLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imageView_prpfile_post_article"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="25dp"
+        android:src="@drawable/circle_orange"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="27dp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_prpfile_post_article"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_prpfile_post_article"
+        app:layout_constraintStart_toStartOf="@+id/imageView_prpfile_post_article"
+        app:layout_constraintTop_toTopOf="@+id/imageView_prpfile_post_article"
+        app:srcCompat="@drawable/pen" />
+
+
 </android.support.constraint.ConstraintLayout>

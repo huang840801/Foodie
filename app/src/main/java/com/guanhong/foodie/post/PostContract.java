@@ -1,5 +1,6 @@
 package com.guanhong.foodie.post;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.guanhong.foodie.BasePresenter;
 import com.guanhong.foodie.BaseView;
 import com.guanhong.foodie.objects.Article;
@@ -12,7 +13,7 @@ public interface PostContract {
 
         void setTabLayoutVisibility(boolean visible);
 
-        void showAddress(String addressLine);
+        void showAddress(String addressLine, LatLng latLng);
 
         void showPictures(ArrayList<String> stringArrayListExtra);
     }

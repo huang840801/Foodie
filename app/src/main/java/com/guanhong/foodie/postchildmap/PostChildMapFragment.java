@@ -104,25 +104,30 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mGoogleMap = googleMap;
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-
-        builder.include(new LatLng(25.042487, 121.564879));
-        LatLngBounds bounds = builder.build();
-
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 200);
-        mGoogleMap.moveCamera(cameraUpdate);
-        mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo((float) 7.5), 2000, null);
-        mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
-            public void onMapClick(LatLng latLng) {
-                Geocoder geocoder = new Geocoder(mContext, Locale.TRADITIONAL_CHINESE);
-                mPresenter.getAddress(geocoder, latLng);
+            public void onMapLoaded() {
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
+                builder.include(new LatLng(25.042487, 121.564879));
+                LatLngBounds bounds = builder.build();
+
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 200);
+                mGoogleMap.moveCamera(cameraUpdate);
+                mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo((float) 7.5), 2000, null);
+                mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        Geocoder geocoder = new Geocoder(mContext, Locale.TRADITIONAL_CHINESE);
+
+                        Log.d(Constants.TAG, "  hongtest postchild latitude = " + latLng.latitude);
+                        Log.d(Constants.TAG, "  hongtest postchild longitude = " + latLng.longitude);
+                        mPresenter.getAddress(geocoder, latLng);
+
+                    }
+                });
             }
         });
-
-
-
     }
 
     @Override
@@ -131,7 +136,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
     }
 
     @Override
-    public void showDialog(final String addressLine) {
+    public void showDialog(final String addressLine, final LatLng latLng) {
         final Dialog dialog = new Dialog(mContext);
         dialog.setContentView(R.layout.dialog_map);
 
@@ -154,7 +159,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((FoodieActivity)getActivity()).transToPostArticle(addressLine);
+                ((FoodieActivity)getActivity()).transToPostArticle(addressLine, latLng);
                 dialog.cancel();
             }
         });

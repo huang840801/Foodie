@@ -184,21 +184,48 @@ public class MapPresenter implements MapContract.Presenter {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
 
-        Query query = databaseReference.orderByValue();
+        Query query = databaseReference.orderByChild("content");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 List<LatLng> locations = new ArrayList<>();
-//                List<String> markerTitle = new ArrayList<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("lat").getValue());
-                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("lng").getValue());
-                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("restaurantName").getValue());
-                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("starCount").getValue());
-                    locations.add((new LatLng(Double.parseDouble("" + snapshot.child("latLng").child("latitude").getValue()), Double.parseDouble("" + snapshot.child("latLng").child("longitude").getValue()))));
-//                    markerTitle.add(snapshot.child("starCount").getValue() +"");
+
+
+                    Log.d(Constants.TAG, "onDataChange: " + snapshot);
+                    Log.d(Constants.TAG, "onDataChange: " + snapshot.getKey());
+
+                    String lat;
+                    String lng;
+                    String key = snapshot.getKey();
+
+//                    String s = "25.111_120.222e";
+//                    String a,b;
+//                    a = s.substring(0,s.indexOf("_"));
+//                    Log.d("ooooo", " a : " + a);
+//
+//                    b = s.substring(s.indexOf("_"),s.indexOf("e")).replace("_", "");
+//
+//                    Log.d("ooooo", " b : " + b);
+//                    Log.d(Constants.TAG, "onCreateonCreate: " + s.substring(s.indexOf("_")+1));
+
+
+                    lat = key.substring(0, key.indexOf("_")).replace("@", ".");
+                    lng = key.substring(key.indexOf("_") + 1).replace("@", ".");
+//                    lng = key.substring(key.indexOf("_") + 1, key.indexOf("e") ).replace("@", ".");
+
+                    Log.d(Constants.TAG, "onDataChange lat : " + lat);
+                    Log.d(Constants.TAG, "onDataChange lng : " + lng);
+
+//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("restaurantName").getValue());
+//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("starCount").getValue());
+//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("latLng").getValue());
+                    locations.add((new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))));
+
+
+//                    locations.add((new LatLng(Double.parseDouble("" + snapshot.child("latLng").child("latitude").getValue()), Double.parseDouble("" + snapshot.child("latLng").child("longitude").getValue()))));
                 }
 
                 mMapView.showMarker(locations);

@@ -59,11 +59,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private RecyclerView mRecyclerViewPhoto;
     private ImageView mImageViewAddPhoto;
     private EditText mEditTextContent;
-    private ImageView mStar1;
-    private ImageView mStar2;
-    private ImageView mStar3;
-    private ImageView mStar4;
-    private ImageView mStar5;
     private TextView mPostArticle;
     private RatingBar mRatingBar;
     private LinearLayout mLinearLayout;
@@ -71,7 +66,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private ArrayList<String> mPictureList;
 
     private int mStarCount = 0;
-    private String mAddress;
+    private LatLng mLatLng;
 
     public static PostFragment newInstance() {
         return new PostFragment();
@@ -160,7 +155,9 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     }
 
     @Override
-    public void showAddress(final String addressLine) {
+    public void showAddress(final String addressLine, LatLng latLng) {
+
+        mLatLng = latLng;
 
         Log.d(Constants.TAG, "   " + addressLine);
 //        mTextViewRestaurantLocation.setText(addressLine);
@@ -200,7 +197,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
             subtractMenu();
         }
         if (view.getId() == R.id.imageView_post_add_pictures) {
-            ((FoodieActivity)getActivity()).pickMultiplePictures();
+            ((FoodieActivity) getActivity()).pickMultiplePictures();
         }
         if (view.getId() == R.id.textview_post_post) {
             getArticleData();
@@ -280,8 +277,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         }
 
 
-
-
         String restaurantName = mEditTextRestaurantName.getText().toString();
         String address = mTextViewRestaurantLocation.getText().toString();
         String content = mEditTextContent.getText().toString();
@@ -294,25 +289,39 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         } catch (IOException e) {
             e.printStackTrace();
         }
-        double latitude = addressLocation.get(0).getLatitude();
-        double longitude = addressLocation.get(0).getLongitude();
 
-        Log.d(Constants.TAG, "  latitude = " + latitude);
-        Log.d(Constants.TAG, "  longitude = " + longitude);
+//        double latitude = addressLocation.get(0).getLatitude();
+//        double longitude = addressLocation.get(0).getLongitude();
+        double latitude = mLatLng.latitude;
+        double longitude = mLatLng.longitude;
+//        String lat = (String.valueOf(latitude)).substring(0, Constants.LATLNG_SAVE_DIGITS);
+//        String lng = (String.valueOf(longitude)).substring(0, Constants.LATLNG_SAVE_DIGITS);
+        String lat = (String.valueOf(latitude));
+        String lng = (String.valueOf(longitude));
+        String latlng = (lat + "_" + lng ).replace(".", "@");
+//        latlng.replace(".", "");
+        Log.d(Constants.TAG, "  hongtest post latitude = " + latitude);
+        Log.d(Constants.TAG, "  hongtest post longitude = " + longitude);
+        Log.d(Constants.TAG, "  hongtest post latlng = " + latlng);
 
+        //hongtest postchild latitude = 25.10535923404843
+        // hongtest postchild longitude = 121.57681927084923
+        //hongtest post latlng = 25@104714899999998_121@578724e
         article.setAuthor(author);
+        article.setLat_lng(latlng);
         article.setRestaurantName(restaurantName);
         article.setLocation(address);
         article.setMenus(menus);
         article.setPictures(pictures);
         article.setContent(content);
         article.setStarCount(starCount);
-        article.setLatLng(new LatLng(addressLocation.get(0).getLatitude(), addressLocation.get(0).getLongitude()));
+        article.setLatLng(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)));
+//        article.setLatLng(new LatLng(addressLocation.get(0).getLatitude(), addressLocation.get(0).getLongitude()));
         article.setPictures(mPictureList);
 
         mPresenter.postArticle(article);
 
-        ((FoodieActivity)getActivity()).transToPostProfile();
+        ((FoodieActivity) getActivity()).transToPostProfile();
 
     }
 
