@@ -55,7 +55,7 @@ public class MapPresenter implements MapContract.Presenter {
 
     @Override
     public void getRestaurantData(String address) {
-        Log.d(Constants.TAG, "onDataChange address : " + address);
+        Log.d(Constants.TAG, "hellooo address : " + address);
 
 
         final Restaurant restaurant = new Restaurant();
@@ -63,18 +63,19 @@ public class MapPresenter implements MapContract.Presenter {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
 
-        Query query = databaseReference.orderByChild("location").equalTo(address);
+        Query query = databaseReference.child(address);
 
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d(Constants.TAG, "onDataChange: " + dataSnapshot);
+                Log.d(Constants.TAG, "hellooo: " + dataSnapshot);
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("lat_lng").getValue());
-                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("restaurantName").getValue());
-                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("starCount").getValue());
+                    Log.d(Constants.TAG, "hellooo: " + snapshot);
+                    Log.d(Constants.TAG, "hellooo: " + snapshot.child("lat_lng").getValue());
+                    Log.d(Constants.TAG, "hellooo: " + snapshot.child("restaurantName").getValue());
+                    Log.d(Constants.TAG, "hellooo: " + snapshot.child("starCount").getValue());
 
 
                     restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
@@ -107,53 +108,6 @@ public class MapPresenter implements MapContract.Presenter {
         });
 
 
-//        query.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-//                Log.d(Constants.TAG, "onDataChange: " + dataSnapshot);
-//
-//                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("lat_lng").getValue());
-//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("restaurantName").getValue());
-//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("starCount").getValue());
-//
-//
-//
-//                    restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
-//                    restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
-//                    restaurant.setStarCount(Integer.valueOf(snapshot.child("starCount").getValue().toString()));
-////                    restaurant.setRestaurantPictures(snapshot.child("restaurantName").getValue().toString());
-////                    Log.d(Constants.TAG, "onDataChangepictures: " + snapshot.child("pictures").getChildrenCount());
-//
-//                    ArrayList<String> pictures = new ArrayList<>();
-//                    for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
-//                        pictures.add(snapshot.child("pictures").child(String.valueOf(i)).getValue() +"");
-//                    }
-//
-////                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(0));
-////                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(1));
-//
-//                    restaurant.setRestaurantPictures(pictures);
-//
-//                }
-//
-//                Log.d("restaurant ", " MapPresenter : " + restaurant);
-//
-//
-//                mMapView.showRestaurantUi(restaurant);
-
-//                mMapView.setRestaurantData(restaurant);
-
-
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
     }
 
 
@@ -185,7 +139,7 @@ public class MapPresenter implements MapContract.Presenter {
         DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
 
         Query query = databaseReference.orderByChild("content");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

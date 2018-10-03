@@ -58,10 +58,12 @@ public class PostPresenter implements PostContract.Presenter{
         Log.d(Constants.TAG, " postArticle longitude = " + article.getLatLng().longitude);
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myArticleDataBase = firebaseDatabase.getReference("restaurant");
 
-        myArticleDataBase.child(article.getLat_lng()).push().setValue(article);
+        DatabaseReference restaurantDataBase = firebaseDatabase.getReference("restaurant");
+        restaurantDataBase.child(article.getLat_lng()).push().setValue(article);
 
+        DatabaseReference articleDataBase = firebaseDatabase.getReference("article");
+        articleDataBase.push().setValue(article);
     }
 
     public void setAddress(String addressLine, LatLng latLng) {

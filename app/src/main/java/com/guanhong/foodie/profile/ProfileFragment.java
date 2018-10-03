@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +19,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
+import com.guanhong.foodie.adapters.PostArticlePhotoAdapter;
+import com.guanhong.foodie.adapters.ProfileArticleAdapter;
+import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.User;
 import com.guanhong.foodie.util.Constants;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -30,16 +37,15 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
 
     private ProfileContract.Presenter mPresenter;
 
-
-
     private ImageView mUserImageView;
     private TextView mUserName;
     private TextView mUserEmail;
     private TextView mCoinCount;
     private TextView mArticleCount;
     private ImageView mImageViewPost;
-
+    private RecyclerView mRecyclerView;
     private Typeface mTypeface;
+    private ArrayList<Article>mArticleArrayList;
 
     private Context mContext;
 
@@ -56,6 +62,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mCoinCount = v.findViewById(R.id.textView_coin_count);
         mArticleCount = v.findViewById(R.id.textView_article_count);
         mImageViewPost = v.findViewById(R.id.imageView_prpfile_post_article);
+        mRecyclerView= v.findViewById(R.id.recyclerview_profile_article);
 
         mUserImageView.setOnClickListener(this);
         mImageViewPost.setOnClickListener(this);
@@ -67,8 +74,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        Log.d(Constants.TAG, " onViewCreated mPresenter: " +mPresenter);
 
         setTypeFace();
         mPresenter.getUserImage(mContext);
@@ -107,8 +112,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     @Override
     public void setPresenter(ProfileContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
-        Log.d(Constants.TAG, " setPresenter mPresenter: " +mPresenter);
-
         mPresenter.start();
     }
 
@@ -133,6 +136,15 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
             Log.e("Exception", e.getMessage(), e);
         }
 
+
+    }
+
+    @Override
+    public void setArticleList(ArrayList<Article> articleArrayList) {
+        mArticleArrayList = articleArrayList;
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(new ProfileArticleAdapter(mArticleArrayList));
 
     }
 }

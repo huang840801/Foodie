@@ -139,8 +139,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
     }
 
     @Override

@@ -88,40 +88,18 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
+
         String s = "123_456";
         Log.d(Constants.TAG, "onCreateonCreate: " + s.length());
-        Log.d(Constants.TAG, "onCreateonCreate: " + s.indexOf(s.length()-1));
+        Log.d(Constants.TAG, "onCreateonCreate: " + s.indexOf(s.length() - 1));
         Log.d(Constants.TAG, "onCreateonCreate: " + s.substring(s.indexOf("_")));
-        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring(s.indexOf("_")+1));
+        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring(s.indexOf("_") + 1));
         Log.d(Constants.TAG, "onCreateonCreate: " + s.indexOf("_"));
 //        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring("_", s.indexOf(s.length())));
 
 
         super.onCreate(savedInstanceState);
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//        DatabaseReference databaseReference = firebaseDatabase.getReference("25@036225899999998_121@5585139e");
-        DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child("25@036225899999998_121@5585139e");
-
-        Query query = databaseReference.orderByValue();
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-//                    Log.d(Constants.TAG, "onMarkerClick: " + snapshot);
-//                    Log.d(Constants.TAG, "onMarkerClick: " + snapshot.child("restaurantName").getValue());
-//                    Log.d(Constants.TAG, "onMarkerClick: " + snapshot.child("starCount").getValue());
-
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         init();
         saveUserData();

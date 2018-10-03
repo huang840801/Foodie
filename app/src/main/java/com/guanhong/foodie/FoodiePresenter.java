@@ -84,7 +84,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
     @Override
     public void start() {
-        transToPostArticle();
+        transToMap();
     }
 
     public void transToMap() {
@@ -257,13 +257,17 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
     @Override
     public void checkPostMapExist() {
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+
         if (mPostChildMapFragment != null || mProfileFragment != null) {
-            FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
             fragmentTransaction.remove(mPostChildMapFragment);
+        }
+        if (mPostFragment != null || mPostFragment != null) {
             fragmentTransaction.remove(mPostFragment);
+        }
             fragmentTransaction.commit();
 
-        }
+
     }
 
     @Override

@@ -6,7 +6,10 @@ import android.net.Uri;
 
 import com.guanhong.foodie.BasePresenter;
 import com.guanhong.foodie.BaseView;
+import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.User;
+
+import java.util.ArrayList;
 
 public interface ProfileContract {
 
@@ -15,6 +18,8 @@ public interface ProfileContract {
         void showUserPicture(Bitmap bitmap);
 
         void showUserData(User user);
+
+        void setArticleList(ArrayList<Article> articleArrayList);
     }
 
     interface Presenter extends BasePresenter{

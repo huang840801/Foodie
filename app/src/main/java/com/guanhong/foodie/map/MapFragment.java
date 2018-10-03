@@ -160,10 +160,10 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
 
                 String lat = String.valueOf(marker.getPosition().latitude).replace(".", "@");
-                String lng = String.valueOf(marker.getPosition().longitude ).replace(".", "@");
+                String lng = String.valueOf(marker.getPosition().longitude).replace(".", "@");
 //                lat = lat.substring(0, Constants.LATLNG_SAVE_DIGITS);
 //                lng = lng.substring(0, Constants.LATLNG_SAVE_DIGITS);
-                String key = (lat + "_" + lng );
+                String key = (lat + "_" + lng);
                 Log.d(Constants.TAG, " hongtest MapFragment: " + lat);
                 Log.d(Constants.TAG, " hongtest MapFragment: " + lng);
                 Log.d(Constants.TAG, " hongtest MapFragment: " + key);
@@ -237,16 +237,21 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
         Log.d(Constants.TAG, "  lat = " + marker.getPosition().latitude);
         Log.d(Constants.TAG, "  lng = " + marker.getPosition().longitude);
+        String lat = String.valueOf(marker.getPosition().latitude).replace(".", "@");
+        String lng = String.valueOf(marker.getPosition().longitude).replace(".", "@");
+        String latlng = lat + "_" + lng;
+        mPresenter.getRestaurantData(latlng);
+        Log.d(Constants.TAG, "  lng = " + latlng);
 
-        Geocoder geocoder = new Geocoder(mContext, Locale.TRADITIONAL_CHINESE);
-        try {
-            List<Address> addressList = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
-            Log.d(Constants.TAG, "  address = " + addressList.get(0).getAddressLine(0));
-            mPresenter.getRestaurantData(addressList.get(0).getAddressLine(0));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        Geocoder geocoder = new Geocoder(mContext, Locale.TRADITIONAL_CHINESE);
+//        try {
+//            List<Address> addressList = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
+//            Log.d(Constants.TAG, "  address = " + addressList.get(0).getAddressLine(0));
+//            mPresenter.getRestaurantData(addressList.get(0).getAddressLine(0));
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
     }
 

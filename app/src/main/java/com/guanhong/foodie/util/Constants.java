@@ -3,6 +3,7 @@ package com.guanhong.foodie.util;
 public class Constants {
 
     public static final String TAG = "Huang";
+    public static final String CODING_TIME = "codingTime";
 
     public static final String userDefaultImage = "http://images.gamme.com.tw/news2/2012/31/97/p5_WnaadlKSW.jpg";
 
