@@ -13,9 +13,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.objects.Article;
+import com.guanhong.foodie.objects.Author;
 import com.guanhong.foodie.objects.Comment;
+import com.guanhong.foodie.objects.Menu;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.restaurant.RestaurantContract;
 import com.guanhong.foodie.util.Constants;
@@ -33,9 +42,8 @@ public class RestaurantDetailAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
 
-    public RestaurantDetailAdapter(Restaurant restaurant, RestaurantContract.Presenter presenter) {
+    public RestaurantDetailAdapter(RestaurantContract.Presenter presenter) {
 
-        this.mRestaurant = restaurant;
         this.mPresenter = presenter;
     }
 
@@ -86,6 +94,125 @@ public class RestaurantDetailAdapter extends RecyclerView.Adapter {
     }
 
     private void bindMainItem(final RestaurantMainItemViewHolder holder) {
+
+        setPhotoRecyclerView(holder);
+        getArticleFromFirebase(holder);
+
+        holder.getRestaurantName().setText(mRestaurant.getRestaurantName());
+        holder.getRestaurantPosition().setText(mRestaurant.getRestaurantLocation());
+        if (mRestaurant.getStarCount() == 5) {
+            holder.getStar1().setImageResource(R.drawable.new_star_selected);
+            holder.getStar2().setImageResource(R.drawable.new_star_selected);
+            holder.getStar3().setImageResource(R.drawable.new_star_selected);
+            holder.getStar4().setImageResource(R.drawable.new_star_selected);
+            holder.getStar5().setImageResource(R.drawable.new_star_selected);
+        } else if (mRestaurant.getStarCount() == 4) {
+            holder.getStar1().setImageResource(R.drawable.new_star_selected);
+            holder.getStar2().setImageResource(R.drawable.new_star_selected);
+            holder.getStar3().setImageResource(R.drawable.new_star_selected);
+            holder.getStar4().setImageResource(R.drawable.new_star_selected);
+            holder.getStar5().setImageResource(R.drawable.new_star_unselected);
+        } else if (mRestaurant.getStarCount() == 3) {
+            holder.getStar1().setImageResource(R.drawable.new_star_selected);
+            holder.getStar2().setImageResource(R.drawable.new_star_selected);
+            holder.getStar3().setImageResource(R.drawable.new_star_selected);
+            holder.getStar4().setImageResource(R.drawable.new_star_unselected);
+            holder.getStar5().setImageResource(R.drawable.new_star_unselected);
+        } else if (mRestaurant.getStarCount() == 2) {
+            holder.getStar1().setImageResource(R.drawable.new_star_selected);
+            holder.getStar2().setImageResource(R.drawable.new_star_selected);
+            holder.getStar3().setImageResource(R.drawable.new_star_unselected);
+            holder.getStar4().setImageResource(R.drawable.new_star_unselected);
+            holder.getStar5().setImageResource(R.drawable.new_star_unselected);
+        } else if (mRestaurant.getStarCount() == 1) {
+            holder.getStar1().setImageResource(R.drawable.new_star_selected);
+            holder.getStar2().setImageResource(R.drawable.new_star_unselected);
+            holder.getStar3().setImageResource(R.drawable.new_star_unselected);
+            holder.getStar4().setImageResource(R.drawable.new_star_unselected);
+            holder.getStar5().setImageResource(R.drawable.new_star_unselected);
+        } else if (mRestaurant.getStarCount() == 0) {
+            holder.getStar1().setImageResource(R.drawable.new_star_unselected);
+            holder.getStar2().setImageResource(R.drawable.new_star_unselected);
+            holder.getStar3().setImageResource(R.drawable.new_star_unselected);
+            holder.getStar4().setImageResource(R.drawable.new_star_unselected);
+            holder.getStar5().setImageResource(R.drawable.new_star_unselected);
+        }
+
+    }
+
+    private void setArticlePreviewRecyclerView(RestaurantMainItemViewHolder holder, ArrayList<Article> articleArrayList) {
+        holder.getRecyclerViewArticlePreview().setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
+        holder.getRecyclerViewArticlePreview().setHasFixedSize(true);
+        holder.getRecyclerViewArticlePreview().addItemDecoration(new SpaceItemDecoration(2));
+        holder.getRecyclerViewArticlePreview().setAdapter(new RestaurantArticlePreviewAdapter(articleArrayList));
+    }
+
+    private void getArticleFromFirebase(final RestaurantMainItemViewHolder holder) {
+        Log.d(Constants.TAG, " RestaurantDetailAdapter: " + mRestaurant.getLat_Lng());
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(mRestaurant.getLat_Lng());
+
+        Query query = databaseReference.orderByValue();
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                ArrayList<Article> articleArrayList = new ArrayList<>();
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    Log.d(Constants.TAG, " RestaurantDetailAdapter: " + snapshot);
+                    Log.d(Constants.TAG, " RestaurantDetailAdapter: " + snapshot.child("author").child("id").getValue());
+                    Log.d(Constants.TAG, " RestaurantDetailAdapter: " + snapshot.child("author").child("image").getValue());
+                    Log.d(Constants.TAG, " RestaurantDetailAdapter: " + snapshot.child("author").child("name").getValue());
+                    Log.d(Constants.TAG, " RestaurantDetailAdapter: " + snapshot.child("starCount").getValue());
+                    Log.d(Constants.TAG, " RestaurantDetailAdapter: " + snapshot.child("location").getValue());
+
+                    Article article = new Article();
+
+                    Author author = new Author();
+                    author.setId((String) snapshot.child("author").child("id").getValue());
+                    author.setImage((String) snapshot.child("author").child("image").getValue());
+                    author.setName((String) snapshot.child("author").child("name").getValue());
+
+                    article.setAuthor(author);
+                    article.setRestaurantName((String) snapshot.child("restaurantName").getValue());
+                    article.setContent((String) snapshot.child("content").getValue());
+                    article.setLat_lng((String) snapshot.child("lat_lng").getValue());
+                    article.setLocation((String) snapshot.child("location").getValue());
+                    article.setStarCount(Integer.parseInt(String.valueOf( snapshot.child("starCount").getValue())));
+
+                    ArrayList<Menu> menus = new ArrayList<>();
+                    for (int i = 0; i < snapshot.child("menus").getChildrenCount(); i++) {
+                        Menu menu = new Menu();
+                        menu.setDishName((String) snapshot.child("menus").child(String.valueOf(i)).child("dishName").getValue());
+                        menu.setDishPrice((String) snapshot.child("menus").child(String.valueOf(i)).child("dishPrice").getValue());
+                        menus.add(menu);
+                    }
+
+                    article.setMenus(menus);
+
+                    ArrayList<String> pictures = new ArrayList<>();
+                    for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
+                        pictures.add((String) snapshot.child("pictures").child(String.valueOf(i)).getValue());
+                    }
+
+                    article.setPictures(pictures);
+                    articleArrayList.add(article);
+                }
+                setArticlePreviewRecyclerView(holder, articleArrayList);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+//        return null;
+    }
+
+    private void setPhotoRecyclerView(final RestaurantMainItemViewHolder holder) {
         holder.getRecyclerViewPhotoGallery().setLayoutManager((new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false)));
 //        holder.getRecyclerViewPhotoGallery().setOnFlingListener(null);
 //        new LinearSnapHelper().attachToRecyclerView(holder.mRecyclerViewPhotoGallery);
@@ -105,47 +232,6 @@ public class RestaurantDetailAdapter extends RecyclerView.Adapter {
                 holder.getPageIndicatorView().setSelection(pastVisibleItems % size);
             }
         });
-
-        holder.getRecyclerViewArticlePreview().setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
-        holder.getRecyclerViewArticlePreview().setHasFixedSize(true);
-        holder.getRecyclerViewArticlePreview().addItemDecoration(new SpaceItemDecoration(2));
-        holder.getRecyclerViewArticlePreview().setAdapter(new RestaurantArticlePreviewAdapter());
-
-
-        holder.getRestaurantName().setText(mRestaurant.getRestaurantName());
-        holder.getRestaurantPosition().setText(mRestaurant.getRestaurantLocation());
-        if (mRestaurant.getStarCount() == 5) {
-            holder.getStar1().setImageResource(R.drawable.star_selected);
-            holder.getStar2().setImageResource(R.drawable.star_selected);
-            holder.getStar3().setImageResource(R.drawable.star_selected);
-            holder.getStar4().setImageResource(R.drawable.star_selected);
-            holder.getStar5().setImageResource(R.drawable.star_selected);
-        } else if (mRestaurant.getStarCount() == 4) {
-            holder.getStar1().setImageResource(R.drawable.star_selected);
-            holder.getStar2().setImageResource(R.drawable.star_selected);
-            holder.getStar3().setImageResource(R.drawable.star_selected);
-            holder.getStar4().setImageResource(R.drawable.star_selected);
-            holder.getStar5().setImageResource(R.drawable.star_unselected);
-        } else if (mRestaurant.getStarCount() == 3) {
-            holder.getStar1().setImageResource(R.drawable.star_selected);
-            holder.getStar2().setImageResource(R.drawable.star_selected);
-            holder.getStar3().setImageResource(R.drawable.star_selected);
-            holder.getStar4().setImageResource(R.drawable.star_unselected);
-            holder.getStar5().setImageResource(R.drawable.star_unselected);
-        } else if (mRestaurant.getStarCount() == 2) {
-            holder.getStar1().setImageResource(R.drawable.star_selected);
-            holder.getStar2().setImageResource(R.drawable.star_selected);
-            holder.getStar3().setImageResource(R.drawable.star_unselected);
-            holder.getStar4().setImageResource(R.drawable.star_unselected);
-            holder.getStar5().setImageResource(R.drawable.star_unselected);
-        } else if (mRestaurant.getStarCount() == 1) {
-            holder.getStar1().setImageResource(R.drawable.star_selected);
-            holder.getStar2().setImageResource(R.drawable.star_unselected);
-            holder.getStar3().setImageResource(R.drawable.star_unselected);
-            holder.getStar4().setImageResource(R.drawable.star_unselected);
-            holder.getStar5().setImageResource(R.drawable.star_unselected);
-        }
-
     }
 
     private class RestaurantMainItemViewHolder extends RecyclerView.ViewHolder {

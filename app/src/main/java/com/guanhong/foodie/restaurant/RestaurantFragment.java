@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.RestaurantDetailAdapter;
 import com.guanhong.foodie.objects.Restaurant;
+import com.guanhong.foodie.util.Constants;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -24,7 +26,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     private RestaurantContract.Presenter mPresenter;
     private RestaurantDetailAdapter mRestaurantDetailAdapter;
 
-    private Restaurant mRestaurant;
+//    private Restaurant mRestaurant;
 
 
     public RestaurantFragment() {
@@ -42,7 +44,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
 
 //        mPresenter = new RestaurantPresenter(this);
         mPresenter.hideTabLayout();
-        mRestaurantDetailAdapter = new RestaurantDetailAdapter(new Restaurant(), mPresenter);
+        mRestaurantDetailAdapter = new RestaurantDetailAdapter(mPresenter);
 
     }
 
@@ -89,6 +91,10 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     @Override
     public void showRestaurant(Restaurant restaurant) {
         mRestaurantDetailAdapter.updateRestaurant(restaurant);
+        Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getRestaurantName());
+        Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getLat_Lng());
+        Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getRestaurantLocation());
+
     }
 
 

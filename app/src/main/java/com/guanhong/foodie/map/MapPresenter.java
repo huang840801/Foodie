@@ -81,6 +81,7 @@ public class MapPresenter implements MapContract.Presenter {
                     restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
                     restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
                     restaurant.setStarCount(Integer.valueOf(snapshot.child("starCount").getValue().toString()));
+                    restaurant.setLat_Lng(snapshot.child("lat_lng").getValue().toString());
 //                    restaurant.setRestaurantPictures(snapshot.child("restaurantName").getValue().toString());
 //                    Log.d(Constants.TAG, "onDataChangepictures: " + snapshot.child("pictures").getChildrenCount());
 

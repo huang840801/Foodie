@@ -238,10 +238,12 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     }
 
     public void setTabLayoutVisibility(boolean isVisible) {
-        if (mTabLayout.getVisibility()==View.INVISIBLE||mViewPager.getVisibility()==View.INVISIBLE) {
+//        if (mTabLayout.getVisibility()==View.INVISIBLE) {
+//            Log.d(Constants.TAG, "mTabLayout  INVISIBLE ");
+
             mTabLayout.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));
-            mViewPager.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));
-        }
+//            mViewPager.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));
+//        }
     }
 
     @Override

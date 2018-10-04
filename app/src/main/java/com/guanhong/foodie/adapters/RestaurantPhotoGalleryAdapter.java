@@ -83,8 +83,8 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
 //            bitmapArray = Base64.decode(mPictureList.get(positionInPhoto), Base64.DEFAULT);
 //            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
 //            mImagePictures.setImageBitmap(bitmap);
-            if (mPictureList.get(positionInPhoto).contains("storage")) {
-                Uri uri = Uri.fromFile(new File(mPictureList.get(positionInPhoto)));
+//            if (mPictureList.get(positionInPhoto).contains("storage")) {
+//                Uri uri = Uri.fromFile(new File(mPictureList.get(positionInPhoto)));
 //                String url = mPictureList.get(0);
 //                try {
 //                    URLEncoder.encode(url, "UTF-8");
@@ -92,11 +92,11 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
 //                    e.printStackTrace();
 //                }
 
-                Picasso.get().load(uri).placeholder(R.drawable.all_picture_placeholder).into(mImagePictures);
-            }else {
+//                Picasso.get().load(uri).placeholder(R.drawable.all_picture_placeholder).into(mImagePictures);
+//            }else {
                 Picasso.get().load(mPictureList.get(positionInPhoto)).placeholder(R.drawable.all_picture_placeholder).into(mImagePictures);
 
-            }
+//            }
         }
     }
 }

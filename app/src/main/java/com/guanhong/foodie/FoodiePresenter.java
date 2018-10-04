@@ -165,7 +165,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     @Override
     public void tranToRestaurant(Restaurant restaurant) {
         Log.d("restaurant ", " FoodiePresenter : " + restaurant);
-//     FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        mFoodieView.setTabLayoutVisibility(false);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 
 
@@ -265,7 +265,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         if (mPostFragment != null || mPostFragment != null) {
             fragmentTransaction.remove(mPostFragment);
         }
-            fragmentTransaction.commit();
+        fragmentTransaction.commit();
 
 
     }

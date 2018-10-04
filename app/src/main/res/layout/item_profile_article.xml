@@ -8,11 +8,12 @@
 
     <ImageView
         android:id="@+id/imageView_profile_article_photo"
-        android:layout_width="350dp"
+        android:layout_width="380dp"
         android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="10dp"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/all_picture_placeholder" />
 
@@ -27,6 +28,10 @@
         android:textSize="30dp"
         android:textColor="#ffffff"
         android:textStyle="bold"
+        android:shadowColor="#161616"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="10"
         app:layout_constraintEnd_toEndOf="@+id/imageView_profile_article_photo"
         app:layout_constraintStart_toStartOf="@+id/imageView_profile_article_photo"
         app:layout_constraintTop_toTopOf="@+id/imageView_profile_article_photo" />

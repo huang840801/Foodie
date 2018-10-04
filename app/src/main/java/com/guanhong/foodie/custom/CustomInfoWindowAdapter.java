@@ -59,47 +59,47 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         mTextViewRestaurantName.setText(mStringRestaurantName);
         if (mStarCount == 5) {
 
-            mStar1.setImageResource(R.drawable.newstar_selected);
-            mStar2.setImageResource(R.drawable.newstar_selected);
-            mStar3.setImageResource(R.drawable.newstar_selected);
-            mStar4.setImageResource(R.drawable.newstar_selected);
-            mStar5.setImageResource(R.drawable.newstar_selected);
+            mStar1.setImageResource(R.drawable.new_star_selected);
+            mStar2.setImageResource(R.drawable.new_star_selected);
+            mStar3.setImageResource(R.drawable.new_star_selected);
+            mStar4.setImageResource(R.drawable.new_star_selected);
+            mStar5.setImageResource(R.drawable.new_star_selected);
         }
         if (mStarCount == 4) {
 
-            mStar1.setImageResource(R.drawable.newstar_selected);
-            mStar2.setImageResource(R.drawable.newstar_selected);
-            mStar3.setImageResource(R.drawable.newstar_selected);
-            mStar4.setImageResource(R.drawable.newstar_selected);
-            mStar5.setImageResource(R.drawable.newstar_unselected);
+            mStar1.setImageResource(R.drawable.new_star_selected);
+            mStar2.setImageResource(R.drawable.new_star_selected);
+            mStar3.setImageResource(R.drawable.new_star_selected);
+            mStar4.setImageResource(R.drawable.new_star_selected);
+            mStar5.setImageResource(R.drawable.new_star_unselected);
         }
         if (mStarCount == 3) {
-            mStar1.setImageResource(R.drawable.newstar_selected);
-            mStar2.setImageResource(R.drawable.newstar_selected);
-            mStar3.setImageResource(R.drawable.newstar_selected);
-            mStar4.setImageResource(R.drawable.newstar_unselected);
-            mStar5.setImageResource(R.drawable.newstar_unselected);
+            mStar1.setImageResource(R.drawable.new_star_selected);
+            mStar2.setImageResource(R.drawable.new_star_selected);
+            mStar3.setImageResource(R.drawable.new_star_selected);
+            mStar4.setImageResource(R.drawable.new_star_unselected);
+            mStar5.setImageResource(R.drawable.new_star_unselected);
         }
         if (mStarCount == 2) {
-            mStar1.setImageResource(R.drawable.newstar_selected);
-            mStar2.setImageResource(R.drawable.newstar_selected);
-            mStar3.setImageResource(R.drawable.newstar_unselected);
-            mStar4.setImageResource(R.drawable.newstar_unselected);
-            mStar5.setImageResource(R.drawable.newstar_unselected);
+            mStar1.setImageResource(R.drawable.new_star_selected);
+            mStar2.setImageResource(R.drawable.new_star_selected);
+            mStar3.setImageResource(R.drawable.new_star_unselected);
+            mStar4.setImageResource(R.drawable.new_star_unselected);
+            mStar5.setImageResource(R.drawable.new_star_unselected);
         }
         if (mStarCount == 1) {
-            mStar1.setImageResource(R.drawable.newstar_selected);
-            mStar2.setImageResource(R.drawable.newstar_unselected);
-            mStar3.setImageResource(R.drawable.newstar_unselected);
-            mStar4.setImageResource(R.drawable.newstar_unselected);
-            mStar5.setImageResource(R.drawable.newstar_unselected);
+            mStar1.setImageResource(R.drawable.new_star_selected);
+            mStar2.setImageResource(R.drawable.new_star_unselected);
+            mStar3.setImageResource(R.drawable.new_star_unselected);
+            mStar4.setImageResource(R.drawable.new_star_unselected);
+            mStar5.setImageResource(R.drawable.new_star_unselected);
         }
         if (mStarCount == 0) {
-            mStar1.setImageResource(R.drawable.newstar_unselected);
-            mStar2.setImageResource(R.drawable.newstar_unselected);
-            mStar3.setImageResource(R.drawable.newstar_unselected);
-            mStar4.setImageResource(R.drawable.newstar_unselected);
-            mStar5.setImageResource(R.drawable.newstar_unselected);
+            mStar1.setImageResource(R.drawable.new_star_unselected);
+            mStar2.setImageResource(R.drawable.new_star_unselected);
+            mStar3.setImageResource(R.drawable.new_star_unselected);
+            mStar4.setImageResource(R.drawable.new_star_unselected);
+            mStar5.setImageResource(R.drawable.new_star_unselected);
         }
         return mView;
     }
