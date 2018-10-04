@@ -8,11 +8,12 @@
 
     <ImageView
         android:id="@+id/imageView_profile_article_photo"
-        android:layout_width="0dp"
-        android:layout_height="205dp"
+        android:layout_width="350dp"
+        android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitXY"
         app:srcCompat="@drawable/all_picture_placeholder" />
 
     <TextView

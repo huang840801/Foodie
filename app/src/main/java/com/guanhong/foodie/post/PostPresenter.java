@@ -1,19 +1,29 @@
 package com.guanhong.foodie.post;
 
 import android.content.Context;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.util.Constants;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class PostPresenter implements PostContract.Presenter{
+public class PostPresenter implements PostContract.Presenter {
 
     private PostContract.View mPostView;
 
@@ -44,7 +54,7 @@ public class PostPresenter implements PostContract.Presenter{
     }
 
     @Override
-    public void postArticle(Article article) {
+    public void postArticle(final Article article) {
 
         Log.d(Constants.TAG, " postArticle  getAuthor getId = " + article.getAuthor().getId());
         Log.d(Constants.TAG, " postArticle  getAuthor getName = " + article.getAuthor().getName());
@@ -57,13 +67,101 @@ public class PostPresenter implements PostContract.Presenter{
         Log.d(Constants.TAG, " postArticle latitude = " + article.getLatLng().latitude);
         Log.d(Constants.TAG, " postArticle longitude = " + article.getLatLng().longitude);
 
+//        final ArrayList<String> newPictures = new ArrayList<>();
+//
+//
+//        for (int i = 0; i < article.getPictures().size(); i++) {
+//
+//
+//            StorageReference mStorageReference;
+//            mStorageReference = FirebaseStorage.getInstance().getReference();
+////            Log.d("MULTIPLE_PICKER ", "" + article.getPictures().get(i));
+//
+//
+//            Uri file = Uri.fromFile(new File(article.getPictures().get(i)));
+//            final StorageReference myRef = mStorageReference.child(UserManager.getInstance().getUserId() + file);
+//
+//            myRef.putFile(file).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+//                @Override
+//                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+//                    if (!task.isSuccessful()) {
+//                        throw task.getException();
+//                    }
+//                    return myRef.getDownloadUrl();
+//                }
+//            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Uri> task) {
+//                    if (task.isSuccessful()) {
+//                        Uri downloadUri = task.getResult();
+//                        Log.d("MULTIPLE_PICKER ", " isSuccessful " + downloadUri);
+//                        newPictures.add(String.valueOf(downloadUri));
+//                    }
+//
+//                }
+//            });
+//
+//
+//        }
+
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
 
         DatabaseReference restaurantDataBase = firebaseDatabase.getReference("restaurant");
         restaurantDataBase.child(article.getLat_lng()).push().setValue(article);
 
         DatabaseReference articleDataBase = firebaseDatabase.getReference("article");
         articleDataBase.push().setValue(article);
+    }
+
+    @Override
+    public void uploadImage(ArrayList<String> pictureList) {
+        final ArrayList<String> newPictures = new ArrayList<>();
+
+        final int num = pictureList.size();
+        for (int i = 0; i < pictureList.size(); i++) {
+
+
+            StorageReference mStorageReference;
+            mStorageReference = FirebaseStorage.getInstance().getReference();
+//            Log.d("MULTIPLE_PICKER ", "" + article.getPictures().get(i));
+
+
+            Uri file = Uri.fromFile(new File(pictureList.get(i)));
+            final StorageReference myRef = mStorageReference.child(UserManager.getInstance().getUserId() + file);
+
+            final int finalI = i;
+            myRef.putFile(file).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return myRef.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                        Log.d("MULTIPLE_PICKER ", " isSuccessful " + downloadUri);
+                        newPictures.add(String.valueOf(downloadUri));
+                        if(newPictures.size()==num){
+                            mPostView.showNewPictures(newPictures);
+                        }
+
+                    }
+
+                }
+//                                        mPostView.showNewPictures(newPictures);
+
+            });
+//            if(newPictures.size() == finalI){
+//                mPostView.showNewPictures(newPictures);
+//            }
+        }
+//        uploadImage.showImageUriList(newPictures);
+
     }
 
     public void setAddress(String addressLine, LatLng latLng) {

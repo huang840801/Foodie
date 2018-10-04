@@ -1,6 +1,5 @@
 package com.guanhong.foodie;
 
-import android.net.Uri;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.guanhong.foodie.objects.Restaurant;
@@ -11,7 +10,7 @@ public interface FoodieContract {
 
     interface View extends BaseView<Presenter> {
 
-//        void setTabLayoutVisibility();
+        void setTabLayoutVisibility(boolean isTabLayoutVisibility);
 
         void showMapUi();
 

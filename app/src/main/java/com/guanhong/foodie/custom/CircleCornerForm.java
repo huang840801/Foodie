@@ -1,6 +1,7 @@
 package com.guanhong.foodie.custom;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -9,30 +10,47 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import com.guanhong.foodie.Foodie;
+import com.guanhong.foodie.util.BlurBitmapUtil;
 import com.squareup.picasso.Transformation;
 
 
 public class CircleCornerForm implements Transformation {
 
-    @Override
-    public Bitmap transform(Bitmap source) {
-        int widthLight = source.getWidth();
-        int heightLight = source.getHeight();
+    private Context mContext;
+    public CircleCornerForm(Context context) {
+        mContext = context;
+    }
 
-        Bitmap output = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
+    @Override
+    public Bitmap transform(Bitmap bitmap) {
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        int left = 0, top = 0, right = width, bottom = height;
+        float roundPx = (float) (height / 20);   //角度
+
+
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(output);
-        Paint paintColor = new Paint();
-        paintColor.setFlags(Paint.ANTI_ALIAS_FLAG);
+        int color = 0xff424242;
+        Paint paint = new Paint();
+        Rect rect = new Rect(left, top, right, bottom);
+        RectF rectF = new RectF(rect);
+        output = BlurBitmapUtil.blurBitmap(mContext, bitmap, 20);
 
-        RectF rectF = new RectF(new Rect(0, 0, widthLight, heightLight));
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);   //填充背景
+        paint.setColor(color);
+        paint.setStrokeWidth(20);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN)); //兩圖交互顯示 mode (相交）
+        canvas.drawBitmap(bitmap, rect, rect, paint);
 
-        canvas.drawRoundRect(rectF, widthLight / 10, heightLight / 10, paintColor);
 
-        Paint paintImage = new Paint();
-        paintImage.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-        canvas.drawBitmap(source, 0, 0, paintImage);
-        source.recycle();
+
+        bitmap.recycle();
         return output;
     }
 

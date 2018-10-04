@@ -27,6 +27,7 @@ import com.guanhong.foodie.adapters.ProfileArticleAdapter;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.User;
 import com.guanhong.foodie.util.Constants;
+import com.guanhong.foodie.util.SpaceItemDecoration;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -92,8 +93,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mCoinCount.setTypeface(mTypeface);
         mArticleCount.setTypeface(mTypeface);
 
-
-
     }
 
     @Override
@@ -115,8 +114,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mPresenter.start();
     }
 
-
-
     @Override
     public void showUserPicture(Bitmap bitmap) {
     }
@@ -136,7 +133,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
             Log.e("Exception", e.getMessage(), e);
         }
 
-
     }
 
     @Override
@@ -145,6 +141,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(new ProfileArticleAdapter(mArticleArrayList));
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(40));
 
     }
 }

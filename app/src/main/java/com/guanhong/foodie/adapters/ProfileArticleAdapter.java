@@ -11,6 +11,8 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -25,10 +27,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.custom.CircleCornerForm;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.util.BlurBitmapUtil;
 import com.guanhong.foodie.util.Constants;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+import com.squareup.picasso.Transformation;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class ProfileArticleAdapter extends RecyclerView.Adapter {
@@ -61,28 +69,37 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private void bindArticleItem(ProfileArticleHolder holder, int position) {
+    private void bindArticleItem(final ProfileArticleHolder holder, int position) {
         holder.getRestaurantName().setText(mArticleArrayList.get(position).getRestaurantName());
         holder.getContent().setText(mArticleArrayList.get(position).getContent());
 
-        Bitmap bitmap = (BitmapFactory.decodeFile(mArticleArrayList.get(position).getPictures().get(0), getBitmapOption(2)));
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        int newWidth = 160;
-        int newHeight = 90;
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
 
-        bitmap = BlurBitmapUtil.blurBitmap(mContext, bitmap, 20);
+//        Bitmap bitmap = (BitmapFactory.decodeFile(mArticleArrayList.get(position).getPictures().get(0), getBitmapOption(2)));
+//        int width = bitmap.getWidth();
+//        int height = bitmap.getHeight();
+//        int newWidth = 160;
+//        int newHeight = 90;
+//        float scaleWidth = ((float) newWidth) / width;
+//        float scaleHeight = ((float) newHeight) / height;
+//        Matrix matrix = new Matrix();
+//        matrix.postScale(scaleWidth, scaleHeight);
+//        bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
+//
+//        bitmap = BlurBitmapUtil.blurBitmap(mContext, bitmap, 20);
+//
+//        bitmap = newBitmap(bitmap);
 
-        bitmap = newBitmap(bitmap);
+
+//        holder.getImageView().setImageBitmap(bitmap);
 
 
-        holder.getImageView().setImageBitmap(bitmap);
 
+        Picasso.get()
+                .load(mArticleArrayList.get(position).getPictures().get(0))
+                .resize(600,300)
+                .transform(new CircleCornerForm(mContext))
+                .centerInside()
+                .into(holder.getImageView());
     }
 
     private Bitmap newBitmap(Bitmap bitmap) {
@@ -105,23 +122,23 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
 //            bottom = top + width;
 //            roundPx = width / 2;
 //        }
-            Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
-            Canvas canvas = new Canvas(output);
-            int color = 0xff424242;
-            Paint paint = new Paint();
-            Rect rect = new Rect(left, top, right, bottom);
-            RectF rectF = new RectF(rect);
+        Canvas canvas = new Canvas(output);
+        int color = 0xff424242;
+        Paint paint = new Paint();
+        Rect rect = new Rect(left, top, right, bottom);
+        RectF rectF = new RectF(rect);
 
-            paint.setAntiAlias(true);
-            canvas.drawARGB(0, 0, 0, 0);   //填充背景
-            paint.setColor(color);
-            paint.setStrokeWidth(20);
-            canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN)); //兩圖交互顯示 mode (相交）
-            canvas.drawBitmap(bitmap, rect, rect, paint);
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);   //填充背景
+        paint.setColor(color);
+        paint.setStrokeWidth(20);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN)); //兩圖交互顯示 mode (相交）
+        canvas.drawBitmap(bitmap, rect, rect, paint);
 
-            return output;
+        return output;
 
     }
 

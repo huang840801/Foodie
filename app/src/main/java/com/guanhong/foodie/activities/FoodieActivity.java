@@ -18,20 +18,23 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 
-import com.foamtrace.photopicker.ImageCaptureManager;
 import com.foamtrace.photopicker.ImageConfig;
 import com.foamtrace.photopicker.PhotoPickerActivity;
 import com.foamtrace.photopicker.SelectModel;
 import com.foamtrace.photopicker.intent.PhotoPickerIntent;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.FoodiePresenter;
+import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.ViewPagerAdapter;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.liked.LikedFragment;
@@ -50,6 +53,8 @@ import com.guanhong.foodie.restaurant.RestaurantPresenter;
 import com.guanhong.foodie.search.SearchFragment;
 import com.guanhong.foodie.util.Constants;
 
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,19 +88,16 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     private List<Fragment> mFragmentList = new ArrayList<>();
 
 
-    private Restaurant mRestaurant;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
-
-        String s = "123_456";
-        Log.d(Constants.TAG, "onCreateonCreate: " + s.length());
-        Log.d(Constants.TAG, "onCreateonCreate: " + s.indexOf(s.length() - 1));
-        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring(s.indexOf("_")));
-        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring(s.indexOf("_") + 1));
-        Log.d(Constants.TAG, "onCreateonCreate: " + s.indexOf("_"));
+//        String s = "123_456";
+//        Log.d(Constants.TAG, "onCreateonCreate: " + s.length());
+//        Log.d(Constants.TAG, "onCreateonCreate: " + s.indexOf(s.length() - 1));
+//        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring(s.indexOf("_")));
+//        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring(s.indexOf("_") + 1));
+//        Log.d(Constants.TAG, "onCreateonCreate: " + s.indexOf("_"));
 //        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring("_", s.indexOf(s.length())));
 
 
@@ -112,10 +114,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         String uid = userData.getString("userUid", "");
         String image = userData.getString("userImage", "");
 
-
-//        int i =9/10;
-//        int j =9%10;
-//        Log.d(Constants.TAG, " iiiiiiii : " + i +"jjjj"+j);
         Log.d(Constants.TAG, " userName : " + name);
         Log.d(Constants.TAG, " userEmail : " + email);
         Log.d(Constants.TAG, " userUid : " + uid);
@@ -124,13 +122,18 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = userDatabase.getReference("user");
 
-        User user1 = new User();
-        user1.setName(name);
-        user1.setEmail(email);
-        user1.setId(uid);
-        user1.setImage(image);
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setId(uid);
+        user.setImage(image);
 
-        myRef.child(uid).setValue(user1);
+        UserManager userManager = UserManager.getInstance();
+
+        userManager.setUserData(user);
+
+
+        myRef.child(uid).setValue(user);
 
 
     }
@@ -235,8 +238,9 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     }
 
     public void setTabLayoutVisibility(boolean isVisible) {
-        if (mTabLayout != null) {
+        if (mTabLayout.getVisibility()==View.INVISIBLE||mViewPager.getVisibility()==View.INVISIBLE) {
             mTabLayout.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));
+            mViewPager.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));
         }
     }
 
@@ -376,14 +380,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        Uri uri = data.getData();
-//        Log.d("hello uri???", uri.toString());
-//
-//        mProfilePresenter.getPicture(uri);
-//        SharedPreferences userImage = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-//        userImage.edit()
-//                .putString("userImage", String.valueOf(uri))
-//                .commit();
 
         if (resultCode == RESULT_OK) {
 
@@ -401,8 +397,51 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
                         .commit();
 
             } else if (requestCode == Constants.MULTIPLE_PICKER) {
-                Log.d("MULTIPLE_PICKER ", data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT) + "");
-                mPresenter.getPostRestaurantPictures(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT));
+//                Log.d("MULTIPLE_PICKER ", data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT) + "");
+//                Log.d("MULTIPLE_PICKER ", data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT).size() + "");
+
+                ArrayList<String> pictures = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
+
+
+                Log.d("MULTIPLE_PICKER ", "" + pictures);
+                Log.d("MULTIPLE_PICKER ", "" + pictures.size());
+
+                SharedPreferences userData = this.getSharedPreferences("userData", Context.MODE_PRIVATE);
+                String name = userData.getString("userName", "");
+                String email = userData.getString("userEmail", "");
+                String uid = userData.getString("userUid", "");
+                String image = userData.getString("userImage", "");
+
+                Log.d("MULTIPLE_PICKER", " userName : " + name);
+                Log.d("MULTIPLE_PICKER", " userEmail : " + email);
+                Log.d("MULTIPLE_PICKER", " userUid : " + uid);
+                Log.d("MULTIPLE_PICKER", " userImage : " + image);
+//
+//                StorageReference mStorageReference;
+//                mStorageReference = FirebaseStorage.getInstance().getReference();
+//
+//                Uri file = Uri.fromFile(new File(pictures.get(0)));
+//                final StorageReference myRef = mStorageReference.child(uid);
+//
+//                myRef.putFile(file).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+//                                                         @Override
+//                                                         public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+//                                                             if(!task.isSuccessful()){
+//                                                                 throw  task.getException();
+//                                                             }
+//                                                             return myRef.getDownloadUrl();
+//                                                         }
+//                                                     }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Uri> task) {
+//                        if(task.isSuccessful()){
+//                            Uri downloadUri = task.getResult();
+//                            Log.d("MULTIPLE_PICKER ", "" + downloadUri);
+//                        }
+//                    }
+//                });
+
+                        mPresenter.getPostRestaurantPictures(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT));
             }
 
 //            switch (requestCode) {
@@ -453,6 +492,8 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         PhotoPickerIntent intent = new PhotoPickerIntent(FoodieActivity.this);
         intent.setSelectModel(SelectModel.MULTI);
+        intent.setType("image/*");
+
 //        intent.setShowCarema(true);
         intent.setMaxTotal(10);
         intent.setSelectedPaths(picturesList);

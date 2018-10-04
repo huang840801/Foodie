@@ -16,6 +16,8 @@ public interface PostContract {
         void showAddress(String addressLine, LatLng latLng);
 
         void showPictures(ArrayList<String> stringArrayListExtra);
+
+        void showNewPictures(ArrayList<String> newPictures);
     }
 
     interface Presenter extends BasePresenter{
@@ -25,5 +27,7 @@ public interface PostContract {
         void hideTabLayout();
 
         void postArticle(Article article);
+
+        void uploadImage(ArrayList<String> pictureList);
     }
 }

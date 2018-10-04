@@ -91,6 +91,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mPresenter.showTabLayout();
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -98,6 +99,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         View rootView = inflater.inflate(R.layout.fragment_post, container, false);
 
         mContext = getContext();
+//        mUploadImage = (UploadImage) mContext;
 
         mEditTextRestaurantName = rootView.findViewById(R.id.edittext_post_restaurant_name);
         mTextViewRestaurantLocation = rootView.findViewById(R.id.textview_post_restaurant_location);
@@ -183,12 +185,23 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     }
 
     @Override
+    public void showNewPictures(ArrayList<String> newPictures) {
+        Log.d(Constants.TAG, "  showNewPictures " + newPictures);
+
+        getArticleData(newPictures);
+    }
+
+    @Override
     public void onClick(View view) {
 
         if (view.getId() == R.id.imageView_post_location) {
             ((FoodieActivity) getActivity()).transToPostChildMap();
         }
         if (view.getId() == R.id.imageView_post_addMenu) {
+//            Log.d(Constants.TAG, "  transToLiked " + UserManager.getInstance().getUserId());
+//            Log.d(Constants.TAG, "  transToLiked " + UserManager.getInstance().getUserImage());
+//            Log.d(Constants.TAG, "  transToLiked " + UserManager.getInstance().getUserName());
+//            Log.d(Constants.TAG, "  transToLiked " + UserManager.getInstance().getUserEmail());
             addMenu();
         }
         if (view.getId() == R.id.imageView_post_subtractMenu) {
@@ -198,8 +211,14 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
             ((FoodieActivity) getActivity()).pickMultiplePictures();
         }
         if (view.getId() == R.id.textview_post_post) {
-            getArticleData();
+            postImage();
         }
+
+    }
+
+    private void postImage() {
+
+        mPresenter.uploadImage(mPictureList);
 
     }
 
@@ -227,12 +246,13 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         }
     }
 
-    private void getArticleData() {
+    private void getArticleData(ArrayList<String> newPictures) {
+
 
         Article article = new Article();
         Author author = new Author();
         ArrayList<Menu> menus = new ArrayList<>();
-        ArrayList<String> pictures = new ArrayList<>();
+//        ArrayList<String> pictures = new ArrayList<>();
 //        Menu menu = new Menu();
 
         SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
@@ -280,13 +300,13 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         String content = mEditTextContent.getText().toString();
         int starCount = mStarCount;
 
-        Geocoder geoCoder = new Geocoder(mContext, Locale.getDefault());
-        List<Address> addressLocation = null;
-        try {
-            addressLocation = geoCoder.getFromLocationName(address, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        Geocoder geoCoder = new Geocoder(mContext, Locale.getDefault());
+//        List<Address> addressLocation = null;
+//        try {
+//            addressLocation = geoCoder.getFromLocationName(address, 1);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 //        double latitude = addressLocation.get(0).getLatitude();
 //        double longitude = addressLocation.get(0).getLongitude();
@@ -296,26 +316,22 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 //        String lng = (String.valueOf(longitude)).substring(0, Constants.LATLNG_SAVE_DIGITS);
         String lat = (String.valueOf(latitude));
         String lng = (String.valueOf(longitude));
-        String latlng = (lat + "_" + lng ).replace(".", "@");
+        String latlng = (lat + "_" + lng).replace(".", "@");
 //        latlng.replace(".", "");
         Log.d(Constants.TAG, "  hongtest post latitude = " + latitude);
         Log.d(Constants.TAG, "  hongtest post longitude = " + longitude);
         Log.d(Constants.TAG, "  hongtest post latlng = " + latlng);
 
-        //hongtest postchild latitude = 25.10535923404843
-        // hongtest postchild longitude = 121.57681927084923
-        //hongtest post latlng = 25@104714899999998_121@578724e
         article.setAuthor(author);
         article.setLat_lng(latlng);
         article.setRestaurantName(restaurantName);
         article.setLocation(address);
         article.setMenus(menus);
-        article.setPictures(pictures);
+//        article.setPictures(pictures);
         article.setContent(content);
         article.setStarCount(starCount);
         article.setLatLng(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)));
-//        article.setLatLng(new LatLng(addressLocation.get(0).getLatitude(), addressLocation.get(0).getLongitude()));
-        article.setPictures(mPictureList);
+        article.setPictures(newPictures);
 
         mPresenter.postArticle(article);
 

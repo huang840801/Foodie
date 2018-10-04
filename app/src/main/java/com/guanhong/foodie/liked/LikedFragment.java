@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.util.Constants;
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -43,6 +44,8 @@ public class LikedFragment extends Fragment implements LikedContract.View{
         super.onViewCreated(view, savedInstanceState);
 
         Log.d(Constants.TAG, "  transToLiked " + mPresenter);
+
+
 
         mPresenter.start();
     }

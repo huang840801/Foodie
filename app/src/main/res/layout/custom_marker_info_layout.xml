@@ -12,12 +12,12 @@
     <!--android:src="@drawable/custom_marker"/>-->
     <TextView
         android:id="@+id/infoWindow_restaurant_textView"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_marginTop="2dp"
-        android:gravity="center"
+        android:gravity="left"
         android:text="@string/AppWorks"
         android:textColor="#ce8223"
         android:textSize="25dp"
@@ -30,8 +30,8 @@
 
         <ImageView
             android:id="@+id/imageView_marker_star1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
@@ -40,8 +40,8 @@
 
         <ImageView
             android:id="@+id/imageView_marker_star2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
@@ -50,8 +50,8 @@
 
         <ImageView
             android:id="@+id/imageView_marker_star3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
@@ -60,8 +60,8 @@
 
         <ImageView
             android:id="@+id/imageView_marker_star4"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
@@ -70,8 +70,8 @@
 
         <ImageView
             android:id="@+id/imageView_marker_star5"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginBottom="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
