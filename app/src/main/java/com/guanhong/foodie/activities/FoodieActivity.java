@@ -390,13 +390,22 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 //                Uri uri = Uri.parse(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT).get(0));
 //                Log.d("SINGLE_PICKER uri = ", String.valueOf(uri));
 
-                Uri uri = data.getData();
-                Log.d("hello uri???", uri.toString());
-                mProfilePresenter.getPicture(uri);
-                SharedPreferences userImage = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-                userImage.edit()
-                        .putString("userImage", String.valueOf(uri))
-                        .commit();
+//                Uri uri = data.getData();
+//                Log.d(" updateUserImage  ",  "onActivityResult  "+uri.toString());
+
+                ArrayList<String> pictures = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
+
+                Log.d("updateUserImage ", " onActivityResult" + pictures);
+                Log.d("updateUserImage ", " onActivityResult" + pictures.size());
+
+
+
+
+                mProfilePresenter.updateUserImageToFireBaseStorage(pictures);
+//                SharedPreferences userImage = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
+//                userImage.edit()
+//                        .putString("userImage", String.valueOf(uri))
+//                        .commit();
 
             } else if (requestCode == Constants.MULTIPLE_PICKER) {
 //                Log.d("MULTIPLE_PICKER ", data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT) + "");
@@ -408,16 +417,16 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
                 Log.d("MULTIPLE_PICKER ", "" + pictures);
                 Log.d("MULTIPLE_PICKER ", "" + pictures.size());
 
-                SharedPreferences userData = this.getSharedPreferences("userData", Context.MODE_PRIVATE);
-                String name = userData.getString("userName", "");
-                String email = userData.getString("userEmail", "");
-                String uid = userData.getString("userUid", "");
-                String image = userData.getString("userImage", "");
-
-                Log.d("MULTIPLE_PICKER", " userName : " + name);
-                Log.d("MULTIPLE_PICKER", " userEmail : " + email);
-                Log.d("MULTIPLE_PICKER", " userUid : " + uid);
-                Log.d("MULTIPLE_PICKER", " userImage : " + image);
+//                SharedPreferences userData = this.getSharedPreferences("userData", Context.MODE_PRIVATE);
+//                String name = userData.getString("userName", "");
+//                String email = userData.getString("userEmail", "");
+//                String uid = userData.getString("userUid", "");
+//                String image = userData.getString("userImage", "");
+//
+//                Log.d("MULTIPLE_PICKER", " userName : " + name);
+//                Log.d("MULTIPLE_PICKER", " userEmail : " + email);
+//                Log.d("MULTIPLE_PICKER", " userUid : " + uid);
+//                Log.d("MULTIPLE_PICKER", " userImage : " + image);
 //
 //                StorageReference mStorageReference;
 //                mStorageReference = FirebaseStorage.getInstance().getReference();
@@ -443,7 +452,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 //                    }
 //                });
 
-                        mPresenter.getPostRestaurantPictures(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT));
+                        mPresenter.getPostRestaurantPictures(pictures);
             }
 
 //            switch (requestCode) {
@@ -470,20 +479,30 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     public void pickSinglePicture() {
 
-//        PhotoPickerIntent intent = new PhotoPickerIntent(FoodieActivity.this);
-//        intent.setSelectModel(SelectModel.SINGLE);
-//        intent.setShowCarema(true); // 是否显示拍照， 默认false
-//// intent.setImageConfig(config);
+
+//        Intent intent = new Intent();
+//        //開啟Pictures畫面Type設定為image
+//        intent.setType("image/*");
+//        //使用Intent.ACTION_GET_CONTENT這個Action
+//        //會開啟選取圖檔視窗讓您選取手機內圖檔
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        //取得相片後返回本畫面
 //        startActivityForResult(intent, Constants.SINGLE_PICKER);
 
-        Intent intent = new Intent();
-        //開啟Pictures畫面Type設定為image
+        ArrayList<String> picturesList = new ArrayList<>();
+
+        PhotoPickerIntent intent = new PhotoPickerIntent(FoodieActivity.this);
+        intent.setSelectModel(SelectModel.MULTI);
         intent.setType("image/*");
-        //使用Intent.ACTION_GET_CONTENT這個Action
-        //會開啟選取圖檔視窗讓您選取手機內圖檔
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        //取得相片後返回本畫面
+
+//        intent.setShowCarema(true);
+        intent.setMaxTotal(1);
+        intent.setSelectedPaths(picturesList);
+
         startActivityForResult(intent, Constants.SINGLE_PICKER);
+
+
+
     }
 
 

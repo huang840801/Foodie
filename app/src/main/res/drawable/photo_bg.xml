@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 類型 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- solid: 指定填充顏色(實心顏色) -->
+    <solid android:color="@color/post_bg" />
+
+    <corners android:radius="4dp" />
+    <size
+        android:width="280dp"
+        android:height="34dp" />
+    <stroke
+        android:width="1dp"
+        android:color="#cdcdcd"
+        android:dashGap="0dp"
+        android:dashWidth="0dp" />
+</shape>

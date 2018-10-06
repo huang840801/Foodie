@@ -9,6 +9,9 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,12 +20,15 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Author;
 import com.guanhong.foodie.objects.Menu;
 import com.guanhong.foodie.objects.User;
 import com.guanhong.foodie.util.Constants;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -31,11 +37,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ProfilePresenter implements ProfileContract.Presenter {
 
     private ProfileContract.View mProfileView;
-    private StorageReference mStorageRef;
-    private DatabaseReference mDatabaseReference;
 
     private Context mContext;
-    private ArrayList<Article>mArticleArrayList;
+    private ArrayList<Article> mArticleArrayList;
 
     public ProfilePresenter(ProfileContract.View profileView, Context context) {
         mProfileView = checkNotNull(profileView, "profileView cannot be null!");
@@ -46,15 +50,15 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     @Override
     public void start() {
-        mStorageRef = FirebaseStorage.getInstance().getReference();
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-        getMyArticleData();
+        getUserData();
+//        getMyArticleData();
     }
 
-    private void getMyArticleData() {
+    @Override
+    public void getMyArticleData() {
 
         SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-         final String uid = userData.getString("userUid", "");
+        final String uid = userData.getString("userUid", "");
 
         Log.d(Constants.TAG, " ProfilePresenter uid = " + uid);
 
@@ -69,7 +73,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 //
-                    if(snapshot.child("author").child("id").getValue().equals(uid)){
+                    if (snapshot.child("author").child("id").getValue().equals(uid)) {
 //                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot);
 //                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("author").child("id").getValue());
 //                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("author").child("image").getValue());
@@ -83,25 +87,25 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
                         Article article = new Article();
                         Author author = new Author();
-                        author.setId((String)snapshot.child("author").child("id").getValue());
-                        author.setImage((String)snapshot.child("author").child("image").getValue());
-                        author.setName((String)snapshot.child("author").child("name").getValue());
+                        author.setId((String) snapshot.child("author").child("id").getValue());
+                        author.setImage((String) snapshot.child("author").child("image").getValue());
+                        author.setName((String) snapshot.child("author").child("name").getValue());
                         article.setAuthor(author);
                         article.setRestaurantName((String) snapshot.child("restaurantName").getValue());
                         article.setContent((String) snapshot.child("content").getValue());
-                        article.setLocation((String)snapshot.child("location").getValue());
+                        article.setLocation((String) snapshot.child("location").getValue());
 
                         ArrayList<String> pictures = new ArrayList<>();
                         for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
-                            pictures.add((String)(snapshot.child("pictures").child(String.valueOf(i)).getValue()));
+                            pictures.add((String) (snapshot.child("pictures").child(String.valueOf(i)).getValue()));
                         }
                         article.setPictures(pictures);
 
                         ArrayList<Menu> menuList = new ArrayList<>();
                         for (int i = 0; i < snapshot.child("menus").getChildrenCount(); i++) {
                             Menu menu = new Menu();
-                            menu.setDishName((String)snapshot.child("menus").child(String.valueOf(i)).child("dishName").getValue());
-                            menu.setDishPrice((String)snapshot.child("menus").child(String.valueOf(i)).child("dishPrice").getValue());
+                            menu.setDishName((String) snapshot.child("menus").child(String.valueOf(i)).child("dishName").getValue());
+                            menu.setDishPrice((String) snapshot.child("menus").child(String.valueOf(i)).child("dishPrice").getValue());
                             menuList.add(menu);
                         }
                         article.setMenus(menuList);
@@ -118,11 +122,11 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 //                        Log.d(Constants.TAG, " ProfilePresenter latitude = " + article.getLatLng().latitude);
 //                        Log.d(Constants.TAG, " ProfilePresenter longitude = " + article.getLatLng().longitude);
                         mArticleArrayList.add(article);
-                        }
+                    }
 
                 }
                 Log.d(Constants.TAG, " ProfilePresenter mArticleArrayList = " + mArticleArrayList.size());
-                mProfileView.setArticleList(mArticleArrayList);
+                mProfileView.showMyArticles(mArticleArrayList);
 
             }
 
@@ -136,22 +140,59 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
 
     @Override
-    public void updateUserImageToFireBase(String url) {
-        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-        String uid = userData.getString("userUid", "");
+    public void updateUserImageToFireBaseStorage(ArrayList<String> pictures) {
+//        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
+//        String uid = userData.getString("userUid", "");
 
-        mDatabaseReference.child("user").child(uid).child("image").setValue(url);
+//        Log.d(" updateUserImage  ", " ProfilePresenter  " + url);
+        Log.d(" updateUserImage  ", " getUserId  " + UserManager.getInstance().getUserId());
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference databaseReference = firebaseDatabase.getReference("user");
+
+
+        StorageReference mStorageReference;
+        mStorageReference = FirebaseStorage.getInstance().getReference();
+        Uri file = Uri.fromFile(new File(pictures.get(0)));
+        final StorageReference myRef = mStorageReference.child(UserManager.getInstance().getUserId() + file);
+
+        myRef.putFile(file).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                return myRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    Log.d("updateUserImage ", " isSuccessful " + downloadUri);
+                    Log.d("updateUserImage ", " getUserId " + UserManager.getInstance().getUserId());
+
+                    databaseReference.child(UserManager.getInstance().getUserId()).child("image").setValue(downloadUri + "");
+                    mProfileView.showUserNewPicture(downloadUri);
+                }
+
+            }
+//                                        mPostView.showNewPictures(newPictures);
+
+        });
+
 
     }
 
     @Override
-    public void getUserImage(Context context) {
-        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-        final String uid = userData.getString("userUid", "");
+    public void getUserData() {
+//        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
+//        final String uid = userData.getString("userUid", "");
 
+        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
-        Query query = mDatabaseReference.child("user").orderByChild("id").equalTo(uid);
-        query.addValueEventListener(new ValueEventListener() {
+        Query query = mDatabaseReference.child("user").orderByChild("id").equalTo(UserManager.getInstance().getUserId());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -172,14 +213,14 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                     Log.d(Constants.TAG, " email = " + email);
                     Log.d(Constants.TAG, " image = " + image);
 
-                    ContentResolver cr = mContext.getContentResolver();
-                    try {
-                        //由抽象資料接口轉換圖檔路徑為Bitmap
-                        Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.parse(image)));
-                        mProfileView.showUserPicture(bitmap);
-                    } catch (FileNotFoundException e) {
-                        Log.e("Exception", e.getMessage(), e);
-                    }
+//                    ContentResolver cr = mContext.getContentResolver();
+//                    try {
+//                        //由抽象資料接口轉換圖檔路徑為Bitmap
+//                        Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.parse(image)));
+//                        mProfileView.showUserPicture(bitmap);
+//                    } catch (FileNotFoundException e) {
+//                        Log.e("Exception", e.getMessage(), e);
+//                    }
                 }
             }
 
@@ -191,17 +232,17 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
 
-    public void getPicture(Uri uri) {
+    public void getPicture(ArrayList<String> pictures) {
 
-        updateUserImageToFireBase(String.valueOf(uri));
+        updateUserImageToFireBaseStorage(pictures);
 
-        ContentResolver cr = mContext.getContentResolver();
-        try {
-            //由抽象資料接口轉換圖檔路徑為Bitmap
-            Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
-            mProfileView.showUserPicture(bitmap);
-        } catch (FileNotFoundException e) {
-            Log.e("Exception", e.getMessage(), e);
-        }
+//        ContentResolver cr = mContext.getContentResolver();
+//        try {
+//            //由抽象資料接口轉換圖檔路徑為Bitmap
+//            Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
+//            mProfileView.showUserPicture(bitmap);
+//        } catch (FileNotFoundException e) {
+//            Log.e("Exception", e.getMessage(), e);
+//        }
     }
 }

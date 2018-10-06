@@ -1,7 +1,5 @@
 package com.guanhong.foodie.profile;
 
-import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.Uri;
 
 import com.guanhong.foodie.BasePresenter;
@@ -13,23 +11,26 @@ import java.util.ArrayList;
 
 public interface ProfileContract {
 
-    interface View extends BaseView<Presenter>{
+    interface View extends BaseView<Presenter> {
 
-        void showUserPicture(Bitmap bitmap);
+//        void showUserPicture(Bitmap bitmap);
 
         void showUserData(User user);
 
-        void setArticleList(ArrayList<Article> articleArrayList);
+        void showMyArticles(ArrayList<Article> articleArrayList);
+
+        void showUserNewPicture(Uri userNewPictureUri);
+
     }
 
-    interface Presenter extends BasePresenter{
+    interface Presenter extends BasePresenter {
+
+        void getMyArticleData();
+
+        void updateUserImageToFireBaseStorage(ArrayList<String> pictures);
 
 
-
-        void updateUserImageToFireBase(String url);
-
-
-        void getUserImage(Context context);
+        void getUserData();
     }
 
 

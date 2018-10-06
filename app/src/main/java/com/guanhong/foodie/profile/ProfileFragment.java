@@ -1,9 +1,6 @@
 package com.guanhong.foodie.profile;
 
-import android.content.ContentResolver;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -22,14 +19,12 @@ import android.widget.TextView;
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
-import com.guanhong.foodie.adapters.PostArticlePhotoAdapter;
 import com.guanhong.foodie.adapters.ProfileArticleAdapter;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.User;
-import com.guanhong.foodie.util.Constants;
 import com.guanhong.foodie.util.SpaceItemDecoration;
+import com.squareup.picasso.Picasso;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -46,7 +41,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     private ImageView mImageViewPost;
     private RecyclerView mRecyclerView;
     private Typeface mTypeface;
-    private ArrayList<Article>mArticleArrayList;
+    private ArrayList<Article> mArticleArrayList;
 
     private Context mContext;
 
@@ -63,7 +58,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mCoinCount = v.findViewById(R.id.textView_coin_count);
         mArticleCount = v.findViewById(R.id.textView_article_count);
         mImageViewPost = v.findViewById(R.id.imageView_prpfile_post_article);
-        mRecyclerView= v.findViewById(R.id.recyclerview_profile_article);
+        mRecyclerView = v.findViewById(R.id.recyclerview_profile_article);
 
         mUserImageView.setOnClickListener(this);
         mImageViewPost.setOnClickListener(this);
@@ -75,19 +70,20 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         setTypeFace();
-        mPresenter.getUserImage(mContext);
+        mPresenter.start();
 
+//        mPresenter.getUserData();
+//
     }
 
-    public static ProfileFragment newInstance(){
+    public static ProfileFragment newInstance() {
         return new ProfileFragment();
     }
 
     private void setTypeFace() {
 
-        mTypeface=Typeface.createFromAsset(mContext.getAssets(),"fonts/GenJyuuGothicX-Bold.ttf");
+        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
         mUserName.setTypeface(mTypeface);
         mUserEmail.setTypeface(mTypeface);
         mCoinCount.setTypeface(mTypeface);
@@ -98,11 +94,11 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     @Override
     public void onClick(View view) {
 
-        if(view.getId() == R.id.imageView_user){
-            ((FoodieActivity)getActivity()).pickSinglePicture();
+        if (view.getId() == R.id.imageView_user) {
+            ((FoodieActivity) getActivity()).pickSinglePicture();
         }
         if (view.getId() == R.id.imageView_prpfile_post_article) {
-            ((FoodieActivity)getActivity()).transToPostArticle();
+            ((FoodieActivity) getActivity()).transToPostArticle();
 
         }
 
@@ -111,37 +107,50 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     @Override
     public void setPresenter(ProfileContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
-        mPresenter.start();
     }
 
-    @Override
-    public void showUserPicture(Bitmap bitmap) {
-    }
 
     @Override
     public void showUserData(User user) {
 
+        Log.d("updateUserImage ", " userImage " + user.getImage());
+
+
         mUserName.setText(user.getName());
         mUserEmail.setText(user.getEmail());
-
-        ContentResolver cr = mContext.getContentResolver();
-        try {
-            //由抽象資料接口轉換圖檔路徑為Bitmap
-            Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.parse(user.getImage())));
-            mUserImageView.setImageBitmap(bitmap);
-        } catch (FileNotFoundException e) {
-            Log.e("Exception", e.getMessage(), e);
+        if (user.getImage() != null) {
+            Picasso.get()
+                    .load(user.getImage())
+                    .into(mUserImageView);
         }
+        mPresenter.getMyArticleData();
+
+//        ContentResolver cr = mContext.getContentResolver();
+//        try {
+//            //由抽象資料接口轉換圖檔路徑為Bitmap
+//            Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.parse(user.getImage())));
+//            mUserImageView.setImageBitmap(bitmap);
+//        } catch (FileNotFoundException e) {
+//            Log.e("Exception", e.getMessage(), e);
+//        }
 
     }
 
     @Override
-    public void setArticleList(ArrayList<Article> articleArrayList) {
+    public void showMyArticles(ArrayList<Article> articleArrayList) {
+
         mArticleArrayList = articleArrayList;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(new ProfileArticleAdapter(mArticleArrayList));
         mRecyclerView.addItemDecoration(new SpaceItemDecoration(40));
+        mArticleCount.setText("" + mArticleArrayList.size());
+    }
 
+    @Override
+    public void showUserNewPicture(Uri userNewPictureUri) {
+        Picasso.get()
+                .load(userNewPictureUri)
+                .into(mUserImageView);
     }
 }

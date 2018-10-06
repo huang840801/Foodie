@@ -2,6 +2,7 @@ package com.guanhong.foodie.post;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -49,7 +50,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private TextView mTextViewRestaurantLocation;
     private ImageView mImageViewMarker;
     private ImageView mImageViewAddMenu;
-    private ImageView mImageViewSubtractMenu;
+//    private ImageView mImageViewSubtractMenu;
     private EditText mEditTextMenu1;
     private EditText mEditTextPrice1;
     private EditText mEditTextMenu2;
@@ -61,7 +62,17 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private EditText mEditTextContent;
     private TextView mPostArticle;
     private RatingBar mRatingBar;
-    private LinearLayout mLinearLayout;
+
+    private TextView mTextViewRestaurantName;
+    private TextView mTextViewLocation;
+    private TextView mTextViewMenu1;
+    private TextView mTextViewMenu2;
+    private TextView mTextViewMenu3;
+    private TextView mTextViewPictures;
+    private TextView mTextViewContent;
+    private TextView mTextViewRating;
+
+    private Typeface mTypeface;
 
     private ArrayList<String> mPictureList;
 
@@ -82,6 +93,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         super.onCreate(savedInstanceState);
 
         mPresenter.hideTabLayout();
+
     }
 
     @Override
@@ -105,7 +117,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mTextViewRestaurantLocation = rootView.findViewById(R.id.textview_post_restaurant_location);
         mImageViewMarker = rootView.findViewById(R.id.imageView_post_location);
         mImageViewAddMenu = rootView.findViewById(R.id.imageView_post_addMenu);
-        mImageViewSubtractMenu = rootView.findViewById(R.id.imageView_post_subtractMenu);
+//        mImageViewSubtractMenu = rootView.findViewById(R.id.imageView_post_subtractMenu);
         mEditTextMenu1 = rootView.findViewById(R.id.edittext_post_menu1);
         mEditTextPrice1 = rootView.findViewById(R.id.edittext_post_price1);
         mEditTextMenu2 = rootView.findViewById(R.id.edittext_post_menu2);
@@ -116,31 +128,54 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mImageViewAddPhoto = rootView.findViewById(R.id.imageView_post_add_pictures);
         mEditTextContent = rootView.findViewById(R.id.edittext_post_content);
 
+        mTextViewRestaurantName = rootView.findViewById(R.id.post_restaurant_name);
+        mTextViewLocation = rootView.findViewById(R.id.post_restaurant_location);
+        mTextViewMenu1 = rootView.findViewById(R.id.textView_menu1);
+        mTextViewMenu2 = rootView.findViewById(R.id.textView_menu2);
+        mTextViewMenu3 = rootView.findViewById(R.id.textView_menu3);
+        mTextViewPictures = rootView.findViewById(R.id.textView_pictures);
+        mTextViewContent = rootView.findViewById(R.id.textView_content);
+        mTextViewRating = rootView.findViewById(R.id.textView_rating_bar);
+
+        setTypeFace();
+
         mRecyclerViewPhoto = rootView.findViewById(R.id.recyclerview_post_photo);
 
         mRatingBar = rootView.findViewById(R.id.ratingBar2);
         mPostArticle = rootView.findViewById(R.id.textview_post_post);
-        mLinearLayout = rootView.findViewById(R.id.linearLayout);
-
-        mEditTextMenu2.setVisibility(View.GONE);
-        mEditTextPrice2.setVisibility(View.GONE);
-        mEditTextMenu3.setVisibility(View.GONE);
-        mEditTextPrice3.setVisibility(View.GONE);
-
-
-        mImageViewMarker.setOnClickListener(this);
-        mImageViewAddMenu.setOnClickListener(this);
-        mImageViewSubtractMenu.setOnClickListener(this);
-        mImageViewAddPhoto.setOnClickListener(this);
-        mPostArticle.setOnClickListener(this);
-        mRatingBar.setOnRatingBarChangeListener(this);
 
         return rootView;
+    }
+
+    private void setTypeFace() {
+        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
+        mTextViewRestaurantName.setTypeface(mTypeface);
+        mTextViewLocation.setTypeface(mTypeface);
+        mTextViewMenu1.setTypeface(mTypeface);
+        mTextViewMenu2.setTypeface(mTypeface);
+        mTextViewMenu3.setTypeface(mTypeface);
+        mTextViewPictures.setTypeface(mTypeface);
+        mTextViewContent.setTypeface(mTypeface);
+        mTextViewRating.setTypeface(mTypeface);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mTextViewMenu2.setVisibility(View.GONE);
+        mEditTextMenu2.setVisibility(View.GONE);
+        mEditTextPrice2.setVisibility(View.GONE);
+        mTextViewMenu3.setVisibility(View.GONE);
+        mEditTextMenu3.setVisibility(View.GONE);
+        mEditTextPrice3.setVisibility(View.GONE);
+
+        mImageViewMarker.setOnClickListener(this);
+        mImageViewAddMenu.setOnClickListener(this);
+//        mImageViewSubtractMenu.setOnClickListener(this);
+        mImageViewAddPhoto.setOnClickListener(this);
+        mPostArticle.setOnClickListener(this);
+        mRatingBar.setOnRatingBarChangeListener(this);
     }
 
     @Override
@@ -204,9 +239,9 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 //            Log.d(Constants.TAG, "  transToLiked " + UserManager.getInstance().getUserEmail());
             addMenu();
         }
-        if (view.getId() == R.id.imageView_post_subtractMenu) {
-            subtractMenu();
-        }
+//        if (view.getId() == R.id.imageView_post_subtractMenu) {
+//            subtractMenu();
+//        }
         if (view.getId() == R.id.imageView_post_add_pictures) {
             ((FoodieActivity) getActivity()).pickMultiplePictures();
         }
@@ -242,7 +277,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
             mEditTextMenu3.setVisibility(View.VISIBLE);
             mEditTextPrice3.setVisibility(View.VISIBLE);
         } else if (mEditTextMenu3.getVisibility() == View.VISIBLE && mEditTextPrice3.getVisibility() == View.VISIBLE) {
-            Toast.makeText(mContext, R.string.too_much, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, R.string.too_much, Toast.LENGTH_SHORT).show();
         }
     }
 

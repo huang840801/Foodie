@@ -20,7 +20,7 @@
         android:layout_centerInParent="true"
         android:layout_marginBottom="16dp"
         app:piv_dynamicCount="true"
-        app:piv_selectedColor="#0baae5"
+        app:piv_selectedColor="@color/main"
         app:piv_unselectedColor="#a5cdcdcd"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerview_photo"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +95,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_star1"
-        app:srcCompat="@drawable/marker_blue" />
+        app:srcCompat="@drawable/marker_yellow" />
 
     <TextView
         android:id="@+id/textView_location"

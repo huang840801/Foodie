@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="deep_gray">#555555</color>
-    <color name="main_bg">#becb50</color>
+    <color name="main">#fdd734</color>
+    <color name="post_bg">#f4efc3</color>
     <color name="tab_indicator">#ffab00</color>
     <color name="tab_text_normal">#d8d9ce</color>
     <color name="tab_text_selected">#558b2f</color>
