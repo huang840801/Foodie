@@ -2,6 +2,7 @@ package com.guanhong.foodie;
 
 
 import com.google.android.gms.maps.model.LatLng;
+import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public interface FoodieContract {
 
         void showSearchUi();
 
-        void showRestaurantUi(Restaurant restaurant);
+        void showRestaurantUi();
 
         void showPostArticleUi();
 
@@ -42,7 +43,7 @@ public interface FoodieContract {
 
         void transToSearch();
 
-        void tranToRestaurant(Restaurant restaurant);
+        void tranToRestaurant(Restaurant restaurant, ArrayList<Comment> comments);
 
         void transToPostArticle();
 

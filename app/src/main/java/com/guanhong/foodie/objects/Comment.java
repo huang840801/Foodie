@@ -4,16 +4,16 @@ public class Comment {
 
     private String mId;
     private String mArticleId;
-    private Author mOwner;
+    private Author mAuthor;
     private String mComment;
-    private int mCreatedTime;
+    private String mCreatedTime;
 
     public Comment() {
         mId = "";
         mArticleId = "";
-        mOwner = new Author();
+        mAuthor = new Author();
         mComment = "";
-        mCreatedTime = -1;
+        mCreatedTime = "";
     }
 
     public String getId() {
@@ -33,11 +33,11 @@ public class Comment {
     }
 
     public Author getOwner() {
-        return mOwner;
+        return mAuthor;
     }
 
     public void setOwner(Author owner) {
-        mOwner = owner;
+        mAuthor = owner;
     }
 
     public String getComment() {
@@ -48,11 +48,11 @@ public class Comment {
         mComment = comment;
     }
 
-    public int getCreatedTime() {
+    public String getCreatedTime() {
         return mCreatedTime;
     }
 
-    public void setCreatedTime(int createdTime) {
+    public void setCreatedTime(String createdTime) {
         mCreatedTime = createdTime;
     }
 }

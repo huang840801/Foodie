@@ -16,6 +16,8 @@ public class Constants {
     // Request Code
     public static final int SINGLE_PICKER = 21;
     public static final int MULTIPLE_PICKER = 22;
+    public static final int REQUEST_WRITE_STORAGE_REQUEST_CODE = 102;
+    public static final int REQUEST_FINE_LOCATION_PERMISSION = 103;
 
     //latlng save digits
     public static final int LATLNG_SAVE_DIGITS = 8;

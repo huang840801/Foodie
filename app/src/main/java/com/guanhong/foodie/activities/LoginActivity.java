@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.objects.User;
 import com.guanhong.foodie.util.Constants;
 
@@ -57,12 +58,35 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
 
-                    writeNewUser(user);
+                    Log.d(Constants.TAG, " LoginWithFirebase Id:  " + user.getUid());
+                    Log.d(Constants.TAG, " LoginWithFirebase email:  " + user.getEmail());
+                    Log.d(Constants.TAG, " LoginWithFirebase name:  " + mName);
+                    if (mName != null) {
 
-                    Log.d(Constants.TAG, " Id:  " + user.getUid());
-                    Log.d(Constants.TAG, " email:  " + user.getEmail());
+                        Log.d(Constants.TAG, " LoginWithFirebase Id:  " + user.getUid());
+                        Log.d(Constants.TAG, " LoginWithFirebase email:  " + user.getEmail());
+                        Log.d(Constants.TAG, " LoginWithFirebase name:  " + mName);
+                        FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = userDatabase.getReference("user");
+
+                        User user1 = new User();
+                        user1.setName(mName);
+                        user1.setEmail(user.getEmail());
+                        user1.setId(user.getUid());
+                        user1.setImage("");
+
+                        UserManager userManager = UserManager.getInstance();
+
+                        userManager.setUserData(user1);
 
 
+                        myRef.child(user.getUid()).setValue(user1);
+                    }
+
+                    SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
+                    userData.edit()
+                            .putString("userId", user.getUid())
+                            .commit();
                     Intent intent = new Intent(LoginActivity.this, FoodieActivity.class);
                     startActivity(intent);
                     finish();
@@ -82,12 +106,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //        FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
 //        DatabaseReference myRef = userDatabase.getReference("user");
         if (mName != null) {
-            SharedPreferences userName = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-            userName.edit()
-                    .putString("userName", mName)
-                    .putString("userEmail", user.getEmail())
-                    .putString("userUid", user.getUid())
-                    .commit();
+//            SharedPreferences userName = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
+//            userName.edit()
+//                    .putString("userName", mName)
+//                    .putString("userEmail", user.getEmail())
+//                    .putString("userUid", user.getUid())
+//                    .commit();
         }
 
     }
@@ -132,30 +156,44 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             if ("".equals(email) || "".equals(password) || "".equals(mName)) {
                 Toast.makeText(this, R.string.cannot_be_empty, Toast.LENGTH_SHORT).show();
 
+            } else if (password.length() < 6) {
+
+                Toast.makeText(LoginActivity.this, "密碼不能小於六碼!", Toast.LENGTH_SHORT).show();
+
+            } else if (!email.contains("@")) {
+                Toast.makeText(LoginActivity.this, "Email 格式錯誤!", Toast.LENGTH_SHORT).show();
+
             } else {
-                register(email, password, mName);
+
+                register(email, password);
             }
 
         } else if (view.getId() == R.id.button_login) {
             if ("".equals(email) || "".equals(password) || "".equals(mName)) {
                 Toast.makeText(this, R.string.cannot_be_empty, Toast.LENGTH_SHORT).show();
             } else {
-                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()) {
 
-                            Toast.makeText(LoginActivity.this, "登入失敗!", Toast.LENGTH_SHORT).show();
+                Login(email, password);
 
-                        }
-                    }
-                });
             }
         }
 
     }
 
-    private void register(final String email, final String password, String name) {
+    private void Login(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (!task.isSuccessful()) {
+
+                    Toast.makeText(LoginActivity.this, "登入失敗!", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+    }
+
+    private void register(final String email, final String password) {
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -165,17 +203,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 if (task.isSuccessful()) {
 
-                    FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = userDatabase.getReference("user");
-                } else if (password.length() < 6) {
-
-                    Toast.makeText(LoginActivity.this, "密碼不能小於六碼!", Toast.LENGTH_SHORT).show();
-
-                } else if (!email.contains("@")) {
-                    Toast.makeText(LoginActivity.this, "Email 格式錯誤!", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    Toast.makeText(LoginActivity.this, "該用戶已存在!", Toast.LENGTH_SHORT).show();
+//                    FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
+//                    DatabaseReference myRef = userDatabase.getReference("user");
+//              else {
+//                    Toast.makeText(LoginActivity.this, "該用戶已存在!", Toast.LENGTH_SHORT).show();
 
                 }
             }

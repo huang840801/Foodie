@@ -6,8 +6,10 @@ import android.graphics.Bitmap;
 import com.google.android.gms.maps.model.LatLng;
 import com.guanhong.foodie.BasePresenter;
 import com.guanhong.foodie.BaseView;
+import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface MapContract {
@@ -18,7 +20,7 @@ public interface MapContract {
 
         void setMarkerBitmap(Bitmap bitmap);
 
-        void showRestaurantUi(Restaurant restaurant);
+        void showRestaurantUi(Restaurant restaurant, ArrayList<Comment> comments);
 
         void showMarker(List<LatLng> locations);
 

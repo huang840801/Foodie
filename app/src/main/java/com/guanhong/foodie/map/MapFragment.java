@@ -2,8 +2,6 @@ package com.guanhong.foodie.map;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -36,12 +34,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.custom.CustomInfoWindowAdapter;
+import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -217,6 +215,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
             Log.d(Constants.TAG, " hongtest MapFragment showMarker : " + latLng.latitude);
             Log.d(Constants.TAG, " hongtest MapFragment showMarker : " + latLng.longitude);
+
             mGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromBitmap(mBitmap)));
             builder.include(latLng);
         }
@@ -267,9 +266,9 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     }
 
     @Override
-    public void showRestaurantUi(Restaurant restaurant) {
+    public void showRestaurantUi(Restaurant restaurant, ArrayList<Comment> comments) {
         Log.d("restaurant ", " MapFragment : " + restaurant);
-        ((FoodieActivity) getActivity()).transToRestaurant(restaurant);
+        ((FoodieActivity) getActivity()).transToRestaurant(restaurant, comments);
     }
 
 

@@ -10,10 +10,10 @@
     <ImageView
         android:id="@+id/imageView_marker"
         android:layout_width="50dp"
-        android:layout_height="71dp"
+        android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/custom_marker" />
+        app:srcCompat="@drawable/pin" />
     <TextView
         android:id="@+id/textView_marker_count"
         android:layout_width="30dp"
@@ -23,7 +23,7 @@
         android:layout_marginTop="12dp"
         android:gravity="center_horizontal"
         android:includeFontPadding="false"
-        android:text="5"
+        android:text=""
         android:textColor="#000000"
         android:textSize="30dp"
         android:textStyle="bold"

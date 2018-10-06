@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.ProfileArticleAdapter;
 import com.guanhong.foodie.objects.Article;
@@ -25,7 +26,9 @@ import com.guanhong.foodie.objects.User;
 import com.guanhong.foodie.util.SpaceItemDecoration;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -59,6 +62,20 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mArticleCount = v.findViewById(R.id.textView_article_count);
         mImageViewPost = v.findViewById(R.id.imageView_prpfile_post_article);
         mRecyclerView = v.findViewById(R.id.recyclerview_profile_article);
+        mArticleCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
+
+                Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
+
+                String str = formatter.format(curDate);
+
+                Log.d(" currentTimeMillis ", "str = " + str);
+                Log.d(" currentTimeMillis ", "" + curDate);
+                Log.d(" currentTimeMillis ", "" + System.currentTimeMillis());
+            }
+        });
 
         mUserImageView.setOnClickListener(this);
         mImageViewPost.setOnClickListener(this);
@@ -71,7 +88,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         super.onViewCreated(view, savedInstanceState);
 
         setTypeFace();
-        mPresenter.start();
+
 
 //        mPresenter.getUserData();
 //
@@ -107,18 +124,25 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     @Override
     public void setPresenter(ProfileContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
+        mPresenter.start();
+
     }
 
 
     @Override
     public void showUserData(User user) {
 
-        Log.d("updateUserImage ", " userImage " + user.getImage());
+        Log.d("showUserData ", " userImage " + user.getImage());
+        Log.d("showUserData ", " userImage " + user.getName());
+        Log.d("showUserData ", " userImage " + user.getEmail());
 
 
         mUserName.setText(user.getName());
         mUserEmail.setText(user.getEmail());
-        if (user.getImage() != null) {
+        if (!"".equals(user.getImage())) {
+
+            Log.d("showUserData ", " userImage 有東西");
+
             Picasso.get()
                     .load(user.getImage())
                     .into(mUserImageView);

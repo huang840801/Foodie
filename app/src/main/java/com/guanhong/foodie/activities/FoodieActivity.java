@@ -27,8 +27,12 @@ import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -42,6 +46,7 @@ import com.guanhong.foodie.liked.LikedPresenter;
 import com.guanhong.foodie.lotto.LottoFragment;
 import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.map.MapPresenter;
+import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.objects.User;
 import com.guanhong.foodie.post.PostFragment;
@@ -91,14 +96,10 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
-//        String s = "123_456";
-//        Log.d(Constants.TAG, "onCreateonCreate: " + s.length());
-//        Log.d(Constants.TAG, "onCreateonCreate: " + s.indexOf(s.length() - 1));
-//        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring(s.indexOf("_")));
-//        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring(s.indexOf("_") + 1));
-//        Log.d(Constants.TAG, "onCreateonCreate: " + s.indexOf("_"));
-//        Log.d(Constants.TAG, "onCreateonCreate: " + s.substring("_", s.indexOf(s.length())));
+        Log.d("UserManager ", "email = " + UserManager.getInstance().getUserEmail());
+        Log.d("UserManager ", "id = " + UserManager.getInstance().getUserId());
+        Log.d("UserManager ", "image = " + UserManager.getInstance().getUserImage());
+        Log.d("UserManager ", "name = " + UserManager.getInstance().getUserName());
 
 
         super.onCreate(savedInstanceState);
@@ -109,40 +110,71 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     private void saveUserData() {
         SharedPreferences userData = this.getSharedPreferences("userData", Context.MODE_PRIVATE);
-        String name = userData.getString("userName", "");
-        String email = userData.getString("userEmail", "");
-        String uid = userData.getString("userUid", "");
-        String image = userData.getString("userImage", "");
-
-        Log.d(Constants.TAG, " userName : " + name);
-        Log.d(Constants.TAG, " userEmail : " + email);
-        Log.d(Constants.TAG, " userUid : " + uid);
-        Log.d(Constants.TAG, " userImage : " + image);
+//        String name = userData.getString("userName", "");
+//        String email = userData.getString("userEmail", "");
+        final String userId = userData.getString("userId", "");
+//        String image = userData.getString("userImage", "");
+//        Log.d(Constants.TAG, " userName : " + name);
+//        Log.d(Constants.TAG, " userEmail : " + email);
+        Log.d(Constants.TAG, " SharedPreferences userUid : " + userId);
+//        Log.d(Constants.TAG, " userImage : " + image);
 
         FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = userDatabase.getReference("user");
+        Query query = myRef;
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (String.valueOf(snapshot.getKey()).equals(userId)) {
+                        Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot);
+                        Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot.getKey());
+                        Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot.child("email").getValue());
+                        Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot.child("id").getValue());
+                        Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot.child("image").getValue());
+                        Log.d(Constants.TAG, " FoodieActivityDataSnapshot : " + snapshot.child("name").getValue());
 
-        User user = new User();
-        user.setName(name);
-        user.setEmail(email);
-        user.setId(uid);
-        user.setImage(image);
+                        User user = new User();
+                        user.setEmail((String) snapshot.child("email").getValue());
+                        user.setId((String) snapshot.child("id").getValue());
+                        user.setImage((String) snapshot.child("image").getValue());
+                        user.setName((String) snapshot.child("name").getValue());
 
-        UserManager userManager = UserManager.getInstance();
+                        UserManager.getInstance().setUserData(user);
 
-        userManager.setUserData(user);
+                    }
 
 
-        myRef.child(uid).setValue(user);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+//        User user = new User();
+//        user.setName(name);
+//        user.setEmail(email);
+//        user.setId(uid);
+//        user.setImage(image);
+//
+//        UserManager userManager = UserManager.getInstance();
+//
+//        userManager.setUserData(user);
+//
+//
+//        myRef.child(uid).setValue(user);
 
 
     }
 
     private void init() {
 
-        setContentView(R.layout.activity_main);
 
         requestAppPermissions();
+        setContentView(R.layout.activity_main);
 
         ImageConfig config = new ImageConfig();
         config.minHeight = 400;
@@ -222,11 +254,12 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
             return;
         }
 
+
         ActivityCompat.requestPermissions(this,
                 new String[]{
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE
-                }, REQUEST_WRITE_STORAGE_REQUEST_CODE); // your request code
+                }, Constants.REQUEST_WRITE_STORAGE_REQUEST_CODE); // your request code
     }
 
     private boolean hasReadPermissions() {
@@ -237,11 +270,12 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         return (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
     }
 
+
     public void setTabLayoutVisibility(boolean isVisible) {
 //        if (mTabLayout.getVisibility()==View.INVISIBLE) {
 //            Log.d(Constants.TAG, "mTabLayout  INVISIBLE ");
 
-            mTabLayout.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));
+        mTabLayout.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));
 //            mViewPager.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));
 //        }
     }
@@ -250,17 +284,13 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     public void onBackPressed() {
         Log.d(Constants.TAG, "onBackPressed: ");
 
-//        if (mTabLayout == null) {
-//            Log.d(Constants.TAG, "onBackPressed: ");
-//            mTabLayout.setVisibility(View.VISIBLE);
-//        } else {
+
         mPresenter.checkPostMapExist();
         mViewPager.setVisibility(View.VISIBLE);
         mTabLayout.setVisibility(View.VISIBLE);
 
 
         super.onBackPressed();
-//        }
     }
 
 
@@ -291,7 +321,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     }
 
     @Override
-    public void showRestaurantUi(Restaurant restaurant) {
+    public void showRestaurantUi() {
         Log.d(Constants.TAG, "  hello   transToRestaurant");
         mViewPager.setVisibility(View.GONE);
 
@@ -357,9 +387,9 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     }
 
-    public void transToRestaurant(Restaurant restaurant) {
+    public void transToRestaurant(Restaurant restaurant, ArrayList<Comment> comments) {
 //        Log.d("restaurant ", " FoodieActivity : " + restaurant);
-        mPresenter.tranToRestaurant(restaurant);
+        mPresenter.tranToRestaurant(restaurant, comments);
     }
 
     public void transToPostArticle() {
@@ -397,8 +427,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
                 Log.d("updateUserImage ", " onActivityResult" + pictures);
                 Log.d("updateUserImage ", " onActivityResult" + pictures.size());
-
-
 
 
                 mProfilePresenter.updateUserImageToFireBaseStorage(pictures);
@@ -452,7 +480,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 //                    }
 //                });
 
-                        mPresenter.getPostRestaurantPictures(pictures);
+                mPresenter.getPostRestaurantPictures(pictures);
             }
 
 //            switch (requestCode) {
@@ -500,7 +528,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         intent.setSelectedPaths(picturesList);
 
         startActivityForResult(intent, Constants.SINGLE_PICKER);
-
 
 
     }

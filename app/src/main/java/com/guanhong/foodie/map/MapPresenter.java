@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.objects.Author;
+import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
 
@@ -99,7 +100,57 @@ public class MapPresenter implements MapContract.Presenter {
 
                 Log.d("restaurant ", " MapPresenter : " + restaurant);
 
-                mMapView.showRestaurantUi(restaurant);
+                getRestaurantComments(restaurant.getLat_Lng(), restaurant);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    private void getRestaurantComments(final String lat_lng, final Restaurant restaurant) {
+        Log.d("Comments ", " lat_lng : " + lat_lng);
+
+        final ArrayList<Comment> comments = new ArrayList<>();
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("comment");
+
+        Query query = databaseReference;
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.child(lat_lng).getChildren()) {
+
+                    Comment comment = new Comment();
+                    Author author = new Author();
+
+                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("id").getValue());
+                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("image").getValue());
+                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("name").getValue());
+                    Log.d("Comments ", " snapshot : " + snapshot.child("comment").getValue());
+                    Log.d("Comments ", " snapshot : " + snapshot.child("createdTime").getValue());
+
+                    author.setId((String) snapshot.child("author").child("id").getValue());
+                    author.setImage((String) snapshot.child("author").child("image").getValue());
+                    author.setName((String) snapshot.child("author").child("name").getValue());
+
+                    comment.setOwner(author);
+                    comment.setComment((String) snapshot.child("comment").getValue());
+                    comment.setCreatedTime(String.valueOf(snapshot.child("createdTime").getValue()));
+
+                    comments.add(comment);
+                }
+
+
+                mMapView.showRestaurantUi(restaurant, comments);
+
+
             }
 
             @Override
@@ -115,10 +166,26 @@ public class MapPresenter implements MapContract.Presenter {
     @Override
     public void createCustomMarker(Context context, String title) {
 
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
+        Query query = databaseReference;
+//        query.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        })
+
+
         View marker = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker_layout, null);
 
-        TextView txt_name = (TextView) marker.findViewById(R.id.textView_marker_count);
-        txt_name.setText(title);
+//        TextView txt_name = (TextView) marker.findViewById(R.id.textView_marker_count);
+//        txt_name.setText(title);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -145,27 +212,18 @@ public class MapPresenter implements MapContract.Presenter {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 List<LatLng> locations = new ArrayList<>();
+                ArrayList<String> restaurantKey = new ArrayList<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
 
                     Log.d(Constants.TAG, "onDataChange: " + snapshot);
                     Log.d(Constants.TAG, "onDataChange: " + snapshot.getKey());
 
+                    restaurantKey.add(snapshot.getKey());
+
                     String lat;
                     String lng;
                     String key = snapshot.getKey();
-
-//                    String s = "25.111_120.222e";
-//                    String a,b;
-//                    a = s.substring(0,s.indexOf("_"));
-//                    Log.d("ooooo", " a : " + a);
-//
-//                    b = s.substring(s.indexOf("_"),s.indexOf("e")).replace("_", "");
-//
-//                    Log.d("ooooo", " b : " + b);
-//                    Log.d(Constants.TAG, "onCreateonCreate: " + s.substring(s.indexOf("_")+1));
-
 
                     lat = key.substring(0, key.indexOf("_")).replace("@", ".");
                     lng = key.substring(key.indexOf("_") + 1).replace("@", ".");
@@ -184,6 +242,8 @@ public class MapPresenter implements MapContract.Presenter {
                 }
 
                 mMapView.showMarker(locations);
+                getStarCount(restaurantKey);
+
             }
 
             @Override
@@ -191,5 +251,45 @@ public class MapPresenter implements MapContract.Presenter {
 
             }
         });
+    }
+
+    private void getStarCount(final ArrayList<String> restaurantKey) {
+
+
+        for (int i = 0; i < restaurantKey.size(); i++) {
+
+//            Log.d(Constants.TAG, " restaurantKey  " + restaurantKey.get(i));
+
+
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
+
+            Query query = databaseReference.orderByChild("lat_lng");
+            final int finalI = i;
+            query.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                        Log.d(Constants.TAG, " restaurantKey  " + restaurantKey.get(finalI));
+
+                        if (snapshot.child(restaurantKey.get(finalI)).child("lat_lng").equals(restaurantKey.get(finalI))) {
+                            Log.d(Constants.TAG, " restaurantKey  " + snapshot);
+
+                        }
+//                        Log.d(Constants.TAG, " restaurantKey  " + snapshot);
+//                        Log.d(Constants.TAG, " restaurantKey  " + snapshot.child("starCount").getValue());
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+
     }
 }

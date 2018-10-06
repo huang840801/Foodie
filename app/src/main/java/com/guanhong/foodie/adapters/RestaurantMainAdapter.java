@@ -30,22 +30,23 @@ import com.guanhong.foodie.restaurant.RestaurantContract;
 import com.guanhong.foodie.util.Constants;
 import com.guanhong.foodie.util.SpaceItemDecoration;
 import com.rd.PageIndicatorView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class RestaurantDetailAdapter extends RecyclerView.Adapter {
+public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
-    private RestaurantContract.Presenter mPresenter;
+//    private RestaurantContract.Presenter mPresenter;
 
     private Restaurant mRestaurant;
     private ArrayList<Comment> mComments = new ArrayList<>();
 
     private Context mContext;
 
-    public RestaurantDetailAdapter(RestaurantContract.Presenter presenter) {
-
-        this.mPresenter = presenter;
-    }
+//    public RestaurantMainAdapter(RestaurantContract.Presenter presenter) {
+//
+//        this.mPresenter = presenter;
+//    }
 
     @NonNull
     @Override
@@ -76,7 +77,7 @@ public class RestaurantDetailAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 10 + 1;
+        return mComments.size() + 1;
     }
 
     @Override
@@ -84,12 +85,14 @@ public class RestaurantDetailAdapter extends RecyclerView.Adapter {
         return (position == 0) ? Constants.VIEWTYPE_RESTAURANT_MAIN : Constants.VIEWTYPE_RESTAURANT_COMMENT;
     }
 
-    public void updateRestaurant(Restaurant restaurant) {
+    public void updateRestaurantData(Restaurant restaurant, ArrayList<Comment> comments) {
         mRestaurant = restaurant;
+        mComments = comments;
+//        Log.d(Constants.TAG, " MyComments: " + mComments.get(0).getOwner().getName());
+//        Log.d(Constants.TAG, " MyComments: " + mComments.get(0).getComment());
+//        Log.d(Constants.TAG, " MyComments: " + mComments.get(1).getComment());
 
-        Log.d(Constants.TAG, " RestaurantDetailAdapter: " + mRestaurant.getRestaurantName());
-
-        notifyDataSetChanged();
+        this.notifyDataSetChanged();
 
     }
 
@@ -148,7 +151,7 @@ public class RestaurantDetailAdapter extends RecyclerView.Adapter {
     }
 
     private void getArticleFromFirebase(final RestaurantMainItemViewHolder holder) {
-        Log.d(Constants.TAG, " RestaurantDetailAdapter: " + mRestaurant.getLat_Lng());
+        Log.d(Constants.TAG, " RestaurantMainAdapter: " + mRestaurant.getLat_Lng());
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(mRestaurant.getLat_Lng());
 
@@ -161,12 +164,12 @@ public class RestaurantDetailAdapter extends RecyclerView.Adapter {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    Log.d(Constants.TAG, " RestaurantDetailAdapter: " + snapshot);
-                    Log.d(Constants.TAG, " RestaurantDetailAdapter: " + snapshot.child("author").child("id").getValue());
-                    Log.d(Constants.TAG, " RestaurantDetailAdapter: " + snapshot.child("author").child("image").getValue());
-                    Log.d(Constants.TAG, " RestaurantDetailAdapter: " + snapshot.child("author").child("name").getValue());
-                    Log.d(Constants.TAG, " RestaurantDetailAdapter: " + snapshot.child("starCount").getValue());
-                    Log.d(Constants.TAG, " RestaurantDetailAdapter: " + snapshot.child("location").getValue());
+                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot);
+                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("author").child("id").getValue());
+                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("author").child("image").getValue());
+                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("author").child("name").getValue());
+                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("starCount").getValue());
+                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("location").getValue());
 
                     Article article = new Article();
 
@@ -180,7 +183,7 @@ public class RestaurantDetailAdapter extends RecyclerView.Adapter {
                     article.setContent((String) snapshot.child("content").getValue());
                     article.setLat_lng((String) snapshot.child("lat_lng").getValue());
                     article.setLocation((String) snapshot.child("location").getValue());
-                    article.setStarCount(Integer.parseInt(String.valueOf( snapshot.child("starCount").getValue())));
+                    article.setStarCount(Integer.parseInt(String.valueOf(snapshot.child("starCount").getValue())));
 
                     ArrayList<Menu> menus = new ArrayList<>();
                     for (int i = 0; i < snapshot.child("menus").getChildrenCount(); i++) {
@@ -317,8 +320,11 @@ public class RestaurantDetailAdapter extends RecyclerView.Adapter {
 
     private void bindCommentItem(RestaurantCommentItemViewHolder holder, int i) {
 
-        holder.getTextAuthorName().setText("Stin");
-        holder.mTextCommentContent.setText("blalalalalalalalalalalalalalalalalalalalala");
+        holder.getTextAuthorName().setText(mComments.get(i).getOwner().getName());
+        holder.getTextCommentContent().setText(mComments.get(i).getComment());
+        Picasso.get()
+               .load(mComments.get(i).getOwner().getImage())
+               .into(holder.getImageAuthorImage());
     }
 
     private class RestaurantCommentItemViewHolder extends RecyclerView.ViewHolder {

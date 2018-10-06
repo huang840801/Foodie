@@ -14,9 +14,12 @@ import android.view.ViewGroup;
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
-import com.guanhong.foodie.adapters.RestaurantDetailAdapter;
+import com.guanhong.foodie.adapters.RestaurantMainAdapter;
+import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
+
+import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -24,7 +27,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class RestaurantFragment extends Fragment implements RestaurantContract.View {
 
     private RestaurantContract.Presenter mPresenter;
-    private RestaurantDetailAdapter mRestaurantDetailAdapter;
+    private RestaurantMainAdapter mRestaurantMainAdapter;
 
 //    private Restaurant mRestaurant;
 
@@ -44,7 +47,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
 
 //        mPresenter = new RestaurantPresenter(this);
         mPresenter.hideTabLayout();
-        mRestaurantDetailAdapter = new RestaurantDetailAdapter(mPresenter);
+        mRestaurantMainAdapter = new RestaurantMainAdapter();
 
     }
 
@@ -56,7 +59,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         RecyclerView recyclerView = root.findViewById(R.id.recyclerview_restaurant);
         recyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext()));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(mRestaurantDetailAdapter);
+        recyclerView.setAdapter(mRestaurantMainAdapter);
         recyclerView.smoothScrollToPosition(0);
 
 //        recyclerView.scrollToPosition(0);
@@ -89,8 +92,9 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     }
 
     @Override
-    public void showRestaurant(Restaurant restaurant) {
-        mRestaurantDetailAdapter.updateRestaurant(restaurant);
+    public void showRestaurant(Restaurant restaurant, ArrayList<Comment> comments) {
+        mRestaurantMainAdapter.updateRestaurantData(restaurant, comments);
+
         Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getRestaurantName());
         Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getLat_Lng());
         Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getRestaurantLocation());

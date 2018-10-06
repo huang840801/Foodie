@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageView_authorImage"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -14,7 +14,8 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/stin" />
+        android:src="@drawable/icon_portrait02"
+        />
 
     <TextView
         android:id="@+id/textView_authorName"
@@ -32,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈囉哈yhtyhtyhtyhtyhtyhtyhtyhtyhtyhtyhynyyhtyhtyhtyhtyhyhyhyhyhyhyhyhyh囉哈囉"
+        android:text="很好吃!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

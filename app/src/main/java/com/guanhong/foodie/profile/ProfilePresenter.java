@@ -58,9 +58,9 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     public void getMyArticleData() {
 
         SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-        final String uid = userData.getString("userUid", "");
-
-        Log.d(Constants.TAG, " ProfilePresenter uid = " + uid);
+        final String uid = userData.getString("userId", "");
+//
+//        Log.d(Constants.TAG, " ProfilePresenter uid = " + uid);
 
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -186,32 +186,46 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     @Override
     public void getUserData() {
-//        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-//        final String uid = userData.getString("userUid", "");
+        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
+        final String uid = userData.getString("userId", "");
+        Log.d(Constants.TAG, " ProfilePresenteruid = " + uid);
 
-        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-
-        Query query = mDatabaseReference.child("user").orderByChild("id").equalTo(UserManager.getInstance().getUserId());
+//        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+//
+//        Query query = mDatabaseReference.child("user").orderByChild("id").equalTo(uid);
+        FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = userDatabase.getReference("user");
+        Query query = myRef;
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    if (String.valueOf(snapshot.getKey()).equals(uid)) {
 
-                    User user = new User();
+                        Log.d(Constants.TAG, "ProfilePresenterDataSnapshot : " + snapshot.child("email").getValue());
+                        Log.d(Constants.TAG, "ProfilePresenterDataSnapshot : " + snapshot.child("id").getValue());
+                        Log.d(Constants.TAG, "ProfilePresenterDataSnapshot : " + snapshot.child("image").getValue());
+                        Log.d(Constants.TAG, " ProfilePresenterDataSnapshot : " + snapshot.child("name").getValue());
 
-                    String name = snapshot.child("name").getValue().toString();
-                    String email = snapshot.child("email").getValue().toString();
-                    String image = snapshot.child("image").getValue().toString();
 
-                    user.setName(name);
-                    user.setEmail(email);
-                    user.setImage(image);
 
-                    mProfileView.showUserData(user);
 
-                    Log.d(Constants.TAG, " name = " + name);
-                    Log.d(Constants.TAG, " email = " + email);
-                    Log.d(Constants.TAG, " image = " + image);
+
+                        User user = new User();
+
+                        String name = snapshot.child("name").getValue().toString();
+                        String email = snapshot.child("email").getValue().toString();
+                        String image = snapshot.child("image").getValue().toString();
+
+                        user.setName(name);
+                        user.setEmail(email);
+                        user.setImage(image);
+
+                        mProfileView.showUserData(user);
+
+//                        Log.d(Constants.TAG, " name = " + name);
+//                        Log.d(Constants.TAG, " email = " + email);
+//                        Log.d(Constants.TAG, " image = " + image);
 
 //                    ContentResolver cr = mContext.getContentResolver();
 //                    try {
@@ -221,6 +235,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 //                    } catch (FileNotFoundException e) {
 //                        Log.e("Exception", e.getMessage(), e);
 //                    }
+                    }
                 }
             }
 

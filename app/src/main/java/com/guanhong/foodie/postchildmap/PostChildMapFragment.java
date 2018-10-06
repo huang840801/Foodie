@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,7 +52,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
     private PostChildMapContract.Presenter mPresenter;
     private GoogleMap mGoogleMap;
     private MapView mGoogleMapView;
-    private Button mButton;
+    private ImageView mLocation;
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
@@ -102,11 +101,10 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
 
         mBackImageView = rootView.findViewById(R.id.imageView_back_arrow);
         mGoogleMapView = rootView.findViewById(R.id.post_mapView);
-        mButton = rootView.findViewById(R.id.button);
+        mLocation = rootView.findViewById(R.id.imageView_my_position);
 
         mGoogleMapView.onCreate(savedInstanceState);
         mGoogleMapView.onResume();
-
 
         return rootView;
     }
@@ -117,7 +115,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
 
         mPresenter.start();
 
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (status.isProviderEnabled(LocationManager.GPS_PROVIDER) && status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
@@ -248,6 +246,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mGoogleMap = googleMap;
         mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override

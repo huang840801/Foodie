@@ -45,7 +45,10 @@ public class LikedFragment extends Fragment implements LikedContract.View{
 
         Log.d(Constants.TAG, "  transToLiked " + mPresenter);
 
-
+        Log.d("UserManager", " email = "+ UserManager.getInstance().getUserEmail());
+        Log.d("UserManager", " id = "+ UserManager.getInstance().getUserId());
+        Log.d("UserManager", " image = "+ UserManager.getInstance().getUserImage());
+        Log.d("UserManager", " name = "+ UserManager.getInstance().getUserName());
 
         mPresenter.start();
     }
