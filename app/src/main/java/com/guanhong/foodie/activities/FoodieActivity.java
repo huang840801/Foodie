@@ -346,19 +346,19 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     public void showRestaurantUi() {
         Log.d(Constants.TAG, "  hello   transToRestaurant");
-        mViewPager.setVisibility(View.GONE);
+//        mViewPager.setVisibility(View.GONE);
 
     }
 
     @Override
     public void showPostArticleUi() {
-        mViewPager.setVisibility(View.GONE);
+//        mViewPager.setVisibility(View.GONE);
 
     }
 
     @Override
     public void showPostChildMapUi() {
-        mViewPager.setVisibility(View.GONE);
+//        mViewPager.setVisibility(View.GONE);
 
     }
 

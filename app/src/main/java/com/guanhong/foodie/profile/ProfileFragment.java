@@ -62,20 +62,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mArticleCount = v.findViewById(R.id.textView_article_count);
         mImageViewPost = v.findViewById(R.id.imageView_prpfile_post_article);
         mRecyclerView = v.findViewById(R.id.recyclerview_profile_article);
-        mArticleCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
 
-                Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
-
-                String str = formatter.format(curDate);
-
-                Log.d(" currentTimeMillis ", "str = " + str);
-                Log.d(" currentTimeMillis ", "" + curDate);
-                Log.d(" currentTimeMillis ", "" + System.currentTimeMillis());
-            }
-        });
 
         mUserImageView.setOnClickListener(this);
         mImageViewPost.setOnClickListener(this);

@@ -10,12 +10,11 @@
         android:id="@+id/imageView_authorImage"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/icon_portrait02"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_authorName"
@@ -29,13 +28,24 @@
 
     <TextView
         android:id="@+id/textView_comment_content"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="很好吃!"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="很好吃!口感嘎蹦脆很好吃!口感嘎蹦脆很好吃!口感嘎蹦脆很好吃!口感嘎蹦脆很好吃!口感嘎蹦脆很好吃!口感嘎蹦脆很好吃!口感嘎蹦脆"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_authorImage" />
+
+    <TextView
+        android:id="@+id/textView_comment_createdTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="2018年10月07日18:40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_authorName" />
 </android.support.constraint.ConstraintLayout>

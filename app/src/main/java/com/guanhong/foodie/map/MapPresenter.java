@@ -26,6 +26,8 @@ import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -140,13 +142,15 @@ public class MapPresenter implements MapContract.Presenter {
                     author.setImage((String) snapshot.child("author").child("image").getValue());
                     author.setName((String) snapshot.child("author").child("name").getValue());
 
-                    comment.setOwner(author);
+                    comment.setAuthor(author);
                     comment.setComment((String) snapshot.child("comment").getValue());
                     comment.setCreatedTime(String.valueOf(snapshot.child("createdTime").getValue()));
 
                     comments.add(comment);
                 }
 
+
+                Collections.reverse(comments);
 
                 mMapView.showRestaurantUi(restaurant, comments);
 

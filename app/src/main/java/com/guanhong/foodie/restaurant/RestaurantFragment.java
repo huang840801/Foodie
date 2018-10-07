@@ -46,7 +46,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         super.onCreate(savedInstanceState);
 
 //        mPresenter = new RestaurantPresenter(this);
-        mPresenter.hideTabLayout();
+//        mPresenter.hideTabLayout();
         mRestaurantMainAdapter = new RestaurantMainAdapter();
 
     }
@@ -93,7 +93,11 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
 
     @Override
     public void showRestaurant(Restaurant restaurant, ArrayList<Comment> comments) {
+        Log.d(Constants.TAG, " mRestaurantMainAdapter: " + mRestaurantMainAdapter);
+
         mRestaurantMainAdapter.updateRestaurantData(restaurant, comments);
+        mRestaurantMainAdapter.notifyDataSetChanged();
+
 
         Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getRestaurantName());
         Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getLat_Lng());

@@ -2,42 +2,42 @@ package com.guanhong.foodie.objects;
 
 public class Comment {
 
-    private String mId;
-    private String mArticleId;
+//    private String mId;
+//    private String mArticleId;
     private Author mAuthor;
     private String mComment;
     private String mCreatedTime;
 
     public Comment() {
-        mId = "";
-        mArticleId = "";
+//        mId = "";
+//        mArticleId = "";
         mAuthor = new Author();
         mComment = "";
         mCreatedTime = "";
     }
 
-    public String getId() {
-        return mId;
-    }
+//    public String getId() {
+//        return mId;
+//    }
+//
+//    public void setId(String id) {
+//        mId = id;
+//    }
 
-    public void setId(String id) {
-        mId = id;
-    }
+//    public String getArticleId() {
+//        return mArticleId;
+//    }
+//
+//    public void setArticleId(String articleId) {
+//        mArticleId = articleId;
+//    }
 
-    public String getArticleId() {
-        return mArticleId;
-    }
-
-    public void setArticleId(String articleId) {
-        mArticleId = articleId;
-    }
-
-    public Author getOwner() {
+    public Author getAuthor() {
         return mAuthor;
     }
 
-    public void setOwner(Author owner) {
-        mAuthor = owner;
+    public void setAuthor(Author author) {
+        mAuthor = author;
     }
 
     public String getComment() {

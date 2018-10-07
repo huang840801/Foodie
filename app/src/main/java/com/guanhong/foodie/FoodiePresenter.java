@@ -161,7 +161,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     @Override
     public void tranToRestaurant(Restaurant restaurant, ArrayList<Comment> comments) {
         Log.d("restaurant ", " FoodiePresenter : " + restaurant);
-        mFoodieView.setTabLayoutVisibility(false);
+        mFoodieView.setTabLayoutVisibility(true);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 
 

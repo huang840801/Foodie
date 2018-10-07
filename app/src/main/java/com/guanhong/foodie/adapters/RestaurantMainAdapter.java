@@ -1,6 +1,7 @@
 package com.guanhong.foodie.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -34,7 +35,9 @@ import com.rd.PageIndicatorView;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
@@ -42,8 +45,10 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
     private Restaurant mRestaurant;
     private ArrayList<Comment> mComments = new ArrayList<>();
+//    private RestaurantMainAdapter mRestaurantMainAdapter;
 
     private Context mContext;
+    private Typeface mTypeface;
 
 //    public RestaurantMainAdapter(RestaurantContract.Presenter presenter) {
 //
@@ -55,6 +60,8 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         mContext = parent.getContext();
+        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
+
 
         if (viewType == Constants.VIEWTYPE_RESTAURANT_MAIN) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_restaurant_main, parent, false);
@@ -104,7 +111,10 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         getArticleFromFirebase(holder);
 
         holder.getRestaurantName().setText(mRestaurant.getRestaurantName());
+        holder.getRestaurantName().setTypeface(mTypeface);
+
         holder.getRestaurantPosition().setText(mRestaurant.getRestaurantLocation());
+        holder.getRestaurantPosition().setTypeface(mTypeface);
         if (mRestaurant.getStarCount() == 5) {
             holder.getStar1().setImageResource(R.drawable.new_star_selected);
             holder.getStar2().setImageResource(R.drawable.new_star_selected);
@@ -148,23 +158,43 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
                 String comment = holder.getEditTextComment().getText().toString();
 
-                Log.d("comment", "comment = " + comment);
-                Log.d("comment", "comment = " + UserManager.getInstance().getUserName());
-                Log.d("comment", "comment = " + UserManager.getInstance().getUserId());
-                Log.d("comment", "comment = " + UserManager.getInstance().getUserImage());
-                Log.d("comment", "comment = " + UserManager.getInstance().getUserImage());
+                if (!"".equals(comment)) {
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm");
+
+                    Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
+                    String str = formatter.format(curDate);
 
 
+                    Log.d("comment", " getLat_Lng = " + mRestaurant.getLat_Lng());
+                    Log.d("comment", " comment = " + comment);
+                    Log.d("comment", " UserName = " + UserManager.getInstance().getUserName());
+                    Log.d("comment", " UserId = " + UserManager.getInstance().getUserId());
+                    Log.d("comment", " UserImage = " + UserManager.getInstance().getUserImage());
+                    Log.d("comment", " currentTimeMillis = " + System.currentTimeMillis());
+                    Log.d("comment", " str = " + str);
 
-                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    Comment comment1 = new Comment();
+
+                    Author author = new Author();
+                    author.setId(UserManager.getInstance().getUserId());
+                    author.setImage(UserManager.getInstance().getUserImage());
+                    author.setName(UserManager.getInstance().getUserName());
+
+                    comment1.setAuthor(author);
+                    comment1.setComment(comment);
+                    comment1.setCreatedTime(str);
 
 
-                DatabaseReference restaurantDataBase = firebaseDatabase.getReference("comment");
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+                    DatabaseReference restaurantDataBase = firebaseDatabase.getReference("comment");
+                    restaurantDataBase.child(mRestaurant.getLat_Lng()).child(str).setValue(comment1);
 //                restaurantDataBase.child(article.getLat_lng()).push().setValue(article);
 
+                    holder.getEditTextComment().setText("");
 
-
-
+//                    mRestaurantMainAdapter.notifyDataSetChanged();
+                }
 
 
             }
@@ -280,6 +310,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         private EditText mEditTextComment;
         private ImageView mButtonSend;
         private PageIndicatorView pageIndicatorView;
+        private ImageView mHeart;
 
         public RestaurantMainItemViewHolder(View itemView) {
             super(itemView);
@@ -295,6 +326,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             mEditTextComment = itemView.findViewById(R.id.editText_comments);
             mButtonSend = itemView.findViewById(R.id.imageView_send);
             pageIndicatorView = itemView.findViewById(R.id.indicator);
+            mHeart = itemView.findViewById(R.id.imageView_heart);
 
         }
 
@@ -349,12 +381,15 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
     private void bindCommentItem(RestaurantCommentItemViewHolder holder, int i) {
 
-        holder.getTextAuthorName().setText(mComments.get(i).getOwner().getName());
+        holder.getTextAuthorName().setText(mComments.get(i).getAuthor().getName());
+        holder.getTextAuthorName().setTypeface(mTypeface);
         holder.getTextCommentContent().setText(mComments.get(i).getComment());
+        holder.getTextCommentContent().setTypeface(mTypeface);
         Picasso.get()
-               .load(mComments.get(i).getOwner().getImage())
+                .load(mComments.get(i).getAuthor().getImage())
 //                .networkPolicy(NetworkPolicy.OFFLINE)
                 .into(holder.getImageAuthorImage());
+        holder.getTextCreatedTime().setText(mComments.get(i).getCreatedTime());
     }
 
     private class RestaurantCommentItemViewHolder extends RecyclerView.ViewHolder {
@@ -362,6 +397,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         private ImageView mImageAuthorImage;
         private TextView mTextAuthorName;
         private TextView mTextCommentContent;
+        private TextView mTextCreatedTime;
 
 
         public RestaurantCommentItemViewHolder(View itemView) {
@@ -370,6 +406,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             mImageAuthorImage = (ImageView) itemView.findViewById(R.id.imageView_authorImage);
             mTextAuthorName = (TextView) itemView.findViewById(R.id.textView_authorName);
             mTextCommentContent = (TextView) itemView.findViewById(R.id.textView_comment_content);
+            mTextCreatedTime = (TextView) itemView.findViewById(R.id.textView_comment_createdTime);
         }
 
         public ImageView getImageAuthorImage() {
@@ -382,6 +419,10 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
         public TextView getTextCommentContent() {
             return mTextCommentContent;
+        }
+
+        public TextView getTextCreatedTime() {
+            return mTextCreatedTime;
         }
     }
 }
