@@ -21,6 +21,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Author;
 import com.guanhong.foodie.objects.Comment;
@@ -30,6 +31,7 @@ import com.guanhong.foodie.restaurant.RestaurantContract;
 import com.guanhong.foodie.util.Constants;
 import com.guanhong.foodie.util.SpaceItemDecoration;
 import com.rd.PageIndicatorView;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -140,6 +142,33 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             holder.getStar4().setImageResource(R.drawable.new_star_unselected);
             holder.getStar5().setImageResource(R.drawable.new_star_unselected);
         }
+
+        holder.getButtonSend().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String comment = holder.getEditTextComment().getText().toString();
+
+                Log.d("comment", "comment = " + comment);
+                Log.d("comment", "comment = " + UserManager.getInstance().getUserName());
+                Log.d("comment", "comment = " + UserManager.getInstance().getUserId());
+                Log.d("comment", "comment = " + UserManager.getInstance().getUserImage());
+                Log.d("comment", "comment = " + UserManager.getInstance().getUserImage());
+
+
+
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+
+                DatabaseReference restaurantDataBase = firebaseDatabase.getReference("comment");
+//                restaurantDataBase.child(article.getLat_lng()).push().setValue(article);
+
+
+
+
+
+
+            }
+        });
 
     }
 
@@ -324,7 +353,8 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         holder.getTextCommentContent().setText(mComments.get(i).getComment());
         Picasso.get()
                .load(mComments.get(i).getOwner().getImage())
-               .into(holder.getImageAuthorImage());
+//                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(holder.getImageAuthorImage());
     }
 
     private class RestaurantCommentItemViewHolder extends RecyclerView.ViewHolder {

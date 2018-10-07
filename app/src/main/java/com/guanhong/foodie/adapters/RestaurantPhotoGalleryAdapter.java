@@ -20,6 +20,7 @@ import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.util.Constants;
 import com.guanhong.foodie.util.ImageFromLruCache;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -94,7 +95,11 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
 
 //                Picasso.get().load(uri).placeholder(R.drawable.all_picture_placeholder).into(mImagePictures);
 //            }else {
-                Picasso.get().load(mPictureList.get(positionInPhoto)).placeholder(R.drawable.all_picture_placeholder).into(mImagePictures);
+                Picasso.get()
+                        .load(mPictureList.get(positionInPhoto))
+//                        .networkPolicy(NetworkPolicy.OFFLINE)
+                        .placeholder(R.drawable.all_picture_placeholder)
+                        .into(mImagePictures);
 
 //            }
         }

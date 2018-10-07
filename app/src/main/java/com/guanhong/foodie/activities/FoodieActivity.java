@@ -96,10 +96,10 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.d("UserManager ", "email = " + UserManager.getInstance().getUserEmail());
-        Log.d("UserManager ", "id = " + UserManager.getInstance().getUserId());
-        Log.d("UserManager ", "image = " + UserManager.getInstance().getUserImage());
-        Log.d("UserManager ", "name = " + UserManager.getInstance().getUserName());
+//        Log.d("UserManager ", "email = " + UserManager.getInstance().getUserEmail());
+//        Log.d("UserManager ", "id = " + UserManager.getInstance().getUserId());
+//        Log.d("UserManager ", "image = " + UserManager.getInstance().getUserImage());
+//        Log.d("UserManager ", "name = " + UserManager.getInstance().getUserName());
 
 
         super.onCreate(savedInstanceState);
@@ -180,7 +180,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         config.minHeight = 400;
         config.minWidth = 400;
         config.mimeType = new String[]{"image/jpeg", "image/png"}; // 图片类型 image/gif ...
-        config.minSize = 1 * 1024 * 1024; // 1Mb 图片大小
+        config.minSize =  1024 * 1024; // 1Mb 图片大小
 
 
         mContext = this;
@@ -198,12 +198,34 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         setTabLayout();
 
-        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mTitles, mFragmentList);
+        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mTitles, mFragmentList, this);
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
+//        mTabLayout.getTabAt(0).setCustomView(mViewPagerAdapter.getTabView(0));
+//        mTabLayout.getTabAt(1).setCustomView(mViewPagerAdapter.getTabView(1));
+//        mTabLayout.getTabAt(2).setCustomView(mViewPagerAdapter.getTabView(2));
+//        mTabLayout.getTabAt(3).setCustomView(mViewPagerAdapter.getTabView(3));
+//        mTabLayout.getTabAt(4).setCustomView(mViewPagerAdapter.getTabView(4));
+
+
+
+
+
+
+        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
+            mTabLayout.getTabAt(i).setCustomView(mViewPagerAdapter.getTabView(i));
+        }
+
+//        onTabSelected(mTabLayout.getTabAt(0));
+
+//        mTabLayout.getTabAt(0).getCustomView().setSelected(true);
+
         mPresenter = new FoodiePresenter(this, mViewPager, getSupportFragmentManager());
         mPresenter.start();
+
+        mTabLayout.getTabAt(0).select();
+        mViewPager.setCurrentItem(0);
         //设置TabLayout点击事件
         mTabLayout.setOnTabSelectedListener(this);
     }
@@ -211,11 +233,12 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     private void setTabLayout() {
         //设置TabLayout标签的显示方式
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        //循环注入标签
-        for (String tab : mTitles) {
-            mTabLayout.addTab(mTabLayout.newTab().setText(tab));
-        }
 
+        //循环注入标签
+//        for (String tab : mTitles) {
+//            mTabLayout.addTab(mTabLayout.newTab().setText(tab));
+//
+//        }
 
         if (mMapFragment == null) {
             mMapFragment = MapFragment.newInstance();
@@ -348,28 +371,27 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-//        mViewPager.setCurrentItem(tab.getPosition());
-        Log.d(Constants.TAG, "  tab = " + tab.getPosition());
+        Log.d("getTabView ", " onTabSelected position = " + tab.getPosition());
 
         switch (tab.getPosition()) {
             case 0:
-
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.map_selected);
                 mPresenter.transToMap();
                 break;
             case 1:
-
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.portrait_selected);
                 mPresenter.transToProfile();
                 break;
             case 2:
-
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.search_selected);
                 mPresenter.transToSearch();
                 break;
             case 3:
-
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.recommend_selected);
                 mPresenter.transToLotto();
                 break;
             case 4:
-
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.heart_selected);
                 mPresenter.transToLiked();
                 break;
 
@@ -380,6 +402,27 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
 
+        Log.d("getTabView ", " onTabUnselected position = " + tab.getPosition());
+
+
+        switch (tab.getPosition()) {
+            case 0:
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.map_normal);
+                break;
+            case 1:
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.portrait_normal);
+                break;
+            case 2:
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.search_normal);
+                break;
+            case 3:
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.recommend_normal);
+                break;
+            case 4:
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.heart_normal);
+                break;
+
+        }
     }
 
     @Override
@@ -399,7 +442,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     public void transToPostChildMap() {
         mPresenter.transToPostChildMap();
     }
-
 
     public void transToPostArticle(String addressLine, LatLng latLng) {
         mPresenter.transToPostArticle(addressLine, latLng);
@@ -428,7 +470,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
                 Log.d("updateUserImage ", " onActivityResult" + pictures);
                 Log.d("updateUserImage ", " onActivityResult" + pictures.size());
 
-
                 mProfilePresenter.updateUserImageToFireBaseStorage(pictures);
 //                SharedPreferences userImage = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
 //                userImage.edit()
@@ -441,62 +482,12 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
                 ArrayList<String> pictures = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
 
-
                 Log.d("MULTIPLE_PICKER ", "" + pictures);
                 Log.d("MULTIPLE_PICKER ", "" + pictures.size());
 
-//                SharedPreferences userData = this.getSharedPreferences("userData", Context.MODE_PRIVATE);
-//                String name = userData.getString("userName", "");
-//                String email = userData.getString("userEmail", "");
-//                String uid = userData.getString("userUid", "");
-//                String image = userData.getString("userImage", "");
-//
-//                Log.d("MULTIPLE_PICKER", " userName : " + name);
-//                Log.d("MULTIPLE_PICKER", " userEmail : " + email);
-//                Log.d("MULTIPLE_PICKER", " userUid : " + uid);
-//                Log.d("MULTIPLE_PICKER", " userImage : " + image);
-//
-//                StorageReference mStorageReference;
-//                mStorageReference = FirebaseStorage.getInstance().getReference();
-//
-//                Uri file = Uri.fromFile(new File(pictures.get(0)));
-//                final StorageReference myRef = mStorageReference.child(uid);
-//
-//                myRef.putFile(file).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-//                                                         @Override
-//                                                         public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-//                                                             if(!task.isSuccessful()){
-//                                                                 throw  task.getException();
-//                                                             }
-//                                                             return myRef.getDownloadUrl();
-//                                                         }
-//                                                     }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Uri> task) {
-//                        if(task.isSuccessful()){
-//                            Uri downloadUri = task.getResult();
-//                            Log.d("MULTIPLE_PICKER ", "" + downloadUri);
-//                        }
-//                    }
-//                });
-
                 mPresenter.getPostRestaurantPictures(pictures);
             }
-
-//            switch (requestCode) {
-//                case 1:
-//                    Log.d("requestCode = 1 " , data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT) +"");
-//
-//                case 10 :
-//                    Log.d("requestCode = 10 " , data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT) +"");
-//
-//
-//
-//            }
-
         }
-
-
     }
 
     @Override

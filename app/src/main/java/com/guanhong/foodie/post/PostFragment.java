@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.PostArticlePhotoAdapter;
 import com.guanhong.foodie.objects.Article;
@@ -284,20 +285,25 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private void getArticleData(ArrayList<String> newPictures) {
 
 
+        Log.d("UserManager", " email = "+ UserManager.getInstance().getUserEmail());
+        Log.d("UserManager", " id = "+ UserManager.getInstance().getUserId());
+        Log.d("UserManager", " image = "+ UserManager.getInstance().getUserImage());
+        Log.d("UserManager", " name = "+ UserManager.getInstance().getUserName());
+
         Article article = new Article();
         Author author = new Author();
         ArrayList<Menu> menus = new ArrayList<>();
 //        ArrayList<String> pictures = new ArrayList<>();
 //        Menu menu = new Menu();
 
-        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-        String uid = userData.getString("userUid", "");
-        String name = userData.getString("userName", "");
-        String image = userData.getString("userImage", "");
+//        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
+//        String uid = userData.getString("userUid", "");
+//        String name = userData.getString("userName", "");
+//        String image = userData.getString("userImage", "");
 
-        author.setId(uid);
-        author.setName(name);
-        author.setImage(image);
+        author.setId(UserManager.getInstance().getUserId());
+        author.setName(UserManager.getInstance().getUserName());
+        author.setImage(UserManager.getInstance().getUserImage());
 
         Menu menu1 = new Menu();
 

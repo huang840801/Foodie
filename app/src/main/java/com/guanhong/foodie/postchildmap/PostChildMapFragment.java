@@ -164,8 +164,8 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
                 Toast.makeText(mContext, "getMyLocation : " + mLastLocation.getLatitude() + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
             } else {
 
-                Log.d(Constants.TAG, "mLastLocation == null" + String.valueOf(mLastLocation.getLatitude()) + "\n"
-                        + String.valueOf(mLastLocation.getLongitude()));
+//                Log.d(Constants.TAG, "mLastLocation == null" + String.valueOf(mLastLocation.getLatitude()) + "\n"
+//                        + String.valueOf(mLastLocation.getLongitude()));
                 Toast.makeText(mContext, "mLastLocation == null" + mLastLocation.getLatitude() + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
 
             }
