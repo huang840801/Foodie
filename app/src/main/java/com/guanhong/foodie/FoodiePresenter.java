@@ -12,8 +12,11 @@ import com.guanhong.foodie.liked.LikedPresenter;
 import com.guanhong.foodie.lotto.LottoFragment;
 import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.map.MapPresenter;
+import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
+import com.guanhong.foodie.personal_article.PersonalArticleFragment;
+import com.guanhong.foodie.personal_article.PersonalArticlePresenter;
 import com.guanhong.foodie.post.PostFragment;
 import com.guanhong.foodie.post.PostPresenter;
 import com.guanhong.foodie.postchildmap.PostChildMapFragment;
@@ -43,7 +46,8 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     public static final String LIKE = "LIKE";
     public static final String RESTAURANT = "RESTAURANT";
     public static final String POST = "POST";
-    public static final String POSTCHILDMAP = "POSTCHILDMAP";
+    public static final String POST_CHILD_MAP = "POSTCHILDMAP";
+    public static final String PERSONAL_ARTICLE = "PERSONALARTICLE";
 
     private MapFragment mMapFragment;
     private ProfileFragment mProfileFragment;
@@ -53,6 +57,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     private RestaurantFragment mRestaurantFragment;
     private PostFragment mPostFragment;
     private PostChildMapFragment mPostChildMapFragment;
+    private PersonalArticleFragment mPersonalArticleFragment;
 
 
     private MapPresenter mMapPresenter;
@@ -61,11 +66,9 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     private LikedPresenter mLikedPresenter;
     private PostPresenter mPostPresenter;
     private PostChildMapPresenter mPostChildMapPresenter;
+    private PersonalArticlePresenter mPersonalArticlePresenter;
 
     private ViewPager mViewPager;
-
-    private ArrayList<Fragment> mFragmentArrayList;
-
 
     public FoodiePresenter(FoodieContract.View foodieView, ViewPager viewPager, android.support.v4.app.FragmentManager supportFragmentManager) {
         mFoodieView = checkNotNull(foodieView, "foodieView cannot be null!");
@@ -163,7 +166,6 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         Log.d("restaurant ", " FoodiePresenter : " + restaurant);
         mFoodieView.setTabLayoutVisibility(true);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-
 
         if (mRestaurantFragment == null) {
             mRestaurantFragment = RestaurantFragment.newInstance();
@@ -289,6 +291,22 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     @Override
     public void getPostRestaurantPictures(ArrayList<String> stringArrayListExtra) {
         mPostPresenter.getPictures(stringArrayListExtra);
+    }
+
+    @Override
+    public void transToPersonalArticle(Article article) {
+
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        mPersonalArticleFragment = PersonalArticleFragment.newInstance();
+
+        mPersonalArticlePresenter = new PersonalArticlePresenter(mPersonalArticleFragment);
+        fragmentTransaction.hide(mRestaurantFragment);
+        fragmentTransaction.addToBackStack(RESTAURANT);
+
+        if(!mPersonalArticleFragment.isAdded()){
+            fragmentTransaction.add(R.id.fragment_container, mPersonalArticleFragment, PERSONAL_ARTICLE);
+        }
+
     }
 
 

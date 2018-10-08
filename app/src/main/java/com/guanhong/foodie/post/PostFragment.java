@@ -100,10 +100,8 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         mPresenter.showTabLayout();
     }
-
 
     @Nullable
     @Override

@@ -2,6 +2,7 @@ package com.guanhong.foodie.restaurant;
 
 import android.util.Log;
 
+import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
@@ -27,6 +28,11 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
     public void hideTabLayout() {
         mRestaurantView.setTabLayoutVisibility(false);
 
+    }
+
+    @Override
+    public void openPersonalArticle(Article article) {
+        mRestaurantView.showPersonalArticleUi(article);
     }
 
     public RestaurantPresenter(RestaurantContract.View restaurantView, Restaurant restaurant, ArrayList<Comment> comments) {

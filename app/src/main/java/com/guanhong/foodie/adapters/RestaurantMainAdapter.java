@@ -32,7 +32,6 @@ import com.guanhong.foodie.restaurant.RestaurantContract;
 import com.guanhong.foodie.util.Constants;
 import com.guanhong.foodie.util.SpaceItemDecoration;
 import com.rd.PageIndicatorView;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -41,7 +40,7 @@ import java.util.Date;
 
 public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
-//    private RestaurantContract.Presenter mPresenter;
+    private RestaurantContract.Presenter mPresenter;
 
     private Restaurant mRestaurant;
     private ArrayList<Comment> mComments = new ArrayList<>();
@@ -49,6 +48,12 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private Typeface mTypeface;
+
+    private boolean isLike = false;
+
+    public RestaurantMainAdapter(RestaurantContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
 
 //    public RestaurantMainAdapter(RestaurantContract.Presenter presenter) {
 //
@@ -153,17 +158,30 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             holder.getStar5().setImageResource(R.drawable.new_star_unselected);
         }
 
+        holder.getHeart().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!isLike){
+                    holder.getHeart().setImageResource(R.drawable.heart_like);
+                    isLike = true;
+                }else {
+                    holder.getHeart().setImageResource(R.drawable.heart_unlike);
+                    isLike = false;
+                }
+            }
+        });
+
         holder.getButtonSend().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String comment = holder.getEditTextComment().getText().toString();
 
                 if (!"".equals(comment)) {
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm");
+//                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
 
                     Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
-                    String str = formatter.format(curDate);
-
+//                    String str = formatter.format(curDate);
+//
 
                     Log.d("comment", " getLat_Lng = " + mRestaurant.getLat_Lng());
                     Log.d("comment", " comment = " + comment);
@@ -171,7 +189,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                     Log.d("comment", " UserId = " + UserManager.getInstance().getUserId());
                     Log.d("comment", " UserImage = " + UserManager.getInstance().getUserImage());
                     Log.d("comment", " currentTimeMillis = " + System.currentTimeMillis());
-                    Log.d("comment", " str = " + str);
+//                    Log.d("comment", " str = " + str);
 
                     Comment comment1 = new Comment();
 
@@ -182,13 +200,13 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
                     comment1.setAuthor(author);
                     comment1.setComment(comment);
-                    comment1.setCreatedTime(str);
+                    comment1.setCreatedTime(System.currentTimeMillis()+"");
 
 
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
                     DatabaseReference restaurantDataBase = firebaseDatabase.getReference("comment");
-                    restaurantDataBase.child(mRestaurant.getLat_Lng()).child(str).setValue(comment1);
+                    restaurantDataBase.child(mRestaurant.getLat_Lng()).child(System.currentTimeMillis()+"").setValue(comment1);
 //                restaurantDataBase.child(article.getLat_lng()).push().setValue(article);
 
                     holder.getEditTextComment().setText("");
@@ -206,7 +224,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         holder.getRecyclerViewArticlePreview().setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
         holder.getRecyclerViewArticlePreview().setHasFixedSize(true);
         holder.getRecyclerViewArticlePreview().addItemDecoration(new SpaceItemDecoration(2));
-        holder.getRecyclerViewArticlePreview().setAdapter(new RestaurantArticlePreviewAdapter(articleArrayList));
+        holder.getRecyclerViewArticlePreview().setAdapter(new RestaurantArticlePreviewAdapter(articleArrayList, mPresenter));
     }
 
     private void getArticleFromFirebase(final RestaurantMainItemViewHolder holder) {
@@ -330,6 +348,10 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
         }
 
+        public ImageView getHeart() {
+            return mHeart;
+        }
+
         public RecyclerView getRecyclerViewPhotoGallery() {
             return mRecyclerViewPhotoGallery;
         }
@@ -380,6 +402,15 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
     }
 
     private void bindCommentItem(RestaurantCommentItemViewHolder holder, int i) {
+        Log.d(Constants.TAG, " getCreatedTime: " + mComments.get(i).getCreatedTime());
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm");
+        long lcc = Long.valueOf(mComments.get(i).getCreatedTime());
+//        int j = Integer.parseInt(mComments.get(i).getCreatedTime());
+        String time = formatter.format(new Date(lcc));
+        Log.d(Constants.TAG, " getCreatedTime: " + lcc);
+//        Log.d(Constants.TAG, " getCreatedTime: " + j);
+        Log.d(Constants.TAG, " getCreatedTime: " + time);
 
         holder.getTextAuthorName().setText(mComments.get(i).getAuthor().getName());
         holder.getTextAuthorName().setTypeface(mTypeface);
@@ -389,7 +420,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                 .load(mComments.get(i).getAuthor().getImage())
 //                .networkPolicy(NetworkPolicy.OFFLINE)
                 .into(holder.getImageAuthorImage());
-        holder.getTextCreatedTime().setText(mComments.get(i).getCreatedTime());
+        holder.getTextCreatedTime().setText(time);
     }
 
     private class RestaurantCommentItemViewHolder extends RecyclerView.ViewHolder {
@@ -398,7 +429,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         private TextView mTextAuthorName;
         private TextView mTextCommentContent;
         private TextView mTextCreatedTime;
-
 
         public RestaurantCommentItemViewHolder(View itemView) {
             super(itemView);

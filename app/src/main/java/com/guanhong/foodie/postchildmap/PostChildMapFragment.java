@@ -158,10 +158,19 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (mLastLocation != null) {
 
+                Geocoder geocoder = new Geocoder(mContext, Locale.TRADITIONAL_CHINESE);
+
+//                Log.d(Constants.TAG, "  hongtest postchild latitude = " + latLng.latitude);
+//                Log.d(Constants.TAG, "  hongtest postchild longitude = " + latLng.longitude);
+
+                LatLng latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+                mPresenter.getAddress(geocoder, latLng);
+
+
                 Log.d(Constants.TAG, "getMyLocation: " + String.valueOf(mLastLocation.getLatitude()) + "\n"
                         + String.valueOf(mLastLocation.getLongitude()));
 
-                Toast.makeText(mContext, "getMyLocation : " + mLastLocation.getLatitude() + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "getMyLocation : " + mLastLocation.getLatitude() + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
             } else {
 
 //                Log.d(Constants.TAG, "mLastLocation == null" + String.valueOf(mLastLocation.getLatitude()) + "\n"
@@ -323,7 +332,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        getMyLocation();
+//        getMyLocation();
     }
 
     @Override

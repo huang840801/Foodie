@@ -46,6 +46,7 @@ import com.guanhong.foodie.liked.LikedPresenter;
 import com.guanhong.foodie.lotto.LottoFragment;
 import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.map.MapPresenter;
+import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.objects.User;
@@ -180,7 +181,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         config.minHeight = 400;
         config.minWidth = 400;
         config.mimeType = new String[]{"image/jpeg", "image/png"}; // 图片类型 image/gif ...
-        config.minSize =  1024 * 1024; // 1Mb 图片大小
+        config.minSize = 1024 * 1024; // 1Mb 图片大小
 
 
         mContext = this;
@@ -207,10 +208,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 //        mTabLayout.getTabAt(2).setCustomView(mViewPagerAdapter.getTabView(2));
 //        mTabLayout.getTabAt(3).setCustomView(mViewPagerAdapter.getTabView(3));
 //        mTabLayout.getTabAt(4).setCustomView(mViewPagerAdapter.getTabView(4));
-
-
-
-
 
 
         for (int i = 0; i < mTabLayout.getTabCount(); i++) {
@@ -307,11 +304,9 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     public void onBackPressed() {
         Log.d(Constants.TAG, "onBackPressed: ");
 
-
         mPresenter.checkPostMapExist();
         mViewPager.setVisibility(View.VISIBLE);
         mTabLayout.setVisibility(View.VISIBLE);
-
 
         super.onBackPressed();
     }
@@ -447,6 +442,11 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         mPresenter.transToPostArticle(addressLine, latLng);
     }
 
+    public void transToPersonalArticle(Article article) {
+        mPresenter.transToPersonalArticle(article);
+    }
+
+
     public void transToPostProfile() {
         mPresenter.transToProfile();
     }
@@ -540,4 +540,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         startActivityForResult(intent, Constants.MULTIPLE_PICKER);
 
     }
+
+
 }

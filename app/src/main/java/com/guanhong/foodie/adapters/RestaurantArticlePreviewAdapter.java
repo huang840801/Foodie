@@ -11,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.custom.CircleCornerForm;
 import com.guanhong.foodie.objects.Article;
+import com.guanhong.foodie.restaurant.RestaurantContract;
 import com.guanhong.foodie.util.Constants;
 import com.squareup.picasso.Picasso;
 
@@ -20,11 +22,15 @@ import java.util.ArrayList;
 
 public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
 
+    private RestaurantContract.Presenter mPresenter;
+
     private Context mContext;
     private ArrayList<Article> mArticleArrayList;
 
-    public RestaurantArticlePreviewAdapter(ArrayList<Article> articleArrayList) {
+    public RestaurantArticlePreviewAdapter(ArrayList<Article> articleArrayList, RestaurantContract.Presenter presenter) {
         mArticleArrayList = articleArrayList;
+        mPresenter = presenter;
+        Log.d(Constants.TAG, " RestaurantArticlePreviewAdapter presenter = " + presenter);
         Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.size());
         Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getPictures());
         Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getMenus().size());
@@ -63,12 +69,11 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
         holder.getContent().setText(mArticleArrayList.get(position).getContent());
 
         Picasso.get()
-               .load(mArticleArrayList.get(position).getPictures().get(0))
-               .transform(new CircleCornerForm(mContext))
-               .resize(500,300)
-               .centerInside()
-               .into(holder.getArticlePhoto());
-
+                .load(mArticleArrayList.get(position).getPictures().get(0))
+                .transform(new CircleCornerForm(mContext))
+                .resize(500, 300)
+                .centerInside()
+                .into(holder.getArticlePhoto());
 
 
     }
@@ -78,7 +83,7 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
         return mArticleArrayList.size();
     }
 
-    private class ArticleItemViewHolder extends RecyclerView.ViewHolder {
+    private class ArticleItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView mArticlePhoto;
         private TextView mAuthorName;
@@ -89,6 +94,8 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
             mArticlePhoto = view.findViewById(R.id.imageView_article_preview);
             mAuthorName = view.findViewById(R.id.textView_restaurant_preview_author_name);
             mContent = view.findViewById(R.id.textView_restaurant_preview_content);
+
+            view.setOnClickListener(this);
         }
 
         public ImageView getArticlePhoto() {
@@ -101,6 +108,11 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
 
         public TextView getContent() {
             return mContent;
+        }
+
+        @Override
+        public void onClick(View view) {
+            mPresenter.openPersonalArticle(mArticleArrayList.get(getAdapterPosition()));
         }
     }
 

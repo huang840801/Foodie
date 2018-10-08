@@ -15,6 +15,7 @@ import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.RestaurantMainAdapter;
+import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
@@ -47,7 +48,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
 
 //        mPresenter = new RestaurantPresenter(this);
 //        mPresenter.hideTabLayout();
-        mRestaurantMainAdapter = new RestaurantMainAdapter();
+        mRestaurantMainAdapter = new RestaurantMainAdapter(mPresenter);
 
     }
 
@@ -103,6 +104,11 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getLat_Lng());
         Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getRestaurantLocation());
 
+    }
+
+    @Override
+    public void showPersonalArticleUi(Article article) {
+        ((FoodieActivity)getActivity()).transToPersonalArticle(article);
     }
 
 

@@ -168,6 +168,6 @@
         android:padding="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_restaurant_name"
-        app:srcCompat="@drawable/heart" />
+        app:srcCompat="@drawable/heart_unlike" />
 
 </android.support.constraint.ConstraintLayout>
