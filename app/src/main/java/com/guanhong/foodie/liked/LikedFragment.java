@@ -32,23 +32,13 @@ public class LikedFragment extends Fragment implements LikedContract.View{
 
     @Override
     public void setPresenter(LikedContract.Presenter presenter) {
-
         mPresenter = checkNotNull(presenter);
-
-        Log.d(Constants.TAG, "  transToLiked  setPresenter " + mPresenter);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         Log.d(Constants.TAG, "  transToLiked " + mPresenter);
-
-        Log.d("UserManager", " email = "+ UserManager.getInstance().getUserEmail());
-        Log.d("UserManager", " id = "+ UserManager.getInstance().getUserId());
-        Log.d("UserManager", " image = "+ UserManager.getInstance().getUserImage());
-        Log.d("UserManager", " name = "+ UserManager.getInstance().getUserName());
 
         mPresenter.start();
     }

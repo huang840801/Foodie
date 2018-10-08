@@ -61,6 +61,7 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
     }
 
     private class PostPhotoItemViewHolder extends RecyclerView.ViewHolder {
+
         private ImageView mImageView;
 
         public PostPhotoItemViewHolder(View view) {

@@ -256,17 +256,17 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
     @Override
     public void checkPostMapExist() {
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-
-        if (mPostChildMapFragment != null || mProfileFragment != null) {
-            fragmentTransaction.remove(mPostChildMapFragment);
-        }
-        if (mPostFragment != null || !mPostFragment.isHidden()) {
-            Log.d(Constants.TAG, "   mPostFragment isHidden");
-
-            fragmentTransaction.hide(mPostFragment);
-        }
-        fragmentTransaction.commit();
+//        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+//
+//        if (mPostChildMapFragment != null || mProfileFragment != null) {
+//            fragmentTransaction.remove(mPostChildMapFragment);
+//        }
+//        if (mPostFragment != null || !mPostFragment.isHidden()) {
+//            Log.d(Constants.TAG, "   mPostFragment isHidden");
+//
+//            fragmentTransaction.hide(mPostFragment);
+//        }
+//        fragmentTransaction.commit();
     }
 
     @Override
@@ -297,15 +297,22 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     public void transToPersonalArticle(Article article) {
 
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+
         mPersonalArticleFragment = PersonalArticleFragment.newInstance();
+        mPersonalArticlePresenter = new PersonalArticlePresenter(mPersonalArticleFragment, article);
 
-        mPersonalArticlePresenter = new PersonalArticlePresenter(mPersonalArticleFragment);
-        fragmentTransaction.hide(mRestaurantFragment);
-        fragmentTransaction.addToBackStack(RESTAURANT);
-
-        if(!mPersonalArticleFragment.isAdded()){
-            fragmentTransaction.add(R.id.fragment_container, mPersonalArticleFragment, PERSONAL_ARTICLE);
+        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
+            fragmentTransaction.hide(mRestaurantFragment);
+            fragmentTransaction.addToBackStack(null);
+//            fragmentTransaction.addToBackStack(RESTAURANT);
         }
+//        fragmentTransaction.hide(mRestaurantFragment);
+//        fragmentTransaction.addToBackStack(RESTAURANT);
+
+//        if(!mPersonalArticleFragment.isAdded()){
+        fragmentTransaction.add(R.id.fragment_container, mPersonalArticleFragment, PERSONAL_ARTICLE);
+        fragmentTransaction.commit();
+//        }
 
     }
 

@@ -73,12 +73,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         setTypeFace();
-
-
-//        mPresenter.getUserData();
-//
     }
 
     public static ProfileFragment newInstance() {
@@ -153,7 +148,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mArticleArrayList = articleArrayList;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(new ProfileArticleAdapter(mArticleArrayList));
+        mRecyclerView.setAdapter(new ProfileArticleAdapter(mArticleArrayList, mPresenter));
         mRecyclerView.addItemDecoration(new SpaceItemDecoration(40));
         mArticleCount.setText("" + mArticleArrayList.size());
     }
@@ -163,5 +158,10 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         Picasso.get()
                 .load(userNewPictureUri)
                 .into(mUserImageView);
+    }
+
+    @Override
+    public void showPersonalArticleUi(Article article) {
+        ((FoodieActivity)getActivity()).transToPersonalArticle(article);
     }
 }

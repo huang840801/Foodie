@@ -106,7 +106,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 //        Log.d(Constants.TAG, " MyComments: " + mComments.get(0).getComment());
 //        Log.d(Constants.TAG, " MyComments: " + mComments.get(1).getComment());
 
-        this.notifyDataSetChanged();
+//        this.notifyDataSetChanged();
 
     }
 
@@ -402,15 +402,15 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
     }
 
     private void bindCommentItem(RestaurantCommentItemViewHolder holder, int i) {
-        Log.d(Constants.TAG, " getCreatedTime: " + mComments.get(i).getCreatedTime());
+//        Log.d(Constants.TAG, " getCreatedTime: " + mComments.get(i).getCreatedTime());
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm");
         long lcc = Long.valueOf(mComments.get(i).getCreatedTime());
 //        int j = Integer.parseInt(mComments.get(i).getCreatedTime());
         String time = formatter.format(new Date(lcc));
-        Log.d(Constants.TAG, " getCreatedTime: " + lcc);
+//        Log.d(Constants.TAG, " getCreatedTime: " + lcc);
 //        Log.d(Constants.TAG, " getCreatedTime: " + j);
-        Log.d(Constants.TAG, " getCreatedTime: " + time);
+//        Log.d(Constants.TAG, " getCreatedTime: " + time);
 
         holder.getTextAuthorName().setText(mComments.get(i).getAuthor().getName());
         holder.getTextAuthorName().setTypeface(mTypeface);

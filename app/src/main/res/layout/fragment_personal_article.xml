@@ -17,9 +17,9 @@
             android:layout_marginStart="32dp"
             android:text="@string/restaurant_name"
             android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="@+id/edittext_personal_restaurant_name"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_personal_restaurant_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/edittext_personal_restaurant_name" />
+            app:layout_constraintTop_toTopOf="@+id/textView_personal_restaurant_name" />
 
         <TextView
             android:id="@+id/personal_restaurant_location"
@@ -31,8 +31,8 @@
             app:layout_constraintStart_toStartOf="@+id/personal_restaurant_name"
             app:layout_constraintTop_toTopOf="@+id/textview_personal_restaurant_location" />
 
-        <EditText
-            android:id="@+id/edittext_personal_restaurant_name"
+        <TextView
+            android:id="@+id/textView_personal_restaurant_name"
             android:layout_width="228dp"
             android:layout_height="30dp"
             android:layout_marginStart="24dp"
@@ -66,8 +66,8 @@
             android:paddingStart="2dp"
             android:paddingTop="10dp"
             android:text=""
-            app:layout_constraintStart_toStartOf="@+id/edittext_personal_restaurant_name"
-            app:layout_constraintTop_toBottomOf="@+id/edittext_personal_restaurant_name" />
+            app:layout_constraintStart_toStartOf="@+id/textView_personal_restaurant_name"
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_restaurant_name" />
         <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
@@ -88,8 +88,8 @@
 
         <!--android:orientation="horizontal">-->
 
-        <EditText
-            android:id="@+id/edittext_personal_menu1"
+        <TextView
+            android:id="@+id/textView_personal_menu1"
             android:layout_width="170dp"
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
@@ -103,8 +103,8 @@
             app:layout_constraintStart_toStartOf="@+id/textview_personal_restaurant_location"
             app:layout_constraintTop_toBottomOf="@+id/textview_personal_restaurant_location" />
 
-        <EditText
-            android:id="@+id/edittext_personal_price1"
+        <TextView
+            android:id="@+id/textView_personal_price1"
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:background="@drawable/corner_bg_post_edittext"
@@ -114,9 +114,9 @@
             android:paddingBottom="2dp"
             android:paddingStart="2dp"
             android:paddingTop="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/edittext_personal_menu1"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu1"
             app:layout_constraintEnd_toEndOf="@+id/textview_personal_restaurant_location"
-            app:layout_constraintTop_toTopOf="@+id/edittext_personal_menu1" />
+            app:layout_constraintTop_toTopOf="@+id/textView_personal_menu1" />
 
         <!--</LinearLayout>-->
 
@@ -127,8 +127,8 @@
 
         <!--android:orientation="horizontal">-->
 
-        <EditText
-            android:id="@+id/edittext_personal_menu2"
+        <TextView
+            android:id="@+id/textView_personal_menu2"
             android:layout_width="170dp"
             android:layout_height="30dp"
             android:layout_marginTop="8dp"
@@ -139,11 +139,11 @@
             android:paddingBottom="2dp"
             android:paddingStart="2dp"
             android:paddingTop="2dp"
-            app:layout_constraintStart_toStartOf="@+id/edittext_personal_menu1"
-            app:layout_constraintTop_toBottomOf="@+id/edittext_personal_menu1" />
+            app:layout_constraintStart_toStartOf="@+id/textView_personal_menu1"
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_menu1" />
 
-        <EditText
-            android:id="@+id/edittext_personal_price2"
+        <TextView
+            android:id="@+id/textView_personal_price2"
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:background="@drawable/corner_bg_post_edittext"
@@ -153,9 +153,9 @@
             android:paddingBottom="2dp"
             android:paddingStart="2dp"
             android:paddingTop="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/edittext_personal_menu2"
-            app:layout_constraintEnd_toEndOf="@+id/edittext_personal_price1"
-            app:layout_constraintTop_toTopOf="@+id/edittext_personal_menu2" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu2"
+            app:layout_constraintEnd_toEndOf="@+id/textView_personal_price1"
+            app:layout_constraintTop_toTopOf="@+id/textView_personal_menu2" />
 
         <!--</LinearLayout>-->
 
@@ -166,8 +166,8 @@
 
         <!--android:orientation="horizontal">-->
 
-        <EditText
-            android:id="@+id/edittext_personal_menu3"
+        <TextView
+            android:id="@+id/textView_personal_menu3"
             android:layout_width="170dp"
             android:layout_height="30dp"
             android:layout_marginTop="8dp"
@@ -178,11 +178,11 @@
             android:paddingBottom="2dp"
             android:paddingStart="2dp"
             android:paddingTop="2dp"
-            app:layout_constraintStart_toStartOf="@+id/edittext_personal_menu2"
-            app:layout_constraintTop_toBottomOf="@+id/edittext_personal_menu2" />
+            app:layout_constraintStart_toStartOf="@+id/textView_personal_menu2"
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_menu2" />
 
-        <EditText
-            android:id="@+id/edittext_personal_price3"
+        <TextView
+            android:id="@+id/textView_personal_price3"
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:background="@drawable/corner_bg_post_edittext"
@@ -192,9 +192,9 @@
             android:paddingBottom="2dp"
             android:paddingStart="2dp"
             android:paddingTop="2dp"
-            app:layout_constraintBottom_toBottomOf="@+id/edittext_personal_menu3"
-            app:layout_constraintEnd_toEndOf="@+id/edittext_personal_price2"
-            app:layout_constraintTop_toTopOf="@+id/edittext_personal_menu3" />
+            app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu3"
+            app:layout_constraintEnd_toEndOf="@+id/textView_personal_price2"
+            app:layout_constraintTop_toTopOf="@+id/textView_personal_menu3" />
 
         <!--</LinearLayout>-->
 
@@ -219,10 +219,10 @@
             <!--android:layout_marginStart="12dp"-->
 
             <!--android:padding="8dp"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/edittext_personal_price1"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/textView_personal_price1"-->
 
-            <!--app:layout_constraintStart_toEndOf="@+id/edittext_personal_price1"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/edittext_personal_price1"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/textView_personal_price1"-->
+            <!--app:layout_constraintTop_toTopOf="@+id/textView_personal_price1"-->
             <!--app:srcCompat="@drawable/add_menu" />-->
 
         <!--<ImageView-->
@@ -243,8 +243,8 @@
             <!--app:layout_constraintTop_toTopOf="@+id/constraint"-->
             <!--app:srcCompat="@drawable/picture" />-->
 
-        <EditText
-            android:id="@+id/edittext_personal_content"
+        <TextView
+            android:id="@+id/textView_personal_content"
             android:layout_width="229dp"
             android:layout_height="151dp"
             android:layout_marginTop="16dp"
@@ -258,14 +258,14 @@
             app:layout_constraintTop_toBottomOf="@+id/constraint" />
 
 
-        <RatingBar
-            android:id="@+id/ratingBar2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:theme="@style/RatingBar"
-            app:layout_constraintStart_toStartOf="@+id/edittext_personal_content"
-            app:layout_constraintTop_toBottomOf="@+id/edittext_personal_content" />
+        <!--<RatingBar-->
+            <!--android:id="@+id/ratingBar2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:theme="@style/RatingBar"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView_personal_content"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/textView_personal_content" />-->
 
         <!--<TextView-->
             <!--android:id="@+id/textview_personal_personal"-->
@@ -288,31 +288,31 @@
             android:layout_height="wrap_content"
             android:text="菜單"
             android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="@+id/edittext_personal_menu1"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu1"
             app:layout_constraintStart_toStartOf="@+id/personal_restaurant_location"
-            app:layout_constraintTop_toTopOf="@+id/edittext_personal_menu1" />
+            app:layout_constraintTop_toTopOf="@+id/textView_personal_menu1" />
 
-        <TextView
-            android:id="@+id/textView_menu2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <!--<TextView-->
+            <!--android:id="@+id/textView_menu2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
 
-            android:text="菜單"
-            android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="@+id/edittext_personal_menu2"
-            app:layout_constraintStart_toStartOf="@+id/textView_menu1"
-            app:layout_constraintTop_toTopOf="@+id/edittext_personal_menu2" />
+            <!--android:text="菜單"-->
+            <!--android:textSize="18dp"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu2"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView_menu1"-->
+            <!--app:layout_constraintTop_toTopOf="@+id/textView_personal_menu2" />-->
 
-        <TextView
-            android:id="@+id/textView_menu3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="菜單"
+        <!--<TextView-->
+            <!--android:id="@+id/textView_menu3"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="菜單"-->
 
-            android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="@+id/edittext_personal_menu3"
-            app:layout_constraintStart_toStartOf="@+id/textView_menu2"
-            app:layout_constraintTop_toTopOf="@+id/edittext_personal_menu3" />
+            <!--android:textSize="18dp"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu3"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView_menu2"-->
+            <!--app:layout_constraintTop_toTopOf="@+id/textView_personal_menu3" />-->
 
         <TextView
             android:id="@+id/textView_content"
@@ -320,9 +320,9 @@
             android:layout_height="wrap_content"
             android:text="內容"
             android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="@+id/edittext_personal_content"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_personal_content"
             app:layout_constraintStart_toStartOf="@+id/textView_pictures"
-            app:layout_constraintTop_toTopOf="@+id/edittext_personal_content" />
+            app:layout_constraintTop_toTopOf="@+id/textView_personal_content" />
 
         <TextView
             android:id="@+id/textView_pictures"
@@ -331,7 +331,7 @@
             android:text="照片"
             android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="@+id/constraint"
-            app:layout_constraintStart_toStartOf="@+id/textView_menu3"
+            app:layout_constraintStart_toStartOf="@+id/textView_menu1"
             app:layout_constraintTop_toTopOf="@+id/constraint" />
 
         <TextView
@@ -340,9 +340,9 @@
             android:layout_height="wrap_content"
             android:text="評分"
             android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="@+id/ratingBar2"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView_star1"
             app:layout_constraintStart_toStartOf="@+id/textView_content"
-            app:layout_constraintTop_toTopOf="@+id/ratingBar2" />
+            app:layout_constraintTop_toTopOf="@+id/imageView_star1" />
 
 
         <android.support.constraint.ConstraintLayout
@@ -350,17 +350,16 @@
             android:layout_width="228dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView_personal_add_pictures"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/edittext_personal_menu3"
-            app:layout_constraintTop_toBottomOf="@+id/edittext_personal_menu3">
+            app:layout_constraintStart_toStartOf="@+id/textView_personal_menu3"
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_menu3">
 
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerview_personal_photo"
-                android:layout_width="228dp"
-                android:layout_height="150dp"
-
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -368,6 +367,47 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/imageView_star1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/textView_personal_content"
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content"
+            />
+        <ImageView
+            android:id="@+id/imageView_star2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView_star1"
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content"
+            />
+        <ImageView
+            android:id="@+id/imageView_star3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView_star2"
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content"
+            />
+        <ImageView
+            android:id="@+id/imageView_star4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView_star3"
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content"
+            />
+        <ImageView
+            android:id="@+id/imageView_star5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView_star4"
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content"
+            />
 
 
     </android.support.constraint.ConstraintLayout>

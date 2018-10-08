@@ -232,10 +232,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
             ((FoodieActivity) getActivity()).transToPostChildMap();
         }
         if (view.getId() == R.id.imageView_post_addMenu) {
-//            Log.d(Constants.TAG, "  transToLiked " + UserManager.getInstance().getUserId());
-//            Log.d(Constants.TAG, "  transToLiked " + UserManager.getInstance().getUserImage());
-//            Log.d(Constants.TAG, "  transToLiked " + UserManager.getInstance().getUserName());
-//            Log.d(Constants.TAG, "  transToLiked " + UserManager.getInstance().getUserEmail());
             addMenu();
         }
 //        if (view.getId() == R.id.imageView_post_subtractMenu) {

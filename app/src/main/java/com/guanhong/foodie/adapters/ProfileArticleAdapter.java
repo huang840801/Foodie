@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.custom.CircleCornerForm;
 import com.guanhong.foodie.objects.Article;
+import com.guanhong.foodie.profile.ProfileContract;
 import com.guanhong.foodie.util.BlurBitmapUtil;
 import com.guanhong.foodie.util.Constants;
 import com.squareup.picasso.Picasso;
@@ -41,15 +42,17 @@ import java.util.ArrayList;
 
 public class ProfileArticleAdapter extends RecyclerView.Adapter {
 
+    private ProfileContract.Presenter mPresenter;
     private ArrayList<Article> mArticleArrayList;
     private ArrayList<Bitmap> mBitmapList;
     private Context mContext;
     private Typeface mTypeface;
 
 
-    public ProfileArticleAdapter(ArrayList<Article> articleArrayList) {
+    public ProfileArticleAdapter(ArrayList<Article> articleArrayList, ProfileContract.Presenter presenter) {
         mArticleArrayList = articleArrayList;
         mBitmapList = new ArrayList<>();
+        mPresenter = presenter;
         Log.d(Constants.TAG, " mArticleArrayList " + mArticleArrayList.size());
     }
 
@@ -79,6 +82,7 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
                 .transform(new CircleCornerForm(mContext))
                 .centerInside()
                 .into(holder.getImageView());
+
     }
 
 
@@ -128,7 +132,7 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View view) {
-
+            mPresenter.openPersonalArticle(mArticleArrayList.get(getAdapterPosition()));
         }
     }
 

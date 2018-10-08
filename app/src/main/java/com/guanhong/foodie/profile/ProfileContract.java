@@ -21,6 +21,7 @@ public interface ProfileContract {
 
         void showUserNewPicture(Uri userNewPictureUri);
 
+        void showPersonalArticleUi(Article article);
     }
 
     interface Presenter extends BasePresenter {
@@ -31,6 +32,8 @@ public interface ProfileContract {
 
 
         void getUserData();
+
+        void openPersonalArticle(Article article);
     }
 
 

@@ -246,6 +246,11 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         });
     }
 
+    @Override
+    public void openPersonalArticle(Article article) {
+        mProfileView.showPersonalArticleUi(article);
+    }
+
 
     public void getPicture(ArrayList<String> pictures) {
 
