@@ -70,6 +70,7 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
 
         Picasso.get()
                 .load(mArticleArrayList.get(position).getPictures().get(0))
+                .error(R.drawable.all_picture_placeholder)
                 .transform(new CircleCornerForm(mContext))
                 .resize(500, 300)
                 .centerInside()

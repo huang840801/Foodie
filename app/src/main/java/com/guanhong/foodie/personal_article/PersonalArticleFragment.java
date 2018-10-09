@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.PersonalPhotoAdapter;
 import com.guanhong.foodie.adapters.PostArticlePhotoAdapter;
 import com.guanhong.foodie.objects.Article;
@@ -120,8 +121,15 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter.start();
+        setTabLayoutVisibility(false);
         setTypeFace();
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        setTabLayoutVisibility(true);
     }
 
     private void setTypeFace() {
@@ -217,5 +225,11 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
             mImageViewStar1.setImageResource(R.drawable.new_star);
 
         }
+    }
+
+    @Override
+    public void setTabLayoutVisibility(boolean visible) {
+        ((FoodieActivity) getActivity()).setTabLayoutVisibility(visible);
+
     }
 }

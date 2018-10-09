@@ -4,11 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/post_bg">
+    android:background="@color/white">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/topView"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:background="@color/main"
+            android:paddingTop="?actionBarSize"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView_article_preview"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textview_post_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@string/post"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/topView"
+            app:layout_constraintEnd_toEndOf="@+id/topView"
+            app:layout_constraintTop_toTopOf="@+id/topView" />
+
 
         <TextView
             android:id="@+id/post_restaurant_name"
@@ -34,27 +60,29 @@
         <EditText
             android:id="@+id/edittext_post_restaurant_name"
             android:layout_width="228dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="28dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/corner_bg_post_edittext"
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
+            android:paddingBottom="@dimen/edittext_padding_bottom"
+            android:paddingEnd="@dimen/edittext_padding_end"
+            android:paddingStart="@dimen/edittext_padding_start"
+            android:paddingTop="@dimen/edittext_padding_top"
             android:text=""
+            android:textSize="12dp"
             app:layout_constraintStart_toEndOf="@+id/post_restaurant_name"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/topView" />
 
-    <ImageView
-        android:id="@+id/imageView_post_location"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textview_post_restaurant_location"
-        app:layout_constraintStart_toEndOf="@+id/textview_post_restaurant_location"
-        app:layout_constraintTop_toTopOf="@+id/textview_post_restaurant_location"
-        app:srcCompat="@drawable/marker_yellow" />
+        <ImageView
+            android:id="@+id/imageView_post_location"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textview_post_restaurant_location"
+            app:layout_constraintStart_toEndOf="@+id/textview_post_restaurant_location"
+            app:layout_constraintTop_toTopOf="@+id/textview_post_restaurant_location"
+            app:srcCompat="@drawable/marker_yellow" />
 
         <TextView
             android:id="@+id/textview_post_restaurant_location"
@@ -91,29 +119,31 @@
         <EditText
             android:id="@+id/edittext_post_menu1"
             android:layout_width="170dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/what_did_you_eat"
-            android:textSize="12dp"
+            android:paddingBottom="@dimen/edittext_padding_bottom"
 
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
+            android:paddingEnd="@dimen/edittext_padding_end"
+            android:paddingStart="@dimen/edittext_padding_start"
+            android:paddingTop="@dimen/edittext_padding_top"
+            android:textSize="12dp"
             app:layout_constraintStart_toStartOf="@+id/textview_post_restaurant_location"
             app:layout_constraintTop_toBottomOf="@+id/textview_post_restaurant_location" />
 
         <EditText
             android:id="@+id/edittext_post_price1"
             android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/price"
+            android:inputType="number"
+            android:paddingBottom="@dimen/edittext_padding_bottom"
+            android:paddingEnd="@dimen/edittext_padding_end"
+            android:paddingStart="@dimen/edittext_padding_start"
+            android:paddingTop="@dimen/edittext_padding_top"
             android:textSize="12dp"
-
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu1"
             app:layout_constraintEnd_toEndOf="@+id/textview_post_restaurant_location"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu1" />
@@ -130,29 +160,30 @@
         <EditText
             android:id="@+id/edittext_post_menu2"
             android:layout_width="170dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/what_did_you_eat"
+            android:paddingBottom="@dimen/edittext_padding_bottom"
+            android:paddingEnd="@dimen/edittext_padding_end"
+            android:paddingStart="@dimen/edittext_padding_start"
+            android:paddingTop="@dimen/edittext_padding_top"
             android:textSize="12dp"
-
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
             app:layout_constraintStart_toStartOf="@+id/edittext_post_menu1"
             app:layout_constraintTop_toBottomOf="@+id/edittext_post_menu1" />
 
         <EditText
             android:id="@+id/edittext_post_price2"
             android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/price"
+            android:inputType="number"
+            android:paddingBottom="@dimen/edittext_padding_bottom"
+            android:paddingEnd="@dimen/edittext_padding_end"
+            android:paddingStart="@dimen/edittext_padding_start"
+            android:paddingTop="@dimen/edittext_padding_top"
             android:textSize="12dp"
-
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu2"
             app:layout_constraintEnd_toEndOf="@+id/edittext_post_price1"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu2" />
@@ -169,29 +200,31 @@
         <EditText
             android:id="@+id/edittext_post_menu3"
             android:layout_width="170dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/what_did_you_eat"
-            android:textSize="12dp"
+            android:paddingBottom="@dimen/edittext_padding_bottom"
 
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
+            android:paddingEnd="@dimen/edittext_padding_end"
+            android:paddingStart="@dimen/edittext_padding_start"
+            android:paddingTop="@dimen/edittext_padding_top"
+            android:textSize="12dp"
             app:layout_constraintStart_toStartOf="@+id/edittext_post_menu2"
             app:layout_constraintTop_toBottomOf="@+id/edittext_post_menu2" />
 
         <EditText
             android:id="@+id/edittext_post_price3"
             android:layout_width="50dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/price"
+            android:inputType="number"
+            android:paddingBottom="@dimen/edittext_padding_bottom"
+            android:paddingEnd="@dimen/edittext_padding_end"
+            android:paddingStart="@dimen/edittext_padding_start"
+            android:paddingTop="@dimen/edittext_padding_top"
             android:textSize="12dp"
-
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu3"
             app:layout_constraintEnd_toEndOf="@+id/edittext_post_price2"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu3" />
@@ -212,36 +245,36 @@
         <!--</LinearLayout>-->
 
 
-    <ImageView
-        android:id="@+id/imageView_post_addMenu"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="12dp"
+        <ImageView
+            android:id="@+id/imageView_post_addMenu"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="12dp"
 
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/edittext_post_price1"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/edittext_post_price1"
 
-        app:layout_constraintStart_toEndOf="@+id/edittext_post_price1"
-        app:layout_constraintTop_toTopOf="@+id/edittext_post_price1"
-        app:srcCompat="@drawable/add_menu" />
+            app:layout_constraintStart_toEndOf="@+id/edittext_post_price1"
+            app:layout_constraintTop_toTopOf="@+id/edittext_post_price1"
+            app:srcCompat="@drawable/add_menu" />
 
         <!--<ImageView-->
-            <!--android:id="@+id/imageView_post_subtractMenu"-->
-            <!--android:layout_width="23dp"-->
-            <!--android:layout_height="25dp"-->
-            <!--app:srcCompat="@drawable/subtract_menu"-->
-          <!--/>-->
+        <!--android:id="@+id/imageView_post_subtractMenu"-->
+        <!--android:layout_width="23dp"-->
+        <!--android:layout_height="25dp"-->
+        <!--app:srcCompat="@drawable/subtract_menu"-->
+        <!--/>-->
 
-    <ImageView
-        android:id="@+id/imageView_post_add_pictures"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:padding="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/constraint"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/constraint"
-        app:srcCompat="@drawable/picture" />
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView_post_add_pictures"-->
+            <!--android:layout_width="228dp"-->
+            <!--android:layout_height="150dp"-->
+            <!--android:layout_marginEnd="0dp"-->
+            <!--android:padding="8dp"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/constraint"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="@+id/constraint"-->
+            <!--app:srcCompat="@drawable/picture" />-->
 
         <EditText
             android:id="@+id/edittext_post_content"
@@ -251,9 +284,10 @@
             android:background="@drawable/corner_bg_post_edittext"
             android:gravity="left"
             android:hint="今天來到了XXX餐館..."
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
             android:textSize="12dp"
-            android:paddingStart="5dp"
-            android:paddingTop="5dp"
             app:layout_constraintStart_toStartOf="@+id/constraint"
             app:layout_constraintTop_toBottomOf="@+id/constraint" />
 
@@ -262,35 +296,27 @@
             android:id="@+id/ratingBar2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
+            android:numStars="5"
+            android:scaleX=".7"
+            android:scaleY=".7"
+
+            android:stepSize="0.1"
             android:theme="@style/RatingBar"
+            app:layout_constraintEnd_toEndOf="@+id/edittext_post_content"
             app:layout_constraintStart_toStartOf="@+id/edittext_post_content"
             app:layout_constraintTop_toBottomOf="@+id/edittext_post_content" />
 
-        <TextView
-            android:id="@+id/textview_post_post"
-            android:layout_width="90dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/corner_bg_post_edittext"
-            android:gravity="center"
-            android:text="@string/post"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />
 
-    <TextView
-        android:id="@+id/textView_menu1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="菜單"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu1"
-        app:layout_constraintStart_toStartOf="@+id/post_restaurant_location"
-        app:layout_constraintTop_toTopOf="@+id/edittext_post_menu1" />
+        <TextView
+            android:id="@+id/textView_menu1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="菜單"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu1"
+            app:layout_constraintStart_toStartOf="@+id/post_restaurant_location"
+            app:layout_constraintTop_toTopOf="@+id/edittext_post_menu1" />
 
         <TextView
             android:id="@+id/textView_menu2"
@@ -344,30 +370,39 @@
             app:layout_constraintStart_toStartOf="@+id/textView_content"
             app:layout_constraintTop_toTopOf="@+id/ratingBar2" />
 
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraint"
-        android:layout_width="228dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView_post_add_pictures"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edittext_post_menu3"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_post_menu3">
-
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_post_photo"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraint"
             android:layout_width="228dp"
             android:layout_height="150dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/edittext_post_menu3"
+            app:layout_constraintTop_toBottomOf="@+id/edittext_post_menu3">
 
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            <ImageView
+                android:id="@+id/imageView_post_add_pictures"
+                android:layout_width="228dp"
+                android:layout_height="130dp"
+                android:layout_marginEnd="0dp"
+                android:padding="38dp"
+                android:background="@drawable/corner_bg_post_edittext"
+                app:layout_constraintBottom_toBottomOf="@+id/constraint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/constraint"
+                app:srcCompat="@drawable/picture" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_post_photo"
+                android:layout_width="228dp"
+                android:layout_height="150dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
 
 
     </android.support.constraint.ConstraintLayout>

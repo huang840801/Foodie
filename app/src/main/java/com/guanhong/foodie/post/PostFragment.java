@@ -1,10 +1,7 @@
 package com.guanhong.foodie.post;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,10 +30,7 @@ import com.guanhong.foodie.objects.Menu;
 import com.guanhong.foodie.util.Constants;
 import com.guanhong.foodie.util.SpaceItemDecoration;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -46,12 +39,13 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private PostContract.Presenter mPresenter;
 
     private Context mContext;
+    private View mTopView;
 
     private EditText mEditTextRestaurantName;
     private TextView mTextViewRestaurantLocation;
     private ImageView mImageViewMarker;
     private ImageView mImageViewAddMenu;
-//    private ImageView mImageViewSubtractMenu;
+    //    private ImageView mImageViewSubtractMenu;
     private EditText mEditTextMenu1;
     private EditText mEditTextPrice1;
     private EditText mEditTextMenu2;
@@ -110,7 +104,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         View rootView = inflater.inflate(R.layout.fragment_post, container, false);
 
         mContext = getContext();
-//        mUploadImage = (UploadImage) mContext;
+        mTopView = rootView.findViewById(R.id.topView);
 
         mEditTextRestaurantName = rootView.findViewById(R.id.edittext_post_restaurant_name);
         mTextViewRestaurantLocation = rootView.findViewById(R.id.textview_post_restaurant_location);
@@ -135,13 +129,13 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mTextViewPictures = rootView.findViewById(R.id.textView_pictures);
         mTextViewContent = rootView.findViewById(R.id.textView_content);
         mTextViewRating = rootView.findViewById(R.id.textView_rating_bar);
+        mPostArticle = rootView.findViewById(R.id.textview_post_post);
 
         setTypeFace();
 
         mRecyclerViewPhoto = rootView.findViewById(R.id.recyclerview_post_photo);
 
         mRatingBar = rootView.findViewById(R.id.ratingBar2);
-        mPostArticle = rootView.findViewById(R.id.textview_post_post);
 
         return rootView;
     }
@@ -156,11 +150,14 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mTextViewPictures.setTypeface(mTypeface);
         mTextViewContent.setTypeface(mTypeface);
         mTextViewRating.setTypeface(mTypeface);
+        mPostArticle.setTypeface(mTypeface);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        setTopViewPadding();
 
         mTextViewMenu2.setVisibility(View.GONE);
         mEditTextMenu2.setVisibility(View.GONE);
@@ -173,6 +170,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mImageViewAddMenu.setOnClickListener(this);
 //        mImageViewSubtractMenu.setOnClickListener(this);
         mImageViewAddPhoto.setOnClickListener(this);
+        mRecyclerViewPhoto.setOnClickListener(this);
         mPostArticle.setOnClickListener(this);
         mRatingBar.setOnRatingBarChangeListener(this);
     }
@@ -181,6 +179,21 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     public void onResume() {
         super.onResume();
 
+    }
+
+    private void setTopViewPadding() {
+        // Set the padding to match the Status Bar height
+        mTopView.setPadding(0, getStatusBarHeight(), 0, 0);
+
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = mContext.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 
     @Override
@@ -211,8 +224,8 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
         mRecyclerViewPhoto.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
         mRecyclerViewPhoto.setHasFixedSize(true);
-        mRecyclerViewPhoto.setAdapter(new PostArticlePhotoAdapter(pictureArrayListExtra));
-        mRecyclerViewPhoto.addItemDecoration(new SpaceItemDecoration(2));
+        mRecyclerViewPhoto.setAdapter(new PostArticlePhotoAdapter(pictureArrayListExtra, mPresenter));
+//        mRecyclerViewPhoto.addItemDecoration(new SpaceItemDecoration(2));
 
         mRecyclerViewPhoto.smoothScrollToPosition(0);
 
@@ -220,9 +233,14 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
     @Override
     public void showNewPictures(ArrayList<String> newPictures) {
-        Log.d(Constants.TAG, "  showNewPictures " + newPictures);
-
+//        Log.d(Constants.TAG, "  showNewPictures " + newPictures);
         getArticleData(newPictures);
+    }
+
+    @Override
+    public void addPictures() {
+        ((FoodieActivity) getActivity()).pickMultiplePictures();
+
     }
 
     @Override
@@ -234,17 +252,22 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         if (view.getId() == R.id.imageView_post_addMenu) {
             addMenu();
         }
+        if (view.getId() == R.id.recyclerview_post_photo) {
+            Log.d(Constants.TAG, "  recyclerview_post_photo ");
+            addPictures();
+        }
 //        if (view.getId() == R.id.imageView_post_subtractMenu) {
 //            subtractMenu();
 //        }
         if (view.getId() == R.id.imageView_post_add_pictures) {
-            ((FoodieActivity) getActivity()).pickMultiplePictures();
+            addPictures();
         }
         if (view.getId() == R.id.textview_post_post) {
             postImage();
         }
 
     }
+
 
     private void postImage() {
 
@@ -279,10 +302,10 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private void getArticleData(ArrayList<String> newPictures) {
 
 
-        Log.d("UserManager", " email = "+ UserManager.getInstance().getUserEmail());
-        Log.d("UserManager", " id = "+ UserManager.getInstance().getUserId());
-        Log.d("UserManager", " image = "+ UserManager.getInstance().getUserImage());
-        Log.d("UserManager", " name = "+ UserManager.getInstance().getUserName());
+        Log.d("UserManager", " email = " + UserManager.getInstance().getUserEmail());
+        Log.d("UserManager", " id = " + UserManager.getInstance().getUserId());
+        Log.d("UserManager", " image = " + UserManager.getInstance().getUserImage());
+        Log.d("UserManager", " name = " + UserManager.getInstance().getUserName());
 
         Article article = new Article();
         Author author = new Author();

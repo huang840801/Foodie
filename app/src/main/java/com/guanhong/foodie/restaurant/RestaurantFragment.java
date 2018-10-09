@@ -83,7 +83,8 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPresenter.showTabLayout();
+        setTabLayoutVisibility(true);
+//        mPresenter.showTabLayout();
     }
 
 

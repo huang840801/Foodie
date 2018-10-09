@@ -164,6 +164,11 @@ public class PostPresenter implements PostContract.Presenter {
 
     }
 
+    @Override
+    public void addPictures() {
+        mPostView.addPictures();
+    }
+
     public void setAddress(String addressLine, LatLng latLng) {
         mPostView.showAddress(addressLine, latLng);
     }

@@ -1,6 +1,7 @@
 package com.guanhong.foodie.postchildmap;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,6 +120,8 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
         mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                requestLocationPermissions();
+
                 if (status.isProviderEnabled(LocationManager.GPS_PROVIDER) && status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                     //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
                     if (mGoogleApiClient != null) {
@@ -149,7 +153,28 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
             }
         });
     }
+    private boolean requestLocationPermissions() {
+        Log.d("Permissions", "requestLocationPermissions");
 
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            Log.d("Permissions", "android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP");
+            return true;
+        }
+
+        int fineLocationPermissionCheck = ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION);
+        int coarseLocationPermissionCheck = ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if(fineLocationPermissionCheck!=PackageManager.PERMISSION_GRANTED&&coarseLocationPermissionCheck!=PackageManager.PERMISSION_GRANTED){
+            Log.d("Permissions", "hadFineLocationPermissions() && hadCoarseLocationPermissions()");
+            ActivityCompat.requestPermissions((Activity)mContext,
+                    new String[]{
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    }, Constants.REQUEST_FINE_LOCATION_PERMISSION); // your request code
+            return true;
+        }
+        return false;
+    }
     private void getMyLocation() {
         try {
             /* code should explicitly check to see if permission is available
@@ -209,7 +234,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
 
-            requestLocationPermission(); // 詢問使用者開啟權限
+//            requestLocationPermission(); // 詢問使用者開啟權限
             return;
         }
     }

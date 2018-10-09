@@ -1,7 +1,6 @@
 package com.guanhong.foodie;
 
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -9,7 +8,7 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 import com.guanhong.foodie.liked.LikedFragment;
 import com.guanhong.foodie.liked.LikedPresenter;
-import com.guanhong.foodie.lotto.LottoFragment;
+import com.guanhong.foodie.recommend.RecommendFragment;
 import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.map.MapPresenter;
 import com.guanhong.foodie.objects.Article;
@@ -52,7 +51,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     private MapFragment mMapFragment;
     private ProfileFragment mProfileFragment;
     private SearchFragment mSearchFragment;
-    private LottoFragment mLottoFragment;
+    private RecommendFragment mRecommendFragment;
     private LikedFragment mLikedFragment;
     private RestaurantFragment mRestaurantFragment;
     private PostFragment mPostFragment;
@@ -164,7 +163,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     @Override
     public void tranToRestaurant(Restaurant restaurant, ArrayList<Comment> comments) {
         Log.d("restaurant ", " FoodiePresenter : " + restaurant);
-        mFoodieView.setTabLayoutVisibility(true);
+        mFoodieView.setTabLayoutVisibility(false);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 
         if (mRestaurantFragment == null) {
@@ -178,10 +177,10 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         } else {
             fragmentTransaction.show(mRestaurantFragment);
         }
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
         mFoodieView.showRestaurantUi();
-
 
     }
 
@@ -192,31 +191,29 @@ public class FoodiePresenter implements FoodieContract.Presenter {
             mPostFragment = PostFragment.newInstance();
         }
 
-        if (mPostFragment != null && !mPostFragment.isHidden()) {
-            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-            fragmentTransaction.remove(mPostFragment);
-        }
-        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
-            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-            fragmentTransaction.remove(mRestaurantFragment);
-
-        }
-        if (mPostChildMapFragment != null && !mPostChildMapFragment.isHidden()) {
-            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-            fragmentTransaction.remove(mPostChildMapFragment);
-//            mFoodieView.setTabLayoutVisibility(true);
-        }
+//        if (mPostFragment != null && !mPostFragment.isHidden()) {
+//            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
+//            fragmentTransaction.remove(mPostFragment);
+//        }
+//        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
+//            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
+//            fragmentTransaction.remove(mRestaurantFragment);
+//
+//        }
+//        if (mPostChildMapFragment != null && !mPostChildMapFragment.isHidden()) {
+//            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
+//            fragmentTransaction.remove(mPostChildMapFragment);
+////            mFoodieView.setTabLayoutVisibility(true);
+//        }
 
         mPostPresenter = new PostPresenter(mPostFragment);
 
-//        if (!mPostFragment.isAdded()) {
-//            fragmentTransaction.add(R.id.fragment_container, mPostFragment, POST);
-//            fragmentTransaction.show(mPostFragment);
-//
-//        } else {
-//            fragmentTransaction.show(mPostFragment);
-//        }
-        fragmentTransaction.replace(R.id.fragment_container, mPostFragment, "");
+        if (!mPostFragment.isAdded()) {
+            fragmentTransaction.add(R.id.fragment_container, mPostFragment, POST);
+        } else {
+            fragmentTransaction.show(mPostFragment);
+        }
+//        fragmentTransaction.replace(R.id.fragment_container, mPostFragment, "");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         mFoodieView.showPostArticleUi();

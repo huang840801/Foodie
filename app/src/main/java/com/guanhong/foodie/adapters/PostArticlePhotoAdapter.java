@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.post.PostContract;
 import com.guanhong.foodie.util.Constants;
 import com.squareup.picasso.Picasso;
 
@@ -27,13 +28,16 @@ import java.util.ArrayList;
 
 public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
 
+    private PostContract.Presenter mPresenter;
+
     private ArrayList<String> mPhotosList;
     private ArrayList<Bitmap> mBitmapList;
     private Context mContext;
 
-    public PostArticlePhotoAdapter(ArrayList<String> stringArrayListExtra) {
+    public PostArticlePhotoAdapter(ArrayList<String> stringArrayListExtra, PostContract.Presenter presenter) {
         mPhotosList = stringArrayListExtra;
         mBitmapList = new ArrayList<>();
+        mPresenter = presenter;
         Log.d(Constants.TAG, "  mPhotosList " + mPhotosList.get(0));
 
     }
@@ -57,16 +61,25 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mPhotosList.size();
+        if (mPhotosList.size() == 0) {
+            Log.d(Constants.TAG, "  mPhotosList = 0");
+
+            return 1;
+        } else {
+            Log.d(Constants.TAG, "  mPhotosList " + mPhotosList.size());
+
+            return mPhotosList.size();
+        }
     }
 
-    private class PostPhotoItemViewHolder extends RecyclerView.ViewHolder {
+    private class PostPhotoItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView mImageView;
 
         public PostPhotoItemViewHolder(View view) {
             super(view);
             mImageView = view.findViewById(R.id.imageView_post_photo);
+            view.setOnClickListener(this);
         }
 
         public void bindData(int position) {
@@ -96,7 +109,13 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
 //            Picasso.get().load("44D7-8D89/DCIM/Camera/SAVE_20180912_122632.jpeg").placeholder(R.drawable.all_picture_placeholder).into(mImageView);
 
         }
+
+        @Override
+        public void onClick(View view) {
+            mPresenter.addPictures();
+        }
     }
+
     private Bitmap newBitmap(Bitmap bitmap) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();

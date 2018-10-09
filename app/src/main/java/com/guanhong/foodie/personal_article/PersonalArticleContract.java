@@ -9,6 +9,9 @@ public interface PersonalArticleContract {
     interface View extends BaseView<Presenter>{
 
         void showArticleUi(Article article);
+
+        void setTabLayoutVisibility(boolean visible);
+
     }
 
     interface Presenter extends BasePresenter{

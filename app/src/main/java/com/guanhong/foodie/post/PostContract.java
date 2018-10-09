@@ -18,6 +18,9 @@ public interface PostContract {
         void showPictures(ArrayList<String> stringArrayListExtra);
 
         void showNewPictures(ArrayList<String> newPictures);
+
+        void addPictures();
+
     }
 
     interface Presenter extends BasePresenter{
@@ -29,5 +32,7 @@ public interface PostContract {
         void postArticle(Article article);
 
         void uploadImage(ArrayList<String> pictureList);
+
+        void addPictures();
     }
 }

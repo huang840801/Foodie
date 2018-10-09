@@ -82,12 +82,12 @@
         android:layout_marginBottom="80dp"
         android:background="@drawable/corner_bg_login_right_button"
         android:text="@string/register"
-        android:textColor="#ffffff"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/edittext_password" />
 
     <View
-        android:id="@+id/divider"
+        android:id="@+id/topView"
         android:layout_width="2dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
@@ -102,10 +102,10 @@
         android:layout_marginBottom="80dp"
         android:background="@drawable/corner_bg_login_left_button"
         android:text="@string/login"
-        android:textColor="#ffffff"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/edittext_password"
-        app:layout_constraintStart_toEndOf="@+id/divider" />
+        app:layout_constraintStart_toEndOf="@+id/topView" />
 
 
 </android.support.constraint.ConstraintLayout>

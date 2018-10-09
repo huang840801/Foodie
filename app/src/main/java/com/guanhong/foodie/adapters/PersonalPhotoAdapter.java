@@ -42,12 +42,13 @@ public class PersonalPhotoAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        if(holder instanceof PersonalArticlePhotoItemViewHolder){
-            ((PersonalArticlePhotoItemViewHolder)holder).bindData(position);
+        if (holder instanceof PersonalArticlePhotoItemViewHolder) {
+            ((PersonalArticlePhotoItemViewHolder) holder).bindData(position);
         }
 
     }
-//    if (holder instanceof PostPhotoItemViewHolder) {
+
+    //    if (holder instanceof PostPhotoItemViewHolder) {
 //        ((PostPhotoItemViewHolder) holder).bindData(position);
 //
 //    }
@@ -72,9 +73,9 @@ public class PersonalPhotoAdapter extends RecyclerView.Adapter {
 
         public void bindData(int position) {
             Picasso.get()
-                   .load(mPhotosList.get(position))
+                    .load(mPhotosList.get(position))
                     .error(R.drawable.all_picture_placeholder)
-                   .into(mImageView);
+                    .into(mImageView);
         }
     }
 }

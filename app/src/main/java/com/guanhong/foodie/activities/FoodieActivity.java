@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,19 +22,12 @@ import com.foamtrace.photopicker.PhotoPickerActivity;
 import com.foamtrace.photopicker.SelectModel;
 import com.foamtrace.photopicker.intent.PhotoPickerIntent;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.FoodiePresenter;
 import com.guanhong.foodie.UserManager;
@@ -43,7 +35,7 @@ import com.guanhong.foodie.ViewPagerAdapter;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.liked.LikedFragment;
 import com.guanhong.foodie.liked.LikedPresenter;
-import com.guanhong.foodie.lotto.LottoFragment;
+import com.guanhong.foodie.recommend.RecommendFragment;
 import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.map.MapPresenter;
 import com.guanhong.foodie.objects.Article;
@@ -59,8 +51,6 @@ import com.guanhong.foodie.restaurant.RestaurantPresenter;
 import com.guanhong.foodie.search.SearchFragment;
 import com.guanhong.foodie.util.Constants;
 
-import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,7 +65,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     private MapFragment mMapFragment;
     private ProfileFragment mProfileFragment;
     private SearchFragment mSearchFragment;
-    private LottoFragment mLottoFragment;
+    private RecommendFragment mRecommendFragment;
     private LikedFragment mLikedFragment;
     private RestaurantFragment mRestaurantFragment;
     private PostFragment mPostFragment;
@@ -173,8 +163,13 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     private void init() {
 
+        mContext = this;
 
-        requestAppPermissions();
+
+
+
+        requestReadAndWritePermissions();
+
         setContentView(R.layout.activity_main);
 
         ImageConfig config = new ImageConfig();
@@ -183,8 +178,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         config.mimeType = new String[]{"image/jpeg", "image/png"}; // 图片类型 image/gif ...
         config.minSize = 1024 * 1024; // 1Mb 图片大小
 
-
-        mContext = this;
 
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -227,9 +220,11 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         mTabLayout.setOnTabSelectedListener(this);
     }
 
+
     private void setTabLayout() {
         //设置TabLayout标签的显示方式
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
 
         //循环注入标签
 //        for (String tab : mTitles) {
@@ -249,8 +244,8 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         if (mSearchFragment == null) {
             mSearchFragment = SearchFragment.newInstance();
         }
-        if (mLottoFragment == null) {
-            mLottoFragment = LottoFragment.newInstance();
+        if (mRecommendFragment == null) {
+            mRecommendFragment = RecommendFragment.newInstance();
         }
         if (mLikedFragment == null) {
             mLikedFragment = LikedFragment.newInstance();
@@ -261,11 +256,11 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         mFragmentList.add(mMapFragment);
         mFragmentList.add(mProfileFragment);
         mFragmentList.add(mSearchFragment);
-        mFragmentList.add(mLottoFragment);
+        mFragmentList.add(mRecommendFragment);
         mFragmentList.add(mLikedFragment);
     }
 
-    private void requestAppPermissions() {
+    private void requestReadAndWritePermissions() {
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return;
         }
@@ -291,22 +286,26 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     }
 
 
-    public void setTabLayoutVisibility(boolean isVisible) {
-//        if (mTabLayout.getVisibility()==View.INVISIBLE) {
-//            Log.d(Constants.TAG, "mTabLayout  INVISIBLE ");
 
+//    private boolean hasCoarseLocationPermissions() {
+//        return (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+//    }
+//
+//    private boolean hasFineLocationPermissions() {
+//        return (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+//    }
+
+    public void setTabLayoutVisibility(boolean isVisible) {
         mTabLayout.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));
-//            mViewPager.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));
-//        }
     }
 
     @Override
     public void onBackPressed() {
         Log.d(Constants.TAG, "onBackPressed: ");
 
-        mPresenter.checkPostMapExist();
-        mViewPager.setVisibility(View.VISIBLE);
-        mTabLayout.setVisibility(View.VISIBLE);
+//        mPresenter.checkPostMapExist();
+//        mViewPager.setVisibility(View.VISIBLE);
+//        mTabLayout.setVisibility(View.VISIBLE);
 
         super.onBackPressed();
     }

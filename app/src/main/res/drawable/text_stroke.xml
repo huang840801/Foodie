@@ -3,14 +3,14 @@
     <!--<corners-->
         <!--android:radius="14dp"-->
         <!--/>-->
-    <gradient
-        android:angle="45"
-        android:centerX="35%"
-        android:centerColor="#47A891"
-        android:startColor="#E8E8E8"
-        android:endColor="#000000"
-        android:type="linear"
-        />
+    <!--<gradient-->
+        <!--android:angle="45"-->
+        <!--android:centerX="35%"-->
+        <!--android:centerColor="#47A891"-->
+        <!--android:startColor="#E8E8E8"-->
+        <!--android:endColor="#000000"-->
+        <!--android:type="linear"-->
+        <!--/>-->
     <!--<padding-->
         <!--android:left="0dp"-->
         <!--android:top="0dp"-->
@@ -20,9 +20,9 @@
     <!--<size-->
         <!--android:width="270dp"-->
         <!--android:height="60dp"-->
-        />
-    <stroke
-        android:width="2dp"
-        android:color="#878787"
-        />
+        <!--/>-->
+    <!--<stroke-->
+        <!--android:width="2dp"-->
+        <!--android:color="#878787"-->
+        <!--/>-->
 </shape>

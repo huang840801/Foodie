@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="main_bg">#becb50</color>
-    <color name="tab_indicator">#ffab00</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="deep_gray">#555555</color>
+    <color name="main">#F7931E</color>
+    <color name="post_bg">#f4efc3</color>
+    <color name="tab_indicator">#246EB9</color>
     <color name="tab_text_normal">#d8d9ce</color>
-    <color name="tab_text_selected">#ffffff</color>
+    <color name="tab_text_selected">#558b2f</color>
     <color name="profile_main_bg">#f7f8f9</color>
+    <color name="white">#FFFFFF</color>
 </resources>

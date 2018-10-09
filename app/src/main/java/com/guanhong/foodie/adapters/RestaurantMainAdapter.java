@@ -30,7 +30,6 @@ import com.guanhong.foodie.objects.Menu;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.restaurant.RestaurantContract;
 import com.guanhong.foodie.util.Constants;
-import com.guanhong.foodie.util.SpaceItemDecoration;
 import com.rd.PageIndicatorView;
 import com.squareup.picasso.Picasso;
 
@@ -120,6 +119,9 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
         holder.getRestaurantPosition().setText(mRestaurant.getRestaurantLocation());
         holder.getRestaurantPosition().setTypeface(mTypeface);
+
+        holder.getTextViewArticleTitle().setTypeface(mTypeface);
+
         if (mRestaurant.getStarCount() == 5) {
             holder.getStar1().setImageResource(R.drawable.new_star_selected);
             holder.getStar2().setImageResource(R.drawable.new_star_selected);
@@ -158,14 +160,14 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             holder.getStar5().setImageResource(R.drawable.new_star_unselected);
         }
 
-        holder.getHeart().setOnClickListener(new View.OnClickListener() {
+        holder.getBookmark().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!isLike){
-                    holder.getHeart().setImageResource(R.drawable.heart_like);
+                    holder.getBookmark().setImageResource(R.drawable.bookmark_selected);
                     isLike = true;
                 }else {
-                    holder.getHeart().setImageResource(R.drawable.heart_unlike);
+                    holder.getBookmark().setImageResource(R.drawable.bookmark_unselected);
                     isLike = false;
                 }
             }
@@ -223,7 +225,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
     private void setArticlePreviewRecyclerView(RestaurantMainItemViewHolder holder, ArrayList<Article> articleArrayList) {
         holder.getRecyclerViewArticlePreview().setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
         holder.getRecyclerViewArticlePreview().setHasFixedSize(true);
-        holder.getRecyclerViewArticlePreview().addItemDecoration(new SpaceItemDecoration(2));
+//        holder.getRecyclerViewArticlePreview().addItemDecoration(new SpaceItemDecoration(2));
         holder.getRecyclerViewArticlePreview().setAdapter(new RestaurantArticlePreviewAdapter(articleArrayList, mPresenter));
     }
 
@@ -328,7 +330,8 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         private EditText mEditTextComment;
         private ImageView mButtonSend;
         private PageIndicatorView pageIndicatorView;
-        private ImageView mHeart;
+        private ImageView mBookmark;
+        private TextView mTextViewArticleTitle;
 
         public RestaurantMainItemViewHolder(View itemView) {
             super(itemView);
@@ -344,12 +347,13 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             mEditTextComment = itemView.findViewById(R.id.editText_comments);
             mButtonSend = itemView.findViewById(R.id.imageView_send);
             pageIndicatorView = itemView.findViewById(R.id.indicator);
-            mHeart = itemView.findViewById(R.id.imageView_heart);
+            mBookmark = itemView.findViewById(R.id.imageView_bookmark);
+            mTextViewArticleTitle = itemView.findViewById(R.id.textView_restaurant_article_title);
 
         }
 
-        public ImageView getHeart() {
-            return mHeart;
+        public ImageView getBookmark() {
+            return mBookmark;
         }
 
         public RecyclerView getRecyclerViewPhotoGallery() {
@@ -399,7 +403,13 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         public PageIndicatorView getPageIndicatorView() {
             return pageIndicatorView;
         }
+
+        public TextView getTextViewArticleTitle() {
+            return mTextViewArticleTitle;
+        }
     }
+
+
 
     private void bindCommentItem(RestaurantCommentItemViewHolder holder, int i) {
 //        Log.d(Constants.TAG, " getCreatedTime: " + mComments.get(i).getCreatedTime());
@@ -416,10 +426,12 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         holder.getTextAuthorName().setTypeface(mTypeface);
         holder.getTextCommentContent().setText(mComments.get(i).getComment());
         holder.getTextCommentContent().setTypeface(mTypeface);
-        Picasso.get()
-                .load(mComments.get(i).getAuthor().getImage())
+        if(!"".equals(mComments.get(i).getAuthor().getImage())) {
+            Picasso.get()
+                    .load(mComments.get(i).getAuthor().getImage())
 //                .networkPolicy(NetworkPolicy.OFFLINE)
-                .into(holder.getImageAuthorImage());
+                    .into(holder.getImageAuthorImage());
+        }
         holder.getTextCreatedTime().setText(time);
     }
 

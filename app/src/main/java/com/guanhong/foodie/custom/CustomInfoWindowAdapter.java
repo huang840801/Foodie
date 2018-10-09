@@ -2,6 +2,7 @@ package com.guanhong.foodie.custom;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     private ImageView mStar3;
     private ImageView mStar4;
     private ImageView mStar5;
+    private Typeface mTypeface;
 
     private Handler mHandler;
 
@@ -41,6 +43,8 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         mContext = context1;
         mCustomInfoWindowAdapter = this;
         mView = mActivityContext.getLayoutInflater().inflate(R.layout.custom_marker_info_layout, null);
+        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
+
     }
 
     @Override
@@ -57,6 +61,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         mStar5 = mView.findViewById(R.id.imageView_marker_star5);
 
         mTextViewRestaurantName.setText(mStringRestaurantName);
+        mTextViewRestaurantName.setTypeface(mTypeface);
         if (mStarCount == 5) {
 
             mStar1.setImageResource(R.drawable.new_star_selected);

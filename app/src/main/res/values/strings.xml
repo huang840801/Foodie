@@ -13,7 +13,7 @@
     <string name="login">login</string>
     <string name="cannot_be_empty">cannot be empty</string>
     <string name="name">Name</string>
-    <string name="say_something">Say something</string>
+    <string name="say_something">留言...</string>
     <string name="restaurant_name">店名</string>
     <string name="location">位置</string>
     <string name="what_did_you_eat">你吃了什麼</string>
@@ -23,6 +23,7 @@
     <string name="cancel">取消</string>
     <string name="at_least_one">至少要寫一項!</string>
     <string name="too_much">你吃太多囉!!!!</string>
+    <string name="tourist_article">遊客文章</string>
 
 
 </resources>
