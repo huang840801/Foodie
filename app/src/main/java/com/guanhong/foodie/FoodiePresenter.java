@@ -225,27 +225,27 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         if (mPostChildMapFragment == null) {
             mPostChildMapFragment = PostChildMapFragment.newInstance();
         }
-        if (mPostFragment != null && !mPostFragment.isHidden()) {
-            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-            fragmentTransaction.remove(mPostFragment);
-        }
-        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
-            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-            fragmentTransaction.remove(mRestaurantFragment);
-
-        }
-        if (mPostChildMapFragment != null && !mPostChildMapFragment.isHidden()) {
-            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-            fragmentTransaction.remove(mPostChildMapFragment);
-        }
+//        if (mPostFragment != null && !mPostFragment.isHidden()) {
+//            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
+//            fragmentTransaction.remove(mPostFragment);
+//        }
+//        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
+//            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
+//            fragmentTransaction.remove(mRestaurantFragment);
+//
+//        }
+//        if (mPostChildMapFragment != null && !mPostChildMapFragment.isHidden()) {
+//            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
+//            fragmentTransaction.remove(mPostChildMapFragment);
+//        }
         mPostChildMapPresenter = new PostChildMapPresenter(mPostChildMapFragment);
 
-//        if (!mPostChildMapFragment.isAdded()) {
-//            fragmentTransaction.add(R.id.fragment_container, mPostChildMapFragment, POSTCHILDMAP);
-//        } else {
-//            fragmentTransaction.show(mPostChildMapFragment);
-//        }
-        fragmentTransaction.replace(R.id.fragment_container, mPostChildMapFragment, "");
+        if (!mPostChildMapFragment.isAdded()) {
+            fragmentTransaction.add(R.id.fragment_container, mPostChildMapFragment, POST_CHILD_MAP);
+        } else {
+            fragmentTransaction.show(mPostChildMapFragment);
+        }
+//        fragmentTransaction.replace(R.id.fragment_container, mPostChildMapFragment, "");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         mFoodieView.showPostChildMapUi();
@@ -276,10 +276,23 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 //            mPostFragment.setArguments(bundle);
         }
 
-        mPostPresenter = new PostPresenter(mPostFragment);
+
+//        if (!mPostFragment.isAdded()) {
+//            fragmentTransaction.add(R.id.fragment_container, mPostFragment, POST);
+//        } else {
+//            fragmentTransaction.show(mPostFragment);
+//        }
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
+//        mFoodieView.showPostArticleUi();
+
+//        mPostPresenter = new PostPresenter(mPostFragment);
         mPostPresenter.setAddress(addressLine, latLng);
 
-        fragmentTransaction.replace(R.id.fragment_container, mPostFragment, "");
+//        fragmentTransaction.replace(R.id.fragment_container, mPostFragment, "");
+        fragmentTransaction.hide(mPostChildMapFragment);
+        fragmentTransaction.show(mPostFragment);
+
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         mFoodieView.showPostArticleUi();
@@ -294,15 +307,16 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     public void transToPersonalArticle(Article article) {
 
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+//        fragmentTransaction.setCustomAnimations(R.anim.emerge, R.anim.emerge);
 
         mPersonalArticleFragment = PersonalArticleFragment.newInstance();
         mPersonalArticlePresenter = new PersonalArticlePresenter(mPersonalArticleFragment, article);
 
-        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
-            fragmentTransaction.hide(mRestaurantFragment);
+//        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
+//            fragmentTransaction.hide(mRestaurantFragment);
             fragmentTransaction.addToBackStack(null);
 //            fragmentTransaction.addToBackStack(RESTAURANT);
-        }
+//        }
 //        fragmentTransaction.hide(mRestaurantFragment);
 //        fragmentTransaction.addToBackStack(RESTAURANT);
 

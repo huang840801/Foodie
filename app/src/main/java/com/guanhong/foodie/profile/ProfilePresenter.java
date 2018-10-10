@@ -81,7 +81,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 //                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("content").getValue());
 //                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("location").getValue());
 //                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("restaurantName").getValue());
-//                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("starCount").getValue());
+                        Log.d(Constants.TAG, "ProfilePresenterstarCount : " + snapshot.child("starCount").getValue());
 //                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("menus").getChildrenCount());
 //                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("pictures").getChildrenCount());
 
@@ -94,6 +94,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                         article.setRestaurantName((String) snapshot.child("restaurantName").getValue());
                         article.setContent((String) snapshot.child("content").getValue());
                         article.setLocation((String) snapshot.child("location").getValue());
+                        article.setStarCount(Integer.parseInt(""+snapshot.child("starCount").getValue()));
 
                         ArrayList<String> pictures = new ArrayList<>();
                         for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {

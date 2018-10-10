@@ -64,10 +64,10 @@
             android:layout_marginStart="28dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/corner_bg_post_edittext"
-            android:paddingBottom="@dimen/edittext_padding_bottom"
-            android:paddingEnd="@dimen/edittext_padding_end"
-            android:paddingStart="@dimen/edittext_padding_start"
-            android:paddingTop="@dimen/edittext_padding_top"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:text=""
             android:textSize="12dp"
             app:layout_constraintStart_toEndOf="@+id/post_restaurant_name"
@@ -90,10 +90,12 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/corner_bg_post_edittext"
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="10dp"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:text=""
+            android:textSize="12dp"
             app:layout_constraintStart_toStartOf="@+id/edittext_post_restaurant_name"
             app:layout_constraintTop_toBottomOf="@+id/edittext_post_restaurant_name" />
         <!--<LinearLayout-->
@@ -123,11 +125,10 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/what_did_you_eat"
-            android:paddingBottom="@dimen/edittext_padding_bottom"
-
-            android:paddingEnd="@dimen/edittext_padding_end"
-            android:paddingStart="@dimen/edittext_padding_start"
-            android:paddingTop="@dimen/edittext_padding_top"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
             app:layout_constraintStart_toStartOf="@+id/textview_post_restaurant_location"
             app:layout_constraintTop_toBottomOf="@+id/textview_post_restaurant_location" />
@@ -139,10 +140,10 @@
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/price"
             android:inputType="number"
-            android:paddingBottom="@dimen/edittext_padding_bottom"
-            android:paddingEnd="@dimen/edittext_padding_end"
-            android:paddingStart="@dimen/edittext_padding_start"
-            android:paddingTop="@dimen/edittext_padding_top"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu1"
             app:layout_constraintEnd_toEndOf="@+id/textview_post_restaurant_location"
@@ -164,10 +165,10 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/what_did_you_eat"
-            android:paddingBottom="@dimen/edittext_padding_bottom"
-            android:paddingEnd="@dimen/edittext_padding_end"
-            android:paddingStart="@dimen/edittext_padding_start"
-            android:paddingTop="@dimen/edittext_padding_top"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
             app:layout_constraintStart_toStartOf="@+id/edittext_post_menu1"
             app:layout_constraintTop_toBottomOf="@+id/edittext_post_menu1" />
@@ -179,10 +180,10 @@
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/price"
             android:inputType="number"
-            android:paddingBottom="@dimen/edittext_padding_bottom"
-            android:paddingEnd="@dimen/edittext_padding_end"
-            android:paddingStart="@dimen/edittext_padding_start"
-            android:paddingTop="@dimen/edittext_padding_top"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu2"
             app:layout_constraintEnd_toEndOf="@+id/edittext_post_price1"
@@ -204,11 +205,10 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/what_did_you_eat"
-            android:paddingBottom="@dimen/edittext_padding_bottom"
-
-            android:paddingEnd="@dimen/edittext_padding_end"
-            android:paddingStart="@dimen/edittext_padding_start"
-            android:paddingTop="@dimen/edittext_padding_top"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
             app:layout_constraintStart_toStartOf="@+id/edittext_post_menu2"
             app:layout_constraintTop_toBottomOf="@+id/edittext_post_menu2" />
@@ -220,10 +220,10 @@
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/price"
             android:inputType="number"
-            android:paddingBottom="@dimen/edittext_padding_bottom"
-            android:paddingEnd="@dimen/edittext_padding_end"
-            android:paddingStart="@dimen/edittext_padding_start"
-            android:paddingTop="@dimen/edittext_padding_top"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu3"
             app:layout_constraintEnd_toEndOf="@+id/edittext_post_price2"
@@ -266,27 +266,25 @@
         <!--/>-->
 
         <!--<ImageView-->
-            <!--android:id="@+id/imageView_post_add_pictures"-->
-            <!--android:layout_width="228dp"-->
-            <!--android:layout_height="150dp"-->
-            <!--android:layout_marginEnd="0dp"-->
-            <!--android:padding="8dp"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/constraint"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/constraint"-->
-            <!--app:srcCompat="@drawable/picture" />-->
+        <!--android:id="@+id/imageView_post_add_pictures"-->
+        <!--android:layout_width="228dp"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:layout_marginEnd="0dp"-->
+        <!--android:padding="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/constraint"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/constraint"-->
+        <!--app:srcCompat="@drawable/picture" />-->
 
         <EditText
             android:id="@+id/edittext_post_content"
-            android:layout_width="229dp"
-            android:layout_height="151dp"
+            android:layout_width="228dp"
+            android:layout_height="150dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/corner_bg_post_edittext"
-            android:gravity="left"
+            android:gravity="start"
             android:hint="今天來到了XXX餐館..."
-            android:paddingEnd="10dp"
-            android:paddingStart="10dp"
-            android:paddingTop="10dp"
+            android:padding="10dp"
             android:textSize="12dp"
             app:layout_constraintStart_toStartOf="@+id/constraint"
             app:layout_constraintTop_toBottomOf="@+id/constraint" />
@@ -300,7 +298,6 @@
             android:numStars="5"
             android:scaleX=".7"
             android:scaleY=".7"
-
             android:stepSize="0.1"
             android:theme="@style/RatingBar"
             app:layout_constraintEnd_toEndOf="@+id/edittext_post_content"
@@ -382,14 +379,15 @@
             <ImageView
                 android:id="@+id/imageView_post_add_pictures"
                 android:layout_width="228dp"
-                android:layout_height="130dp"
+                android:layout_height="120dp"
                 android:layout_marginEnd="0dp"
-                android:padding="38dp"
-                android:background="@drawable/corner_bg_post_edittext"
+                android:background="@drawable/dash_background"
+                android:padding="48dp"
                 app:layout_constraintBottom_toBottomOf="@+id/constraint"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/constraint"
                 app:srcCompat="@drawable/picture" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerview_post_photo"
                 android:layout_width="228dp"

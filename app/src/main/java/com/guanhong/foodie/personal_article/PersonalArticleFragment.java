@@ -108,7 +108,6 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
         mTitleContent = view.findViewById(R.id.textView_content);
         mTitleRating = view.findViewById(R.id.textView_rating_bar);
 
-
         return view;
     }
 

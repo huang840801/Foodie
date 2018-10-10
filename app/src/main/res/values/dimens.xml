@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="edittext_padding_bottom">5dp</dimen>
-    <dimen name="edittext_padding_start">5dp</dimen>
-    <dimen name="edittext_padding_top">5dp</dimen>
-    <dimen name="edittext_padding_end">5dp</dimen>
+    <dimen name="text_padding_bottom">5dp</dimen>
+    <dimen name="text_padding_start">5dp</dimen>
+    <dimen name="text_padding_top">5dp</dimen>
+    <dimen name="text_padding_end">5dp</dimen>
 </resources>

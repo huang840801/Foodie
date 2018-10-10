@@ -44,14 +44,14 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
 
     private ProfileContract.Presenter mPresenter;
     private ArrayList<Article> mArticleArrayList;
-    private ArrayList<Bitmap> mBitmapList;
+//    private ArrayList<Bitmap> mBitmapList;
     private Context mContext;
     private Typeface mTypeface;
 
 
     public ProfileArticleAdapter(ArrayList<Article> articleArrayList, ProfileContract.Presenter presenter) {
         mArticleArrayList = articleArrayList;
-        mBitmapList = new ArrayList<>();
+//        mBitmapList = new ArrayList<>();
         mPresenter = presenter;
         Log.d(Constants.TAG, " mArticleArrayList " + mArticleArrayList.size());
     }

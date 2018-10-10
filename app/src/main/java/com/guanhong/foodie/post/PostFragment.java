@@ -69,7 +69,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
     private Typeface mTypeface;
 
-    private ArrayList<String> mPictureList;
+    private ArrayList<String> mPictureList = new ArrayList<>();
 
     private int mStarCount = 0;
     private LatLng mLatLng;
@@ -253,7 +253,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
             addMenu();
         }
         if (view.getId() == R.id.recyclerview_post_photo) {
-            Log.d(Constants.TAG, "  recyclerview_post_photo ");
+//            Log.d(Constants.TAG, "  recyclerview_post_photo ");
             addPictures();
         }
 //        if (view.getId() == R.id.imageView_post_subtractMenu) {
@@ -263,8 +263,130 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
             addPictures();
         }
         if (view.getId() == R.id.textview_post_post) {
-            postImage();
+            checkInformation();
+//            postImage();
         }
+
+    }
+
+    private void checkInformation() {
+        Log.d(Constants.TAG, " namelength = " + mEditTextRestaurantName.getText().toString().length());
+
+        if ("".equals(mEditTextRestaurantName.getText().toString())) {
+
+            Toast.makeText(mContext, "店名必填!", Toast.LENGTH_SHORT).show();
+
+        } else if ((mEditTextRestaurantName.getText().toString()).contains(" ")) {
+
+            Toast.makeText(mContext, "店名不能有空白!", Toast.LENGTH_SHORT).show();
+
+        } else if ("".equals(mTextViewRestaurantLocation.getText().toString())) {
+
+            Toast.makeText(mContext, "位置必填!", Toast.LENGTH_SHORT).show();
+
+        } else if ("".equals(mEditTextMenu1.getText().toString())) {
+
+            Toast.makeText(mContext, "菜名必填!", Toast.LENGTH_SHORT).show();
+
+        } else if ((mEditTextMenu1.getText().toString()).contains(" ")) {
+
+            Toast.makeText(mContext, "菜單不能有空白!", Toast.LENGTH_SHORT).show();
+
+        } else if ("".equals(mEditTextPrice1.getText().toString())) {
+
+            Toast.makeText(mContext, "價格必填!", Toast.LENGTH_SHORT).show();
+
+        } else if (mPictureList.size() == 0) {
+
+            Toast.makeText(mContext, "至少要有一張照片!", Toast.LENGTH_SHORT).show();
+
+        } else if ("".equals(mEditTextContent.getText().toString())) {
+
+            Toast.makeText(mContext, "內容必填!", Toast.LENGTH_SHORT).show();
+
+        }
+//        if (mEditTextMenu2.getText().toString().length() > 0) {
+//            if ((mEditTextMenu2.getText().toString()).contains(" ")) {
+//
+//                Toast.makeText(mContext, "菜單不能有空白!", Toast.LENGTH_SHORT).show();
+//
+//            } else if ("".equals(mEditTextPrice2.getText().toString())) {
+//
+//                Toast.makeText(mContext, "價格必填!", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        }  if (mEditTextPrice2.getText().toString().length() > 0) {
+//            if ((mEditTextMenu2.getText().toString()).contains(" ")) {
+//
+//                Toast.makeText(mContext, "菜單不能有空白!", Toast.LENGTH_SHORT).show();
+//
+//            } else if ("".equals(mEditTextMenu2.getText().toString())) {
+//
+//                Toast.makeText(mContext, "菜單必填!", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        }
+
+        else if (mEditTextMenu2.getText().toString().length() > 0 || mEditTextPrice2.getText().toString().length() > 0) {
+
+            if ("".equals(mEditTextMenu2.getText().toString())) {
+
+                Toast.makeText(mContext, "菜單必填!", Toast.LENGTH_SHORT).show();
+
+            } else if ((mEditTextMenu2.getText().toString()).contains(" ")) {
+
+                Toast.makeText(mContext, "菜單不能有空白!", Toast.LENGTH_SHORT).show();
+
+            } else if ("".equals(mEditTextPrice2.getText().toString())) {
+
+                Toast.makeText(mContext, "價格必填!", Toast.LENGTH_SHORT).show();
+
+            }
+            else if (mEditTextMenu3.getText().toString().length() > 0 || mEditTextPrice3.getText().toString().length() > 0) {
+                if ("".equals(mEditTextMenu3.getText().toString())) {
+
+                    Toast.makeText(mContext, "菜單必填!", Toast.LENGTH_SHORT).show();
+
+                } else if ((mEditTextMenu3.getText().toString()).contains(" ")) {
+
+                    Toast.makeText(mContext, "菜單不能有空白!", Toast.LENGTH_SHORT).show();
+
+                } else if ("".equals(mEditTextPrice3.getText().toString())) {
+
+                    Toast.makeText(mContext, "價格必填!", Toast.LENGTH_SHORT).show();
+
+                }
+                else  {
+
+                    Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            else {
+
+                Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+        else {
+
+            Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
+        }
+//        String address = mTextViewRestaurantLocation.getText().toString();
+
+//        String dishName1 = mEditTextMenu1.getText().toString();
+//        String dishPrice1 = mEditTextPrice1.getText().toString();
+//
+//        String dishName2 = mEditTextMenu2.getText().toString();
+//        String dishPrice2 = mEditTextPrice2.getText().toString();
+//
+//        String dishName3 = mEditTextMenu3.getText().toString();
+//        String dishPrice3 = mEditTextPrice3.getText().toString();
+//
+//
+//        String content = mEditTextContent.getText().toString();
+
 
     }
 

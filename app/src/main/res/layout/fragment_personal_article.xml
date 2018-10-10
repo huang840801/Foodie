@@ -38,23 +38,25 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="28dp"
             android:background="@drawable/corner_bg_post_edittext"
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:text=""
+            android:textSize="12dp"
             app:layout_constraintStart_toEndOf="@+id/personal_restaurant_name"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!--<ImageView-->
-            <!--android:id="@+id/imageView_personal_location"-->
-            <!--android:layout_width="40dp"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:layout_marginStart="8dp"-->
-            <!--android:padding="8dp"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/textview_personal_restaurant_location"-->
-            <!--app:layout_constraintStart_toEndOf="@+id/textview_personal_restaurant_location"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/textview_personal_restaurant_location"-->
-            <!--app:srcCompat="@drawable/marker_yellow" />-->
+        <!--android:id="@+id/imageView_personal_location"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:padding="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/textview_personal_restaurant_location"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/textview_personal_restaurant_location"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/textview_personal_restaurant_location"-->
+        <!--app:srcCompat="@drawable/marker_yellow" />-->
 
         <TextView
             android:id="@+id/textview_personal_restaurant_location"
@@ -62,10 +64,12 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/corner_bg_post_edittext"
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="10dp"
-            android:text=""
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
+            android:text="不過並不能證明他明天能否延續好投，畢竟他過去12次季後賽登板都沒有拿過勝投。"
+            android:textSize="12dp"
             app:layout_constraintStart_toStartOf="@+id/textView_personal_restaurant_name"
             app:layout_constraintTop_toBottomOf="@+id/textView_personal_restaurant_name" />
         <!--<LinearLayout-->
@@ -95,11 +99,11 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/what_did_you_eat"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
-
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
             app:layout_constraintStart_toStartOf="@+id/textview_personal_restaurant_location"
             app:layout_constraintTop_toBottomOf="@+id/textview_personal_restaurant_location" />
 
@@ -109,11 +113,11 @@
             android:layout_height="30dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/price"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
-
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu1"
             app:layout_constraintEnd_toEndOf="@+id/textview_personal_restaurant_location"
             app:layout_constraintTop_toTopOf="@+id/textView_personal_menu1" />
@@ -134,11 +138,11 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/what_did_you_eat"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
-
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
             app:layout_constraintStart_toStartOf="@+id/textView_personal_menu1"
             app:layout_constraintTop_toBottomOf="@+id/textView_personal_menu1" />
 
@@ -148,11 +152,11 @@
             android:layout_height="30dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/price"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
-
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu2"
             app:layout_constraintEnd_toEndOf="@+id/textView_personal_price1"
             app:layout_constraintTop_toTopOf="@+id/textView_personal_menu2" />
@@ -173,11 +177,11 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/what_did_you_eat"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
-
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
             app:layout_constraintStart_toStartOf="@+id/textView_personal_menu2"
             app:layout_constraintTop_toBottomOf="@+id/textView_personal_menu2" />
 
@@ -187,11 +191,11 @@
             android:layout_height="30dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:hint="@string/price"
+            android:paddingBottom="@dimen/text_padding_bottom"
+            android:paddingEnd="@dimen/text_padding_end"
+            android:paddingStart="@dimen/text_padding_start"
+            android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
-
-            android:paddingBottom="2dp"
-            android:paddingStart="2dp"
-            android:paddingTop="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu3"
             app:layout_constraintEnd_toEndOf="@+id/textView_personal_price2"
             app:layout_constraintTop_toTopOf="@+id/textView_personal_menu3" />
@@ -213,17 +217,17 @@
 
 
         <!--<ImageView-->
-            <!--android:id="@+id/imageView_personal_addMenu"-->
-            <!--android:layout_width="30dp"-->
-            <!--android:layout_height="30dp"-->
-            <!--android:layout_marginStart="12dp"-->
+        <!--android:id="@+id/imageView_personal_addMenu"-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_marginStart="12dp"-->
 
-            <!--android:padding="8dp"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/textView_personal_price1"-->
+        <!--android:padding="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/textView_personal_price1"-->
 
-            <!--app:layout_constraintStart_toEndOf="@+id/textView_personal_price1"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/textView_personal_price1"-->
-            <!--app:srcCompat="@drawable/add_menu" />-->
+        <!--app:layout_constraintStart_toEndOf="@+id/textView_personal_price1"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/textView_personal_price1"-->
+        <!--app:srcCompat="@drawable/add_menu" />-->
 
         <!--<ImageView-->
         <!--android:id="@+id/imageView_personal_subtractMenu"-->
@@ -233,15 +237,15 @@
         <!--/>-->
 
         <!--<ImageView-->
-            <!--android:id="@+id/imageView_personal_add_pictures"-->
-            <!--android:layout_width="40dp"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:layout_marginEnd="8dp"-->
-            <!--android:padding="8dp"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/constraint"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/constraint"-->
-            <!--app:srcCompat="@drawable/picture" />-->
+        <!--android:id="@+id/imageView_personal_add_pictures"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:padding="8dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/constraint"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/constraint"-->
+        <!--app:srcCompat="@drawable/picture" />-->
 
         <TextView
             android:id="@+id/textView_personal_content"
@@ -251,36 +255,37 @@
             android:background="@drawable/corner_bg_post_edittext"
             android:gravity="left"
             android:hint="今天來到了XXX餐館..."
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
             android:textSize="12dp"
-            android:paddingStart="5dp"
-            android:paddingTop="5dp"
             app:layout_constraintStart_toStartOf="@+id/constraint"
             app:layout_constraintTop_toBottomOf="@+id/constraint" />
 
 
         <!--<RatingBar-->
-            <!--android:id="@+id/ratingBar2"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="16dp"-->
-            <!--android:theme="@style/RatingBar"-->
-            <!--app:layout_constraintStart_toStartOf="@+id/textView_personal_content"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/textView_personal_content" />-->
+        <!--android:id="@+id/ratingBar2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:theme="@style/RatingBar"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/textView_personal_content"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/textView_personal_content" />-->
 
         <!--<TextView-->
-            <!--android:id="@+id/textview_personal_personal"-->
-            <!--android:layout_width="90dp"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:layout_marginBottom="16dp"-->
-            <!--android:layout_marginTop="16dp"-->
-            <!--android:background="@drawable/corner_bg_post_edittext"-->
-            <!--android:gravity="center"-->
-            <!--android:text="@string/personal"-->
-            <!--android:textSize="20dp"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />-->
+        <!--android:id="@+id/textview_personal_personal"-->
+        <!--android:layout_width="90dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_marginBottom="16dp"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:background="@drawable/corner_bg_post_edittext"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/personal"-->
+        <!--android:textSize="20dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />-->
 
         <TextView
             android:id="@+id/textView_menu1"
@@ -293,26 +298,26 @@
             app:layout_constraintTop_toTopOf="@+id/textView_personal_menu1" />
 
         <!--<TextView-->
-            <!--android:id="@+id/textView_menu2"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/textView_menu2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
 
-            <!--android:text="菜單"-->
-            <!--android:textSize="18dp"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu2"-->
-            <!--app:layout_constraintStart_toStartOf="@+id/textView_menu1"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/textView_personal_menu2" />-->
+        <!--android:text="菜單"-->
+        <!--android:textSize="18dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu2"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/textView_menu1"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/textView_personal_menu2" />-->
 
         <!--<TextView-->
-            <!--android:id="@+id/textView_menu3"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="菜單"-->
+        <!--android:id="@+id/textView_menu3"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="菜單"-->
 
-            <!--android:textSize="18dp"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu3"-->
-            <!--app:layout_constraintStart_toStartOf="@+id/textView_menu2"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/textView_personal_menu3" />-->
+        <!--android:textSize="18dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu3"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/textView_menu2"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/textView_personal_menu3" />-->
 
         <TextView
             android:id="@+id/textView_content"
@@ -374,40 +379,39 @@
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@+id/textView_personal_content"
-            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content" />
+
         <ImageView
             android:id="@+id/imageView_star2"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toEndOf="@+id/imageView_star1"
-            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content" />
+
         <ImageView
             android:id="@+id/imageView_star3"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toEndOf="@+id/imageView_star2"
-            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content" />
+
         <ImageView
             android:id="@+id/imageView_star4"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toEndOf="@+id/imageView_star3"
-            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content" />
+
         <ImageView
             android:id="@+id/imageView_star5"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toEndOf="@+id/imageView_star4"
-            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_content" />
 
 
     </android.support.constraint.ConstraintLayout>

@@ -33,6 +33,7 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
     @Override
     public void openPersonalArticle(Article article) {
         mRestaurantView.showPersonalArticleUi(article);
+
     }
 
     public RestaurantPresenter(RestaurantContract.View restaurantView, Restaurant restaurant, ArrayList<Comment> comments) {
