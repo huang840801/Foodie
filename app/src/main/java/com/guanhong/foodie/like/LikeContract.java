@@ -1,9 +1,9 @@
-package com.guanhong.foodie.liked;
+package com.guanhong.foodie.like;
 
 import com.guanhong.foodie.BasePresenter;
 import com.guanhong.foodie.BaseView;
 
-public interface LikedContract {
+public interface LikeContract {
 
     interface  View extends BaseView<Presenter>{
 

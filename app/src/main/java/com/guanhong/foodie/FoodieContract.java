@@ -35,9 +35,9 @@ public interface FoodieContract {
 
         void transToMap();
 
-        void transToLiked();
+        void transToLike();
 
-        void transToLotto();
+        void transToRecommend();
 
         void transToProfile();
 

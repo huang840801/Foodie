@@ -65,7 +65,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("article");
-//        Query query = databaseReference.child("author").orderByChild("id").equalTo(uid);
         Query query = databaseReference;
         query.addValueEventListener(new ValueEventListener() {
             @Override

@@ -238,9 +238,9 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         Log.d(Constants.TAG, "  lng = " + marker.getPosition().longitude);
         String lat = String.valueOf(marker.getPosition().latitude).replace(".", "@");
         String lng = String.valueOf(marker.getPosition().longitude).replace(".", "@");
-        String latlng = lat + "_" + lng;
-        mPresenter.getRestaurantData(latlng);
-        Log.d(Constants.TAG, "  lng = " + latlng);
+        String lat_lng = lat + "_" + lng;
+        mPresenter.getRestaurantData(lat_lng);
+        Log.d(Constants.TAG, "  lng = " + lat_lng);
 
 //        Geocoder geocoder = new Geocoder(mContext, Locale.TRADITIONAL_CHINESE);
 //        try {

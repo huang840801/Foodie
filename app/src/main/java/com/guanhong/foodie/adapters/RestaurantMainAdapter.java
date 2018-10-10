@@ -114,6 +114,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         setPhotoRecyclerView(holder);
         getArticleFromFirebase(holder);
 
+
         holder.getRestaurantName().setText(mRestaurant.getRestaurantName());
         holder.getRestaurantName().setTypeface(mTypeface);
 
@@ -165,9 +166,11 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
                 if(!isLike){
                     holder.getBookmark().setImageResource(R.drawable.bookmark_selected);
+                    uploadMyLikedArticleToFirebase(mRestaurant.getLat_Lng(), mRestaurant);
                     isLike = true;
                 }else {
                     holder.getBookmark().setImageResource(R.drawable.bookmark_unselected);
+                    deleteMyLikedArticleToFirebase(mRestaurant.getLat_Lng(), mRestaurant);
                     isLike = false;
                 }
             }
@@ -220,6 +223,29 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             }
         });
 
+    }
+
+    private void deleteMyLikedArticleToFirebase(String lat_lng, Restaurant restaurant) {
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+
+        DatabaseReference likeDataBase = firebaseDatabase.getReference("like");
+        likeDataBase.child(UserManager.getInstance().getUserId()).child(lat_lng).removeValue();
+    }
+
+    private void uploadMyLikedArticleToFirebase(String lat_lng, Restaurant restaurant) {
+
+        Log.d(Constants.TAG, " RestaurantMainAdaptergetArticleArrayList().size(): " + mRestaurant.getArticleArrayList().size());
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+
+        DatabaseReference likeDataBase = firebaseDatabase.getReference("like");
+        likeDataBase.child(UserManager.getInstance().getUserId()).child(lat_lng).setValue(restaurant);
+
+//        DatabaseReference articleDataBase = firebaseDatabase.getReference("article");
+//        articleDataBase.push().setValue(article);
     }
 
     private void setArticlePreviewRecyclerView(RestaurantMainItemViewHolder holder, ArrayList<Article> articleArrayList) {

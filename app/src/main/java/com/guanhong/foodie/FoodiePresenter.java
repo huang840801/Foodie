@@ -6,8 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.guanhong.foodie.liked.LikedFragment;
-import com.guanhong.foodie.liked.LikedPresenter;
+import com.guanhong.foodie.like.LikeFragment;
+import com.guanhong.foodie.like.LikePresenter;
 import com.guanhong.foodie.recommend.RecommendFragment;
 import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.map.MapPresenter;
@@ -52,7 +52,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     private ProfileFragment mProfileFragment;
     private SearchFragment mSearchFragment;
     private RecommendFragment mRecommendFragment;
-    private LikedFragment mLikedFragment;
+    private LikeFragment mLikeFragment;
     private RestaurantFragment mRestaurantFragment;
     private PostFragment mPostFragment;
     private PostChildMapFragment mPostChildMapFragment;
@@ -62,7 +62,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     private MapPresenter mMapPresenter;
     private ProfilePresenter mProfilePresenter;
     private RestaurantPresenter mRestaurantPresenter;
-    private LikedPresenter mLikedPresenter;
+    private LikePresenter mLikePresenter;
     private PostPresenter mPostPresenter;
     private PostChildMapPresenter mPostChildMapPresenter;
     private PersonalArticlePresenter mPersonalArticlePresenter;
@@ -113,19 +113,21 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
         Log.d(Constants.TAG, "  transToProfile");
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-
-        if (mPostFragment != null && !mPostFragment.isHidden()) {
-            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-            fragmentTransaction.remove(mPostFragment);
-        }
-        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
-            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-            fragmentTransaction.remove(mRestaurantFragment);
-
-        }
-        if (mPostChildMapFragment != null && !mPostChildMapFragment.isHidden()) {
-            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
+//
+//        if (mPostFragment != null && !mPostFragment.isHidden()) {
+//            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
+//            fragmentTransaction.remove(mPostFragment);
+//        }
+//        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
+//            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
+//            fragmentTransaction.remove(mRestaurantFragment);
+//
+//        }
+//        if (mPostChildMapFragment != null && !mPostChildMapFragment.isHidden()) {
+        if (mPostChildMapFragment != null ) {
+            Log.d(Constants.TAG, "  transToProfile mPostChildMapFragment isHidden");
             fragmentTransaction.remove(mPostChildMapFragment);
+            mFragmentManager.popBackStack();
         }
         fragmentTransaction.commit();
 
@@ -142,19 +144,19 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
 
     @Override
-    public void transToLotto() {
-        Log.d(Constants.TAG, "  transToLotto");
+    public void transToRecommend() {
+        Log.d(Constants.TAG, "  transToRecommend");
         mViewPager.setCurrentItem(3);
         mFoodieView.showLotteryUi();
     }
 
 
     @Override
-    public void transToLiked() {
+    public void transToLike() {
         Log.d(Constants.TAG, "  transToLiked");
 
-//        LikedFragment likedFragment = LikedFragment.newInstance();
-//        mLikedPresenter = new LikedPresenter(likedFragment);
+//        LikeFragment likedFragment = LikeFragment.newInstance();
+//        mLikePresenter = new LikePresenter(likedFragment);
 
         mViewPager.setCurrentItem(4);
         mFoodieView.showLikedUi();
@@ -200,11 +202,11 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 //            fragmentTransaction.remove(mRestaurantFragment);
 //
 //        }
-//        if (mPostChildMapFragment != null && !mPostChildMapFragment.isHidden()) {
-//            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-//            fragmentTransaction.remove(mPostChildMapFragment);
-////            mFoodieView.setTabLayoutVisibility(true);
-//        }
+        if (mPostChildMapFragment != null && !mPostChildMapFragment.isHidden()) {
+            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
+            fragmentTransaction.hide(mPostChildMapFragment);
+//            mFoodieView.setTabLayoutVisibility(true);
+        }
 
         mPostPresenter = new PostPresenter(mPostFragment);
 
@@ -246,7 +248,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
             fragmentTransaction.show(mPostChildMapFragment);
         }
 //        fragmentTransaction.replace(R.id.fragment_container, mPostChildMapFragment, "");
-        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         mFoodieView.showPostChildMapUi();
     }

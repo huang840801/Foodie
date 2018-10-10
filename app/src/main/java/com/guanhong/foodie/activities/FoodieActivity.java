@@ -33,8 +33,8 @@ import com.guanhong.foodie.FoodiePresenter;
 import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.ViewPagerAdapter;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.liked.LikedFragment;
-import com.guanhong.foodie.liked.LikedPresenter;
+import com.guanhong.foodie.like.LikeFragment;
+import com.guanhong.foodie.like.LikePresenter;
 import com.guanhong.foodie.recommend.RecommendFragment;
 import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.map.MapPresenter;
@@ -66,13 +66,13 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     private ProfileFragment mProfileFragment;
     private SearchFragment mSearchFragment;
     private RecommendFragment mRecommendFragment;
-    private LikedFragment mLikedFragment;
+    private LikeFragment mLikeFragment;
     private RestaurantFragment mRestaurantFragment;
     private PostFragment mPostFragment;
 
     private MapPresenter mMapPresenter;
     private ProfilePresenter mProfilePresenter;
-    private LikedPresenter mLikedPresenter;
+    private LikePresenter mLikePresenter;
     private RestaurantPresenter mRestaurantPresenter;
     private PostPresenter mPostPresenter;
 
@@ -247,9 +247,9 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         if (mRecommendFragment == null) {
             mRecommendFragment = RecommendFragment.newInstance();
         }
-        if (mLikedFragment == null) {
-            mLikedFragment = LikedFragment.newInstance();
-            mLikedPresenter = new LikedPresenter(mLikedFragment);
+        if (mLikeFragment == null) {
+            mLikeFragment = LikeFragment.newInstance();
+            mLikePresenter = new LikePresenter(mLikeFragment);
 
         }
 
@@ -257,7 +257,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         mFragmentList.add(mProfileFragment);
         mFragmentList.add(mSearchFragment);
         mFragmentList.add(mRecommendFragment);
-        mFragmentList.add(mLikedFragment);
+        mFragmentList.add(mLikeFragment);
     }
 
     private void requestReadAndWritePermissions() {
@@ -382,11 +382,11 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
                 break;
             case 3:
                 tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.recommend_selected);
-                mPresenter.transToLotto();
+                mPresenter.transToRecommend();
                 break;
             case 4:
                 tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.heart_selected);
-                mPresenter.transToLiked();
+                mPresenter.transToLike();
                 break;
 
         }

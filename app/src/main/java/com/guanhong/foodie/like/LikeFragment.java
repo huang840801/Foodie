@@ -1,4 +1,4 @@
-package com.guanhong.foodie.liked;
+package com.guanhong.foodie.like;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,14 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.util.Constants;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 
-public class LikedFragment extends Fragment implements LikedContract.View{
+public class LikeFragment extends Fragment implements LikeContract.View{
 
-    private LikedContract.Presenter mPresenter;
+    private LikeContract.Presenter mPresenter;
 
     @Nullable
     @Override
@@ -26,19 +25,22 @@ public class LikedFragment extends Fragment implements LikedContract.View{
         return v;
     }
 
-    public static LikedFragment newInstance(){
-        return new LikedFragment();
+    public static LikeFragment newInstance(){
+        return new LikeFragment();
     }
 
     @Override
-    public void setPresenter(LikedContract.Presenter presenter) {
+    public void setPresenter(LikeContract.Presenter presenter) {
+
         mPresenter = checkNotNull(presenter);
+        Log.d(Constants.TAG, "  LikeFragment setPresenter");
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(Constants.TAG, "  transToLiked " + mPresenter);
+        Log.d(Constants.TAG, "  LikeFragment onViewCreated");
 
         mPresenter.start();
     }

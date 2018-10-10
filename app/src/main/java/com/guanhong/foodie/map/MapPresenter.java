@@ -57,8 +57,8 @@ public class MapPresenter implements MapContract.Presenter {
 
 
     @Override
-    public void getRestaurantData(String address) {
-        Log.d(Constants.TAG, "hellooo address : " + address);
+    public void getRestaurantData(String lat_lng) {
+        Log.d(Constants.TAG, "hellooo address : " + lat_lng);
 
 
         final Restaurant restaurant = new Restaurant();
@@ -66,7 +66,7 @@ public class MapPresenter implements MapContract.Presenter {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
 
-        Query query = databaseReference.child(address);
+        Query query = databaseReference.child(lat_lng);
 
 
         query.addValueEventListener(new ValueEventListener() {
