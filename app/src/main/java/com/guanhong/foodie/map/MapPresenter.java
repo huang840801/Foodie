@@ -246,7 +246,7 @@ public class MapPresenter implements MapContract.Presenter {
                 }
 
                 mMapView.showMarker(locations);
-                getStarCount(restaurantKey);
+//                getStarCount(restaurantKey);
 
             }
 

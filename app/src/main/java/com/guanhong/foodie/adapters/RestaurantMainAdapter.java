@@ -161,16 +161,44 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             holder.getStar5().setImageResource(R.drawable.new_star_unselected);
         }
 
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+        DatabaseReference likeDataBase = firebaseDatabase.getReference("like").child(UserManager.getInstance().getUserId());
+        Query query = likeDataBase;
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    Log.d("likeDataBase", " snapshot = " + snapshot);
+//                    Log.d("likeDataBase", " snapshot getKey = " + snapshot.getKey());
+                    if(snapshot.getKey().equals(mRestaurant.getLat_Lng())){
+                        Log.d("likeDataBase", " snapshot getKey = " + snapshot.getKey());
+                        Log.d("likeDataBase", " Likeeeeee " );
+                        holder.getBookmark().setImageResource(R.drawable.bookmark_selected);
+                        isLike = true;
+
+
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         holder.getBookmark().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isLike){
+                if (!isLike) {
                     holder.getBookmark().setImageResource(R.drawable.bookmark_selected);
                     uploadMyLikedArticleToFirebase(mRestaurant.getLat_Lng(), mRestaurant);
                     isLike = true;
-                }else {
+                } else {
                     holder.getBookmark().setImageResource(R.drawable.bookmark_unselected);
-                    deleteMyLikedArticleToFirebase(mRestaurant.getLat_Lng(), mRestaurant);
+                    deleteMyLikedArticleToFirebase(mRestaurant.getLat_Lng());
                     isLike = false;
                 }
             }
@@ -205,13 +233,13 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
                     comment1.setAuthor(author);
                     comment1.setComment(comment);
-                    comment1.setCreatedTime(System.currentTimeMillis()+"");
+                    comment1.setCreatedTime(System.currentTimeMillis() + "");
 
 
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
                     DatabaseReference restaurantDataBase = firebaseDatabase.getReference("comment");
-                    restaurantDataBase.child(mRestaurant.getLat_Lng()).child(System.currentTimeMillis()+"").setValue(comment1);
+                    restaurantDataBase.child(mRestaurant.getLat_Lng()).child(System.currentTimeMillis() + "").setValue(comment1);
 //                restaurantDataBase.child(article.getLat_lng()).push().setValue(article);
 
                     holder.getEditTextComment().setText("");
@@ -225,10 +253,9 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
     }
 
-    private void deleteMyLikedArticleToFirebase(String lat_lng, Restaurant restaurant) {
+    private void deleteMyLikedArticleToFirebase(String lat_lng) {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
 
         DatabaseReference likeDataBase = firebaseDatabase.getReference("like");
         likeDataBase.child(UserManager.getInstance().getUserId()).child(lat_lng).removeValue();
@@ -239,7 +266,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         Log.d(Constants.TAG, " RestaurantMainAdaptergetArticleArrayList().size(): " + mRestaurant.getArticleArrayList().size());
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
 
         DatabaseReference likeDataBase = firebaseDatabase.getReference("like");
         likeDataBase.child(UserManager.getInstance().getUserId()).child(lat_lng).setValue(restaurant);
@@ -436,7 +462,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
     }
 
 
-
     private void bindCommentItem(RestaurantCommentItemViewHolder holder, int i) {
 //        Log.d(Constants.TAG, " getCreatedTime: " + mComments.get(i).getCreatedTime());
 
@@ -452,7 +477,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         holder.getTextAuthorName().setTypeface(mTypeface);
         holder.getTextCommentContent().setText(mComments.get(i).getComment());
         holder.getTextCommentContent().setTypeface(mTypeface);
-        if(!"".equals(mComments.get(i).getAuthor().getImage())) {
+        if (!"".equals(mComments.get(i).getAuthor().getImage())) {
             Picasso.get()
                     .load(mComments.get(i).getAuthor().getImage())
 //                .networkPolicy(NetworkPolicy.OFFLINE)

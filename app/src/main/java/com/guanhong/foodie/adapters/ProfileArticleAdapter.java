@@ -1,22 +1,7 @@
 package com.guanhong.foodie.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.renderscript.Allocation;
-import android.renderscript.Element;
-import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,14 +15,9 @@ import com.guanhong.foodie.R;
 import com.guanhong.foodie.custom.CircleCornerForm;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.profile.ProfileContract;
-import com.guanhong.foodie.util.BlurBitmapUtil;
 import com.guanhong.foodie.util.Constants;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-import com.squareup.picasso.Transformation;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class ProfileArticleAdapter extends RecyclerView.Adapter {
@@ -102,7 +82,7 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
         public ProfileArticleHolder(View view) {
             super(view);
             mImageView = view.findViewById(R.id.imageView_profile_article_photo);
-            mRestaurantName = view.findViewById(R.id.textView_profile_article_retaurantName);
+            mRestaurantName = view.findViewById(R.id.textView_profile_article_restaurantName);
             mContent = view.findViewById(R.id.textView_profile_article_content);
 
             view.setOnClickListener(this);

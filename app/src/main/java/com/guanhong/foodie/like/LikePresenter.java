@@ -2,8 +2,10 @@ package com.guanhong.foodie.like;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,14 +38,16 @@ public class LikePresenter implements LikeContract.Presenter {
 
         Log.d("LikePresenter ", "userid: " + UserManager.getInstance().getUserId());
 
+//        mRestaurantKeyArrayList.clear();
+
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("like").child(UserManager.getInstance().getUserId());
 
-        Query query = databaseReference.orderByChild("starCount");
+        Query query = databaseReference;
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                mRestaurantKeyArrayList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
 //                    Log.d("LikePresenter ", "loadRestaurantKey : " + snapshot);
@@ -66,11 +70,13 @@ public class LikePresenter implements LikeContract.Presenter {
 
     private void loadRestaurant(final ArrayList<String> restaurantKeyArrayList) {
 
-        Log.d("LikePresenter ", "restaurantKeyArrayList : " + restaurantKeyArrayList.size());
+//        Log.d("LikePresenter ", "restaurantKeyArrayList : " + restaurantKeyArrayList.size());
+       final int num = restaurantKeyArrayList.size();
 
         for (int i = 0; i < restaurantKeyArrayList.size(); i++) {
-            Log.d("LikePresenter ", "restaurantKeyArrayList : " + restaurantKeyArrayList.get(i));
+//            Log.d("LikePresenter ", "restaurantKeyArrayList : " + restaurantKeyArrayList.get(i));
 
+            mRestaurantArrayList.clear();
 
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = firebaseDatabase.getReference("like").child(UserManager.getInstance().getUserId());
@@ -80,30 +86,34 @@ public class LikePresenter implements LikeContract.Presenter {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    Log.d("LikePresenter ", "dataSnapshot : " + dataSnapshot.child("lat_Lng").getValue());
-                    Log.d("LikePresenter ", "dataSnapshot : " + dataSnapshot.child("restaurantLocation").getValue());
-                    Log.d("LikePresenter ", "dataSnapshot : " + dataSnapshot.child("restaurantName").getValue());
-                    Log.d("LikePresenter ", "dataSnapshot : " + dataSnapshot.child("starCount").getValue());
+                    Restaurant restaurant = new Restaurant();
 
+//                    Log.d("LikePresenter ", "dataSnapshot : " + dataSnapshot.child("lat_Lng").getValue());
+//                    Log.d("LikePresenter ", "dataSnapshot : " + dataSnapshot.child("restaurantLocation").getValue());
+//                    Log.d("LikePresenter ", "dataSnapshot : " + dataSnapshot.child("restaurantName").getValue());
+//                    Log.d("LikePresenter ", "dataSnapshot : " + dataSnapshot.child("starCount").getValue());
+//                    Log.d("LikePresenter ", "dataSnapshot : " + dataSnapshot.child("restaurantPictures").getValue());
 
-//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    restaurant.setLat_Lng((String) dataSnapshot.child("lat_Lng").getValue());
+                    restaurant.setRestaurantLocation((String) dataSnapshot.child("restaurantLocation").getValue());
+                    restaurant.setRestaurantName((String) dataSnapshot.child("restaurantName").getValue());
+                    try {
+                        restaurant.setStarCount(Integer.valueOf(dataSnapshot.child("starCount").getValue().toString()));
+                    }catch (NullPointerException e){
 
+                    }
 
-//                    for (int i = 0; i < restaurantKeyArrayList.size(); i++) {
-//                        if (snapshot.getKey() == restaurantKeyArrayList.get(i)) {
-//                        Log.d("LikePresenter ", "loadRestaurant : " + snapshot);
-//                        Log.d("LikePresenter ", "loadRestaurant restaurantName : " + snapshot.child("restaurantName").getValue());
-//                        Log.d("LikePresenter ", "loadRestaurant restaurantName : " + snapshot.child("restaurantName").getValue());
-//                            Log.d("LikePresenter ", "loadRestaurant : "+ snapshot);
-//                            Log.d("LikePresenter ", "loadRestaurant : "+ snapshot);
+                    ArrayList<String> pictures = new ArrayList<>();
+                    for (int j = 0; j < dataSnapshot.child("restaurantPictures").getChildrenCount(); j++) {
+                        pictures.add(dataSnapshot.child("restaurantPictures").child(String.valueOf(j)).getValue() + "");
+                    }
+                    restaurant.setRestaurantPictures(pictures);
 
+                    mRestaurantArrayList.add(restaurant);
 
-//                        }
-//                        }
-
-
-//                    }
-
+                    if(num ==mRestaurantArrayList.size()){
+                        mLikeView.showLikeArticleList(mRestaurantArrayList);
+                    }
                 }
 
                 @Override
@@ -111,6 +121,8 @@ public class LikePresenter implements LikeContract.Presenter {
 
                 }
             });
+
+
         }
     }
 

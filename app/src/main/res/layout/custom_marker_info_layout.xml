@@ -35,9 +35,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:gravity="center"
-
-
-            android:src="@drawable/star_unselected" />
+            android:src="@drawable/new_star_unselected" />
 
         <ImageView
             android:id="@+id/imageView_marker_star2"
@@ -46,7 +44,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
             android:gravity="center"
-            android:src="@drawable/star_unselected" />
+            android:src="@drawable/new_star_unselected" />
 
         <ImageView
             android:id="@+id/imageView_marker_star3"
@@ -55,7 +53,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
             android:gravity="center"
-            android:src="@drawable/star_unselected" />
+            android:src="@drawable/new_star_unselected" />
 
         <ImageView
             android:id="@+id/imageView_marker_star4"
@@ -64,7 +62,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
             android:gravity="center"
-            android:src="@drawable/star_unselected" />
+            android:src="@drawable/new_star_unselected" />
 
         <ImageView
             android:id="@+id/imageView_marker_star5"
@@ -73,6 +71,6 @@
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
             android:gravity="center"
-            android:src="@drawable/star_unselected" />
+            android:src="@drawable/new_star_unselected" />
     </LinearLayout>
 </LinearLayout>

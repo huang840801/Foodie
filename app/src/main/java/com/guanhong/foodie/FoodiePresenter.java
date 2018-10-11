@@ -248,7 +248,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
             fragmentTransaction.show(mPostChildMapFragment);
         }
 //        fragmentTransaction.replace(R.id.fragment_container, mPostChildMapFragment, "");
-//        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         mFoodieView.showPostChildMapUi();
     }

@@ -357,21 +357,21 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
                 }
                 else  {
-
-                    Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
+                    postImage();
+//                    Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             else {
-
-                Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
+                postImage();
+//                Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
             }
 
         }
 
         else {
-
-            Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
+            postImage();
+//            Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
         }
 //        String address = mTextViewRestaurantLocation.getText().toString();
 

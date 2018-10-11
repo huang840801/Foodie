@@ -64,7 +64,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
     private LocationManager status;
 
 
-    private ImageView mBackImageView;
+//    private ImageView mBackImageView;
 
     public static PostChildMapFragment newInstance() {
         return new PostChildMapFragment();
@@ -101,7 +101,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
 
         View rootView = inflater.inflate(R.layout.fragment_post_child_map, container, false);
 
-        mBackImageView = rootView.findViewById(R.id.imageView_back_arrow);
+//        mBackImageView = rootView.findViewById(R.id.imageView_back_arrow);
         mGoogleMapView = rootView.findViewById(R.id.post_mapView);
         mLocation = rootView.findViewById(R.id.imageView_my_position);
 
@@ -146,12 +146,12 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
 
         checkStatus();
 
-        mBackImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((FoodieActivity) getActivity()).transToPostArticle();
-            }
-        });
+//        mBackImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ((FoodieActivity) getActivity()).transToPostArticle();
+//            }
+//        });
     }
     private boolean requestLocationPermissions() {
         Log.d("Permissions", "requestLocationPermissions");
