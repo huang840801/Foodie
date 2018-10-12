@@ -92,8 +92,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         mContext = getContext();
         mPresenter = new MapPresenter(this, mContext);
 
-        mGoogleMapView.onCreate(savedInstanceState);
-        mGoogleMapView.onResume();
+
 
         return rootView;
     }
@@ -107,6 +106,8 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter.start();
+        mGoogleMapView.onCreate(savedInstanceState);
+//        mGoogleMapView.onResume();
     }
 
 

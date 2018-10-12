@@ -30,6 +30,7 @@ import com.guanhong.foodie.objects.Menu;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.restaurant.RestaurantContract;
 import com.guanhong.foodie.util.Constants;
+import com.guanhong.foodie.util.SpaceItemDecoration;
 import com.rd.PageIndicatorView;
 import com.squareup.picasso.Picasso;
 
@@ -243,6 +244,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 //                restaurantDataBase.child(article.getLat_lng()).push().setValue(article);
 
                     holder.getEditTextComment().setText("");
+//                    notifyDataSetChanged();
 
 //                    mRestaurantMainAdapter.notifyDataSetChanged();
                 }
@@ -263,7 +265,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
     private void uploadMyLikedArticleToFirebase(String lat_lng, Restaurant restaurant) {
 
-        Log.d(Constants.TAG, " RestaurantMainAdaptergetArticleArrayList().size(): " + mRestaurant.getArticleArrayList().size());
+//        Log.d(Constants.TAG, " RestaurantMainAdaptergetArticleArrayList().size(): " + mRestaurant.getArticleArrayList().size());
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -277,7 +279,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
     private void setArticlePreviewRecyclerView(RestaurantMainItemViewHolder holder, ArrayList<Article> articleArrayList) {
         holder.getRecyclerViewArticlePreview().setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
         holder.getRecyclerViewArticlePreview().setHasFixedSize(true);
-//        holder.getRecyclerViewArticlePreview().addItemDecoration(new SpaceItemDecoration(2));
+        holder.getRecyclerViewArticlePreview().addItemDecoration(new SpaceItemDecoration(6));
         holder.getRecyclerViewArticlePreview().setAdapter(new RestaurantArticlePreviewAdapter(articleArrayList, mPresenter));
     }
 

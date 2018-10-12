@@ -46,10 +46,13 @@ import com.guanhong.foodie.post.PostFragment;
 import com.guanhong.foodie.post.PostPresenter;
 import com.guanhong.foodie.profile.ProfileFragment;
 import com.guanhong.foodie.profile.ProfilePresenter;
+import com.guanhong.foodie.recommend.RecommendPresenter;
 import com.guanhong.foodie.restaurant.RestaurantFragment;
 import com.guanhong.foodie.restaurant.RestaurantPresenter;
 import com.guanhong.foodie.search.SearchFragment;
+import com.guanhong.foodie.search.SearchPresenter;
 import com.guanhong.foodie.util.Constants;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +76,8 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     private MapPresenter mMapPresenter;
     private ProfilePresenter mProfilePresenter;
     private LikePresenter mLikePresenter;
+    private SearchPresenter mSearchPresenter;
+    private RecommendPresenter mRecommendPresenter;
     private RestaurantPresenter mRestaurantPresenter;
     private PostPresenter mPostPresenter;
 
@@ -87,6 +92,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        Logger.d("hiiii");
 //        Log.d("UserManager ", "email = " + UserManager.getInstance().getUserEmail());
 //        Log.d("UserManager ", "id = " + UserManager.getInstance().getUserId());
 //        Log.d("UserManager ", "image = " + UserManager.getInstance().getUserImage());
@@ -243,9 +249,12 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         }
         if (mSearchFragment == null) {
             mSearchFragment = SearchFragment.newInstance();
+            mSearchPresenter = new SearchPresenter(mSearchFragment);
+
         }
         if (mRecommendFragment == null) {
             mRecommendFragment = RecommendFragment.newInstance();
+            mRecommendPresenter = new RecommendPresenter(mRecommendFragment);
         }
         if (mLikeFragment == null) {
             mLikeFragment = LikeFragment.newInstance();
@@ -303,6 +312,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     public void onBackPressed() {
         Log.d(Constants.TAG, "onBackPressed: ");
 
+        mPresenter.checkFragmentStatus();
 //        mPresenter.checkPostMapExist();
 //        mViewPager.setVisibility(View.VISIBLE);
 //        mTabLayout.setVisibility(View.VISIBLE);
@@ -310,30 +320,33 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         super.onBackPressed();
     }
 
-
     @Override
     public void showMapUi() {
+        setTabLayoutVisibility(true);
 
     }
 
     @Override
     public void showLikedUi() {
+        setTabLayoutVisibility(true);
 
     }
 
     @Override
     public void showLotteryUi() {
+        setTabLayoutVisibility(true);
 
     }
 
     @Override
     public void showProfileUi() {
-
+        setTabLayoutVisibility(true);
     }
 
     @Override
     public void showSearchUi() {
 //        Log.d(Constants.TAG, "  hello   transToSearch");
+        setTabLayoutVisibility(true);
 
     }
 
@@ -341,6 +354,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     public void showRestaurantUi() {
         Log.d(Constants.TAG, "  hello   transToRestaurant");
 //        mViewPager.setVisibility(View.GONE);
+        setTabLayoutVisibility(false);
 
     }
 
@@ -446,7 +460,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     }
 
 
-    public void transToPostProfile() {
+    public void transToProfile() {
         mPresenter.transToProfile();
     }
 

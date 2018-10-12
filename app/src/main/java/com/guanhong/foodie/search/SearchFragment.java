@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 
 import com.guanhong.foodie.R;
 
-public class SearchFragment extends Fragment {
+import static com.google.common.base.Preconditions.checkNotNull;
+
+public class SearchFragment extends Fragment implements SearchContract.View{
+
+    private SearchContract.Presenter mPresenter;
 
     @Nullable
     @Override
@@ -20,5 +24,17 @@ public class SearchFragment extends Fragment {
     }
     public static SearchFragment newInstance(){
         return new SearchFragment();
+    }
+
+    @Override
+    public void setPresenter(SearchContract.Presenter presenter) {
+        mPresenter = checkNotNull(presenter);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mPresenter.start();
     }
 }

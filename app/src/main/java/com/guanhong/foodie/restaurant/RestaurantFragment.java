@@ -69,6 +69,12 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        setTabLayoutVisibility(false);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter.start();

@@ -4,11 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+   >
+
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+     >
+
 
         <View
             android:id="@+id/topView"
@@ -286,8 +291,8 @@
             android:hint="今天來到了XXX餐館..."
             android:padding="10dp"
             android:textSize="12dp"
-            app:layout_constraintStart_toStartOf="@+id/constraint"
-            app:layout_constraintTop_toBottomOf="@+id/constraint" />
+            app:layout_constraintStart_toStartOf="@+id/constraintggg"
+            app:layout_constraintTop_toBottomOf="@+id/constraintggg" />
 
 
         <RatingBar
@@ -353,9 +358,9 @@
             android:layout_height="wrap_content"
             android:text="照片"
             android:textSize="18dp"
-            app:layout_constraintBottom_toBottomOf="@+id/constraint"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintggg"
             app:layout_constraintStart_toStartOf="@+id/textView_menu3"
-            app:layout_constraintTop_toTopOf="@+id/constraint" />
+            app:layout_constraintTop_toTopOf="@+id/constraintggg" />
 
         <TextView
             android:id="@+id/textView_rating_bar"
@@ -368,7 +373,7 @@
             app:layout_constraintTop_toTopOf="@+id/ratingBar2" />
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraint"
+            android:id="@+id/constraintggg"
             android:layout_width="228dp"
             android:layout_height="150dp"
             android:layout_marginTop="16dp"
@@ -383,9 +388,9 @@
                 android:layout_marginEnd="0dp"
                 android:background="@drawable/dash_background"
                 android:padding="48dp"
-                app:layout_constraintBottom_toBottomOf="@+id/constraint"
+                app:layout_constraintBottom_toBottomOf="@+id/constraintggg"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/constraint"
+                app:layout_constraintTop_toTopOf="@+id/constraintggg"
                 app:srcCompat="@drawable/picture" />
 
             <android.support.v7.widget.RecyclerView
@@ -401,6 +406,37 @@
 
 
         </android.support.constraint.ConstraintLayout>
+
+        <!--<android.support.constraint.ConstraintLayout-->
+            <!--android:id="@+id/constraint"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#e0000000"-->
+            <!--app:layout_constraintBottom_toBottomOf="constraint_parent"-->
+            <!--app:layout_constraintEnd_toEndOf="constraint_parent"-->
+            <!--app:layout_constraintStart_toStartOf="constraint_parent"-->
+            <!--app:layout_constraintTop_toTopOf="constraint_parent">-->
+        <View
+            android:id="@+id/loading_background"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#e0686262"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/AVLoadingIndicatorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:indicator="BallSpinFadeLoader"
+            app:indicator_color="@color/main"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--</android.support.constraint.ConstraintLayout>-->
 
 
     </android.support.constraint.ConstraintLayout>

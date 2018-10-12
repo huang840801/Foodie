@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.activities.FoodieActivity;
+import com.guanhong.foodie.custom.Blur;
 import com.guanhong.foodie.custom.CircleCornerForm;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.restaurant.RestaurantContract;
@@ -71,9 +71,10 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
         Picasso.get()
                 .load(mArticleArrayList.get(position).getPictures().get(0))
                 .error(R.drawable.all_picture_placeholder)
-                .transform(new CircleCornerForm(mContext))
+                .transform(new Blur(mContext))
                 .resize(500, 300)
                 .centerInside()
+                .transform(new CircleCornerForm())
                 .into(holder.getArticlePhoto());
 
 

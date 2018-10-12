@@ -1,7 +1,5 @@
 package com.guanhong.foodie.custom;
 
-
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -9,18 +7,11 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-
-import com.guanhong.foodie.Foodie;
-import com.guanhong.foodie.util.BlurBitmapUtil;
 import com.squareup.picasso.Transformation;
 
+import com.guanhong.foodie.util.BlurBitmapUtil;
 
-public class Blur implements Transformation {
-
-    private Context mContext;
-    public Blur(Context context) {
-        mContext = context;
-    }
+public class CircleCornerForm implements Transformation{
 
     @Override
     public Bitmap transform(Bitmap bitmap) {
@@ -31,7 +22,7 @@ public class Blur implements Transformation {
         int height = bitmap.getHeight();
 
         int left = 0, top = 0, right = width, bottom = height;
-        float roundPx = (float) (height / 20);   //角度
+        float roundPx = (float) (height / 40);   //角度
 
 
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -50,7 +41,6 @@ public class Blur implements Transformation {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN)); //兩圖交互顯示 mode (相交）
         canvas.drawBitmap(bitmap, rect, rect, paint);
 
-        output = BlurBitmapUtil.blurBitmap(mContext, bitmap, 20);
 
 
         bitmap.recycle();

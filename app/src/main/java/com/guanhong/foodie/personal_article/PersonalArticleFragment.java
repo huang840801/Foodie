@@ -49,14 +49,18 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
     private ImageView mImageViewStar4;
     private ImageView mImageViewStar5;
 
-    private TextView mTitleRestaurantName;
-    private TextView mTitleLocation;
+    private TextView mAuthor;
+    private TextView mAuthorName;
+
+
+    //    private TextView mTitleRestaurantName;
+//    private TextView mTitleLocation;
     private TextView mTitleMenu1;
-//    private TextView mTitleMenu2;
+    //    private TextView mTitleMenu2;
 //    private TextView mTitleMenu3;
-    private TextView mTitlePictures;
+//    private TextView mTitlePictures;
     private TextView mTitleContent;
-    private TextView mTitleRating;
+//    private TextView mTitleRating;
 
     private Typeface mTypeface;
 
@@ -98,15 +102,17 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
         mImageViewStar3 = view.findViewById(R.id.imageView_star3);
         mImageViewStar4 = view.findViewById(R.id.imageView_star4);
         mImageViewStar5 = view.findViewById(R.id.imageView_star5);
+        mAuthor = view.findViewById(R.id.textView_personal_author);
+        mAuthorName = view.findViewById(R.id.textView_personal_author_name);
 
-        mTitleRestaurantName = view.findViewById(R.id.personal_restaurant_name);
-        mTitleLocation = view.findViewById(R.id.personal_restaurant_location);
+//        mTitleRestaurantName = view.findViewById(R.id.personal_restaurant_name);
+//        mTitleLocation = view.findViewById(R.id.personal_restaurant_location);
         mTitleMenu1 = view.findViewById(R.id.textView_menu1);
 //        mTitleMenu2 = view.findViewById(R.id.textView_menu2);
 //        mTitleMenu3 = view.findViewById(R.id.textView_menu3);
-        mTitlePictures = view.findViewById(R.id.textView_pictures);
+//        mTitlePictures = view.findViewById(R.id.textView_pictures);
         mTitleContent = view.findViewById(R.id.textView_content);
-        mTitleRating = view.findViewById(R.id.textView_rating_bar);
+//        mTitleRating = view.findViewById(R.id.textView_rating_bar);
 
         return view;
     }
@@ -143,14 +149,16 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
         mTextViewMenu3.setTypeface(mTypeface);
         mTextViewPrice3.setTypeface(mTypeface);
         mTextViewContent.setTypeface(mTypeface);
-        mTitleRestaurantName.setTypeface(mTypeface);
-        mTitleLocation.setTypeface(mTypeface);
+//        mTitleRestaurantName.setTypeface(mTypeface);
+//        mTitleLocation.setTypeface(mTypeface);
         mTitleMenu1.setTypeface(mTypeface);
 //        mTitleMenu2.setTypeface(mTypeface);
 //        mTitleMenu3.setTypeface(mTypeface);
-        mTitlePictures.setTypeface(mTypeface);
+//        mTitlePictures.setTypeface(mTypeface);
         mTitleContent.setTypeface(mTypeface);
-        mTitleRating.setTypeface(mTypeface);
+        mAuthor.setTypeface(mTypeface);
+        mAuthorName.setTypeface(mTypeface);
+//        mTitleRating.setTypeface(mTypeface);
     }
 
     @Override
@@ -158,6 +166,7 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
 
         mTextViewRestaurantName.setText(article.getRestaurantName());
         mTextViewRestaurantLocation.setText(article.getLocation());
+        mAuthorName.setText(article.getAuthor().getName());
         if (article.getMenus().size() == 1) {
 
             mTextViewMenu1.setText(article.getMenus().get(0).getDishName());

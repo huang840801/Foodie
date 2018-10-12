@@ -11,4 +11,5 @@
     <color name="tab_text_selected">#558b2f</color>
     <color name="profile_main_bg">#f7f8f9</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

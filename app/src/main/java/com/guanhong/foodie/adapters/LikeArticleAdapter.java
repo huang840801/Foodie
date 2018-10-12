@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.custom.CircleCornerForm;
 import com.guanhong.foodie.objects.Restaurant;
 import com.squareup.picasso.Picasso;
 
@@ -63,6 +64,7 @@ public class LikeArticleAdapter extends RecyclerView.Adapter {
         if (mRestaurantArrayList.get(position).getRestaurantPictures().size() > 0) {
             Picasso.get()
                     .load(mRestaurantArrayList.get(position).getRestaurantPictures().get(0))
+                    .transform(new CircleCornerForm())
                     .error(R.drawable.all_picture_placeholder)
                     .into(holder.mImageView);
         }

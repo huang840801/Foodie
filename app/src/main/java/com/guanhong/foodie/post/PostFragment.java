@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +29,7 @@ import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Author;
 import com.guanhong.foodie.objects.Menu;
 import com.guanhong.foodie.util.Constants;
-import com.guanhong.foodie.util.SpaceItemDecoration;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
@@ -66,6 +67,11 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private TextView mTextViewPictures;
     private TextView mTextViewContent;
     private TextView mTextViewRating;
+
+    private AVLoadingIndicatorView mAVLoadingIndicatorView;
+    private View mLoadingBackground;
+
+
 
     private Typeface mTypeface;
 
@@ -131,6 +137,9 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mTextViewRating = rootView.findViewById(R.id.textView_rating_bar);
         mPostArticle = rootView.findViewById(R.id.textview_post_post);
 
+        mAVLoadingIndicatorView = rootView.findViewById(R.id.AVLoadingIndicatorView);
+        mLoadingBackground = rootView.findViewById(R.id.loading_background);
+
         setTypeFace();
 
         mRecyclerViewPhoto = rootView.findViewById(R.id.recyclerview_post_photo);
@@ -159,6 +168,8 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
         setTopViewPadding();
 
+        mAVLoadingIndicatorView.setVisibility(View.GONE);
+        mLoadingBackground.setVisibility(View.GONE);
         mTextViewMenu2.setVisibility(View.GONE);
         mEditTextMenu2.setVisibility(View.GONE);
         mEditTextPrice2.setVisibility(View.GONE);
@@ -240,6 +251,15 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     @Override
     public void addPictures() {
         ((FoodieActivity) getActivity()).pickMultiplePictures();
+
+    }
+
+    @Override
+    public void transToProfile() {
+
+        mAVLoadingIndicatorView.setVisibility(View.GONE);
+        mLoadingBackground.setVisibility(View.GONE);
+        ((FoodieActivity) getActivity()).transToProfile();
 
     }
 
@@ -357,12 +377,16 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
                 }
                 else  {
+                    mAVLoadingIndicatorView.setVisibility(View.VISIBLE);
+                    mLoadingBackground.setVisibility(View.VISIBLE);
                     postImage();
 //                    Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
                 }
             }
 
             else {
+                mAVLoadingIndicatorView.setVisibility(View.VISIBLE);
+                mLoadingBackground.setVisibility(View.VISIBLE);
                 postImage();
 //                Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
             }
@@ -370,6 +394,8 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         }
 
         else {
+            mAVLoadingIndicatorView.setVisibility(View.VISIBLE);
+            mLoadingBackground.setVisibility(View.VISIBLE);
             postImage();
 //            Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
         }
@@ -515,7 +541,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
         mPresenter.postArticle(article);
 
-        ((FoodieActivity) getActivity()).transToPostProfile();
 
     }
 

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.google.common.base.Preconditions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,7 +40,6 @@ public class LikePresenter implements LikeContract.Presenter {
         Log.d("LikePresenter ", "userid: " + UserManager.getInstance().getUserId());
 
 //        mRestaurantKeyArrayList.clear();
-
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("like").child(UserManager.getInstance().getUserId());
 
@@ -126,9 +126,8 @@ public class LikePresenter implements LikeContract.Presenter {
         }
     }
 
-    @SuppressLint("RestrictedApi")
     public LikePresenter(LikeContract.View likedView) {
-        mLikeView = likedView;
+        mLikeView = Preconditions.checkNotNull(likedView, "likeView cannot be null");
         mLikeView.setPresenter(this);
     }
 }

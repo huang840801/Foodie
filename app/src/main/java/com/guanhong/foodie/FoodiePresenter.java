@@ -138,6 +138,9 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     @Override
     public void transToSearch() {
         Log.d(Constants.TAG, "  transToSearch");
+//        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+
+
         mViewPager.setCurrentItem(2);
         mFoodieView.showSearchUi();
     }
@@ -167,7 +170,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         Log.d("restaurant ", " FoodiePresenter : " + restaurant);
         mFoodieView.setTabLayoutVisibility(false);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-
+//        fragmentTransaction.setCustomAnimations(R.anim.emerge, R.anim.emerge);
         if (mRestaurantFragment == null) {
             mRestaurantFragment = RestaurantFragment.newInstance();
         }
@@ -254,21 +257,6 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     }
 
     @Override
-    public void checkPostMapExist() {
-//        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-//
-//        if (mPostChildMapFragment != null || mProfileFragment != null) {
-//            fragmentTransaction.remove(mPostChildMapFragment);
-//        }
-//        if (mPostFragment != null || !mPostFragment.isHidden()) {
-//            Log.d(Constants.TAG, "   mPostFragment isHidden");
-//
-//            fragmentTransaction.hide(mPostFragment);
-//        }
-//        fragmentTransaction.commit();
-    }
-
-    @Override
     public void transToPostArticle(String addressLine, LatLng latLng) {
 //        Bundle bundle = new Bundle();
 //        bundle.putString("address", addressLine);
@@ -309,7 +297,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     public void transToPersonalArticle(Article article) {
 
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-//        fragmentTransaction.setCustomAnimations(R.anim.emerge, R.anim.emerge);
+        fragmentTransaction.setCustomAnimations(R.anim.emerge, R.anim.emerge);
 
         mPersonalArticleFragment = PersonalArticleFragment.newInstance();
         mPersonalArticlePresenter = new PersonalArticlePresenter(mPersonalArticleFragment, article);
@@ -327,6 +315,18 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         fragmentTransaction.commit();
 //        }
 
+    }
+
+    @Override
+    public void checkFragmentStatus() {
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        if(mPersonalArticleFragment!=null&&!mPersonalArticleFragment.isHidden()){
+            fragmentTransaction.hide(mPersonalArticleFragment);
+            fragmentTransaction.commit();
+            mFoodieView.setTabLayoutVisibility(false);
+        }else {
+            mFoodieView.setTabLayoutVisibility(true);
+        }
     }
 
 

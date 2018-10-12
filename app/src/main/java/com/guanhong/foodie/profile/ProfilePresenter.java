@@ -69,7 +69,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                mArticleArrayList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 //
                     if (snapshot.child("author").child("id").getValue().equals(uid)) {
@@ -93,7 +93,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                         article.setRestaurantName((String) snapshot.child("restaurantName").getValue());
                         article.setContent((String) snapshot.child("content").getValue());
                         article.setLocation((String) snapshot.child("location").getValue());
-                        article.setStarCount(Integer.parseInt(""+snapshot.child("starCount").getValue()));
+                        article.setStarCount(Integer.parseInt("" + snapshot.child("starCount").getValue()));
 
                         ArrayList<String> pictures = new ArrayList<>();
                         for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
@@ -206,9 +206,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                         Log.d(Constants.TAG, "ProfilePresenterDataSnapshot : " + snapshot.child("id").getValue());
                         Log.d(Constants.TAG, "ProfilePresenterDataSnapshot : " + snapshot.child("image").getValue());
                         Log.d(Constants.TAG, " ProfilePresenterDataSnapshot : " + snapshot.child("name").getValue());
-
-
-
 
 
                         User user = new User();

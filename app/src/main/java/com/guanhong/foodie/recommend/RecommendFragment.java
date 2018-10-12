@@ -10,7 +10,12 @@ import android.view.ViewGroup;
 
 import com.guanhong.foodie.R;
 
-public class RecommendFragment extends Fragment {
+import static com.google.common.base.Preconditions.checkNotNull;
+
+public class RecommendFragment extends Fragment implements RecommendContract.View{
+
+    private RecommendContract.Presenter mPresenter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -21,4 +26,16 @@ public class RecommendFragment extends Fragment {
         return new RecommendFragment();
     }
 
+    @Override
+    public void setPresenter(RecommendContract.Presenter presenter) {
+        mPresenter = checkNotNull(presenter);
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mPresenter.start();
+    }
 }

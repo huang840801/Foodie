@@ -21,6 +21,8 @@ public interface PostContract {
 
         void addPictures();
 
+        void transToProfile();
+
     }
 
     interface Presenter extends BasePresenter{

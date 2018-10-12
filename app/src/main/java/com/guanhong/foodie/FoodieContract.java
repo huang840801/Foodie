@@ -49,13 +49,14 @@ public interface FoodieContract {
 
         void transToPostChildMap();
 
-        void checkPostMapExist();
-
         void transToPostArticle(String addressLine, LatLng latLng);
 
         void getPostRestaurantPictures(ArrayList<String> stringArrayListExtra);
 
         void transToPersonalArticle(Article article);
+
+        void checkFragmentStatus();
+
 
 //        void transToPersonalArticle();
 

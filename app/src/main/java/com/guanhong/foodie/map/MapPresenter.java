@@ -127,6 +127,8 @@ public class MapPresenter implements MapContract.Presenter {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                comments.clear();
                 for (DataSnapshot snapshot : dataSnapshot.child(lat_lng).getChildren()) {
 
                     Comment comment = new Comment();
@@ -257,43 +259,43 @@ public class MapPresenter implements MapContract.Presenter {
         });
     }
 
-    private void getStarCount(final ArrayList<String> restaurantKey) {
-
-
-        for (int i = 0; i < restaurantKey.size(); i++) {
-
-//            Log.d(Constants.TAG, " restaurantKey  " + restaurantKey.get(i));
-
-
-            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
-
-            Query query = databaseReference.orderByChild("lat_lng");
-            final int finalI = i;
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                        Log.d(Constants.TAG, " restaurantKey  " + restaurantKey.get(finalI));
-
-                        if (snapshot.child(restaurantKey.get(finalI)).child("lat_lng").equals(restaurantKey.get(finalI))) {
-                            Log.d(Constants.TAG, " restaurantKey  " + snapshot);
-
-                        }
-//                        Log.d(Constants.TAG, " restaurantKey  " + snapshot);
-//                        Log.d(Constants.TAG, " restaurantKey  " + snapshot.child("starCount").getValue());
-
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-
-
-    }
+//    private void getStarCount(final ArrayList<String> restaurantKey) {
+//
+//
+//        for (int i = 0; i < restaurantKey.size(); i++) {
+//
+////            Log.d(Constants.TAG, " restaurantKey  " + restaurantKey.get(i));
+//
+//
+//            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+//            DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
+//
+//            Query query = databaseReference.orderByChild("lat_lng");
+//            final int finalI = i;
+//            query.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+////                        Log.d(Constants.TAG, " restaurantKey  " + restaurantKey.get(finalI));
+//
+//                        if (snapshot.child(restaurantKey.get(finalI)).child("lat_lng").equals(restaurantKey.get(finalI))) {
+//                            Log.d(Constants.TAG, " restaurantKey  " + snapshot);
+//
+//                        }
+////                        Log.d(Constants.TAG, " restaurantKey  " + snapshot);
+////                        Log.d(Constants.TAG, " restaurantKey  " + snapshot.child("starCount").getValue());
+//
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
+//        }
+//
+//
+//    }
 }
