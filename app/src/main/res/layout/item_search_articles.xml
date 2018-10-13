@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/imageView_search_article_photo"
+        android:layout_width="152dp"
+        android:layout_height="102dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/all_picture_placeholder" />
+
+    <TextView
+        android:id="@+id/textView_search_article_restaurantName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="麥當勞信義誠品店"
+        android:textColor="#000000"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_search_article_location"
+        android:layout_width="169dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="2"
+        android:text="105台灣台北市松山區南京東路三段340號"
+        android:textColor="#c1baba"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_search_article_photo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView_search_article_restaurantName"
+        app:layout_constraintTop_toBottomOf="@+id/textView_search_article_restaurantName" />
+
+    <ImageView
+        android:id="@+id/imageView_search_star1"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/textView_search_article_location"
+        app:layout_constraintTop_toBottomOf="@+id/textView_search_article_location"
+        app:srcCompat="@drawable/new_star_selected" />
+
+    <ImageView
+        android:id="@+id/imageView_search_star2"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView_search_star1"
+        app:layout_constraintTop_toBottomOf="@+id/textView_search_article_location"
+        app:srcCompat="@drawable/new_star_selected" />
+
+    <ImageView
+        android:id="@+id/imageView_search_star3"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView_search_star2"
+        app:layout_constraintTop_toBottomOf="@+id/textView_search_article_location"
+        app:srcCompat="@drawable/new_star_selected" />
+
+    <ImageView
+        android:id="@+id/imageView_search_star4"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView_search_star3"
+        app:layout_constraintTop_toBottomOf="@+id/textView_search_article_location"
+        app:srcCompat="@drawable/new_star_selected" />
+
+    <ImageView
+        android:id="@+id/imageView_search_star5"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView_search_star4"
+        app:layout_constraintTop_toBottomOf="@+id/textView_search_article_location"
+        app:srcCompat="@drawable/new_star_selected" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="#e7e7e7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_search_article_photo" />
+</android.support.constraint.ConstraintLayout>

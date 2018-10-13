@@ -1,21 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f7f8f9"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.wang.avi.AVLoadingIndicatorView
+    <TextView
+        android:id="@+id/textView_recommend_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:indicator="BallSpinFadeLoader"
-        app:indicator_color="@color/main"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="本日推薦"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="22dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="#e7e7e7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView_recommend_title"
+        app:layout_constraintTop_toBottomOf="@+id/textView_recommend_title" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="印度咖哩"
+        app:layout_constraintStart_toStartOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <ImageView
+        android:id="@+id/imageView_recommend_star1"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:srcCompat="@drawable/new_star_selected" />
+
+    <ImageView
+        android:id="@+id/imageView_recommend_star2"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView_recommend_star1"
+        app:layout_constraintTop_toTopOf="@+id/imageView_recommend_star1"
+        app:srcCompat="@drawable/new_star_selected" />
+
+    <ImageView
+        android:id="@+id/imageView_recommend_star3"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView_recommend_star2"
+        app:layout_constraintTop_toTopOf="@+id/imageView_recommend_star2"
+        app:srcCompat="@drawable/new_star_selected" />
+
+    <ImageView
+        android:id="@+id/imageView_recommend_star4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView_recommend_star3"
+        app:layout_constraintTop_toTopOf="@+id/imageView_recommend_star3"
+        app:srcCompat="@drawable/new_star_selected" />
+
+    <ImageView
+        android:id="@+id/imageView_recommend_star5"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageView_recommend_star4"
+        app:layout_constraintTop_toTopOf="@+id/imageView_recommend_star4"
+        app:srcCompat="@drawable/new_star_selected" />
+
 </android.support.constraint.ConstraintLayout>
