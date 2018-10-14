@@ -30,6 +30,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.FoodiePresenter;
+
+import com.guanhong.foodie.MyService;
 import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.ViewPagerAdapter;
 import com.guanhong.foodie.R;
@@ -92,7 +94,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Logger.d("hiiii");
+//        Logger.d("hiiii");
 //        Log.d("UserManager ", "email = " + UserManager.getInstance().getUserEmail());
 //        Log.d("UserManager ", "id = " + UserManager.getInstance().getUserId());
 //        Log.d("UserManager ", "image = " + UserManager.getInstance().getUserImage());
@@ -100,6 +102,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
 
         super.onCreate(savedInstanceState);
+
 
         init();
         saveUserData();
@@ -172,8 +175,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         mContext = this;
 
 
-
-
         requestReadAndWritePermissions();
 
         setContentView(R.layout.activity_main);
@@ -240,7 +241,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         if (mMapFragment == null) {
             mMapFragment = MapFragment.newInstance();
-            mMapPresenter = new MapPresenter(mMapFragment, this);
+            mMapPresenter = new MapPresenter(mMapFragment);
         }
         if (mProfileFragment == null) {
             mProfileFragment = ProfileFragment.newInstance();
@@ -293,7 +294,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     private boolean hasWritePermissions() {
         return (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
     }
-
 
 
 //    private boolean hasCoarseLocationPermissions() {

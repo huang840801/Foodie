@@ -27,21 +27,21 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     private ImageView mStar5;
     private Typeface mTypeface;
 
-    private Handler mHandler;
+//    private Handler mHandler;
 
-    private CustomInfoWindowAdapter mCustomInfoWindowAdapter;
+//    private CustomInfoWindowAdapter mCustomInfoWindowAdapter;
     //    private ArrayList<String> mStringRestaurantName = new ArrayList<>();
     private String mStringRestaurantName;
     private int mStarCount =0;
 
-    private boolean isMarkerChange = false;
+//    private boolean isMarkerChange = false;
 
     private View mView;
 
     public CustomInfoWindowAdapter(Activity context, Context context1) {
         mActivityContext = context;
         mContext = context1;
-        mCustomInfoWindowAdapter = this;
+//        mCustomInfoWindowAdapter = this;
         mView = mActivityContext.getLayoutInflater().inflate(R.layout.custom_marker_info_layout, null);
         mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
 

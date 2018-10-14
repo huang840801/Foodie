@@ -90,7 +90,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
         mGoogleMapView = (MapView) rootView.findViewById(R.id.mapView);
         mContext = getContext();
-        mPresenter = new MapPresenter(this, mContext);
+        mPresenter = new MapPresenter(this);
 
 
 

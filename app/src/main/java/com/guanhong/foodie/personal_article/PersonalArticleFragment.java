@@ -206,32 +206,47 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
         mTextViewContent.setText(article.getContent());
 
         if (article.getStarCount() == 5) {
-            mImageViewStar1.setImageResource(R.drawable.new_star);
-            mImageViewStar2.setImageResource(R.drawable.new_star);
-            mImageViewStar3.setImageResource(R.drawable.new_star);
-            mImageViewStar4.setImageResource(R.drawable.new_star);
-            mImageViewStar5.setImageResource(R.drawable.new_star);
+            mImageViewStar1.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar2.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar3.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar4.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar5.setImageResource(R.drawable.new_star_selected);
         }
-        if (article.getStarCount() == 4) {
-            mImageViewStar1.setImageResource(R.drawable.new_star);
-            mImageViewStar2.setImageResource(R.drawable.new_star);
-            mImageViewStar3.setImageResource(R.drawable.new_star);
-            mImageViewStar4.setImageResource(R.drawable.new_star);
+        else if (article.getStarCount() == 4) {
+            mImageViewStar1.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar2.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar3.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar4.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar5.setImageResource(R.drawable.new_star_unselected);
         }
-        if (article.getStarCount() == 3) {
-            mImageViewStar1.setImageResource(R.drawable.new_star);
-            mImageViewStar2.setImageResource(R.drawable.new_star);
-            mImageViewStar3.setImageResource(R.drawable.new_star);
+        else if (article.getStarCount() == 3) {
+            mImageViewStar1.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar2.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar3.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar4.setImageResource(R.drawable.new_star_unselected);
+            mImageViewStar5.setImageResource(R.drawable.new_star_unselected);
+        }
+        else if (article.getStarCount() == 2) {
+            mImageViewStar1.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar2.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar3.setImageResource(R.drawable.new_star_unselected);
+            mImageViewStar4.setImageResource(R.drawable.new_star_unselected);
+            mImageViewStar5.setImageResource(R.drawable.new_star_unselected);
 
         }
-        if (article.getStarCount() == 2) {
-            mImageViewStar1.setImageResource(R.drawable.new_star);
-            mImageViewStar2.setImageResource(R.drawable.new_star);
-
+        else if (article.getStarCount() == 1) {
+            mImageViewStar1.setImageResource(R.drawable.new_star_selected);
+            mImageViewStar2.setImageResource(R.drawable.new_star_unselected);
+            mImageViewStar3.setImageResource(R.drawable.new_star_unselected);
+            mImageViewStar4.setImageResource(R.drawable.new_star_unselected);
+            mImageViewStar5.setImageResource(R.drawable.new_star_unselected);
         }
-        if (article.getStarCount() == 1) {
-            mImageViewStar1.setImageResource(R.drawable.new_star);
-
+        else if (article.getStarCount() == 0) {
+            mImageViewStar1.setImageResource(R.drawable.new_star_unselected);
+            mImageViewStar2.setImageResource(R.drawable.new_star_unselected);
+            mImageViewStar3.setImageResource(R.drawable.new_star_unselected);
+            mImageViewStar4.setImageResource(R.drawable.new_star_unselected);
+            mImageViewStar5.setImageResource(R.drawable.new_star_unselected);
         }
     }
 

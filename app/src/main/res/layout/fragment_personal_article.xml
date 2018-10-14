@@ -274,9 +274,11 @@
 
         <TextView
             android:id="@+id/textView_personal_content"
-            android:layout_width="305dp"
+            android:layout_width="0dp"
             android:layout_height="214dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:gravity="left"
@@ -286,8 +288,10 @@
             android:paddingTop="10dp"
             android:textSize="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView_content"
-            app:layout_constraintTop_toBottomOf="@+id/textView_content" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_content"
+            app:layout_constraintVertical_bias="0.0" />
 
 
         <!--<RatingBar-->
@@ -417,7 +421,7 @@
             android:id="@+id/textView_personal_author_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
             android:textSize="12dp"
@@ -431,7 +435,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
-            android:text="作者 :"
+            android:text="@string/author"
             android:textSize="12dp"
             app:layout_constraintEnd_toStartOf="@+id/textView_personal_author_name"
             app:layout_constraintTop_toBottomOf="@+id/recyclerview_personal_photo" />

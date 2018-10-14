@@ -37,14 +37,12 @@ public class MapPresenter implements MapContract.Presenter {
 
     private MapContract.View mMapView;
 
-    private Context mContext;
 
-    public MapPresenter(MapContract.View mapView, Context context) {
+    public MapPresenter(MapContract.View mapView) {
 
         mMapView = checkNotNull(mapView, "mapView cannot be null");
 //        mMapView = mapView;
         mMapView.setPresenter(this);
-        mContext = context;
     }
 
     @Override

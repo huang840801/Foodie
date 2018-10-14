@@ -27,7 +27,6 @@ public class PostPresenter implements PostContract.Presenter {
 
     private PostContract.View mPostView;
 
-    private Context mContext;
 
     public PostPresenter(PostContract.View postView) {
 

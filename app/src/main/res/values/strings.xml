@@ -24,6 +24,8 @@
     <string name="at_least_one">至少要寫一項!</string>
     <string name="too_much">你吃太多囉!!!!</string>
     <string name="tourist_article">遊客文章</string>
+    <string name="today_recommend">本日推薦</string>
+    <string name="author">作者 :</string>
 
 
 </resources>
