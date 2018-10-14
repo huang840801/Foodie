@@ -1,10 +1,13 @@
 package com.guanhong.foodie.recommend;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,6 +35,8 @@ import com.guanhong.foodie.util.Constants;
 import com.guanhong.foodie.util.SpaceItemDecoration;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -53,6 +58,10 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
 
     private Typeface mTypeface;
     private ArrayList<Restaurant> mRestaurantArrayList = new ArrayList<>();
+
+    private Timer mTimer ;
+    private int mCount =  0;
+
 
     @Nullable
     @Override
@@ -89,8 +98,36 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         super.onViewCreated(view, savedInstanceState);
         setTypeFace();
         mPresenter.start();
-//        startMyService();
 
+//        mHandler = new Handler()
+//        startMyService();
+        startTimer();
+
+    }
+
+    private void startTimer() {
+        if (mTimer == null) {
+            mTimer = new Timer();
+        }
+        mTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Log.d(Constants.TAG, "RecommendFragment mCount = " +mCount);
+
+                ((Activity)mContext).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        createRandomRestaurant();
+                    }
+                });
+
+//                createRandomRestaurant();
+                mCount++;
+//                if (mCount >= 5) {
+//                    mTimer.cancel();
+//                }
+            }
+        }, 1000, 1000 * 5);
     }
 
 
@@ -129,61 +166,65 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         showTodayRecommendRestaurant(mRestaurantArrayList.get(random));
     }
 
-    private void showTodayRecommendRestaurant(Restaurant restaurant) {
+    private void showTodayRecommendRestaurant(final Restaurant restaurant) {
 
         Log.d(Constants.TAG, "RecommendFragment " + restaurant.getRestaurantName());
 
-        mRestaurantName.setText(restaurant.getRestaurantName());
-        mLocation.setText(restaurant.getRestaurantLocation());
-        if (restaurant.getStarCount() == 5) {
-            mStar1.setImageResource(R.drawable.new_star_selected);
-            mStar2.setImageResource(R.drawable.new_star_selected);
-            mStar3.setImageResource(R.drawable.new_star_selected);
-            mStar4.setImageResource(R.drawable.new_star_selected);
-            mStar5.setImageResource(R.drawable.new_star_selected);
+                    mRestaurantName.setText(restaurant.getRestaurantName());
+                    mLocation.setText(restaurant.getRestaurantLocation());
+                    if (restaurant.getStarCount() == 5) {
+                        mStar1.setImageResource(R.drawable.new_star_selected);
+                        mStar2.setImageResource(R.drawable.new_star_selected);
+                        mStar3.setImageResource(R.drawable.new_star_selected);
+                        mStar4.setImageResource(R.drawable.new_star_selected);
+                        mStar5.setImageResource(R.drawable.new_star_selected);
 
-        } else if (restaurant.getStarCount() == 4) {
-            mStar1.setImageResource(R.drawable.new_star_selected);
-            mStar2.setImageResource(R.drawable.new_star_selected);
-            mStar3.setImageResource(R.drawable.new_star_selected);
-            mStar4.setImageResource(R.drawable.new_star_selected);
-            mStar5.setImageResource(R.drawable.new_star_unselected);
+                    } else if (restaurant.getStarCount() == 4) {
+                        mStar1.setImageResource(R.drawable.new_star_selected);
+                        mStar2.setImageResource(R.drawable.new_star_selected);
+                        mStar3.setImageResource(R.drawable.new_star_selected);
+                        mStar4.setImageResource(R.drawable.new_star_selected);
+                        mStar5.setImageResource(R.drawable.new_star_unselected);
 
-        } else if (restaurant.getStarCount() == 3) {
-            mStar1.setImageResource(R.drawable.new_star_selected);
-            mStar2.setImageResource(R.drawable.new_star_selected);
-            mStar3.setImageResource(R.drawable.new_star_selected);
-            mStar4.setImageResource(R.drawable.new_star_unselected);
-            mStar5.setImageResource(R.drawable.new_star_unselected);
+                    } else if (restaurant.getStarCount() == 3) {
+                        mStar1.setImageResource(R.drawable.new_star_selected);
+                        mStar2.setImageResource(R.drawable.new_star_selected);
+                        mStar3.setImageResource(R.drawable.new_star_selected);
+                        mStar4.setImageResource(R.drawable.new_star_unselected);
+                        mStar5.setImageResource(R.drawable.new_star_unselected);
 
-        } else if (restaurant.getStarCount() == 2) {
-            mStar1.setImageResource(R.drawable.new_star_selected);
-            mStar2.setImageResource(R.drawable.new_star_selected);
-            mStar3.setImageResource(R.drawable.new_star_unselected);
-            mStar4.setImageResource(R.drawable.new_star_unselected);
-            mStar5.setImageResource(R.drawable.new_star_unselected);
+                    } else if (restaurant.getStarCount() == 2) {
+                        mStar1.setImageResource(R.drawable.new_star_selected);
+                        mStar2.setImageResource(R.drawable.new_star_selected);
+                        mStar3.setImageResource(R.drawable.new_star_unselected);
+                        mStar4.setImageResource(R.drawable.new_star_unselected);
+                        mStar5.setImageResource(R.drawable.new_star_unselected);
 
-        } else if (restaurant.getStarCount() == 1) {
-            mStar1.setImageResource(R.drawable.new_star_selected);
-            mStar2.setImageResource(R.drawable.new_star_unselected);
-            mStar3.setImageResource(R.drawable.new_star_unselected);
-            mStar4.setImageResource(R.drawable.new_star_unselected);
-            mStar5.setImageResource(R.drawable.new_star_unselected);
+                    } else if (restaurant.getStarCount() == 1) {
+                        mStar1.setImageResource(R.drawable.new_star_selected);
+                        mStar2.setImageResource(R.drawable.new_star_unselected);
+                        mStar3.setImageResource(R.drawable.new_star_unselected);
+                        mStar4.setImageResource(R.drawable.new_star_unselected);
+                        mStar5.setImageResource(R.drawable.new_star_unselected);
 
-        } else if (restaurant.getStarCount() == 0) {
-            mStar1.setImageResource(R.drawable.new_star_unselected);
-            mStar2.setImageResource(R.drawable.new_star_unselected);
-            mStar3.setImageResource(R.drawable.new_star_unselected);
-            mStar4.setImageResource(R.drawable.new_star_unselected);
-            mStar5.setImageResource(R.drawable.new_star_unselected);
+                    } else if (restaurant.getStarCount() == 0) {
+                        mStar1.setImageResource(R.drawable.new_star_unselected);
+                        mStar2.setImageResource(R.drawable.new_star_unselected);
+                        mStar3.setImageResource(R.drawable.new_star_unselected);
+                        mStar4.setImageResource(R.drawable.new_star_unselected);
+                        mStar5.setImageResource(R.drawable.new_star_unselected);
 
-        }
+                    }
 
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(new RecommendPhotoAdapter(restaurant.getRestaurantPictures()));
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration(15));
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
+                    mRecyclerView.setHasFixedSize(true);
+                    mRecyclerView.setAdapter(new RecommendPhotoAdapter(restaurant.getRestaurantPictures()));
+                    mRecyclerView.addItemDecoration(new SpaceItemDecoration(15));
+                }
 
-    }
+
+
+
+
 }
