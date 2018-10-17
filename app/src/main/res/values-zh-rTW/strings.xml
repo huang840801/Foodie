@@ -27,4 +27,7 @@
     <string name="tourist_article">遊客文章</string>
     <string name="today_recommend">本日推薦</string>
     <string name="author">作者 :</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
+    <string name="already_have_account_login">Already have account? Login</string>
+
 </resources>

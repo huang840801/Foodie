@@ -37,7 +37,6 @@ public class MapPresenter implements MapContract.Presenter {
 
     private MapContract.View mMapView;
 
-
     public MapPresenter(MapContract.View mapView) {
 
         mMapView = checkNotNull(mapView, "mapView cannot be null");
@@ -50,9 +49,7 @@ public class MapPresenter implements MapContract.Presenter {
         mMapView.showMap();
     }
 
-
 //    public static Bitmap createCustomMarker(Context context, @DrawableRes int resource, String _name) {
-
 
     @Override
     public void getRestaurantData(String lat_lng) {
@@ -70,14 +67,13 @@ public class MapPresenter implements MapContract.Presenter {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d(Constants.TAG, "hellooo: " + dataSnapshot);
+                Log.d(Constants.TAG, "MapPresenter getChildrenCount : " + dataSnapshot.getChildrenCount());
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Log.d(Constants.TAG, "hellooo: " + snapshot);
-                    Log.d(Constants.TAG, "hellooo: " + snapshot.child("lat_lng").getValue());
-                    Log.d(Constants.TAG, "hellooo: " + snapshot.child("restaurantName").getValue());
-                    Log.d(Constants.TAG, "hellooo: " + snapshot.child("starCount").getValue());
-
+//                    Log.d(Constants.TAG, "MapPresenter: " + snapshot);
+                    Log.d(Constants.TAG, "MapPresenter lat_lng : " + snapshot.child("lat_lng").getValue());
+                    Log.d(Constants.TAG, "MapPresenter restaurantName : " + snapshot.child("restaurantName").getValue());
+                    Log.d(Constants.TAG, "MapPresenter starCount : " + snapshot.child("starCount").getValue());
 
                     restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
                     restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
@@ -110,7 +106,6 @@ public class MapPresenter implements MapContract.Presenter {
             }
         });
 
-
     }
 
     private void getRestaurantComments(final String lat_lng, final Restaurant restaurant) {
@@ -125,6 +120,8 @@ public class MapPresenter implements MapContract.Presenter {
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                Log.d("MapPresenter ", " myCommentsBug ");
 
                 comments.clear();
                 for (DataSnapshot snapshot : dataSnapshot.child(lat_lng).getChildren()) {
@@ -149,23 +146,18 @@ public class MapPresenter implements MapContract.Presenter {
                     comments.add(comment);
                 }
 
-
                 Collections.reverse(comments);
 
                 mMapView.showRestaurantUi(restaurant, comments);
 
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
-
     }
-
 
     @Override
     public void createCustomMarker(Context context, String title) {
@@ -173,18 +165,6 @@ public class MapPresenter implements MapContract.Presenter {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
         Query query = databaseReference;
-//        query.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        })
-
 
         View marker = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker_layout, null);
 
@@ -241,13 +221,9 @@ public class MapPresenter implements MapContract.Presenter {
 //                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("latLng").getValue());
                     locations.add((new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))));
 
-
 //                    locations.add((new LatLng(Double.parseDouble("" + snapshot.child("latLng").child("latitude").getValue()), Double.parseDouble("" + snapshot.child("latLng").child("longitude").getValue()))));
                 }
-
                 mMapView.showMarker(locations);
-//                getStarCount(restaurantKey);
-
             }
 
             @Override
@@ -257,43 +233,4 @@ public class MapPresenter implements MapContract.Presenter {
         });
     }
 
-//    private void getStarCount(final ArrayList<String> restaurantKey) {
-//
-//
-//        for (int i = 0; i < restaurantKey.size(); i++) {
-//
-////            Log.d(Constants.TAG, " restaurantKey  " + restaurantKey.get(i));
-//
-//
-//            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//            DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
-//
-//            Query query = databaseReference.orderByChild("lat_lng");
-//            final int finalI = i;
-//            query.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-////                        Log.d(Constants.TAG, " restaurantKey  " + restaurantKey.get(finalI));
-//
-//                        if (snapshot.child(restaurantKey.get(finalI)).child("lat_lng").equals(restaurantKey.get(finalI))) {
-//                            Log.d(Constants.TAG, " restaurantKey  " + snapshot);
-//
-//                        }
-////                        Log.d(Constants.TAG, " restaurantKey  " + snapshot);
-////                        Log.d(Constants.TAG, " restaurantKey  " + snapshot.child("starCount").getValue());
-//
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                }
-//            });
-//        }
-//
-//
-//    }
 }

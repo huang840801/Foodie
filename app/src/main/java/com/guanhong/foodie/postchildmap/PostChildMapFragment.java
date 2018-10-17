@@ -126,6 +126,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
                     //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
                     if (mGoogleApiClient != null) {
                         if (mGoogleApiClient.isConnected()) {
+
                             getMyLocation();
                         } else {
                             Toast.makeText(mContext,
@@ -189,6 +190,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
 //                Log.d(Constants.TAG, "  hongtest postchild longitude = " + latLng.longitude);
 
                 LatLng latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+
                 mPresenter.getAddress(geocoder, latLng);
 
 

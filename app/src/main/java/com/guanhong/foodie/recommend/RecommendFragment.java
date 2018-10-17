@@ -101,7 +101,7 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
 
 //        mHandler = new Handler()
 //        startMyService();
-        startTimer();
+//        startTimer();
 
     }
 

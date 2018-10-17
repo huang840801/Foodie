@@ -132,7 +132,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        mGoogleMapView.onLowMemory();
+//        mGoogleMapView.onLowMemory();
     }
 
     @Override

@@ -37,10 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-
-            android:text="麥當勞西門店"
+            android:gravity="top"
+            android:text="@string/AppWorks"
             android:textColor="@color/black"
-            android:textSize="22dp"
+            android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerview_personal_photo" />
@@ -115,7 +115,7 @@
             android:layout_marginTop="8dp"
             android:text="菜單"
             android:textColor="@color/black"
-            android:textSize="22dp"
+            android:textSize="20dp"
             app:layout_constraintStart_toStartOf="@+id/divider"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -268,7 +268,7 @@
             android:layout_marginTop="8dp"
             android:text="內容"
             android:textColor="@color/black"
-            android:textSize="22dp"
+            android:textSize="20dp"
             app:layout_constraintStart_toStartOf="@+id/divider1"
             app:layout_constraintTop_toBottomOf="@+id/divider1" />
 
@@ -354,14 +354,14 @@
 
 
         <!--<android.support.constraint.ConstraintLayout-->
-            <!--android:id="@+id/recyclerview_personal_photo"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="0dp"-->
-            <!--android:layout_marginTop="8dp"-->
-            <!--app:layout_constraintEnd_toEndOf="parent"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toTopOf="parent">-->
+        <!--android:id="@+id/recyclerview_personal_photo"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="0dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent">-->
 
 
         <android.support.v7.widget.RecyclerView
@@ -375,45 +375,51 @@
 
         <ImageView
             android:id="@+id/imageView_star1"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_marginTop="4dp"
-            android:src="@drawable/new_star"
+            android:src="@drawable/new_star_selected"
             app:layout_constraintStart_toStartOf="@+id/textView_personal_restaurant_name"
             app:layout_constraintTop_toBottomOf="@+id/textView_personal_restaurant_name" />
 
         <ImageView
             android:id="@+id/imageView_star2"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginStart="8dp"
 
-            android:src="@drawable/new_star"
+            android:src="@drawable/new_star_selected"
             app:layout_constraintStart_toEndOf="@+id/imageView_star1"
             app:layout_constraintTop_toTopOf="@+id/imageView_star1" />
 
         <ImageView
             android:id="@+id/imageView_star3"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/new_star"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginStart="8dp"
+
+            android:src="@drawable/new_star_selected"
             app:layout_constraintStart_toEndOf="@+id/imageView_star2"
             app:layout_constraintTop_toTopOf="@+id/imageView_star1" />
 
         <ImageView
             android:id="@+id/imageView_star4"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/new_star"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginStart="8dp"
+
+            android:src="@drawable/new_star_selected"
 
             app:layout_constraintStart_toEndOf="@+id/imageView_star3"
             app:layout_constraintTop_toTopOf="@+id/imageView_star1" />
 
         <ImageView
             android:id="@+id/imageView_star5"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginStart="8dp"
 
-            android:src="@drawable/new_star"
+            android:src="@drawable/new_star_selected"
             app:layout_constraintStart_toEndOf="@+id/imageView_star4"
             app:layout_constraintTop_toTopOf="@+id/imageView_star1" />
 

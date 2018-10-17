@@ -100,9 +100,19 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 //        Log.d("UserManager ", "image = " + UserManager.getInstance().getUserImage());
 //        Log.d("UserManager ", "name = " + UserManager.getInstance().getUserName());
 
+//        String s = "s";
+//        String empty = null;
+//        if(!"".equals(s)){
+//            Log.d(Constants.TAG, "helloooo");
+//        }
+//        if (!"s".equals(s)) {
+//            Log.d(Constants.TAG, "helloooo sssss");
+//        }
+//        if(!"".equals(empty)){
+//            Log.d(Constants.TAG, "helloooo empty");
+//        }
 
         super.onCreate(savedInstanceState);
-
 
         init();
         saveUserData();
@@ -203,6 +213,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
+
 //        mTabLayout.getTabAt(0).setCustomView(mViewPagerAdapter.getTabView(0));
 //        mTabLayout.getTabAt(1).setCustomView(mViewPagerAdapter.getTabView(1));
 //        mTabLayout.getTabAt(2).setCustomView(mViewPagerAdapter.getTabView(2));
@@ -211,25 +222,28 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
 
         for (int i = 0; i < mTabLayout.getTabCount(); i++) {
-            mTabLayout.getTabAt(i).setCustomView(mViewPagerAdapter.getTabView(i));
-        }
+                mTabLayout.getTabAt(i).setCustomView(mViewPagerAdapter.getTabView(i));
 
+        }
 //        onTabSelected(mTabLayout.getTabAt(0));
 
 //        mTabLayout.getTabAt(0).getCustomView().setSelected(true);
 
         mPresenter = new FoodiePresenter(this, mViewPager, getSupportFragmentManager());
-        mPresenter.start();
+//        mPresenter.start();
 
-        mTabLayout.getTabAt(0).select();
-        mViewPager.setCurrentItem(0);
+//        mTabLayout.getTabAt(0).select();
         //设置TabLayout点击事件
         mTabLayout.setOnTabSelectedListener(this);
+//        mTabLayout.getTabAt(1).getCustomView().setSelected(true);
+//        mViewPager.setCurrentItem(0);
+
     }
 
 
     private void setTabLayout() {
         //设置TabLayout标签的显示方式
+//        mTabLayout.getTabAt(0).select();
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
 
@@ -295,14 +309,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         return (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
     }
 
-
-//    private boolean hasCoarseLocationPermissions() {
-//        return (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
-//    }
-//
-//    private boolean hasFineLocationPermissions() {
-//        return (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED);
-//    }
 
     public void setTabLayoutVisibility(boolean isVisible) {
         mTabLayout.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));

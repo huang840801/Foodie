@@ -43,8 +43,8 @@
 
     <ImageView
         android:id="@+id/imageView_recommend_star1"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="11dp"
+        android:layout_height="11dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/textView_restaurant_name"
         app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_name"
@@ -52,8 +52,8 @@
 
     <ImageView
         android:id="@+id/imageView_recommend_star2"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+            android:layout_width="11dp"
+        android:layout_height="11dp"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_recommend_star1"
         app:layout_constraintTop_toTopOf="@+id/imageView_recommend_star1"
@@ -61,8 +61,8 @@
 
     <ImageView
         android:id="@+id/imageView_recommend_star3"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+            android:layout_width="11dp"
+        android:layout_height="11dp"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_recommend_star2"
         app:layout_constraintTop_toTopOf="@+id/imageView_recommend_star2"
@@ -70,8 +70,8 @@
 
     <ImageView
         android:id="@+id/imageView_recommend_star4"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+            android:layout_width="11dp"
+        android:layout_height="11dp"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_recommend_star3"
         app:layout_constraintTop_toTopOf="@+id/imageView_recommend_star3"
@@ -79,8 +79,8 @@
 
     <ImageView
         android:id="@+id/imageView_recommend_star5"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+            android:layout_width="11dp"
+        android:layout_height="11dp"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_recommend_star4"
         app:layout_constraintTop_toTopOf="@+id/imageView_recommend_star4"
@@ -97,14 +97,14 @@
 
     <TextView
         android:id="@+id/textView_location"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:gravity="bottom"
-        android:text="110台灣台北市信義區永吉路30巷167弄1號"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:text="110台灣台北市信義區永吉路30巷16弄1號"
+        app:layout_constraintBottom_toBottomOf="@+id/divider1"
+        app:layout_constraintEnd_toEndOf="@+id/divider1"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
         app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
@@ -117,7 +117,7 @@
         android:background="#e7e7e7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_location" />
 
     <TextView
         android:id="@+id/textView_photo"

@@ -14,10 +14,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:scaleType="fitXY"
+        android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/all_picture_placeholder" />
+  />
 
     <TextView
         android:id="@+id/textView_like_article_restaurantName"
@@ -27,7 +28,7 @@
         android:layout_marginTop="8dp"
         android:text="麥當勞信義誠品店"
         android:textColor="#000000"
-        android:textSize="15dp"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,8 +51,8 @@
 
     <ImageView
         android:id="@+id/imageView_like_star1"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/textView_like_article_location"
         app:layout_constraintTop_toBottomOf="@+id/textView_like_article_location"
@@ -59,8 +60,8 @@
 
     <ImageView
         android:id="@+id/imageView_like_star2"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+              android:layout_width="8dp"
+        android:layout_height="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_like_star1"
@@ -69,8 +70,8 @@
 
     <ImageView
         android:id="@+id/imageView_like_star3"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+              android:layout_width="8dp"
+        android:layout_height="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_like_star2"
@@ -79,8 +80,8 @@
 
     <ImageView
         android:id="@+id/imageView_like_star4"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+              android:layout_width="8dp"
+        android:layout_height="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_like_star3"
@@ -89,8 +90,8 @@
 
     <ImageView
         android:id="@+id/imageView_like_star5"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+              android:layout_width="8dp"
+        android:layout_height="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_like_star4"

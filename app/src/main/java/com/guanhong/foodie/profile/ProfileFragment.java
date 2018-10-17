@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.ProfileArticleAdapter;
 import com.guanhong.foodie.objects.Article;
@@ -26,9 +25,7 @@ import com.guanhong.foodie.objects.User;
 import com.guanhong.foodie.util.SpaceItemDecoration;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -60,7 +57,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mUserEmail = v.findViewById(R.id.textView_userEmail);
         mCoinCount = v.findViewById(R.id.textView_coin_count);
         mArticleCount = v.findViewById(R.id.textView_article_count);
-        mImageViewPost = v.findViewById(R.id.imageView_prpfile_post_article);
+        mImageViewPost = v.findViewById(R.id.imageView_profile_post_article);
         mRecyclerView = v.findViewById(R.id.recyclerview_profile_article);
 
 
@@ -96,7 +93,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         if (view.getId() == R.id.imageView_user) {
             ((FoodieActivity) getActivity()).pickSinglePicture();
         }
-        if (view.getId() == R.id.imageView_prpfile_post_article) {
+        if (view.getId() == R.id.imageView_profile_post_article) {
             ((FoodieActivity) getActivity()).transToPostArticle();
 
         }
@@ -157,6 +154,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     public void showUserNewPicture(Uri userNewPictureUri) {
         Picasso.get()
                 .load(userNewPictureUri)
+                .placeholder(R.color.profile_main_bg)
+                .error(R.color.profile_main_bg)
                 .into(mUserImageView);
     }
 

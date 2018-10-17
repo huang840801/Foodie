@@ -32,7 +32,6 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
 
 //    private Restaurant mRestaurant;
 
-
     public RestaurantFragment() {
 
     }
@@ -40,7 +39,6 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     public static RestaurantFragment newInstance() {
         return new RestaurantFragment();
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

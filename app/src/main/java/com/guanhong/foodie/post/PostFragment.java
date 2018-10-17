@@ -273,7 +273,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
             addMenu();
         }
         if (view.getId() == R.id.recyclerview_post_photo) {
-//            Log.d(Constants.TAG, "  recyclerview_post_photo ");
             addPictures();
         }
 //        if (view.getId() == R.id.imageView_post_subtractMenu) {
@@ -325,27 +324,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
             Toast.makeText(mContext, "內容必填!", Toast.LENGTH_SHORT).show();
 
         }
-//        if (mEditTextMenu2.getText().toString().length() > 0) {
-//            if ((mEditTextMenu2.getText().toString()).contains(" ")) {
-//
-//                Toast.makeText(mContext, "菜單不能有空白!", Toast.LENGTH_SHORT).show();
-//
-//            } else if ("".equals(mEditTextPrice2.getText().toString())) {
-//
-//                Toast.makeText(mContext, "價格必填!", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        }  if (mEditTextPrice2.getText().toString().length() > 0) {
-//            if ((mEditTextMenu2.getText().toString()).contains(" ")) {
-//
-//                Toast.makeText(mContext, "菜單不能有空白!", Toast.LENGTH_SHORT).show();
-//
-//            } else if ("".equals(mEditTextMenu2.getText().toString())) {
-//
-//                Toast.makeText(mContext, "菜單必填!", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        }
 
         else if (mEditTextMenu2.getText().toString().length() > 0 || mEditTextPrice2.getText().toString().length() > 0) {
 

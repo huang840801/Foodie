@@ -62,7 +62,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 //
 //        Log.d(Constants.TAG, " ProfilePresenter uid = " + uid);
 
-
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("article");
         Query query = databaseReference;
@@ -138,7 +137,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     }
 
-
     @Override
     public void updateUserImageToFireBaseStorage(ArrayList<String> pictures) {
 //        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
@@ -181,7 +179,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
         });
 
-
     }
 
     @Override
@@ -206,8 +203,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                         Log.d(Constants.TAG, "ProfilePresenterDataSnapshot : " + snapshot.child("id").getValue());
                         Log.d(Constants.TAG, "ProfilePresenterDataSnapshot : " + snapshot.child("image").getValue());
                         Log.d(Constants.TAG, " ProfilePresenterDataSnapshot : " + snapshot.child("name").getValue());
-
-
                         User user = new User();
 
                         String name = snapshot.child("name").getValue().toString();
@@ -224,14 +219,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 //                        Log.d(Constants.TAG, " email = " + email);
 //                        Log.d(Constants.TAG, " image = " + image);
 
-//                    ContentResolver cr = mContext.getContentResolver();
-//                    try {
-//                        //由抽象資料接口轉換圖檔路徑為Bitmap
-//                        Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(Uri.parse(image)));
-//                        mProfileView.showUserPicture(bitmap);
-//                    } catch (FileNotFoundException e) {
-//                        Log.e("Exception", e.getMessage(), e);
-//                    }
                     }
                 }
             }
@@ -248,18 +235,4 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         mProfileView.showPersonalArticleUi(article);
     }
 
-
-    public void getPicture(ArrayList<String> pictures) {
-
-        updateUserImageToFireBaseStorage(pictures);
-
-//        ContentResolver cr = mContext.getContentResolver();
-//        try {
-//            //由抽象資料接口轉換圖檔路徑為Bitmap
-//            Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
-//            mProfileView.showUserPicture(bitmap);
-//        } catch (FileNotFoundException e) {
-//            Log.e("Exception", e.getMessage(), e);
-//        }
-    }
 }

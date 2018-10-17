@@ -31,7 +31,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center_horizontal"
-                android:text="110台灣台北市信義區基隆路地下道930號" />
+                android:text="110台灣台北市信義區基隆路一段178號" />
         </LinearLayout>
 
         <ImageView

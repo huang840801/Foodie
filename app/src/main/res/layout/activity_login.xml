@@ -36,9 +36,9 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/login_edittext"
-        android:maxLines="1"
-        android:inputType="text"
         android:hint="@string/name"
+        android:inputType="text"
+        android:maxLines="1"
         android:paddingStart="10dp"
         app:layout_constraintBottom_toTopOf="@+id/edittext_email"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,8 +53,8 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/login_edittext"
         android:hint="@string/Email"
-        android:maxLines="1"
         android:inputType="text"
+        android:maxLines="1"
         android:paddingStart="10dp"
         app:layout_constraintBottom_toTopOf="@+id/edittext_password"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,15 +64,16 @@
         android:id="@+id/edittext_password"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="130dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/login_edittext"
         android:hint="@string/password"
         android:maxLines="1"
         android:paddingStart="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_register"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -80,20 +81,22 @@
         android:layout_width="125dp"
         android:layout_height="40dp"
         android:layout_marginBottom="80dp"
+        android:layout_marginEnd="0dp"
         android:background="@drawable/corner_bg_login_right_button"
         android:text="@string/register"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edittext_password"
         app:layout_constraintStart_toStartOf="@+id/edittext_password" />
 
-    <View
-        android:id="@+id/topView"
-        android:layout_width="2dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:background="#e7e7e7"
-        app:layout_constraintStart_toEndOf="@+id/button_register"
-        app:layout_constraintTop_toBottomOf="@+id/edittext_password" />
+    <!--<View-->
+    <!--android:id="@+id/topView"-->
+    <!--android:layout_width="2dp"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:background="#e7e7e7"-->
+    <!--app:layout_constraintStart_toEndOf="@+id/button_register"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/edittext_password" />-->
 
     <Button
         android:id="@+id/button_login"
@@ -105,7 +108,45 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/edittext_password"
-        app:layout_constraintStart_toEndOf="@+id/topView" />
+        app:layout_constraintStart_toStartOf="@+id/edittext_password" />
+
+    <TextView
+        android:id="@+id/textView_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/don_t_have_an_account_sign_up"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edittext_password"
+        app:layout_constraintStart_toStartOf="@+id/edittext_password" />
+
+    <TextView
+        android:id="@+id/textView_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/already_have_account_login"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edittext_password"
+        app:layout_constraintStart_toStartOf="@+id/edittext_password" />
+    <!--<TextView-->
+    <!--android:id="@+id/textView2"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:text="Sign up"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:textStyle="bold"-->
+    <!--app:layout_constraintStart_toEndOf="@+id/textView"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/button_login" />-->
 
 
 </android.support.constraint.ConstraintLayout>
