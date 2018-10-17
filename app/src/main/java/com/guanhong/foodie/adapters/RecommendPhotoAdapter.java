@@ -47,6 +47,7 @@ public class RecommendPhotoAdapter extends RecyclerView.Adapter {
 
         Picasso.get()
                .load(mPicturesArrayList.get(position))
+                .fit()
                .transform(new CircleCornerForm())
                .error(R.drawable.all_picture_placeholder)
                .into(holder.mImageView);

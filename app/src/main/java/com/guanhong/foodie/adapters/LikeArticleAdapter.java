@@ -64,6 +64,7 @@ public class LikeArticleAdapter extends RecyclerView.Adapter {
         if (mRestaurantArrayList.get(position).getRestaurantPictures().size() > 0) {
             Picasso.get()
                     .load(mRestaurantArrayList.get(position).getRestaurantPictures().get(0))
+                    .fit()
 //                    .resize(150, 100)
                     .transform(new CircleCornerForm())
                     .error(R.drawable.all_picture_placeholder)

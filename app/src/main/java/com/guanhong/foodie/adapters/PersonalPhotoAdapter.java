@@ -74,6 +74,7 @@ public class PersonalPhotoAdapter extends RecyclerView.Adapter {
         public void bindData(int position) {
             Picasso.get()
                     .load(mPhotosList.get(position))
+                    .fit()
                     .error(R.drawable.all_picture_placeholder)
                     .into(mImageView);
         }

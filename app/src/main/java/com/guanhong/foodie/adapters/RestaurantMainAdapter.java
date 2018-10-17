@@ -482,6 +482,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         if (!"".equals(mComments.get(i).getAuthor().getImage())) {
             Picasso.get()
                     .load(mComments.get(i).getAuthor().getImage())
+                    .fit()
 //                .networkPolicy(NetworkPolicy.OFFLINE)
                     .into(holder.getImageAuthorImage());
         }

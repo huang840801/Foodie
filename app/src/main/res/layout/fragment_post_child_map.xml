@@ -31,13 +31,13 @@
         <!--app:srcCompat="@drawable/back_arrow_gray" />-->
 
     <ImageView
-        android:id="@+id/imageView_my_position"
+        android:id="@+id/imageView_child_map_my_position"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:padding="15dp"
-        android:src="@drawable/myposition"
+        android:src="@drawable/my_position"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

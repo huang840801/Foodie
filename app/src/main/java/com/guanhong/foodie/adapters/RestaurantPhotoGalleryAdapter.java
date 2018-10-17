@@ -97,6 +97,7 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
 //            }else {
                 Picasso.get()
                         .load(mPictureList.get(positionInPhoto))
+                        .fit()
 //                        .networkPolicy(NetworkPolicy.OFFLINE)
                         .placeholder(R.drawable.all_picture_placeholder)
                         .into(mImagePictures);

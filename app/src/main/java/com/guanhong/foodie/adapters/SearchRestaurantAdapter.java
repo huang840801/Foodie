@@ -59,6 +59,7 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter {
         if (mRestaurantArrayList.get(position).getRestaurantPictures().size() > 0) {
             Picasso.get()
                     .load(mRestaurantArrayList.get(position).getRestaurantPictures().get(0))
+                    .fit()
                     .transform(new CircleCornerForm())
                     .error(R.drawable.all_picture_placeholder)
                     .into(holder.mImageView);

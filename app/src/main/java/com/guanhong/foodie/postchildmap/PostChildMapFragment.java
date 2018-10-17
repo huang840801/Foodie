@@ -58,7 +58,6 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
-
     private static final int REQUEST_FINE_LOCATION_PERMISSION = 102;
     private boolean getService = false;     //是否已開啟定位服務
     private LocationManager status;
@@ -103,7 +102,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
 
 //        mBackImageView = rootView.findViewById(R.id.imageView_back_arrow);
         mGoogleMapView = rootView.findViewById(R.id.post_mapView);
-        mLocation = rootView.findViewById(R.id.imageView_my_position);
+        mLocation = rootView.findViewById(R.id.imageView_child_map_my_position);
 
         mGoogleMapView.onCreate(savedInstanceState);
         mGoogleMapView.onResume();
