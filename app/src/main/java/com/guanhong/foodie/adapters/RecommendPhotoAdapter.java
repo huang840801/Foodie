@@ -49,8 +49,9 @@ public class RecommendPhotoAdapter extends RecyclerView.Adapter {
                .load(mPicturesArrayList.get(position))
                 .fit()
                .transform(new CircleCornerForm())
-               .error(R.drawable.all_picture_placeholder)
-               .into(holder.mImageView);
+                .placeholder(R.drawable.animated_rotate_drawable)
+                .error(R.drawable.photo_error)
+                .into(holder.mImageView);
 
     }
 

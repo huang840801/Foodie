@@ -201,10 +201,11 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         mTitles = new String[]{
                 getResources().getString(R.string.map),
-                getResources().getString(R.string.profile),
                 getResources().getString(R.string.search),
-                getResources().getString(R.string.lottery),
                 getResources().getString(R.string.like),
+                getResources().getString(R.string.lottery),
+                getResources().getString(R.string.profile),
+
         };
 
         setTabLayout();
@@ -230,7 +231,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 //        mTabLayout.getTabAt(0).getCustomView().setSelected(true);
 
         mPresenter = new FoodiePresenter(this, mViewPager, getSupportFragmentManager());
-//        mPresenter.start();
+        mPresenter.start();
 
 //        mTabLayout.getTabAt(0).select();
         //设置TabLayout点击事件
@@ -278,10 +279,10 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         }
 
         mFragmentList.add(mMapFragment);
-        mFragmentList.add(mProfileFragment);
         mFragmentList.add(mSearchFragment);
-        mFragmentList.add(mRecommendFragment);
         mFragmentList.add(mLikeFragment);
+        mFragmentList.add(mRecommendFragment);
+        mFragmentList.add(mProfileFragment);
     }
 
     private void requestReadAndWritePermissions() {
@@ -318,7 +319,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     public void onBackPressed() {
         Log.d(Constants.TAG, "onBackPressed: ");
 
-        mPresenter.checkFragmentStatus();
+//        mPresenter.checkFragmentStatus();
 //        mPresenter.checkPostMapExist();
 //        mViewPager.setVisibility(View.VISIBLE);
 //        mTabLayout.setVisibility(View.VISIBLE);
@@ -393,20 +394,22 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
                 mPresenter.transToMap();
                 break;
             case 1:
-                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.portrait_selected);
-                mPresenter.transToProfile();
-                break;
-            case 2:
                 tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.search_selected);
                 mPresenter.transToSearch();
+                break;
+            case 2:
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.heart_selected);
+                mPresenter.transToLike();
+
                 break;
             case 3:
                 tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.recommend_selected);
                 mPresenter.transToRecommend();
                 break;
             case 4:
-                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.heart_selected);
-                mPresenter.transToLike();
+
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.portrait_selected);
+                mPresenter.transToProfile();
                 break;
 
         }
@@ -424,16 +427,19 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
                 tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.map_normal);
                 break;
             case 1:
-                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.portrait_normal);
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.search_normal);
+
                 break;
             case 2:
-                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.search_normal);
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.heart_normal);
+
                 break;
             case 3:
                 tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.recommend_normal);
                 break;
             case 4:
-                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.heart_normal);
+                tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.portrait_normal);
+
                 break;
 
         }

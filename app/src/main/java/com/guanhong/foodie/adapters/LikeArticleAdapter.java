@@ -67,7 +67,9 @@ public class LikeArticleAdapter extends RecyclerView.Adapter {
                     .fit()
 //                    .resize(150, 100)
                     .transform(new CircleCornerForm())
-                    .error(R.drawable.all_picture_placeholder)
+                    .placeholder(R.drawable.animated_rotate_drawable)
+                    .error(R.drawable.photo_error)
+
                     .into(holder.mImageView);
         }
         if (mRestaurantArrayList.get(position).getStarCount() == 5) {

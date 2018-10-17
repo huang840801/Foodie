@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginBottom="10dp"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/all_picture_placeholder" />
+        app:srcCompat="@drawable/cooking" />
 
     <TextView
         android:id="@+id/textView_profile_article_restaurantName"

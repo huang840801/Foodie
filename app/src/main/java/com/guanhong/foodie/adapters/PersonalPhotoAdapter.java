@@ -75,7 +75,8 @@ public class PersonalPhotoAdapter extends RecyclerView.Adapter {
             Picasso.get()
                     .load(mPhotosList.get(position))
                     .fit()
-                    .error(R.drawable.all_picture_placeholder)
+                    .placeholder(R.drawable.animated_rotate_drawable)
+                    .error(R.drawable.photo_error)
                     .into(mImageView);
         }
     }

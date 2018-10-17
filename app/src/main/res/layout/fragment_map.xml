@@ -20,6 +20,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <ImageView
+        android:id="@+id/imageView_map_post"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/location_bg"
+        android:padding="5dp"
+        android:src="@drawable/new_pen_main_bg"
+        app:layout_constraintBottom_toTopOf="@+id/imageView_map_my_position"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <ImageView
         android:id="@+id/imageView_map_my_position"
         android:layout_width="30dp"

@@ -38,7 +38,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     private TextView mUserEmail;
     private TextView mCoinCount;
     private TextView mArticleCount;
-    private ImageView mImageViewPost;
+//    private ImageView mImageViewPost;
     private RecyclerView mRecyclerView;
     private Typeface mTypeface;
     private ArrayList<Article> mArticleArrayList;
@@ -57,12 +57,12 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mUserEmail = v.findViewById(R.id.textView_userEmail);
         mCoinCount = v.findViewById(R.id.textView_coin_count);
         mArticleCount = v.findViewById(R.id.textView_article_count);
-        mImageViewPost = v.findViewById(R.id.imageView_profile_post_article);
+//        mImageViewPost = v.findViewById(R.id.imageView_profile_post_article);
         mRecyclerView = v.findViewById(R.id.recyclerview_profile_article);
 
 
         mUserImageView.setOnClickListener(this);
-        mImageViewPost.setOnClickListener(this);
+//        mImageViewPost.setOnClickListener(this);
 
         return v;
     }
@@ -71,6 +71,9 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTypeFace();
+
+        mPresenter.start();
+
     }
 
     public static ProfileFragment newInstance() {
@@ -93,17 +96,17 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         if (view.getId() == R.id.imageView_user) {
             ((FoodieActivity) getActivity()).pickSinglePicture();
         }
-        if (view.getId() == R.id.imageView_profile_post_article) {
-            ((FoodieActivity) getActivity()).transToPostArticle();
-
-        }
+//        if (view.getId() == R.id.imageView_profile_post_article) {
+//            ((FoodieActivity) getActivity()).transToPostArticle();
+//
+//        }
 
     }
 
     @Override
     public void setPresenter(ProfileContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
-        mPresenter.start();
+//        mPresenter.start();
 
     }
 

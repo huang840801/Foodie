@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -197,10 +198,15 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                     holder.getBookmark().setImageResource(R.drawable.bookmark_selected);
                     uploadMyLikedArticleToFirebase(mRestaurant.getLat_Lng(), mRestaurant);
                     isLike = true;
+
+                    Toast.makeText(mContext, "已加入我的收藏", Toast.LENGTH_SHORT).show();
                 } else {
                     holder.getBookmark().setImageResource(R.drawable.bookmark_unselected);
                     deleteMyLikedArticleToFirebase(mRestaurant.getLat_Lng());
                     isLike = false;
+
+                    Toast.makeText(mContext, "已從我的收藏移除", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });

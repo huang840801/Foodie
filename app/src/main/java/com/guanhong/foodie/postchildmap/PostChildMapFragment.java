@@ -114,6 +114,8 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Log.d("PostChildMapFragment", "PostChildMapFragment onViewCreated");
+
         mPresenter.start();
 
         mLocation.setOnClickListener(new View.OnClickListener() {

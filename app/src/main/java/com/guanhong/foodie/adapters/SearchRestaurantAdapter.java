@@ -61,7 +61,8 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter {
                     .load(mRestaurantArrayList.get(position).getRestaurantPictures().get(0))
                     .fit()
                     .transform(new CircleCornerForm())
-                    .error(R.drawable.all_picture_placeholder)
+                    .placeholder(R.drawable.animated_rotate_drawable)
+                    .error(R.drawable.photo_error)
                     .into(holder.mImageView);
         }
 

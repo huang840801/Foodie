@@ -21,7 +21,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     private String[] mTitles;
     private FragmentManager mFragmentManager;
     private Context mContext;
-    private int[] ints = {R.drawable.map_normal, R.drawable.portrait_normal, R.drawable.search_normal, R.drawable.recommend_normal, R.drawable.heart_normal};
+    private int[] ints = {R.drawable.map_normal, R.drawable.search_normal, R.drawable.heart_normal, R.drawable.recommend_normal, R.drawable.portrait_normal};
 
     public ViewPagerAdapter(FragmentManager fragmentManager, String[] titles, List<Fragment> fragments, Context context) {
         super(fragmentManager);

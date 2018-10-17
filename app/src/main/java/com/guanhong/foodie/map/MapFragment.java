@@ -66,6 +66,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     private GoogleMap mGoogleMap;
     private MapView mGoogleMapView;
     private ImageView mLocation;
+    private ImageView mPostButton;
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
@@ -97,8 +98,9 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
         mGoogleMapView = (MapView) rootView.findViewById(R.id.mapView);
         mLocation = rootView.findViewById(R.id.imageView_map_my_position);
+        mPostButton = rootView.findViewById(R.id.imageView_map_post);
         mContext = getContext();
-        mPresenter = new MapPresenter(this);
+//        mPresenter = new MapPresenter(this);
 
 
         return rootView;
@@ -143,6 +145,13 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
                 }
             }
         });
+
+        mPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((FoodieActivity)getActivity()).transToPostArticle();
+            }
+        });
 //        mGoogleMapView.onResume();
     }
 
@@ -157,7 +166,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
                 Geocoder geocoder = new Geocoder(mContext, Locale.TRADITIONAL_CHINESE);
 
                 LatLng latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-
 
                 mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
@@ -384,16 +392,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         mPresenter.getRestaurantData(lat_lng);
         Log.d(Constants.TAG, "  lng = " + lat_lng);
 
-//        Geocoder geocoder = new Geocoder(mContext, Locale.TRADITIONAL_CHINESE);
-//        try {
-//            List<Address> addressList = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
-//            Log.d(Constants.TAG, "  address = " + addressList.get(0).getAddressLine(0));
-//            mPresenter.getRestaurantData(addressList.get(0).getAddressLine(0));
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
     }
 
     @Override
@@ -427,8 +425,5 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
-
-
-//https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=24.1674116,120.6679557&radius=5000&types=bank&sensor=true&key=AIzaSyC9nSWENfNXaPrQ9pMFtvxL5NSwbpMiEE
 
 }

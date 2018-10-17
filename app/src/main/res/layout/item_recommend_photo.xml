@@ -10,11 +10,10 @@
         android:id="@+id/imageView_recommend_article_photo"
         android:layout_width="329dp"
         android:layout_height="220dp"
-        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/all_picture_placeholder" />
+        app:srcCompat="@drawable/cooking" />
 
 
 
