@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 public class RecommendPhotoAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<String>mPicturesArrayList;
+    private ArrayList<String> mPicturesArrayList;
     private Context mContext;
 
     public RecommendPhotoAdapter(ArrayList<String> restaurantPictures) {
 
-        Log.d(Constants.TAG, "  restaurantPictures.size() = "+restaurantPictures.size());
+        Log.d(Constants.TAG, "  restaurantPictures.size() = " + restaurantPictures.size());
         mPicturesArrayList = restaurantPictures;
     }
 
@@ -37,8 +37,8 @@ public class RecommendPhotoAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof RecommendPhotoHolder){
-            bindMainItem((RecommendPhotoHolder)holder, position);
+        if (holder instanceof RecommendPhotoHolder) {
+            bindMainItem((RecommendPhotoHolder) holder, position);
         }
 
     }
@@ -46,9 +46,9 @@ public class RecommendPhotoAdapter extends RecyclerView.Adapter {
     private void bindMainItem(RecommendPhotoHolder holder, int position) {
 
         Picasso.get()
-               .load(mPicturesArrayList.get(position))
+                .load(mPicturesArrayList.get(position))
                 .fit()
-               .transform(new CircleCornerForm())
+                .transform(new CircleCornerForm())
                 .placeholder(R.drawable.animated_rotate_drawable)
                 .error(R.drawable.photo_error)
                 .into(holder.mImageView);

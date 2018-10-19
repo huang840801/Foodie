@@ -62,7 +62,6 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
     private boolean getService = false;     //是否已開啟定位服務
     private LocationManager status;
 
-
 //    private ImageView mBackImageView;
 
     public static PostChildMapFragment newInstance() {
@@ -77,21 +76,52 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mPresenter.showTabLayout();
+    public void onStart() {
+        Log.d("lifecycle", "PostChildMapFragment onStart");
+        super.onStart();
+
+        mGoogleApiClient.connect();
     }
 
     @Override
-    public void onStart() {
-        mGoogleApiClient.connect();
-        super.onStart();
+    public void onResume() {
+
+        Log.d("lifecycle", "PostChildMapFragment onResume");
+
+        super.onResume();
+        mGoogleMapView.onResume();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mGoogleMapView.onPause();
+
     }
 
     @Override
     public void onStop() {
-        mGoogleApiClient.disconnect();
+        Log.d("lifecycle", "PostChildMapFragment onStop");
         super.onStop();
+        mGoogleApiClient.disconnect();
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("lifecycle", "PostChildMapFragment onDestroyView");
+
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d("lifecycle", "PostChildMapFragment onDestroy");
+
+        super.onDestroy();
+        mGoogleMapView.onDestroy();
+        mPresenter.showTabLayout();
     }
 
     @Nullable
@@ -104,9 +134,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
         mGoogleMapView = rootView.findViewById(R.id.post_mapView);
         mLocation = rootView.findViewById(R.id.imageView_child_map_my_position);
 
-        mGoogleMapView.onCreate(savedInstanceState);
-        mGoogleMapView.onResume();
-
+//        mGoogleMapView.onResume();
         return rootView;
     }
 
@@ -114,9 +142,12 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d("PostChildMapFragment", "PostChildMapFragment onViewCreated");
+        Log.d("lifecycle", "PostChildMapFragment onViewCreated");
 
         mPresenter.start();
+
+
+        mGoogleMapView.onCreate(savedInstanceState);
 
         mLocation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,20 +186,21 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
 //            }
 //        });
     }
+
     private boolean requestLocationPermissions() {
         Log.d("Permissions", "requestLocationPermissions");
 
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            Log.d("Permissions", "android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP");
+//            Log.d("Permissions", "android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP");
             return true;
         }
 
         int fineLocationPermissionCheck = ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION);
         int coarseLocationPermissionCheck = ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION);
 
-        if(fineLocationPermissionCheck!=PackageManager.PERMISSION_GRANTED&&coarseLocationPermissionCheck!=PackageManager.PERMISSION_GRANTED){
-            Log.d("Permissions", "hadFineLocationPermissions() && hadCoarseLocationPermissions()");
-            ActivityCompat.requestPermissions((Activity)mContext,
+        if (fineLocationPermissionCheck != PackageManager.PERMISSION_GRANTED && coarseLocationPermissionCheck != PackageManager.PERMISSION_GRANTED) {
+//            Log.d("Permissions", "hadFineLocationPermissions() && hadCoarseLocationPermissions()");
+            ActivityCompat.requestPermissions((Activity) mContext,
                     new String[]{
                             Manifest.permission.ACCESS_COARSE_LOCATION,
                             Manifest.permission.ACCESS_FINE_LOCATION
@@ -177,6 +209,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
         }
         return false;
     }
+
     private void getMyLocation() {
         try {
             /* code should explicitly check to see if permission is available
@@ -210,8 +243,8 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
 
             Toast.makeText(mContext, "SecurityException:\n" + mLastLocation.getLatitude() + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
 
-            Log.d(Constants.TAG, "SecurityException:\n" + String.valueOf(mLastLocation.getLatitude()) + "\n"
-                    + String.valueOf(mLastLocation.getLongitude()));
+//            Log.d(Constants.TAG, "SecurityException:\n" + String.valueOf(mLastLocation.getLatitude()) + "\n"
+//                    + String.valueOf(mLastLocation.getLongitude()));
         }
     }
 
@@ -284,7 +317,17 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+
+
         mGoogleMap = googleMap;
+        Log.d(Constants.TAG, " onMapReady clear");
+        Log.d(Constants.TAG, " onMapReady  PostChildMapFragment GoogleMapView : "+ mGoogleMapView);
+
+//        mGoogleMapView.getLayoutParams().height = 1;
+//        mGoogleMapView.getLayoutParams().width = 1;
+//        mGoogleMapView.invalidate();
+//        mGoogleMapView.requestLayout();
+
         mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
@@ -301,8 +344,8 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
                     public void onMapClick(LatLng latLng) {
                         Geocoder geocoder = new Geocoder(mContext, Locale.TRADITIONAL_CHINESE);
 
-                        Log.d(Constants.TAG, "  hongtest postchild latitude = " + latLng.latitude);
-                        Log.d(Constants.TAG, "  hongtest postchild longitude = " + latLng.longitude);
+//                        Log.d(Constants.TAG, "  hongtest postchild latitude = " + latLng.latitude);
+//                        Log.d(Constants.TAG, "  hongtest postchild longitude = " + latLng.longitude);
                         mPresenter.getAddress(geocoder, latLng);
 
                     }
@@ -365,12 +408,12 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
 
     @Override
     public void onConnectionSuspended(int i) {
-        Log.d(Constants.TAG, " onConnectionSuspended : " + i);
+//        Log.d(Constants.TAG, " onConnectionSuspended : " + i);
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d(Constants.TAG, " onConnectionFailed : " + connectionResult);
+//        Log.d(Constants.TAG, " onConnectionFailed : " + connectionResult);
 
     }
 }

@@ -128,7 +128,6 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
         mPresenter.start();
         setTabLayoutVisibility(false);
         setTypeFace();
-
     }
 
     @Override

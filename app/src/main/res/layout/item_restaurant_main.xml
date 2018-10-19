@@ -96,12 +96,13 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="20dp"
+        android:layout_width="17dp"
         android:layout_height="20dp"
         android:layout_marginTop="16dp"
+
         app:layout_constraintStart_toStartOf="@+id/imageView_star1"
         app:layout_constraintTop_toBottomOf="@+id/imageView_star1"
-        app:srcCompat="@drawable/marker_yellow" />
+        app:srcCompat="@drawable/new_yellow_marker" />
 
     <TextView
         android:id="@+id/textView_location"
@@ -202,6 +203,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_article_title" />
 
+    <Button
+        android:id="@+id/button_restaurant_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_bookmark" />
 
 
 </android.support.constraint.ConstraintLayout>

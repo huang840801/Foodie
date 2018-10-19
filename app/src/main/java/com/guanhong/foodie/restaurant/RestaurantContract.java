@@ -17,6 +17,8 @@ public interface RestaurantContract {
         void showRestaurant(Restaurant restaurant, ArrayList<Comment> comments);
 
         void showPersonalArticleUi(Article article);
+
+        void transToPost();
     }
 
     interface Presenter extends BasePresenter {
@@ -26,5 +28,8 @@ public interface RestaurantContract {
 //        void hideTabLayout();
 
         void openPersonalArticle(Article article);
+
+        void transToPost();
     }
 }
+

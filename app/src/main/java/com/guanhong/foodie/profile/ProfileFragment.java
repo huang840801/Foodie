@@ -38,7 +38,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     private TextView mUserEmail;
     private TextView mCoinCount;
     private TextView mArticleCount;
-//    private ImageView mImageViewPost;
+    private ImageView mImageViewPost;
     private RecyclerView mRecyclerView;
     private Typeface mTypeface;
     private ArrayList<Article> mArticleArrayList;
@@ -57,12 +57,11 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mUserEmail = v.findViewById(R.id.textView_userEmail);
         mCoinCount = v.findViewById(R.id.textView_coin_count);
         mArticleCount = v.findViewById(R.id.textView_article_count);
-//        mImageViewPost = v.findViewById(R.id.imageView_profile_post_article);
+        mImageViewPost = v.findViewById(R.id.imageView_profile_post_article);
         mRecyclerView = v.findViewById(R.id.recyclerview_profile_article);
 
-
         mUserImageView.setOnClickListener(this);
-//        mImageViewPost.setOnClickListener(this);
+        mImageViewPost.setOnClickListener(this);
 
         return v;
     }
@@ -71,9 +70,45 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTypeFace();
+        Log.d("lifecycle", "  ProfileFragment onViewCreated");
 
         mPresenter.start();
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("lifecycle", "  ProfileFragment onStart");
+
+    }
+
+    @Override
+    public void onResume() {
+        Log.d("lifecycle", "  ProfileFragment onResume");
+
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("lifecycle", "  ProfileFragment onPause");
+
+    }
+
+    @Override
+    public void onStop() {
+        Log.d("lifecycle", "  ProfileFragment onStop");
+
+        super.onStop();
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.d("lifecycle", "  ProfileFragment onDestroy");
+
+        super.onDestroy();
     }
 
     public static ProfileFragment newInstance() {
@@ -96,10 +131,9 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         if (view.getId() == R.id.imageView_user) {
             ((FoodieActivity) getActivity()).pickSinglePicture();
         }
-//        if (view.getId() == R.id.imageView_profile_post_article) {
-//            ((FoodieActivity) getActivity()).transToPostArticle();
-//
-//        }
+        if (view.getId() == R.id.imageView_profile_post_article) {
+            ((FoodieActivity) getActivity()).transToPostArticle();
+        }
 
     }
 
@@ -164,6 +198,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
 
     @Override
     public void showPersonalArticleUi(Article article) {
-        ((FoodieActivity)getActivity()).transToPersonalArticle(article);
+        ((FoodieActivity) getActivity()).transToPersonalArticle(article);
     }
 }

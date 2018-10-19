@@ -88,15 +88,15 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     public void transToMap() {
 
 //        Log.d(Constants.TAG, "  transToMap");
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        if (mMapFragment == null) {
-            mMapFragment = MapFragment.newInstance();
-        }
-        if (!mMapFragment.isAdded()) {
-            fragmentTransaction.add(R.id.fragment_container, mMapFragment, MAP);
-        } else {
-            fragmentTransaction.show(mMapFragment);
-        }
+//        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+//        if (mMapFragment == null) {
+//            mMapFragment = MapFragment.newInstance();
+//        }
+//        if (!mMapFragment.isAdded()) {
+//            fragmentTransaction.add(R.id.fragment_container, mMapFragment, MAP);
+//        } else {
+//            fragmentTransaction.show(mMapFragment);
+//        }
 //
 //        if (mPostFragment != null && !mPostFragment.isHidden()) {
 //            Log.d(Constants.TAG, "  transToMap mRestaurantFragment isHidden");
@@ -120,7 +120,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     public void transToProfile() {
 
         Log.d(Constants.TAG, "  transToProfile");
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+//        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 
 //
 //        if (mPostFragment != null && !mPostFragment.isHidden()) {
@@ -147,8 +147,6 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     @Override
     public void transToSearch() {
         Log.d(Constants.TAG, "  transToSearch");
-//        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-
 
         mViewPager.setCurrentItem(1);
         mFoodieView.showSearchUi();
@@ -174,7 +172,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     @Override
     public void tranToRestaurant(Restaurant restaurant, ArrayList<Comment> comments) {
         Log.d("restaurant ", " FoodiePresenter : " + restaurant);
-        mFoodieView.setTabLayoutVisibility(false);
+//        mFoodieView.setTabLayoutVisibility(false);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 //        fragmentTransaction.setCustomAnimations(R.anim.emerge, R.anim.emerge);
         if (mRestaurantFragment == null) {
@@ -201,25 +199,16 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         if (mPostFragment == null) {
             mPostFragment = PostFragment.newInstance();
         }
-//        if (mPostFragment != null && !mPostFragment.isHidden()) {
+
+//        if (mPostChildMapFragment != null && !mPostChildMapFragment.isHidden()) {
 //            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-//            fragmentTransaction.remove(mPostFragment);
+//            fragmentTransaction.hide(mPostChildMapFragment);
 //        }
-//        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
+//        if (mMapFragment != null && !mMapFragment.isHidden()) {
 //            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-//            fragmentTransaction.remove(mRestaurantFragment);
-//
+//            fragmentTransaction.hide(mMapFragment);
+//            mFoodieView.setTabLayoutVisibility(true);
 //        }
-        if (mPostChildMapFragment != null && !mPostChildMapFragment.isHidden()) {
-            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-            fragmentTransaction.hide(mPostChildMapFragment);
-//            mFoodieView.setTabLayoutVisibility(true);
-        }
-        if (mMapFragment != null && !mMapFragment.isHidden()) {
-            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-            fragmentTransaction.hide(mMapFragment);
-//            mFoodieView.setTabLayoutVisibility(true);
-        }
         mPostPresenter = new PostPresenter(mPostFragment);
 
         if (!mPostFragment.isAdded()) {
@@ -241,14 +230,14 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         }
 
 //        if (mMapFragment != null && !mMapFragment.isHidden()) {
-            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
+//        Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
 //            fragmentTransaction.hide(mMapFragment);
 //            mFoodieView.setTabLayoutVisibility(true);
 //        }
-//        if (mPostFragment != null && !mPostFragment.isHidden()) {
-//            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-//            fragmentTransaction.remove(mPostFragment);
-//        }
+        if (mMapFragment != null && !mMapFragment.isHidden()) {
+            Log.d(Constants.TAG, "  transToProfile mMapFragment isHidden");
+            fragmentTransaction.remove(mMapFragment);
+        }
 //        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
 //            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
 //            fragmentTransaction.remove(mRestaurantFragment);
@@ -258,6 +247,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 //            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
 //            fragmentTransaction.remove(mPostChildMapFragment);
 //        }
+
         mPostChildMapPresenter = new PostChildMapPresenter(mPostChildMapFragment);
 
         if (!mPostChildMapFragment.isAdded()) {
@@ -268,6 +258,8 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 //        fragmentTransaction.replace(R.id.fragment_container, mPostChildMapFragment, "");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
+        mFoodieView.hideMapView();
         mFoodieView.showPostChildMapUi();
     }
 
@@ -290,9 +282,13 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 //        mFoodieView.showPostArticleUi();
 
 //        mPostPresenter = new PostPresenter(mPostFragment);
-        mPostPresenter.setAddress(addressLine, latLng);
+//        if (mPostPresenter == null){
+            mPostPresenter = new PostPresenter(mPostFragment);
 
-        fragmentTransaction.hide(mPostChildMapFragment);
+//        }
+            mPostPresenter.setAddress(addressLine, latLng);
+
+//        fragmentTransaction.hide(mPostChildMapFragment);
         fragmentTransaction.show(mPostFragment);
 
         fragmentTransaction.addToBackStack(null);
@@ -316,7 +312,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
 //        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
 //            fragmentTransaction.hide(mRestaurantFragment);
-            fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.addToBackStack(null);
 //            fragmentTransaction.addToBackStack(RESTAURANT);
 //        }
 //        fragmentTransaction.hide(mRestaurantFragment);
@@ -332,11 +328,11 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     @Override
     public void checkFragmentStatus() {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        if(mPersonalArticleFragment!=null&&!mPersonalArticleFragment.isHidden()){
+        if (mPersonalArticleFragment != null && !mPersonalArticleFragment.isHidden()) {
             fragmentTransaction.hide(mPersonalArticleFragment);
             fragmentTransaction.commit();
             mFoodieView.setTabLayoutVisibility(false);
-        }else {
+        } else {
             mFoodieView.setTabLayoutVisibility(true);
         }
     }

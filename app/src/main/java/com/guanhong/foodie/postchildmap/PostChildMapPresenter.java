@@ -45,8 +45,12 @@ public class PostChildMapPresenter implements PostChildMapContract.Presenter{
 
             List<Address> addressList = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
 //            Log.d(Constants.TAG, "  地址 = " + addressList.get(0).getAddressLine(0));
-            mPostChildMapView.showDialog(addressList.get(0).getAddressLine(0), latLng);
 
+            if (addressList.size() == 0) {
+
+            }else {
+                mPostChildMapView.showDialog(addressList.get(0).getAddressLine(0), latLng);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

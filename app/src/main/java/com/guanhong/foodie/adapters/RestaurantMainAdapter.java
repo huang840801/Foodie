@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -188,6 +189,13 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        holder.getButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.transToPost();
             }
         });
 
@@ -392,6 +400,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         private PageIndicatorView pageIndicatorView;
         private ImageView mBookmark;
         private TextView mTextViewArticleTitle;
+        private Button mButton;
 
         public RestaurantMainItemViewHolder(View itemView) {
             super(itemView);
@@ -409,7 +418,12 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             pageIndicatorView = itemView.findViewById(R.id.indicator);
             mBookmark = itemView.findViewById(R.id.imageView_bookmark);
             mTextViewArticleTitle = itemView.findViewById(R.id.textView_restaurant_article_title);
+            mButton = itemView.findViewById(R.id.button_restaurant_post);
 
+        }
+
+        public Button getButton() {
+            return mButton;
         }
 
         public ImageView getBookmark() {

@@ -72,7 +72,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private View mLoadingBackground;
 
 
-
     private Typeface mTypeface;
 
     private ArrayList<String> mPictureList = new ArrayList<>();
@@ -93,6 +92,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d(Constants.TAG, " mPresenter = " + mPresenter);
         mPresenter.hideTabLayout();
 
     }
@@ -323,9 +323,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
             Toast.makeText(mContext, "內容必填!", Toast.LENGTH_SHORT).show();
 
-        }
-
-        else if (mEditTextMenu2.getText().toString().length() > 0 || mEditTextPrice2.getText().toString().length() > 0) {
+        } else if (mEditTextMenu2.getText().toString().length() > 0 || mEditTextPrice2.getText().toString().length() > 0) {
 
             if ("".equals(mEditTextMenu2.getText().toString())) {
 
@@ -339,8 +337,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
                 Toast.makeText(mContext, "價格必填!", Toast.LENGTH_SHORT).show();
 
-            }
-            else if (mEditTextMenu3.getText().toString().length() > 0 || mEditTextPrice3.getText().toString().length() > 0) {
+            } else if (mEditTextMenu3.getText().toString().length() > 0 || mEditTextPrice3.getText().toString().length() > 0) {
                 if ("".equals(mEditTextMenu3.getText().toString())) {
 
                     Toast.makeText(mContext, "菜單必填!", Toast.LENGTH_SHORT).show();
@@ -353,25 +350,20 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
                     Toast.makeText(mContext, "價格必填!", Toast.LENGTH_SHORT).show();
 
-                }
-                else  {
+                } else {
                     mAVLoadingIndicatorView.setVisibility(View.VISIBLE);
                     mLoadingBackground.setVisibility(View.VISIBLE);
                     postImage();
 //                    Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
                 }
-            }
-
-            else {
+            } else {
                 mAVLoadingIndicatorView.setVisibility(View.VISIBLE);
                 mLoadingBackground.setVisibility(View.VISIBLE);
                 postImage();
 //                Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
             }
 
-        }
-
-        else {
+        } else {
             mAVLoadingIndicatorView.setVisibility(View.VISIBLE);
             mLoadingBackground.setVisibility(View.VISIBLE);
             postImage();
@@ -527,5 +519,17 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
         mStarCount = (int) v;
         Log.d(Constants.TAG, "  mStarCount = " + mStarCount);
+    }
+
+    public void getLocationData(final String addressLine, LatLng latLng) {
+        Log.d("getLocationData", " PostFragment address = " + addressLine);
+        Log.d("getLocationData", " PostFragment latlng = " + latLng);
+
+//        mTextViewRestaurantLocation.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                mTextViewRestaurantLocation.setText(addressLine);
+//            }
+//        });
     }
 }

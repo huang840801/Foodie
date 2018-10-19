@@ -36,6 +36,11 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
 
     }
 
+    @Override
+    public void transToPost() {
+        mRestaurantView.transToPost();
+    }
+
     public RestaurantPresenter(RestaurantContract.View restaurantView, Restaurant restaurant, ArrayList<Comment> comments) {
 
 

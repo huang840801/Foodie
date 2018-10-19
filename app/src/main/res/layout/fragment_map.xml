@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f7f8f9"
@@ -23,25 +24,25 @@
 
     <ImageView
         android:id="@+id/imageView_map_post"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/location_bg"
-        android:padding="5dp"
-        android:src="@drawable/new_pen_main_bg"
-        app:layout_constraintBottom_toTopOf="@+id/imageView_map_my_position"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:padding="10dp"
+        android:src="@drawable/add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_map_my_position" />
 
     <ImageView
         android:id="@+id/imageView_map_my_position"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="70dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/location_bg"
-        android:padding="5dp"
+        android:padding="10dp"
         android:src="@drawable/my_position"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

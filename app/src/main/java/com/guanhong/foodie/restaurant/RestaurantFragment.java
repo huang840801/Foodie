@@ -69,7 +69,14 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     @Override
     public void onResume() {
         super.onResume();
-        setTabLayoutVisibility(false);
+        Log.d("lifecycle", "  RestaurantFragment onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("lifecycle", "  RestaurantFragment onPause");
+
     }
 
     @Override
@@ -88,9 +95,17 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     public void onDestroy() {
         super.onDestroy();
         setTabLayoutVisibility(true);
+        Log.d("lifecycle", "  RestaurantFragment onDestroy");
+
 //        mPresenter.showTabLayout();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("lifecycle", "  RestaurantFragment onDestroyView");
+
+    }
 
     @Override
     public void setTabLayoutVisibility(boolean visible) {
@@ -113,7 +128,12 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
 
     @Override
     public void showPersonalArticleUi(Article article) {
-        ((FoodieActivity)getActivity()).transToPersonalArticle(article);
+        ((FoodieActivity) getActivity()).transToPersonalArticle(article);
+    }
+
+    @Override
+    public void transToPost() {
+        ((FoodieActivity) getActivity()).transToPostArticle();
     }
 
 

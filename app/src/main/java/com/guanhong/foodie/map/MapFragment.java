@@ -83,6 +83,8 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     private String mRestaurantName;
     private String mStarCount;
 
+    public static boolean flags = false;
+
     public MapFragment() {
 
     }
@@ -100,9 +102,8 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         mLocation = rootView.findViewById(R.id.imageView_map_my_position);
         mPostButton = rootView.findViewById(R.id.imageView_map_post);
         mContext = getContext();
-//        mPresenter = new MapPresenter(this);
 
-
+//mGoogleMapView.onCreate(savedInstanceState);
         return rootView;
     }
 
@@ -114,6 +115,8 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("lifecycle", "  MapFragment onViewCreated");
+
         mPresenter.start();
         mGoogleMapView.onCreate(savedInstanceState);
         checkStatus();
@@ -149,7 +152,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         mPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((FoodieActivity)getActivity()).transToPostArticle();
+                ((FoodieActivity) getActivity()).transToPostArticle();
             }
         });
 //        mGoogleMapView.onResume();
@@ -207,9 +210,9 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         int fineLocationPermissionCheck = ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION);
         int coarseLocationPermissionCheck = ContextCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION);
 
-        if(fineLocationPermissionCheck!=PackageManager.PERMISSION_GRANTED&&coarseLocationPermissionCheck!=PackageManager.PERMISSION_GRANTED){
+        if (fineLocationPermissionCheck != PackageManager.PERMISSION_GRANTED && coarseLocationPermissionCheck != PackageManager.PERMISSION_GRANTED) {
             Log.d("Permissions", "hadFineLocationPermissions() && hadCoarseLocationPermissions()");
-            ActivityCompat.requestPermissions((Activity)mContext,
+            ActivityCompat.requestPermissions((Activity) mContext,
                     new String[]{
                             Manifest.permission.ACCESS_COARSE_LOCATION,
                             Manifest.permission.ACCESS_FINE_LOCATION
@@ -250,6 +253,8 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     @Override
     public void onStart() {
         mGoogleApiClient.connect();
+        Log.d("lifecycle", "  MapFragment onStart");
+
         super.onStart();
     }
 
@@ -257,17 +262,23 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     public void onResume() {
         super.onResume();
         mGoogleMapView.onResume();
+        Log.d("lifecycle", "  MapFragment onResume");
+
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mGoogleMapView.onPause();
+        Log.d("lifecycle", "  MapFragment onPause");
+
     }
 
     @Override
     public void onStop() {
         mGoogleApiClient.disconnect();
+        Log.d("lifecycle", "  MapFragment onStop");
+
         super.onStop();
     }
 
@@ -275,8 +286,17 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d("lifecycle", "  MapFragment onDestroy");
+
         mGoogleMapView.onDestroy();
     }
+
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        Log.d("lifecycle", "  MapFragment onDestroyView" );
+//
+//    }
 
     @Override
     public void onLowMemory() {
@@ -286,75 +306,85 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.d(Constants.TAG, " MapFragment ready");
+        Log.d(Constants.TAG, " onMapReady  MapFragment GoogleMapView : "+ mGoogleMapView);
 
-        mGoogleMap = googleMap;
-        mPresenter.createCustomMarker(mContext, "");
+//
 
-        mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-            @Override
-            public void onMapLoaded() {
-                mPresenter.addMarker();
-            }
-        });
-
-        mGoogleMap.setOnInfoWindowClickListener(this);
-        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(final Marker marker) {
-                Log.d(Constants.TAG, "onMarkerClick: ");
-
-                Log.d(Constants.TAG, " hongtest MapFragment marker : " + marker.getPosition().latitude);
-                Log.d(Constants.TAG, " hongtest MapFragment marker : " + marker.getPosition().longitude);
+            Log.d(Constants.TAG, "MapFragment ready !isHidden");
+            mGoogleMap = googleMap;
 
 
-                String lat = String.valueOf(marker.getPosition().latitude).replace(".", "@");
-                String lng = String.valueOf(marker.getPosition().longitude).replace(".", "@");
+            mPresenter.createCustomMarker(mContext, "");
+
+
+            mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                @Override
+                public void onMapLoaded() {
+                    mPresenter.addMarker();
+                }
+            });
+
+            mGoogleMap.setOnInfoWindowClickListener(this);
+            mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(final Marker marker) {
+                    Log.d(Constants.TAG, "onMarkerClick: ");
+
+//                Log.d(Constants.TAG, " hongtest MapFragment marker : " + marker.getPosition().latitude);
+//                Log.d(Constants.TAG, " hongtest MapFragment marker : " + marker.getPosition().longitude);
+
+
+                    String lat = String.valueOf(marker.getPosition().latitude).replace(".", "@");
+                    String lng = String.valueOf(marker.getPosition().longitude).replace(".", "@");
 //                lat = lat.substring(0, Constants.LATLNG_SAVE_DIGITS);
 //                lng = lng.substring(0, Constants.LATLNG_SAVE_DIGITS);
-                String key = (lat + "_" + lng);
-                Log.d(Constants.TAG, " hongtest MapFragment: " + lat);
-                Log.d(Constants.TAG, " hongtest MapFragment: " + lng);
-                Log.d(Constants.TAG, " hongtest MapFragment: " + key);
-                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(key);
+                    String key = (lat + "_" + lng);
+//                Log.d(Constants.TAG, " hongtest MapFragment: " + lat);
+//                Log.d(Constants.TAG, " hongtest MapFragment: " + lng);
+//                Log.d(Constants.TAG, " hongtest MapFragment: " + key);
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                    DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(key);
 //                DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(key);
 
-                Query query = databaseReference.orderByValue();
-                query.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Query query = databaseReference.orderByValue();
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot);
-                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").getValue());
-                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").child("latitude").getValue());
-                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").child("longitude").getValue());
+//                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot);
+//                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").getValue());
+//                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").child("latitude").getValue());
+//                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").child("longitude").getValue());
 
-                            double lat = Double.parseDouble(snapshot.child("latLng").child("latitude").getValue() + "");
-                            double lng = Double.parseDouble(snapshot.child("latLng").child("longitude").getValue() + "");
+                                double lat = Double.parseDouble(snapshot.child("latLng").child("latitude").getValue() + "");
+                                double lng = Double.parseDouble(snapshot.child("latLng").child("longitude").getValue() + "");
 
-                            if (marker.getPosition().longitude == lng && marker.getPosition().latitude == lat) {
+                                if (marker.getPosition().longitude == lng && marker.getPosition().latitude == lat) {
 
-                                mRestaurantName = snapshot.child("restaurantName").getValue() + "";
-                                mStarCount = snapshot.child("starCount").getValue() + "";
+                                    mRestaurantName = snapshot.child("restaurantName").getValue() + "";
+                                    mStarCount = snapshot.child("starCount").getValue() + "";
 
-                                mCustomInfoWindowAdapter.setMarkerData(mRestaurantName, mStarCount);
+                                    mCustomInfoWindowAdapter.setMarkerData(mRestaurantName, mStarCount);
 
-                                marker.showInfoWindow();
-                                break;
+                                    marker.showInfoWindow();
+                                    break;
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
 
-                return false;
-            }
-        });
+                    return false;
+                }
+            });
+
+
     }
 
     @Override
@@ -363,8 +393,8 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
         for (LatLng latLng : locations) {
 
-            Log.d(Constants.TAG, " hongtest MapFragment showMarker : " + latLng.latitude);
-            Log.d(Constants.TAG, " hongtest MapFragment showMarker : " + latLng.longitude);
+//            Log.d(Constants.TAG, " hongtest MapFragment showMarker : " + latLng.latitude);
+//            Log.d(Constants.TAG, " hongtest MapFragment showMarker : " + latLng.longitude);
 
             mGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromBitmap(mBitmap)));
             builder.include(latLng);
@@ -407,7 +437,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
     @Override
     public void showRestaurantUi(Restaurant restaurant, ArrayList<Comment> comments) {
-        Log.d("restaurant ", " MapFragment : " + restaurant);
+//        Log.d("restaurant ", " MapFragment : " + restaurant);
         ((FoodieActivity) getActivity()).transToRestaurant(restaurant, comments);
     }
 

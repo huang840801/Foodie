@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.foamtrace.photopicker.ImageConfig;
 import com.foamtrace.photopicker.PhotoPickerActivity;
@@ -67,6 +68,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     private Context mContext;
 
+    private ImageView mImageViewPost;
     private MapFragment mMapFragment;
     private ProfileFragment mProfileFragment;
     private SearchFragment mSearchFragment;
@@ -113,9 +115,25 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 //        }
 
         super.onCreate(savedInstanceState);
-
         init();
         saveUserData();
+
+        Intent intent = getIntent();
+
+        if (intent.getExtras() != null) {
+
+            Log.d(Constants.TAG, "onCreate: address : " + intent.getExtras().getString("address"));
+            Log.d(Constants.TAG, "onCreate: lat : " + intent.getExtras().getString("lat"));
+            Log.d(Constants.TAG, "onCreate: lng : " + intent.getExtras().getString("lng"));
+
+            String address = intent.getExtras().getString("address");
+            String lat = intent.getExtras().getString("lat");
+            String lng = intent.getExtras().getString("lng");
+            LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+
+            transToPostArticle(address, latLng);
+        }
+
     }
 
     private void saveUserData() {
@@ -164,20 +182,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
             }
         });
 
-//        User user = new User();
-//        user.setName(name);
-//        user.setEmail(email);
-//        user.setId(uid);
-//        user.setImage(image);
-//
-//        UserManager userManager = UserManager.getInstance();
-//
-//        userManager.setUserData(user);
-//
-//
-//        myRef.child(uid).setValue(user);
-
-
     }
 
     private void init() {
@@ -198,6 +202,14 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
+//        mImageViewPost = findViewById(R.id.imageView_activity_post_article);
+
+//        mImageViewPost.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                transToPostArticle();
+//            }
+//        });
 
         mTitles = new String[]{
                 getResources().getString(R.string.map),
@@ -223,7 +235,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
 
         for (int i = 0; i < mTabLayout.getTabCount(); i++) {
-                mTabLayout.getTabAt(i).setCustomView(mViewPagerAdapter.getTabView(i));
+            mTabLayout.getTabAt(i).setCustomView(mViewPagerAdapter.getTabView(i));
 
         }
 //        onTabSelected(mTabLayout.getTabAt(0));
@@ -236,8 +248,10 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 //        mTabLayout.getTabAt(0).select();
         //设置TabLayout点击事件
         mTabLayout.setOnTabSelectedListener(this);
-//        mTabLayout.getTabAt(1).getCustomView().setSelected(true);
+//        mTabLayout.getTabAt(0).getCustomView().setSelected(true);
 //        mViewPager.setCurrentItem(0);
+//        mTabLayout.setSelected(true);
+//        mTabLayout.getTabAt(0).select();
 
     }
 
@@ -377,6 +391,11 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     }
 
+    @Override
+    public void hideMapView() {
+//        mViewPager.removeView();
+    }
+
 
     @Override
     public void setPresenter(FoodieContract.Presenter presenter) {
@@ -460,7 +479,12 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     }
 
     public void transToPostChildMap() {
-        mPresenter.transToPostChildMap();
+
+        Intent intent = new Intent(FoodieActivity.this, MapActivity.class);
+        startActivityForResult(intent, Constants.CHILD_MAP_REQUEST_CODE);
+//        finish();
+
+//        mPresenter.transToPostChildMap();
     }
 
     public void transToPostArticle(String addressLine, LatLng latLng) {
@@ -470,7 +494,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     public void transToPersonalArticle(Article article) {
         mPresenter.transToPersonalArticle(article);
     }
-
 
     public void transToProfile() {
         mPresenter.transToProfile();
@@ -483,13 +506,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         if (resultCode == RESULT_OK) {
 
             if (requestCode == Constants.SINGLE_PICKER) {
-//                Log.d("SINGLE_PICKER ", data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT) + "");
-//                Uri uri = Uri.parse(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT).get(0));
-//                Log.d("SINGLE_PICKER uri = ", String.valueOf(uri));
-
-//                Uri uri = data.getData();
-//                Log.d(" updateUserImage  ",  "onActivityResult  "+uri.toString());
-
+//
                 ArrayList<String> pictures = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
 
                 Log.d("updateUserImage ", " onActivityResult" + pictures);
@@ -511,6 +528,15 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
                 Log.d("MULTIPLE_PICKER ", "" + pictures.size());
 
                 mPresenter.getPostRestaurantPictures(pictures);
+            }else if(requestCode == Constants.CHILD_MAP_REQUEST_CODE){
+                Log.d("CHILD_MAP_REQUEST_CODE", " address " + data.getExtras().getString("address"));
+                Log.d("CHILD_MAP_REQUEST_CODE", " lat " + data.getExtras().getString("lat"));
+                Log.d("CHILD_MAP_REQUEST_CODE", " lng " + data.getExtras().getString("lng"));
+
+                LatLng latLng = new LatLng(Double.parseDouble(data.getExtras().getString("lat")), Double.parseDouble(data.getExtras().getString("lng")));
+
+                mPresenter.transToPostArticle(data.getExtras().getString("address"), latLng);
+
             }
         }
     }
@@ -567,4 +593,8 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     }
 
 
+    public void getLocationData(String addressLine, LatLng latLng) {
+        Log.d("getLocationData", " FoodieActivity address = "+addressLine);
+        Log.d("getLocationData", " FoodieActivity latlng = "+latLng);
+    }
 }

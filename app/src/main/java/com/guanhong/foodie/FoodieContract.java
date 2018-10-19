@@ -29,6 +29,8 @@ public interface FoodieContract {
         void showPostArticleUi();
 
         void showPostChildMapUi();
+
+        void hideMapView();
     }
 
     interface Presenter extends BasePresenter {

@@ -62,8 +62,9 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
                 .placeholder(R.drawable.animated_rotate_drawable)
                 .error(R.drawable.photo_error)
                 .transform(new Blur(mContext))
-                .resize(500,300)
-                .centerInside()
+                .fit()
+//                .resize(500,300)
+//                .centerInside()
                 .transform(new CircleCornerForm())
                 .into(holder.getImageView());
 
