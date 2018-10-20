@@ -10,7 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -125,6 +126,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         holder.getRestaurantPosition().setTypeface(mTypeface);
 
         holder.getTextViewArticleTitle().setTypeface(mTypeface);
+        holder.getTextViewPostArticle().setTypeface(mTypeface);
 
         if (mRestaurant.getStarCount() == 5) {
             holder.getStar1().setImageResource(R.drawable.new_star_selected);
@@ -174,9 +176,9 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 //                    Log.d("likeDataBase", " snapshot = " + snapshot);
 //                    Log.d("likeDataBase", " snapshot getKey = " + snapshot.getKey());
-                    if(snapshot.getKey().equals(mRestaurant.getLat_Lng())){
+                    if (snapshot.getKey().equals(mRestaurant.getLat_Lng())) {
                         Log.d("likeDataBase", " snapshot getKey = " + snapshot.getKey());
-                        Log.d("likeDataBase", " Likeeeeee " );
+                        Log.d("likeDataBase", " Likeeeeee ");
                         holder.getBookmark().setImageResource(R.drawable.bookmark_selected);
                         isLike = true;
 
@@ -192,12 +194,17 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             }
         });
 
-        holder.getButton().setOnClickListener(new View.OnClickListener() {
+        holder.getTextViewPostArticle().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mPresenter.transToPost();
+
             }
         });
+
+        Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.arrow);
+
+        holder.mImageViewArrowRight.setAnimation(animation);
 
         holder.getBookmark().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -400,7 +407,8 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         private PageIndicatorView pageIndicatorView;
         private ImageView mBookmark;
         private TextView mTextViewArticleTitle;
-        private Button mButton;
+        private TextView mTextViewPostArticle;
+        private ImageView mImageViewArrowRight;
 
         public RestaurantMainItemViewHolder(View itemView) {
             super(itemView);
@@ -418,12 +426,16 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             pageIndicatorView = itemView.findViewById(R.id.indicator);
             mBookmark = itemView.findViewById(R.id.imageView_bookmark);
             mTextViewArticleTitle = itemView.findViewById(R.id.textView_restaurant_article_title);
-            mButton = itemView.findViewById(R.id.button_restaurant_post);
-
+            mTextViewPostArticle = itemView.findViewById(R.id.button_restaurant_post);
+            mImageViewArrowRight = itemView.findViewById(R.id.imageView_arrow_right);
         }
 
-        public Button getButton() {
-            return mButton;
+        public ImageView getImageViewArrowRight() {
+            return mImageViewArrowRight;
+        }
+
+        public TextView getTextViewPostArticle() {
+            return mTextViewPostArticle;
         }
 
         public ImageView getBookmark() {

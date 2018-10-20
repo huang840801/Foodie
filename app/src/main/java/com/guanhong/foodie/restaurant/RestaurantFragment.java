@@ -47,7 +47,6 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
 //        mPresenter = new RestaurantPresenter(this);
 //        mPresenter.hideTabLayout();
         mRestaurantMainAdapter = new RestaurantMainAdapter(mPresenter);
-
     }
 
     @Nullable
@@ -60,7 +59,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mRestaurantMainAdapter);
         recyclerView.smoothScrollToPosition(0);
-
+//        setTabLayoutVisibility(false);
 //        recyclerView.scrollToPosition(0);
 
         return root;
@@ -97,7 +96,6 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         setTabLayoutVisibility(true);
         Log.d("lifecycle", "  RestaurantFragment onDestroy");
 
-//        mPresenter.showTabLayout();
     }
 
     @Override

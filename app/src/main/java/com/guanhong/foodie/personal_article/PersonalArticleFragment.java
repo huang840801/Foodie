@@ -133,7 +133,7 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
     @Override
     public void onDestroy() {
         super.onDestroy();
-        setTabLayoutVisibility(true);
+        ((FoodieActivity)getActivity()).checkRestaurantExists();
     }
 
     private void setTypeFace() {

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
@@ -86,7 +87,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     public static boolean flags = false;
 
     public MapFragment() {
-
     }
 
     public static MapFragment newInstance() {
@@ -100,7 +100,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
         mGoogleMapView = (MapView) rootView.findViewById(R.id.mapView);
         mLocation = rootView.findViewById(R.id.imageView_map_my_position);
-        mPostButton = rootView.findViewById(R.id.imageView_map_post);
+        mPostButton = rootView.findViewById(R.id.imageView_map_post_article);
         mContext = getContext();
 
 //mGoogleMapView.onCreate(savedInstanceState);
@@ -171,6 +171,21 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
                 LatLng latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
 
                 mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+//
+//                int height = 125;
+//                int width = 125;
+//                BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.pin_blue);
+//                Bitmap bitmap = bitmapDrawable.getBitmap();
+//                Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap, width, height, false);
+//
+
+//                MarkerOptions markerOptions = new MarkerOptions().position(latLng)
+                mGoogleMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+//                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                );
+
+//                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
                 Log.d(Constants.TAG, "  MapFragmentgetMyLocation latitude = " + latLng.latitude);
                 Log.d(Constants.TAG, "  MapFragmentgetMyLocation  longitude = " + latLng.longitude);

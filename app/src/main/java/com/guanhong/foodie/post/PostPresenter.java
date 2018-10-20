@@ -40,68 +40,23 @@ public class PostPresenter implements PostContract.Presenter {
 
     }
 
-    @Override
-    public void showTabLayout() {
-        mPostView.setTabLayoutVisibility(true);
 
-    }
-
-    @Override
-    public void hideTabLayout() {
-        mPostView.setTabLayoutVisibility(false);
-
-    }
 
     @Override
     public void postArticle(final Article article) {
 
-        Log.d(Constants.TAG, " postArticle  getAuthor getId = " + article.getAuthor().getId());
-        Log.d(Constants.TAG, " postArticle  getAuthor getName = " + article.getAuthor().getName());
-        Log.d(Constants.TAG, " postArticle  getRestaurantName = " + article.getRestaurantName());
-        Log.d(Constants.TAG, " postArticle  getLocation = " + article.getLocation());
-        Log.d(Constants.TAG, " postArticle  getMenus = " + article.getMenus().get(0).getDishName());
-        Log.d(Constants.TAG, " postArticle  getMenus = " + article.getMenus().get(0).getDishPrice());
-        Log.d(Constants.TAG, " postArticle mStarCount = " + article.getContent());
-        Log.d(Constants.TAG, " postArticle getStarCount = " + article.getStarCount());
-        Log.d(Constants.TAG, " postArticle latitude = " + article.getLatLng().latitude);
-        Log.d(Constants.TAG, " postArticle longitude = " + article.getLatLng().longitude);
+//        Log.d(Constants.TAG, " postArticle  getAuthor getId = " + article.getAuthor().getId());
+//        Log.d(Constants.TAG, " postArticle  getAuthor getName = " + article.getAuthor().getName());
+//        Log.d(Constants.TAG, " postArticle  getRestaurantName = " + article.getRestaurantName());
+//        Log.d(Constants.TAG, " postArticle  getLocation = " + article.getLocation());
+//        Log.d(Constants.TAG, " postArticle  getMenus = " + article.getMenus().get(0).getDishName());
+//        Log.d(Constants.TAG, " postArticle  getMenus = " + article.getMenus().get(0).getDishPrice());
+//        Log.d(Constants.TAG, " postArticle mStarCount = " + article.getContent());
+//        Log.d(Constants.TAG, " postArticle getStarCount = " + article.getStarCount());
+//        Log.d(Constants.TAG, " postArticle latitude = " + article.getLatLng().latitude);
+//        Log.d(Constants.TAG, " postArticle longitude = " + article.getLatLng().longitude);
 
-//        final ArrayList<String> newPictures = new ArrayList<>();
-//
-//
-//        for (int i = 0; i < article.getPictures().size(); i++) {
-//
-//
-//            StorageReference mStorageReference;
-//            mStorageReference = FirebaseStorage.getInstance().getReference();
-////            Log.d("MULTIPLE_PICKER ", "" + article.getPictures().get(i));
-//
-//
-//            Uri file = Uri.fromFile(new File(article.getPictures().get(i)));
-//            final StorageReference myRef = mStorageReference.child(UserManager.getInstance().getUserId() + file);
-//
-//            myRef.putFile(file).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-//                @Override
-//                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-//                    if (!task.isSuccessful()) {
-//                        throw task.getException();
-//                    }
-//                    return myRef.getDownloadUrl();
-//                }
-//            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Uri> task) {
-//                    if (task.isSuccessful()) {
-//                        Uri downloadUri = task.getResult();
-//                        Log.d("MULTIPLE_PICKER ", " isSuccessful " + downloadUri);
-//                        newPictures.add(String.valueOf(downloadUri));
-//                    }
-//
-//                }
-//            });
-//
-//
-//        }
+
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -111,7 +66,7 @@ public class PostPresenter implements PostContract.Presenter {
         DatabaseReference articleDataBase = firebaseDatabase.getReference("article");
         articleDataBase.push().setValue(article);
 
-        mPostView.transToProfile();
+        mPostView.transToMap();
     }
 
     @Override

@@ -43,8 +43,8 @@
 
     <ImageView
         android:id="@+id/imageView_recommend_star1"
-        android:layout_width="11dp"
-        android:layout_height="11dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/textView_restaurant_name"
         app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_name"
@@ -52,8 +52,8 @@
 
     <ImageView
         android:id="@+id/imageView_recommend_star2"
-            android:layout_width="11dp"
-        android:layout_height="11dp"
+           android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_recommend_star1"
         app:layout_constraintTop_toTopOf="@+id/imageView_recommend_star1"
@@ -61,8 +61,8 @@
 
     <ImageView
         android:id="@+id/imageView_recommend_star3"
-            android:layout_width="11dp"
-        android:layout_height="11dp"
+           android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_recommend_star2"
         app:layout_constraintTop_toTopOf="@+id/imageView_recommend_star2"
@@ -70,8 +70,8 @@
 
     <ImageView
         android:id="@+id/imageView_recommend_star4"
-            android:layout_width="11dp"
-        android:layout_height="11dp"
+           android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_recommend_star3"
         app:layout_constraintTop_toTopOf="@+id/imageView_recommend_star3"
@@ -79,8 +79,8 @@
 
     <ImageView
         android:id="@+id/imageView_recommend_star5"
-            android:layout_width="11dp"
-        android:layout_height="11dp"
+           android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_recommend_star4"
         app:layout_constraintTop_toTopOf="@+id/imageView_recommend_star4"

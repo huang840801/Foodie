@@ -49,8 +49,8 @@
 
     <ImageView
         android:id="@+id/imageView_search_star1"
-        android:layout_width="8dp"
-        android:layout_height="8dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/textView_search_article_location"
         app:layout_constraintTop_toBottomOf="@+id/textView_search_article_location"
@@ -58,8 +58,8 @@
 
     <ImageView
         android:id="@+id/imageView_search_star2"
-      android:layout_width="8dp"
-        android:layout_height="8dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_search_star1"
@@ -68,8 +68,8 @@
 
     <ImageView
         android:id="@+id/imageView_search_star3"
-      android:layout_width="8dp"
-        android:layout_height="8dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_search_star2"
@@ -78,8 +78,8 @@
 
     <ImageView
         android:id="@+id/imageView_search_star4"
-      android:layout_width="8dp"
-        android:layout_height="8dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_search_star3"
@@ -88,8 +88,8 @@
 
     <ImageView
         android:id="@+id/imageView_search_star5"
-      android:layout_width="8dp"
-        android:layout_height="8dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_search_star4"
@@ -100,8 +100,8 @@
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="#e7e7e7"
         app:layout_constraintEnd_toEndOf="parent"

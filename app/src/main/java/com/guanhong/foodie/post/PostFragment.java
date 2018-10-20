@@ -93,14 +93,16 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         super.onCreate(savedInstanceState);
 
         Log.d(Constants.TAG, " mPresenter = " + mPresenter);
-        mPresenter.hideTabLayout();
+//        setTabLayoutVisibility(false);
 
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPresenter.showTabLayout();
+
+        ((FoodieActivity)getActivity()).checkRestaurantExists();
+//        setTabLayoutVisibility(true);
     }
 
     @Nullable
@@ -184,6 +186,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mRecyclerViewPhoto.setOnClickListener(this);
         mPostArticle.setOnClickListener(this);
         mRatingBar.setOnRatingBarChangeListener(this);
+
     }
 
     @Override
@@ -255,11 +258,11 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     }
 
     @Override
-    public void transToProfile() {
+    public void transToMap() {
 
         mAVLoadingIndicatorView.setVisibility(View.GONE);
         mLoadingBackground.setVisibility(View.GONE);
-        ((FoodieActivity) getActivity()).transToProfile();
+        ((FoodieActivity) getActivity()).transToMap();
 
     }
 
@@ -283,6 +286,9 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         }
         if (view.getId() == R.id.textview_post_post) {
             checkInformation();
+//            mAVLoadingIndicatorView.setVisibility(View.VISIBLE);
+//            mLoadingBackground.setVisibility(View.VISIBLE);
+//            mPresenter.postArticle(new Article());
 //            postImage();
         }
 
@@ -521,15 +527,5 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         Log.d(Constants.TAG, "  mStarCount = " + mStarCount);
     }
 
-    public void getLocationData(final String addressLine, LatLng latLng) {
-        Log.d("getLocationData", " PostFragment address = " + addressLine);
-        Log.d("getLocationData", " PostFragment latlng = " + latLng);
 
-//        mTextViewRestaurantLocation.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                mTextViewRestaurantLocation.setText(addressLine);
-//            }
-//        });
-    }
 }

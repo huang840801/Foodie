@@ -21,15 +21,13 @@ public interface PostContract {
 
         void addPictures();
 
-        void transToProfile();
+        void transToMap();
 
     }
 
     interface Presenter extends BasePresenter{
 
-        void showTabLayout();
 
-        void hideTabLayout();
 
         void postArticle(Article article);
 

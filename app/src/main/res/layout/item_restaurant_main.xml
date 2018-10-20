@@ -19,14 +19,14 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginBottom="16dp"
-        app:piv_dynamicCount="true"
-        app:piv_selectedColor="@color/main"
-        app:piv_unselectedColor="#a5cdcdcd"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerview_photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:piv_animationType="drop"
-        app:piv_interactiveAnimation="true" />
+        app:piv_dynamicCount="true"
+        app:piv_interactiveAnimation="true"
+        app:piv_selectedColor="@color/main"
+        app:piv_unselectedColor="#a5cdcdcd" />
 
     <TextView
         android:id="@+id/textView_restaurant_name"
@@ -36,15 +36,15 @@
         android:layout_marginTop="8dp"
         android:text="AppWorks School"
         android:textColor="#000000"
-        android:textSize="24dp"
+        android:textSize="22dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerview_photo" />
 
     <ImageView
         android:id="@+id/imageView_star1"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="@+id/textView_restaurant_name"
         app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_name"
@@ -52,10 +52,10 @@
 
     <ImageView
         android:id="@+id/imageView_star2"
-    android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
 
         app:layout_constraintStart_toEndOf="@+id/imageView_star1"
         app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_name"
@@ -63,10 +63,10 @@
 
     <ImageView
         android:id="@+id/imageView_star3"
-    android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
 
         app:layout_constraintStart_toEndOf="@+id/imageView_star2"
         app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_name"
@@ -74,10 +74,10 @@
 
     <ImageView
         android:id="@+id/imageView_star4"
-    android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
 
         app:layout_constraintStart_toEndOf="@+id/imageView_star3"
         app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_name"
@@ -85,10 +85,10 @@
 
     <ImageView
         android:id="@+id/imageView_star5"
-    android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
 
         app:layout_constraintStart_toEndOf="@+id/imageView_star4"
         app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_name"
@@ -148,9 +148,9 @@
         android:background="@drawable/corners_bg"
         android:hint="@string/say_something"
         android:paddingBottom="@dimen/text_padding_bottom"
+        android:paddingEnd="@dimen/text_padding_end"
         android:paddingStart="@dimen/text_padding_start"
         android:paddingTop="@dimen/text_padding_top"
-        android:paddingEnd="@dimen/text_padding_end"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -186,7 +186,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/tourist_article"
         android:textColor="#000000"
-        android:textSize="24dp"
+        android:textSize="22dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/textView_location" />
@@ -203,15 +203,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_article_title" />
 
-    <Button
+    <TextView
         android:id="@+id/button_restaurant_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Button"
+        android:text="我要評論"
+        android:textColor="@color/main"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_restaurant_article_title"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_arrow_right"
+        app:layout_constraintTop_toTopOf="@+id/textView_restaurant_article_title"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageView_arrow_right"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_restaurant_post"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_bookmark" />
+        app:layout_constraintTop_toTopOf="@+id/button_restaurant_post"
+        app:srcCompat="@drawable/arrow_right" />
 
 
 </android.support.constraint.ConstraintLayout>

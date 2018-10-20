@@ -308,7 +308,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
             return;
         }
 
-
         ActivityCompat.requestPermissions(this,
                 new String[]{
                         Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -332,69 +331,13 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     public void onBackPressed() {
         Log.d(Constants.TAG, "onBackPressed: ");
-
-//        mPresenter.checkFragmentStatus();
-//        mPresenter.checkPostMapExist();
-//        mViewPager.setVisibility(View.VISIBLE);
-//        mTabLayout.setVisibility(View.VISIBLE);
-
         super.onBackPressed();
-    }
-
-    @Override
-    public void showMapUi() {
-        setTabLayoutVisibility(true);
 
     }
 
-    @Override
-    public void showLikedUi() {
-        setTabLayoutVisibility(true);
 
-    }
 
-    @Override
-    public void showLotteryUi() {
-        setTabLayoutVisibility(true);
 
-    }
-
-    @Override
-    public void showProfileUi() {
-        setTabLayoutVisibility(true);
-    }
-
-    @Override
-    public void showSearchUi() {
-//        Log.d(Constants.TAG, "  hello   transToSearch");
-        setTabLayoutVisibility(true);
-
-    }
-
-    @Override
-    public void showRestaurantUi() {
-        Log.d(Constants.TAG, "  hello   transToRestaurant");
-//        mViewPager.setVisibility(View.GONE);
-        setTabLayoutVisibility(false);
-
-    }
-
-    @Override
-    public void showPostArticleUi() {
-//        mViewPager.setVisibility(View.GONE);
-
-    }
-
-    @Override
-    public void showPostChildMapUi() {
-//        mViewPager.setVisibility(View.GONE);
-
-    }
-
-    @Override
-    public void hideMapView() {
-//        mViewPager.removeView();
-    }
 
 
     @Override
@@ -495,9 +438,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         mPresenter.transToPersonalArticle(article);
     }
 
-    public void transToProfile() {
-        mPresenter.transToProfile();
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -593,8 +533,13 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     }
 
 
-    public void getLocationData(String addressLine, LatLng latLng) {
-        Log.d("getLocationData", " FoodieActivity address = "+addressLine);
-        Log.d("getLocationData", " FoodieActivity latlng = "+latLng);
+
+
+    public void transToMap() {
+        mPresenter.transToMap();
+    }
+
+    public void checkRestaurantExists() {
+        mPresenter.checkRestaurantExists();
     }
 }

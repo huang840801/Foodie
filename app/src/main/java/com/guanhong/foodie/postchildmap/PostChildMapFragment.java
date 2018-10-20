@@ -128,7 +128,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_post_child_map, container, false);
+        View rootView = inflater.inflate(R.layout.activity_child_map, container, false);
 
 //        mBackImageView = rootView.findViewById(R.id.imageView_back_arrow);
         mGoogleMapView = rootView.findViewById(R.id.post_mapView);

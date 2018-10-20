@@ -14,23 +14,6 @@ public interface FoodieContract {
 
         void setTabLayoutVisibility(boolean isTabLayoutVisibility);
 
-        void showMapUi();
-
-        void showLikedUi();
-
-        void showLotteryUi();
-
-        void showProfileUi();
-
-        void showSearchUi();
-
-        void showRestaurantUi();
-
-        void showPostArticleUi();
-
-        void showPostChildMapUi();
-
-        void hideMapView();
     }
 
     interface Presenter extends BasePresenter {
@@ -57,10 +40,8 @@ public interface FoodieContract {
 
         void transToPersonalArticle(Article article);
 
-        void checkFragmentStatus();
+        void checkRestaurantExists();
 
-
-//        void transToPersonalArticle();
 
     }
 }

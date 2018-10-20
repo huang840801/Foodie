@@ -18,18 +18,6 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
     private Restaurant mRestaurant;
     private ArrayList<Comment> mComments;
 
-//    @Override
-//    public void showTabLayout() {
-//        mRestaurantView.setTabLayoutVisibility(true);
-//
-//    }
-//
-//    @Override
-//    public void hideTabLayout() {
-//        mRestaurantView.setTabLayoutVisibility(false);
-//
-//    }
-
     @Override
     public void openPersonalArticle(Article article) {
         mRestaurantView.showPersonalArticleUi(article);

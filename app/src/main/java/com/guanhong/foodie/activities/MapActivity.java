@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -35,8 +37,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.post.PostFragment;
 import com.guanhong.foodie.util.Constants;
@@ -63,7 +67,7 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_post_child_map);
+        setContentView(R.layout.activity_child_map);
 
         mGoogleMapView = findViewById(R.id.post_mapView);
         mLocation = findViewById(R.id.imageView_child_map_my_position);
@@ -148,7 +152,21 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
                     if (addressList.size() == 0) {
                         Toast.makeText(this, "查無地址", Toast.LENGTH_SHORT).show();
                     } else {
-                        showDialog(addressList.get(0).getAddressLine(0), latLng);
+
+                        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+
+                        int height = 100;
+                        int width = 100;
+                        BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.pin_blue);
+                        Bitmap bitmap = bitmapDrawable.getBitmap();
+                        Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap, width, height, false);
+
+                        mGoogleMap.addMarker(new MarkerOptions()
+                                  .position(latLng)
+                                  .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+
+
+//                        showDialog(addressList.get(0).getAddressLine(0), latLng);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -322,10 +340,6 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
 
                 intent.putExtras(bundle);
 
-//                mPostFragment = PostFragment.newInstance();
-//                mPostFragment.getLocationData(addressLine, latLng);
-//                mFoodieActivity.getLocationData(addressLine, latLng);
-//                startActivity(intent);
                 setResult(RESULT_OK, intent);
                 finish();
 
