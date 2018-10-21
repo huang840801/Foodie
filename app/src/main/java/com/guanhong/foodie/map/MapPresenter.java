@@ -71,9 +71,9 @@ public class MapPresenter implements MapContract.Presenter {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 //                    Log.d(Constants.TAG, "MapPresenter: " + snapshot);
-                    Log.d(Constants.TAG, "MapPresenter lat_lng : " + snapshot.child("lat_lng").getValue());
-                    Log.d(Constants.TAG, "MapPresenter restaurantName : " + snapshot.child("restaurantName").getValue());
-                    Log.d(Constants.TAG, "MapPresenter starCount : " + snapshot.child("starCount").getValue());
+//                    Log.d(Constants.TAG, "MapPresenter lat_lng : " + snapshot.child("lat_lng").getValue());
+//                    Log.d(Constants.TAG, "MapPresenter restaurantName : " + snapshot.child("restaurantName").getValue());
+//                    Log.d(Constants.TAG, "MapPresenter starCount : " + snapshot.child("starCount").getValue());
 
                     restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
                     restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
@@ -109,7 +109,7 @@ public class MapPresenter implements MapContract.Presenter {
     }
 
     private void getRestaurantComments(final String lat_lng, final Restaurant restaurant) {
-        Log.d("Comments ", " lat_lng : " + lat_lng);
+//        Log.d("myCommentsBug ", " MapPresenter lat_lng : " + lat_lng);
 
         final ArrayList<Comment> comments = new ArrayList<>();
 
@@ -121,7 +121,7 @@ public class MapPresenter implements MapContract.Presenter {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Log.d("MapPresenter ", " myCommentsBug ");
+                Log.d("myCommentsBug ", "  MapPresenter  comments.size = " + comments.size());
 
                 comments.clear();
                 for (DataSnapshot snapshot : dataSnapshot.child(lat_lng).getChildren()) {
@@ -129,11 +129,11 @@ public class MapPresenter implements MapContract.Presenter {
                     Comment comment = new Comment();
                     Author author = new Author();
 
-                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("id").getValue());
-                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("image").getValue());
-                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("name").getValue());
-                    Log.d("Comments ", " snapshot : " + snapshot.child("comment").getValue());
-                    Log.d("Comments ", " snapshot : " + snapshot.child("createdTime").getValue());
+//                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("id").getValue());
+//                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("image").getValue());
+//                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("name").getValue());
+//                    Log.d("Comments ", " snapshot : " + snapshot.child("comment").getValue());
+//                    Log.d("Comments ", " snapshot : " + snapshot.child("createdTime").getValue());
 
                     author.setId((String) snapshot.child("author").child("id").getValue());
                     author.setImage((String) snapshot.child("author").child("image").getValue());
@@ -151,6 +151,7 @@ public class MapPresenter implements MapContract.Presenter {
                 mMapView.showRestaurantUi(restaurant, comments);
 
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 

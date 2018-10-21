@@ -32,7 +32,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.FoodiePresenter;
 
-import com.guanhong.foodie.MyService;
 import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.ViewPagerAdapter;
 import com.guanhong.foodie.R;
@@ -55,7 +54,6 @@ import com.guanhong.foodie.restaurant.RestaurantPresenter;
 import com.guanhong.foodie.search.SearchFragment;
 import com.guanhong.foodie.search.SearchPresenter;
 import com.guanhong.foodie.util.Constants;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -414,7 +412,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     public void transToRestaurant(Restaurant restaurant, ArrayList<Comment> comments) {
 //        Log.d("restaurant ", " FoodieActivity : " + restaurant);
-        mPresenter.tranToRestaurant(restaurant, comments);
+        mPresenter.transToRestaurant(restaurant, comments);
     }
 
     public void transToPostArticle() {
@@ -541,5 +539,10 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     public void checkRestaurantExists() {
         mPresenter.checkRestaurantExists();
+    }
+
+    public void removeRestaurantFragment() {
+        mPresenter.removeRestaurantFragment();
+
     }
 }

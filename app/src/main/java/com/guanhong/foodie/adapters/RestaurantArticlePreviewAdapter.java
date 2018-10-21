@@ -31,14 +31,13 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
         mArticleArrayList = articleArrayList;
         mPresenter = presenter;
         Log.d(Constants.TAG, " RestaurantArticlePreviewAdapter presenter = " + presenter);
-        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.size());
-        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getPictures());
-        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getMenus().size());
-        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getMenus().get(0).getDishName());
-        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getMenus().get(0).getDishPrice());
-        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getLocation());
-        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getAuthor().getName()
-        );
+//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.size());
+//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getPictures());
+//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getMenus().size());
+//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getMenus().get(0).getDishName());
+//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getMenus().get(0).getDishPrice());
+//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getLocation());
+//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getAuthor().getName());
 
 
     }

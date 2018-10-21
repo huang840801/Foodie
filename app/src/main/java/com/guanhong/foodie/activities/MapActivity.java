@@ -63,7 +63,6 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
     private static final int REQUEST_FINE_LOCATION_PERMISSION = 102;
     private boolean getService = false;     //是否已開啟定位服務
     private LocationManager status;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

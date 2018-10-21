@@ -28,7 +28,7 @@ public interface FoodieContract {
 
         void transToSearch();
 
-        void tranToRestaurant(Restaurant restaurant, ArrayList<Comment> comments);
+        void transToRestaurant(Restaurant restaurant, ArrayList<Comment> comments);
 
         void transToPostArticle();
 
@@ -43,5 +43,6 @@ public interface FoodieContract {
         void checkRestaurantExists();
 
 
+        void removeRestaurantFragment();
     }
 }

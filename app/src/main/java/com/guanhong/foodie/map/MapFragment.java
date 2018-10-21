@@ -180,10 +180,10 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 //
 
 //                MarkerOptions markerOptions = new MarkerOptions().position(latLng)
-                mGoogleMap.addMarker(new MarkerOptions()
-                        .position(latLng)
+//                mGoogleMap.addMarker(new MarkerOptions()
+//                        .position(latLng)
 //                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-                );
+//                );
 
 //                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
@@ -452,7 +452,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
     @Override
     public void showRestaurantUi(Restaurant restaurant, ArrayList<Comment> comments) {
-//        Log.d("restaurant ", " MapFragment : " + restaurant);
+        Log.d("myCommentsBug ", "  MapFragment  comments.size = " + comments.size());
         ((FoodieActivity) getActivity()).transToRestaurant(restaurant, comments);
     }
 

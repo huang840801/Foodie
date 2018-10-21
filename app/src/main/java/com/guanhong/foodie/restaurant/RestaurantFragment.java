@@ -30,7 +30,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     private RestaurantContract.Presenter mPresenter;
     private RestaurantMainAdapter mRestaurantMainAdapter;
 
-//    private Restaurant mRestaurant;
+    private RecyclerView mRecyclerView;
 
     public RestaurantFragment() {
 
@@ -44,9 +44,6 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        mPresenter = new RestaurantPresenter(this);
-//        mPresenter.hideTabLayout();
-        mRestaurantMainAdapter = new RestaurantMainAdapter(mPresenter);
     }
 
     @Nullable
@@ -54,13 +51,12 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_restaurant, container, false);
 
-        RecyclerView recyclerView = root.findViewById(R.id.recyclerview_restaurant);
-        recyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext()));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(mRestaurantMainAdapter);
-        recyclerView.smoothScrollToPosition(0);
-//        setTabLayoutVisibility(false);
-//        recyclerView.scrollToPosition(0);
+        mRecyclerView = root.findViewById(R.id.recyclerview_restaurant);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext()));
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setAdapter(mRestaurantMainAdapter);
+//        recyclerView.smoothScrollToPosition(0);
+
 
         return root;
     }
@@ -93,31 +89,36 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     @Override
     public void onDestroy() {
         super.onDestroy();
-        setTabLayoutVisibility(true);
-        Log.d("lifecycle", "  RestaurantFragment onDestroy");
-
+//        setTabLayoutVisibility(true);
+        Log.d("fragmentflow", "  RestaurantFragment onDestroy");
+        ((FoodieActivity) getActivity()).setTabLayoutVisibility(true);
+        ((FoodieActivity) getActivity()).removeRestaurantFragment();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         Log.d("lifecycle", "  RestaurantFragment onDestroyView");
+//        ((FoodieActivity) getActivity()).removeRestaurantFragment();
 
     }
 
     @Override
     public void setTabLayoutVisibility(boolean visible) {
-        ((FoodieActivity) getActivity()).setTabLayoutVisibility(visible);
+//        ((FoodieActivity) getActivity()).setTabLayoutVisibility(visible);
     }
 
     @Override
     public void showRestaurant(Restaurant restaurant, ArrayList<Comment> comments) {
-        Log.d(Constants.TAG, " mRestaurantMainAdapter: " + mRestaurantMainAdapter);
+        Log.d("myCommentsBug ", "  RestaurantFragment  comments.size = " + comments.size());
 
-        mRestaurantMainAdapter.updateRestaurantData(restaurant, comments);
-        mRestaurantMainAdapter.notifyDataSetChanged();
+//        mRestaurantMainAdapter.updateRestaurantData(restaurant, comments);
+//        mRestaurantMainAdapter.notifyDataSetChanged();
 
-
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext()));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(new RestaurantMainAdapter(mPresenter, restaurant, comments));
+        mRecyclerView.smoothScrollToPosition(0);
         Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getRestaurantName());
         Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getLat_Lng());
         Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getRestaurantLocation());

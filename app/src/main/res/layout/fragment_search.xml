@@ -18,7 +18,7 @@
         android:paddingStart="@dimen/magnifier_padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/magnifier" />
+        app:srcCompat="@drawable/detective" />
 
     <EditText
         android:id="@+id/editText_search"

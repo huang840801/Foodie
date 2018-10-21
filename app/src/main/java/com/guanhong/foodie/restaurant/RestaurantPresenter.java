@@ -37,9 +37,8 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
 
         mRestaurant = restaurant;
         mComments = comments;
+        Log.d("myCommentsBug ", "  RestaurantPresenter  comments.size = " + comments.size());
 
-        Log.d(Constants.TAG, " RestaurantPresenter  " + restaurant);
-        Log.d(Constants.TAG, " RestaurantPresenter  " + comments);
     }
 
     @Override

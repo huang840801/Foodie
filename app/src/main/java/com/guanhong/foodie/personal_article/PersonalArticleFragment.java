@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,13 +127,15 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter.start();
-        setTabLayoutVisibility(false);
+//        setTabLayoutVisibility(false);
         setTypeFace();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d("fragmentflow", "   PersonalArticleFragment onDestroy ");
+
         ((FoodieActivity)getActivity()).checkRestaurantExists();
     }
 
@@ -251,7 +254,7 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
 
     @Override
     public void setTabLayoutVisibility(boolean visible) {
-        ((FoodieActivity) getActivity()).setTabLayoutVisibility(visible);
+//        ((FoodieActivity) getActivity()).setTabLayoutVisibility(visible);
 
     }
 }

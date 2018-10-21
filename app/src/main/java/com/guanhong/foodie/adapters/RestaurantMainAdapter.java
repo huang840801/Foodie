@@ -58,10 +58,16 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         mPresenter = presenter;
     }
 
-//    public RestaurantMainAdapter(RestaurantContract.Presenter presenter) {
-//
-//        this.mPresenter = presenter;
-//    }
+
+    public RestaurantMainAdapter(RestaurantContract.Presenter presenter, Restaurant restaurant, ArrayList<Comment> comments) {
+
+        Log.d("myCommentsBug ", "  RestaurantMainAdapter comments.size = " + comments.size());
+
+        mPresenter = presenter;
+        mRestaurant = restaurant;
+        mComments = comments;
+
+    }
 
     @NonNull
     @Override
@@ -103,8 +109,13 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
     }
 
     public void updateRestaurantData(Restaurant restaurant, ArrayList<Comment> comments) {
+
+        Log.d("myCommentsBug ", "  RestaurantMainAdapter updateRestaurantData  comments.size = " + comments.size());
+
+
         mRestaurant = restaurant;
         mComments = comments;
+//        notifyDataSetChanged();
 //        Log.d(Constants.TAG, " MyComments: " + mComments.get(0).getOwner().getName());
 //        Log.d(Constants.TAG, " MyComments: " + mComments.get(0).getComment());
 //        Log.d(Constants.TAG, " MyComments: " + mComments.get(1).getComment());

@@ -104,9 +104,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         }
         if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
             Log.d(Constants.TAG, "  transToMap mRestaurantFragment isHidden");
-//            fragmentTransaction.remove(mRestaurantFragment);
             mFragmentManager.popBackStack();
-
         }
 //        if (mPostChildMapFragment != null && !mPostChildMapFragment.isHidden()) {
 //            Log.d(Constants.TAG, "  transToMap mRestaurantFragment isHidden");
@@ -122,25 +120,17 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     public void transToProfile() {
 
         Log.d(Constants.TAG, "  transToProfile");
-//        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        if (mPostFragment != null && !mPostFragment.isHidden()) {
+            Log.d(Constants.TAG, "   mPostFragment !isHidden");
+            mFragmentManager.popBackStack();
+        }
+        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
+            Log.d(Constants.TAG, "  transToMap mRestaurantFragment isHidden");
+            mFragmentManager.popBackStack();
+        }
 
-//
-//        if (mPostFragment != null && !mPostFragment.isHidden()) {
-//            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-//            fragmentTransaction.remove(mPostFragment);
-//        }
-//        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
-//            Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-//            fragmentTransaction.remove(mRestaurantFragment);
-//
-//        }
-//        if (mPostChildMapFragment != null && !mPostChildMapFragment.isHidden()) {
-//        if (mPostChildMapFragment != null ) {
-//            Log.d(Constants.TAG, "  transToProfile mPostChildMapFragment isHidden");
-//            fragmentTransaction.remove(mPostChildMapFragment);
-//            mFragmentManager.popBackStack();
-//        }
-//        fragmentTransaction.commit();
+        fragmentTransaction.commit();
 
         mViewPager.setCurrentItem(4);
         mFoodieView.setTabLayoutVisibility(true);
@@ -172,8 +162,9 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     }
 
     @Override
-    public void tranToRestaurant(Restaurant restaurant, ArrayList<Comment> comments) {
+    public void transToRestaurant(Restaurant restaurant, ArrayList<Comment> comments) {
         Log.d("restaurant ", " FoodiePresenter : " + restaurant);
+        Log.d("myCommentsBug ", "  FoodiePresenter  comments.size = " + comments.size());
 //        mFoodieView.setTabLayoutVisibility(false);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 //        fragmentTransaction.setCustomAnimations(R.anim.emerge, R.anim.emerge);
@@ -273,6 +264,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     @Override
     public void transToPersonalArticle(Article article) {
 
+
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.emerge, R.anim.emerge);
 
@@ -291,23 +283,39 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         fragmentTransaction.add(R.id.fragment_container, mPersonalArticleFragment, PERSONAL_ARTICLE);
         fragmentTransaction.commit();
 //        }
+        mFoodieView.setTabLayoutVisibility(false);
 
     }
 
-
-
     @Override
     public void checkRestaurantExists() {
-//        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 
-        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
-            Log.d(Constants.TAG, "   mRestaurantFragment !isHidden");
+        Log.d("fragmentflow", "  check mRestaurantFragment = " +mRestaurantFragment);
+
+        if (mFragmentManager.findFragmentByTag(RESTAURANT) != null){
+            Log.d("fragmentflow", "   mRestaurantFragment != null ");
             mFoodieView.setTabLayoutVisibility(false);
-        }else {
+        } else {
+            Log.d("fragmentflow", "   mRestaurantFragment == null ");
             mFoodieView.setTabLayoutVisibility(true);
-
         }
 
+//        if (mRestaurantFragment != null) {
+//            Log.d("fragmentflow", "   mRestaurantFragment != null ");
+//            mFoodieView.setTabLayoutVisibility(false);
+//        } else {
+//            Log.d("fragmentflow", "   mRestaurantFragment == null ");
+//            mFoodieView.setTabLayoutVisibility(true);
+//        }
+    }
+
+    @Override
+    public void removeRestaurantFragment() {
+        Log.d("fragmentflow", " remove  mRestaurantFragment = " +mRestaurantFragment);
+
+//        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+//        fragmentTransaction.remove(mRestaurantFragment);
+//        fragmentTransaction.commit();
     }
 
 

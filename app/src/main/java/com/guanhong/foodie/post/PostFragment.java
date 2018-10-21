@@ -212,7 +212,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
     @Override
     public void setTabLayoutVisibility(boolean visible) {
-        ((FoodieActivity) getActivity()).setTabLayoutVisibility(visible);
+//        ((FoodieActivity) getActivity()).setTabLayoutVisibility(visible);
     }
 
     @Override
