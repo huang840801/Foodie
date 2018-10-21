@@ -109,7 +109,7 @@ public class MapPresenter implements MapContract.Presenter {
     }
 
     private void getRestaurantComments(final String lat_lng, final Restaurant restaurant) {
-//        Log.d("myCommentsBug ", " MapPresenter lat_lng : " + lat_lng);
+        Log.d("myCommentsBug ", " MapPresenter getRestaurantComments  " );
 
         final ArrayList<Comment> comments = new ArrayList<>();
 
@@ -121,7 +121,7 @@ public class MapPresenter implements MapContract.Presenter {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Log.d("myCommentsBug ", "  MapPresenter  comments.size = " + comments.size());
+                Log.d("myCommentsBug ", "  MapPresenter onDataChange comments.size = " + comments.size());
 
                 comments.clear();
                 for (DataSnapshot snapshot : dataSnapshot.child(lat_lng).getChildren()) {

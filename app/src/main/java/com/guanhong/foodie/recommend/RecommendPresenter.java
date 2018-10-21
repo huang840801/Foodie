@@ -18,7 +18,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class RecommendPresenter implements RecommendContract.Presenter {
 
     private RecommendContract.View mRecommendView;
-    private ArrayList<Restaurant>mRestaurantArrayList;
+    private ArrayList<Restaurant> mRestaurantArrayList;
 
     public RecommendPresenter(RecommendContract.View recommendView) {
         mRestaurantArrayList = new ArrayList<>();
@@ -29,7 +29,7 @@ public class RecommendPresenter implements RecommendContract.Presenter {
     @Override
     public void start() {
 //        Log.d("Hello", " RecommendPresenter start");
-            getMyRecommendRestaurant();
+        getMyRecommendRestaurant();
     }
 
     @Override
@@ -44,38 +44,41 @@ public class RecommendPresenter implements RecommendContract.Presenter {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Log.d("RecommendPresenter", " snapshot = "+dataSnapshot.getChildrenCount());
+                Log.d("RecommendPresenter", " getChildrenCount = " + dataSnapshot.getChildrenCount());
 
                 mRestaurantArrayList.clear();
-               final int restaurantNum = (int) dataSnapshot.getChildrenCount();
+//                final int restaurantNum = (int) dataSnapshot.getChildrenCount();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
 //                    Log.d("RecommendPresenter", " snapshot = "+snapshot);
 //                    Log.d("RecommendPresenter", " snapshot getChildrenCount = "+snapshot.getChildrenCount());
-                    Log.d("RecommendPresenter", " snapshot = "+snapshot.child("restaurantName").getValue());
-                    Log.d("RecommendPresenter", " snapshot = "+snapshot.child("location").getValue());
-                    Log.d("RecommendPresenter", " snapshot = "+snapshot.child("starCount").getValue());
-                    Log.d("RecommendPresenter", " snapshot = "+snapshot.child("lat_lng").getValue());
+                    Log.d("RecommendPresenter", " snapshot = " + snapshot.child("restaurantName").getValue());
+                    Log.d("RecommendPresenter", " snapshot = " + snapshot.child("location").getValue());
+                    Log.d("RecommendPresenter", " snapshot = " + snapshot.child("starCount").getValue());
+                    Log.d("RecommendPresenter", " snapshot = " + snapshot.child("lat_lng").getValue());
 
-                    Restaurant restaurant = new Restaurant();
+                    if (Integer.valueOf(snapshot.child("starCount").getValue().toString()) == 5) {
+                        Restaurant restaurant = new Restaurant();
 
-                    restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
-                    restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
-                    restaurant.setStarCount(Integer.parseInt(snapshot.child("starCount").getValue().toString()));
-                    restaurant.setLat_Lng(snapshot.child("lat_lng").getValue().toString());
+                        restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
+                        restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
+                        restaurant.setStarCount(Integer.parseInt(snapshot.child("starCount").getValue().toString()));
+                        restaurant.setLat_Lng(snapshot.child("lat_lng").getValue().toString());
 
-                    ArrayList<String>pictures = new ArrayList<>();
-                    for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
-                        pictures.add(snapshot.child("pictures").child(String.valueOf(i)).getValue().toString());
+                        ArrayList<String> pictures = new ArrayList<>();
+                        for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
+                            pictures.add(snapshot.child("pictures").child(String.valueOf(i)).getValue().toString());
+                        }
+
+                        restaurant.setRestaurantPictures(pictures);
+
+                        mRestaurantArrayList.add(restaurant);
                     }
-
-                    restaurant.setRestaurantPictures(pictures);
-
-                    mRestaurantArrayList.add(restaurant);
-
-
+                    
                 }
-                if(restaurantNum==mRestaurantArrayList.size());
+//                if (restaurantNum == mRestaurantArrayList.size()) ;
+                Log.d("RecommendPresenter", " mRestaurantArrayList = " + mRestaurantArrayList.size());
+
                 mRecommendView.showAllRestaurantList(mRestaurantArrayList);
             }
 
