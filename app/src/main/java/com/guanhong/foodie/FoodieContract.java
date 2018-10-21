@@ -42,7 +42,8 @@ public interface FoodieContract {
 
         void checkRestaurantExists();
 
-
         void removeRestaurantFragment();
+
+        void transToRestaurant(Restaurant restaurant);
     }
 }

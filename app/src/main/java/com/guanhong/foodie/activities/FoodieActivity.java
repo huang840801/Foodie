@@ -412,7 +412,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     public void transToRestaurant(Restaurant restaurant, ArrayList<Comment> comments) {
 //        Log.d("restaurant ", " FoodieActivity : " + restaurant);
-        mPresenter.transToRestaurant(restaurant, comments);
+//        mPresenter.transToRestaurant(restaurant, comments);
     }
 
     public void transToPostArticle() {
@@ -543,6 +543,11 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     public void removeRestaurantFragment() {
         mPresenter.removeRestaurantFragment();
+
+    }
+
+    public void transToRestaurant(Restaurant restaurant) {
+        mPresenter.transToRestaurant(restaurant);
 
     }
 }

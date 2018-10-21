@@ -74,7 +74,7 @@ public class RecommendPresenter implements RecommendContract.Presenter {
 
                         mRestaurantArrayList.add(restaurant);
                     }
-                    
+
                 }
 //                if (restaurantNum == mRestaurantArrayList.size()) ;
                 Log.d("RecommendPresenter", " mRestaurantArrayList = " + mRestaurantArrayList.size());

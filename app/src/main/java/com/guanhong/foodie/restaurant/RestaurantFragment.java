@@ -19,6 +19,7 @@ import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
@@ -31,6 +32,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     private RestaurantMainAdapter mRestaurantMainAdapter;
 
     private RecyclerView mRecyclerView;
+    private AVLoadingIndicatorView mAVLoadingIndicatorView;
 
     public RestaurantFragment() {
 
@@ -52,6 +54,8 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         View root = inflater.inflate(R.layout.fragment_restaurant, container, false);
 
         mRecyclerView = root.findViewById(R.id.recyclerview_restaurant);
+        mAVLoadingIndicatorView = root.findViewById(R.id.AVLoadingIndicatorView_restaurant);
+
 //        recyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext()));
 //        recyclerView.setHasFixedSize(true);
 //        recyclerView.setAdapter(mRestaurantMainAdapter);
@@ -78,6 +82,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter.start();
+        mAVLoadingIndicatorView.setVisibility(View.GONE);
     }
 
     @Override
@@ -115,13 +120,11 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
 //        mRestaurantMainAdapter.updateRestaurantData(restaurant, comments);
 //        mRestaurantMainAdapter.notifyDataSetChanged();
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext()));
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(new RestaurantMainAdapter(mPresenter, restaurant, comments));
-        mRecyclerView.smoothScrollToPosition(0);
-        Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getRestaurantName());
-        Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getLat_Lng());
-        Log.d(Constants.TAG, " RestaurantFragment: " + restaurant.getRestaurantLocation());
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext()));
+//        mRecyclerView.setHasFixedSize(true);
+//        mRecyclerView.setAdapter(new RestaurantMainAdapter(mPresenter, restaurant, comments));
+//        mRecyclerView.smoothScrollToPosition(0);
+
 
     }
 
@@ -133,6 +136,14 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     @Override
     public void transToPost() {
         ((FoodieActivity) getActivity()).transToPostArticle();
+    }
+
+    @Override
+    public void showRestaurantUi(Restaurant restaurant, ArrayList<Comment> comments) {
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext()));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(new RestaurantMainAdapter(mPresenter, restaurant, comments));
+//        mRecyclerView.smoothScrollToPosition(0);
     }
 
 

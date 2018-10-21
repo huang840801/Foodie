@@ -187,6 +187,26 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     }
 
     @Override
+    public void transToRestaurant(Restaurant restaurant) {
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+//        fragmentTransaction.setCustomAnimations(R.anim.emerge, R.anim.emerge);
+        if (mRestaurantFragment == null) {
+            mRestaurantFragment = RestaurantFragment.newInstance();
+        }
+
+        mRestaurantPresenter = new RestaurantPresenter(mRestaurantFragment, restaurant);
+
+        if (!mRestaurantFragment.isAdded()) {
+            fragmentTransaction.add(R.id.fragment_container, mRestaurantFragment, RESTAURANT);
+        } else {
+            fragmentTransaction.show(mRestaurantFragment);
+        }
+        fragmentTransaction.addToBackStack(null);
+
+        mFoodieView.setTabLayoutVisibility(false);
+        fragmentTransaction.commit();
+    }
+    @Override
     public void transToPostArticle() {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         if (mPostFragment == null) {
@@ -317,6 +337,8 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 //        fragmentTransaction.remove(mRestaurantFragment);
 //        fragmentTransaction.commit();
     }
+
+
 
 
 }

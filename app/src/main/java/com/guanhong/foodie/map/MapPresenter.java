@@ -53,7 +53,7 @@ public class MapPresenter implements MapContract.Presenter {
 
     @Override
     public void getRestaurantData(String lat_lng) {
-        Log.d(Constants.TAG, "hellooo address : " + lat_lng);
+        Log.d("myCommentsBug ", " MapPresenter getRestaurantData  " );
 
 
         final Restaurant restaurant = new Restaurant();
@@ -91,12 +91,11 @@ public class MapPresenter implements MapContract.Presenter {
 //                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(1));
 
                     restaurant.setRestaurantPictures(pictures);
-
                 }
 
-                Log.d("restaurant ", " MapPresenter : " + restaurant);
+                mMapView.showRestaurantUi(restaurant);
 
-                getRestaurantComments(restaurant.getLat_Lng(), restaurant);
+//                getRestaurantComments(restaurant.getLat_Lng(), restaurant);
 
             }
 
@@ -148,7 +147,7 @@ public class MapPresenter implements MapContract.Presenter {
 
                 Collections.reverse(comments);
 
-                mMapView.showRestaurantUi(restaurant, comments);
+//                mMapView.showRestaurantUi(restaurant, comments);
 
             }
 

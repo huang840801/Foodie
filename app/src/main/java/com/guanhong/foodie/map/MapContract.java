@@ -24,6 +24,8 @@ public interface MapContract {
 
         void showMarker(List<LatLng> locations);
 
+        void showRestaurantUi(Restaurant restaurant);
+
 //        void setRestaurantData(Restaurant restaurant);
     }
 

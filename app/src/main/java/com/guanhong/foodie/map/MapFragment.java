@@ -427,6 +427,13 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     }
 
     @Override
+    public void showRestaurantUi(Restaurant restaurant) {
+
+        ((FoodieActivity) getActivity()).transToRestaurant(restaurant);
+
+    }
+
+    @Override
     public void onInfoWindowClick(Marker marker) {
 
         Log.d(Constants.TAG, "  lat = " + marker.getPosition().latitude);
