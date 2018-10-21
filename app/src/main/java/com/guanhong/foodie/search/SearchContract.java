@@ -14,10 +14,13 @@ public interface SearchContract {
 
         void showResultToast();
 
+        void transToRestaurant(Restaurant restaurant);
     }
 
     interface Presenter extends BasePresenter{
 
         void searchArticles(String s);
+
+        void transToRestaurant(Restaurant restaurant);
     }
 }

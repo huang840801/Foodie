@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.custom.CircleCornerForm;
 import com.guanhong.foodie.objects.Restaurant;
+import com.guanhong.foodie.search.SearchContract;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,12 +24,14 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter {
     private ArrayList<Restaurant> mRestaurantArrayList;
     private Context mContext;
     private Typeface mTypeface;
+    private SearchContract.Presenter mPresenter;
 
 
-    public SearchRestaurantAdapter(ArrayList<Restaurant> restaurantArrayList) {
+    public SearchRestaurantAdapter(SearchContract.Presenter presenter, ArrayList<Restaurant> restaurantArrayList) {
         mRestaurantArrayList = restaurantArrayList;
-        Log.d("Huang ", "SearchRestaurantAdapter " + restaurantArrayList.get(0).getRestaurantName());
-        Log.d("Huang ", "SearchRestaurantAdapter " + restaurantArrayList.get(0).getStarCount());
+        mPresenter = presenter;
+//        Log.d("Huang ", "SearchRestaurantAdapter " + restaurantArrayList.get(0).getRestaurantName());
+//        Log.d("Huang ", "SearchRestaurantAdapter " + restaurantArrayList.get(0).getStarCount());
     }
 
     @NonNull
@@ -118,7 +121,7 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter {
         return mRestaurantArrayList.size();
     }
 
-    private class SearchArticleHolder extends RecyclerView.ViewHolder {
+    private class SearchArticleHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView mImageView;
         private TextView mTextViewRestaurantName;
@@ -141,6 +144,13 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter {
             mStar3 = view.findViewById(R.id.imageView_search_star3);
             mStar4 = view.findViewById(R.id.imageView_search_star4);
             mStar5 = view.findViewById(R.id.imageView_search_star5);
+
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            mPresenter.transToRestaurant(mRestaurantArrayList.get(getAdapterPosition()));
         }
     }
 }

@@ -130,4 +130,9 @@ public class LikePresenter implements LikeContract.Presenter {
         mLikeView = Preconditions.checkNotNull(likedView, "likeView cannot be null");
         mLikeView.setPresenter(this);
     }
+
+    @Override
+    public void transToRestaurant(Restaurant restaurant) {
+        mLikeView.transToRestaurant(restaurant);
+    }
 }

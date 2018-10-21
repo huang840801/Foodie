@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
+import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.LikeArticleAdapter;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
@@ -81,7 +82,13 @@ public class LikeFragment extends Fragment implements LikeContract.View{
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(new LikeArticleAdapter(restaurantArrayList));
+        mRecyclerView.setAdapter(new LikeArticleAdapter(mPresenter, restaurantArrayList));
 //        mRecyclerView.addItemDecoration(new SpaceItemDecoration(10));
+    }
+
+    @Override
+    public void transToRestaurant(Restaurant restaurant) {
+        ((FoodieActivity)getActivity()).transToRestaurant(restaurant);
+
     }
 }

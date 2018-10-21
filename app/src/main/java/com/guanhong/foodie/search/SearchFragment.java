@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.adapters.LikeArticleAdapter;
+import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.SearchRestaurantAdapter;
 import com.guanhong.foodie.objects.Restaurant;
 
@@ -87,7 +87,7 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
 //        }
 
 
-            mSearchRestaurantAdapter = new SearchRestaurantAdapter(restaurantArrayList);
+            mSearchRestaurantAdapter = new SearchRestaurantAdapter(mPresenter, restaurantArrayList);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setAdapter(mSearchRestaurantAdapter);
@@ -100,5 +100,10 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
     public void showResultToast() {
         Toast.makeText(mContext, "查無店家", Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public void transToRestaurant(Restaurant restaurant) {
+        ((FoodieActivity)getActivity()).transToRestaurant(restaurant);
     }
 }

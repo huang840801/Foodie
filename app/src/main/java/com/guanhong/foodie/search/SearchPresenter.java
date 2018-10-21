@@ -10,13 +10,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.objects.Restaurant;
-import com.guanhong.foodie.util.Constants;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -89,6 +84,11 @@ public class SearchPresenter implements SearchContract.Presenter {
 
             }
         });
+    }
+
+    @Override
+    public void transToRestaurant(Restaurant restaurant) {
+        mSearchView.transToRestaurant(restaurant);
     }
 
     private void getRestaurantData(ArrayList<String> keyArrayList) {

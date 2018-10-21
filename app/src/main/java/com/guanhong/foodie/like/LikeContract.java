@@ -11,10 +11,14 @@ public interface LikeContract {
     interface  View extends BaseView<Presenter>{
 
         void showLikeArticleList(ArrayList<Restaurant> restaurantArrayList);
+
+        void transToRestaurant(Restaurant restaurant);
     }
 
     interface Presenter extends BasePresenter{
 
+        void transToRestaurant(Restaurant restaurant);
     }
+
 }
 
