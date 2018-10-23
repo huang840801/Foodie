@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,19 +18,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.MyService;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.adapters.RecommendPhotoAdapter;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
-import com.guanhong.foodie.util.SpaceItemDecoration;
+import com.guanhong.foodie.util.ArticlePreviewItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -220,7 +212,7 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
                     mRecyclerView.setHasFixedSize(true);
                     mRecyclerView.setAdapter(new RecommendPhotoAdapter(restaurant.getRestaurantPictures()));
-                    mRecyclerView.addItemDecoration(new SpaceItemDecoration(15));
+                    mRecyclerView.addItemDecoration(new ArticlePreviewItemDecoration(15));
                 }
 
 

@@ -32,8 +32,8 @@ import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Menu;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.restaurant.RestaurantContract;
+import com.guanhong.foodie.util.ArticlePreviewItemDecoration;
 import com.guanhong.foodie.util.Constants;
-import com.guanhong.foodie.util.SpaceItemDecoration;
 import com.rd.PageIndicatorView;
 import com.squareup.picasso.Picasso;
 
@@ -113,8 +113,8 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         Log.d("myCommentsBug ", "  RestaurantMainAdapter updateRestaurantData  comments.size = " + comments.size());
 
 
-        mRestaurant = restaurant;
-        mComments = comments;
+//        mRestaurant = restaurant;
+//        mComments = comments;
 //        notifyDataSetChanged();
 //        Log.d(Constants.TAG, " MyComments: " + mComments.get(0).getOwner().getName());
 //        Log.d(Constants.TAG, " MyComments: " + mComments.get(0).getComment());
@@ -129,15 +129,14 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         setPhotoRecyclerView(holder);
         getArticleFromFirebase(holder);
 
-
         holder.getRestaurantName().setText(mRestaurant.getRestaurantName());
-        holder.getRestaurantName().setTypeface(mTypeface);
-
         holder.getRestaurantPosition().setText(mRestaurant.getRestaurantLocation());
-        holder.getRestaurantPosition().setTypeface(mTypeface);
 
-        holder.getTextViewArticleTitle().setTypeface(mTypeface);
-        holder.getTextViewPostArticle().setTypeface(mTypeface);
+
+//        holder.getRestaurantPosition().setTypeface(mTypeface);
+//        holder.getRestaurantName().setTypeface(mTypeface);
+//        holder.getTextViewArticleTitle().setTypeface(mTypeface);
+//        holder.getTextViewPostArticle().setTypeface(mTypeface);
 
         if (mRestaurant.getStarCount() == 5) {
             holder.getStar1().setImageResource(R.drawable.new_star_selected);
@@ -245,7 +244,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                 if (!"".equals(comment)) {
 //                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
 
-                    Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
+//                    Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
 //                    String str = formatter.format(curDate);
 //
 
@@ -311,7 +310,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
     private void setArticlePreviewRecyclerView(RestaurantMainItemViewHolder holder, ArrayList<Article> articleArrayList) {
         holder.getRecyclerViewArticlePreview().setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
         holder.getRecyclerViewArticlePreview().setHasFixedSize(true);
-        holder.getRecyclerViewArticlePreview().addItemDecoration(new SpaceItemDecoration(6));
+        holder.getRecyclerViewArticlePreview().addItemDecoration(new ArticlePreviewItemDecoration(10));
         holder.getRecyclerViewArticlePreview().setAdapter(new RestaurantArticlePreviewAdapter(articleArrayList, mPresenter));
     }
 
@@ -335,6 +334,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                     Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("author").child("name").getValue());
                     Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("starCount").getValue());
                     Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("location").getValue());
+                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("createdTime").getValue());
 
                     Article article = new Article();
 
@@ -349,6 +349,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                     article.setLat_lng((String) snapshot.child("lat_lng").getValue());
                     article.setLocation((String) snapshot.child("location").getValue());
                     article.setStarCount(Integer.parseInt(String.valueOf(snapshot.child("starCount").getValue())));
+                    article.setCreatedTime(String.valueOf(snapshot.child("createdTime").getValue()));
 
                     ArrayList<Menu> menus = new ArrayList<>();
                     for (int i = 0; i < snapshot.child("menus").getChildrenCount(); i++) {
@@ -508,20 +509,14 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
 
     private void bindCommentItem(RestaurantCommentItemViewHolder holder, int i) {
-//        Log.d(Constants.TAG, " getCreatedTime: " + mComments.get(i).getCreatedTime());
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm");
-        long lcc = Long.valueOf(mComments.get(i).getCreatedTime());
-//        int j = Integer.parseInt(mComments.get(i).getCreatedTime());
-        String time = formatter.format(new Date(lcc));
-//        Log.d(Constants.TAG, " getCreatedTime: " + lcc);
-//        Log.d(Constants.TAG, " getCreatedTime: " + j);
-//        Log.d(Constants.TAG, " getCreatedTime: " + time);
+//        holder.getTextAuthorName().setTypeface(mTypeface);
+//        holder.getTextCommentContent().setTypeface(mTypeface);
+//        holder.getTextCreatedTime().setTypeface(mTypeface);
 
         holder.getTextAuthorName().setText(mComments.get(i).getAuthor().getName());
-        holder.getTextAuthorName().setTypeface(mTypeface);
+
         holder.getTextCommentContent().setText(mComments.get(i).getComment());
-        holder.getTextCommentContent().setTypeface(mTypeface);
         if (!"".equals(mComments.get(i).getAuthor().getImage())) {
             Picasso.get()
                     .load(mComments.get(i).getAuthor().getImage())
@@ -529,6 +524,10 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 //                .networkPolicy(NetworkPolicy.OFFLINE)
                     .into(holder.getImageAuthorImage());
         }
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm");
+        long lcc = Long.valueOf(mComments.get(i).getCreatedTime());
+        String time = formatter.format(new Date(lcc));
         holder.getTextCreatedTime().setText(time);
     }
 
@@ -546,6 +545,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             mTextAuthorName = (TextView) itemView.findViewById(R.id.textView_authorName);
             mTextCommentContent = (TextView) itemView.findViewById(R.id.textView_comment_content);
             mTextCreatedTime = (TextView) itemView.findViewById(R.id.textView_comment_createdTime);
+
         }
 
         public ImageView getImageAuthorImage() {
@@ -564,4 +564,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             return mTextCreatedTime;
         }
     }
+
+
 }

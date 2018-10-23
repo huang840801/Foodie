@@ -13,17 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.PersonalPhotoAdapter;
-import com.guanhong.foodie.adapters.PostArticlePhotoAdapter;
 import com.guanhong.foodie.objects.Article;
-import com.guanhong.foodie.util.SpaceItemDecoration;
 
 import java.util.ArrayList;
 
@@ -74,6 +70,22 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
         super.onCreate(savedInstanceState);
         mContext = getContext();
 
+    }
+//    public int[] twoSum(int[] nums, int target) {
+//
+//        int [] sum = new int[2];
+//        int [] test = new int[2];
+//        test=sum.clone();
+//        sum[0]=1;
+//
+//        return sum[1,2];
+//
+//    }
+
+    ArrayList<Integer> sum (){
+
+
+        return new ArrayList<>();
     }
 
     public PersonalArticleFragment() {
@@ -128,7 +140,7 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
         super.onViewCreated(view, savedInstanceState);
         mPresenter.start();
 //        setTabLayoutVisibility(false);
-        setTypeFace();
+//        setTypeFace();
     }
 
     @Override
@@ -203,7 +215,7 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
         mRecyclerViewPhoto.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
         mRecyclerViewPhoto.setHasFixedSize(true);
         mRecyclerViewPhoto.setAdapter(new PersonalPhotoAdapter(article.getPictures()));
-//        mRecyclerViewPhoto.addItemDecoration(new SpaceItemDecoration(2));
+//        mRecyclerViewPhoto.addItemDecoration(new ArticlePreviewItemDecoration(2));
 
         mTextViewContent.setText(article.getContent());
 

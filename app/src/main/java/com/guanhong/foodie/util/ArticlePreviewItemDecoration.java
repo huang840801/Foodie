@@ -4,7 +4,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
+public class ArticlePreviewItemDecoration extends RecyclerView.ItemDecoration {
 
     int mSpace;
 
@@ -15,13 +15,13 @@ public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
         outRect.right = mSpace;
         outRect.bottom = mSpace;
 
-//        if (parent.getChildAdapterPosition(view) == 0) {
-//            outRect.top = mSpace;
-//        }
+        if (parent.getChildAdapterPosition(view) == 0) {
+            outRect.left = 0;
+        }
 
     }
 
-    public SpaceItemDecoration(int space) {
+    public ArticlePreviewItemDecoration(int space) {
         this.mSpace = space;
     }
 }

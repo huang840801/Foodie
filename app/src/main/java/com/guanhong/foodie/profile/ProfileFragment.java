@@ -22,7 +22,8 @@ import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.ProfileArticleAdapter;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.User;
-import com.guanhong.foodie.util.SpaceItemDecoration;
+import com.guanhong.foodie.util.ArticlePreviewItemDecoration;
+import com.guanhong.foodie.util.ProfileArticleItemDecoration;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     private TextView mUserEmail;
     private TextView mCoinCount;
     private TextView mArticleCount;
-//    private ImageView mImageViewPost;
+    //    private ImageView mImageViewPost;
     private RecyclerView mRecyclerView;
     private Typeface mTypeface;
     private ArrayList<Article> mArticleArrayList;
@@ -183,8 +184,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(new ProfileArticleAdapter(mArticleArrayList, mPresenter));
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration(40));
-        mArticleCount.setText("" + mArticleArrayList.size());
+        mRecyclerView.addItemDecoration(new ProfileArticleItemDecoration(40));
+        mArticleCount.setText(String.valueOf(mArticleArrayList.size()));
     }
 
     @Override

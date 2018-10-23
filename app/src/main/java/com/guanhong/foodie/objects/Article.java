@@ -14,6 +14,7 @@ public class Article {
     private int mStarCount;
     private LatLng mLatLng;
     private String lat_lng;
+    private String mCreatedTime;
 
 
     public Article() {
@@ -26,6 +27,7 @@ public class Article {
         mStarCount = 0;
         mLatLng = new LatLng(0, 0);
         lat_lng = "";
+        mCreatedTime = "";
     }
 
     public Author getAuthor() {
@@ -98,5 +100,13 @@ public class Article {
 
     public void setLat_lng(String lat_lng) {
         this.lat_lng = lat_lng;
+    }
+
+    public String getCreatedTime() {
+        return mCreatedTime;
+    }
+
+    public void setCreatedTime(String createdTime) {
+        mCreatedTime = createdTime;
     }
 }

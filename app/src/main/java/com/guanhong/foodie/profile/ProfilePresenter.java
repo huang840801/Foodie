@@ -79,8 +79,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 //                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("content").getValue());
 //                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("location").getValue());
 //                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("restaurantName").getValue());
-                        Log.d(Constants.TAG, "ProfilePresenterstarCount : " + snapshot.child("starCount").getValue());
-//                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("menus").getChildrenCount());
+//                        Log.d(Constants.TAG, "ProfilePresenterstarCount : " + snapshot.child("starCount").getValue());
+                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("createdTime").getValue());
 //                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("pictures").getChildrenCount());
 
                         Article article = new Article();
@@ -92,6 +92,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                         article.setRestaurantName((String) snapshot.child("restaurantName").getValue());
                         article.setContent((String) snapshot.child("content").getValue());
                         article.setLocation((String) snapshot.child("location").getValue());
+                        article.setCreatedTime(String.valueOf(snapshot.child("createdTime").getValue()));
                         article.setStarCount(Integer.parseInt("" + snapshot.child("starCount").getValue()));
 
                         ArrayList<String> pictures = new ArrayList<>();
@@ -109,15 +110,15 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                         }
                         article.setMenus(menuList);
 
-                        Log.d(Constants.TAG, " ProfilePresenter  getAuthor getId = " + article.getAuthor().getId());
-                        Log.d(Constants.TAG, " ProfilePresenter  getAuthor getName = " + article.getAuthor().getName());
-                        Log.d(Constants.TAG, " ProfilePresenter  getRestaurantName = " + article.getRestaurantName());
-                        Log.d(Constants.TAG, " ProfilePresenter  getLocation = " + article.getLocation());
-                        Log.d(Constants.TAG, " ProfilePresenter  getMenus = " + article.getMenus().get(0).getDishName());
-                        Log.d(Constants.TAG, " ProfilePresenter  getMenus = " + article.getMenus().get(0).getDishPrice());
-                        Log.d(Constants.TAG, " ProfilePresenter getContent = " + article.getContent());
-                        Log.d(Constants.TAG, " ProfilePresenter getStarCount = " + article.getStarCount());
-                        Log.d(Constants.TAG, " ProfilePresenter getPictures = " + article.getPictures());
+//                        Log.d(Constants.TAG, " ProfilePresenter  getAuthor getId = " + article.getAuthor().getId());
+//                        Log.d(Constants.TAG, " ProfilePresenter  getAuthor getName = " + article.getAuthor().getName());
+//                        Log.d(Constants.TAG, " ProfilePresenter  getRestaurantName = " + article.getRestaurantName());
+//                        Log.d(Constants.TAG, " ProfilePresenter  getLocation = " + article.getLocation());
+//                        Log.d(Constants.TAG, " ProfilePresenter  getMenus = " + article.getMenus().get(0).getDishName());
+//                        Log.d(Constants.TAG, " ProfilePresenter  getMenus = " + article.getMenus().get(0).getDishPrice());
+//                        Log.d(Constants.TAG, " ProfilePresenter getContent = " + article.getContent());
+//                        Log.d(Constants.TAG, " ProfilePresenter getStarCount = " + article.getStarCount());
+//                        Log.d(Constants.TAG, " ProfilePresenter getPictures = " + article.getPictures());
 //                        Log.d(Constants.TAG, " ProfilePresenter latitude = " + article.getLatLng().latitude);
 //                        Log.d(Constants.TAG, " ProfilePresenter longitude = " + article.getLatLng().longitude);
                         mArticleArrayList.add(article);

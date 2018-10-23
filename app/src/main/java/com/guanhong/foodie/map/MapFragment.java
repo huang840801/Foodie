@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
@@ -27,7 +26,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,7 +33,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -73,8 +70,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     private Location mLastLocation;
     private static final int REQUEST_FINE_LOCATION_PERMISSION = 102;
     private boolean getService = false;     //是否已開啟定位服務
-    private LocationManager status;
-
+    private LocationManager mStatus;
 
     private Context mContext;
 
@@ -126,7 +122,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
             public void onClick(View view) {
                 requestLocationPermissions();
 
-                if (status.isProviderEnabled(LocationManager.GPS_PROVIDER) && status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                if (mStatus.isProviderEnabled(LocationManager.GPS_PROVIDER) && mStatus.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                     //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
                     if (mGoogleApiClient != null) {
                         if (mGoogleApiClient.isConnected()) {
@@ -134,11 +130,11 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
                             getMyLocation();
                         } else {
                             Toast.makeText(mContext,
-                                    "!mGoogleApiClient.isConnected()", Toast.LENGTH_LONG).show();
+                                    "GoogleApiClient is Connected ", Toast.LENGTH_LONG).show();
                         }
                     } else {
                         Toast.makeText(mContext,
-                                "mGoogleApiClient == null", Toast.LENGTH_LONG).show();
+                                "GoogleApiClient is null", Toast.LENGTH_LONG).show();
                     }
 
                 } else {
@@ -171,7 +167,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
                 LatLng latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
 
                 mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-//
+
 //                int height = 125;
 //                int width = 125;
 //                BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.pin_blue);
@@ -238,7 +234,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     }
 
     private void checkStatus() {
-        status = (LocationManager) (mContext.getSystemService(Context.LOCATION_SERVICE));
+        mStatus = (LocationManager) (mContext.getSystemService(Context.LOCATION_SERVICE));
         if (mGoogleApiClient == null) {
             mGoogleApiClient = new GoogleApiClient.Builder(mContext)
                     .addConnectionCallbacks(this)
@@ -291,10 +287,10 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
     @Override
     public void onStop() {
+        super.onStop();
         mGoogleApiClient.disconnect();
         Log.d("lifecycle", "  MapFragment onStop");
 
-        super.onStop();
     }
 
 
@@ -302,7 +298,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     public void onDestroy() {
         super.onDestroy();
         Log.d("lifecycle", "  MapFragment onDestroy");
-
         mGoogleMapView.onDestroy();
     }
 

@@ -239,7 +239,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mRecyclerViewPhoto.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
         mRecyclerViewPhoto.setHasFixedSize(true);
         mRecyclerViewPhoto.setAdapter(new PostArticlePhotoAdapter(pictureArrayListExtra, mPresenter));
-//        mRecyclerViewPhoto.addItemDecoration(new SpaceItemDecoration(2));
+//        mRecyclerViewPhoto.addItemDecoration(new ArticlePreviewItemDecoration(2));
 
         mRecyclerViewPhoto.smoothScrollToPosition(0);
 
@@ -476,7 +476,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
         }
 
-
         String restaurantName = mEditTextRestaurantName.getText().toString();
         String address = mTextViewRestaurantLocation.getText().toString();
         String content = mEditTextContent.getText().toString();
@@ -514,7 +513,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         article.setStarCount(starCount);
         article.setLatLng(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)));
         article.setPictures(newPictures);
-
+        article.setCreatedTime(System.currentTimeMillis() + "");
         mPresenter.postArticle(article);
 
 

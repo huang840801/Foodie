@@ -32,7 +32,8 @@
 
         <activity
             android:name=".activities.FoodieActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan">
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,11 +48,13 @@
         <activity
             android:name="com.foamtrace.photopicker.PhotoPickerActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/PhotoPickerTheme" />
+            android:theme="@style/PhotoPickerTheme"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.foamtrace.photopicker.PhotoPreviewActivity"
-            android:theme="@style/PhotoPickerTheme" />
+            android:theme="@style/PhotoPickerTheme"
+            android:screenOrientation="portrait"/>
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -67,7 +70,7 @@
 
          <activity
          android:name=".activities.MapActivity"
-         android:label="@string/title_activity_maps"></activity>
+         android:label="@string/title_activity_maps"/>
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

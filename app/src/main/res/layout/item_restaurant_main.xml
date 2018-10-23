@@ -33,11 +33,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:text="AppWorks School"
         android:textColor="#000000"
         android:textSize="22dp"
         android:textStyle="bold"
+        android:typeface="sans"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerview_photo" />
 
@@ -45,7 +46,7 @@
         android:id="@+id/imageView_star1"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="@+id/textView_restaurant_name"
         app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_name"
         app:srcCompat="@drawable/new_star_unselected" />
@@ -55,10 +56,9 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
 
         app:layout_constraintStart_toEndOf="@+id/imageView_star1"
-        app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_name"
+        app:layout_constraintTop_toTopOf="@+id/imageView_star1"
         app:srcCompat="@drawable/new_star_unselected" />
 
     <ImageView
@@ -66,10 +66,9 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
 
         app:layout_constraintStart_toEndOf="@+id/imageView_star2"
-        app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_name"
+        app:layout_constraintTop_toTopOf="@+id/imageView_star2"
         app:srcCompat="@drawable/new_star_unselected" />
 
     <ImageView
@@ -77,10 +76,9 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
 
         app:layout_constraintStart_toEndOf="@+id/imageView_star3"
-        app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_name"
+        app:layout_constraintTop_toTopOf="@+id/imageView_star3"
         app:srcCompat="@drawable/new_star_unselected" />
 
     <ImageView
@@ -88,108 +86,38 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
 
         app:layout_constraintStart_toEndOf="@+id/imageView_star4"
-        app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_name"
+        app:layout_constraintTop_toTopOf="@+id/imageView_star4"
         app:srcCompat="@drawable/new_star_unselected" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="17dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="16dp"
-
-        app:layout_constraintStart_toStartOf="@+id/imageView_star1"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_star1"
-        app:srcCompat="@drawable/new_yellow_marker" />
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView2"-->
+        <!--android:layout_width="17dp"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:layout_marginTop="4dp"-->
+        <!--android:padding="2dp"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/imageView_star1"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/imageView_star1"-->
+        <!--app:srcCompat="@drawable/new_yellow_marker" />-->
 
     <TextView
         android:id="@+id/textView_location"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="254dp"
+        android:layout_height="14dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+
+        android:ellipsize="end"
         android:gravity="bottom"
+        android:maxLines="1"
         android:text="110台北市信義區基隆路一段178號"
         android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintStart_toEndOf="@+id/imageView2" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView_article_preview"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider1" />
-
-    <View
-        android:id="@+id/topView"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="#e7e7e7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView_article_preview" />
-
-    <EditText
-        android:id="@+id/editText_comments"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/corners_bg"
-        android:hint="@string/say_something"
-        android:paddingBottom="@dimen/text_padding_bottom"
-        android:paddingEnd="@dimen/text_padding_end"
-        android:paddingStart="@dimen/text_padding_start"
-        android:paddingTop="@dimen/text_padding_top"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:typeface="sans"
+        app:layout_constraintEnd_toStartOf="@+id/button_restaurant_post"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topView" />
-
-    <ImageView
-        android:id="@+id/imageView_send"
-        android:layout_width="30dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topView"
-        app:srcCompat="@drawable/btn_send" />
-
-    <ImageView
-        android:id="@+id/imageView_bookmark"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerview_photo"
-        app:srcCompat="@drawable/bookmark_unselected" />
-
-    <TextView
-        android:id="@+id/textView_restaurant_article_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/tourist_article"
-        android:textColor="#000000"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView_location" />
+        app:layout_constraintStart_toStartOf="@+id/imageView_star1"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_star1" />
 
     <View
         android:id="@+id/divider1"
@@ -201,25 +129,110 @@
         android:background="#e7e7e7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_location" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_article_preview"
+        android:layout_width="match_parent"
+        android:layout_height="147dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_restaurant_article_title" />
+
+    <View
+        android:id="@+id/topView"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="#e7e7e7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_article_preview" />
+
+    <EditText
+        android:id="@+id/editText_comments"
+        android:layout_width="310dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/corners_bg"
+        android:hint="@string/say_something"
+        android:paddingBottom="@dimen/text_padding_bottom"
+        android:paddingEnd="@dimen/text_padding_end"
+        android:paddingStart="@dimen/text_padding_start"
+        android:paddingTop="@dimen/text_padding_top"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_send"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageView_send"
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingBottom="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topView"
+        app:srcCompat="@drawable/send_message" />
+
+    <ImageView
+        android:id="@+id/imageView_bookmark"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingTop="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview_photo"
+        app:srcCompat="@drawable/bookmark_unselected" />
+
+    <TextView
+        android:id="@+id/textView_restaurant_article_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/tourist_article"
+        android:textColor="#000000"
+        android:textSize="22dp"
+
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintStart_toStartOf="@+id/divider1"
+        app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
 
     <TextView
         android:id="@+id/button_restaurant_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="我要評論"
+
         android:textColor="@color/main"
         android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_restaurant_article_title"
-        app:layout_constraintEnd_toStartOf="@+id/imageView_arrow_right"
-        app:layout_constraintTop_toTopOf="@+id/textView_restaurant_article_title"
-        app:layout_constraintVertical_bias="1.0" />
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_location"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_arrow_right" />
 
     <ImageView
         android:id="@+id/imageView_arrow_right"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/button_restaurant_post"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/button_restaurant_post"

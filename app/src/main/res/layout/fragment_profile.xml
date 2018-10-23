@@ -12,10 +12,10 @@
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:background="@color/profile_main_bg"
         android:src="@drawable/cooking"
         app:civ_border_color="#e6e7e7e7"
         app:civ_border_width="1dp"
-        android:background="@color/profile_main_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,17 +80,17 @@
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
     <View
-    android:id="@+id/topView"
-    android:layout_width="0dp"
-    android:layout_height="1dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="16dp"
-    android:background="#e7e7e7"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        android:id="@+id/topView"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:background="#e7e7e7"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_user"
+        />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
