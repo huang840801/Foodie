@@ -18,6 +18,7 @@
         android:layout_marginRight="5dp"
         android:gravity="left"
         android:text="@string/AppWorks"
+        android:typeface="sans"
         android:textColor="@color/main"
         android:textSize="18dp"
         android:textStyle="bold" />

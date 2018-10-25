@@ -15,6 +15,7 @@
         android:text="@string/today_recommend"
         android:textColor="@color/black"
         android:textSize="22dp"
+        android:typeface="sans"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,11 +23,10 @@
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:background="#e7e7e7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView_recommend_title"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_recommend_title" />
 
     <TextView
@@ -38,7 +38,8 @@
         android:textColor="@color/black"
         android:textSize="22dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/divider"
+        android:typeface="sans"
+        app:layout_constraintStart_toStartOf="@+id/textView_recommend_title"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <ImageView
@@ -113,24 +114,24 @@
         android:id="@+id/divider1"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:background="#e7e7e7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView_recommend_star1"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_location" />
 
-    <TextView
-        android:id="@+id/textView_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="照片"
-        android:textColor="@color/black"
-        android:textSize="22dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/divider1"
-        app:layout_constraintTop_toBottomOf="@+id/divider1" />
+    <!--<TextView-->
+        <!--android:id="@+id/textView_photo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="照片"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="22dp"-->
+        <!--android:typeface="sans"-->
+        <!--android:textStyle="bold"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/divider1"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/divider1" />-->
 
     <!--<View-->
         <!--android:id="@+id/divider2"-->
@@ -147,11 +148,13 @@
         android:id="@+id/recommend_recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_photo" />
+        app:layout_constraintTop_toBottomOf="@+id/divider1" />
 
 
 </android.support.constraint.ConstraintLayout>

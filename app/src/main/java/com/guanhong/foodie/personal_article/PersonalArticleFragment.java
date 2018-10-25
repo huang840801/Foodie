@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,8 +21,11 @@ import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.PersonalPhotoAdapter;
 import com.guanhong.foodie.objects.Article;
+import com.rd.PageIndicatorView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -48,6 +52,9 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
 
     private TextView mAuthor;
     private TextView mAuthorName;
+    private TextView mCreatedTime;
+
+    private PageIndicatorView mPageIndicatorView;
 
 
     //    private TextView mTitleRestaurantName;
@@ -95,6 +102,7 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
         return new PersonalArticleFragment();
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -115,8 +123,11 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
         mImageViewStar3 = view.findViewById(R.id.imageView_star3);
         mImageViewStar4 = view.findViewById(R.id.imageView_star4);
         mImageViewStar5 = view.findViewById(R.id.imageView_star5);
+        mImageViewStar5 = view.findViewById(R.id.imageView_star5);
         mAuthor = view.findViewById(R.id.textView_personal_author);
         mAuthorName = view.findViewById(R.id.textView_personal_author_name);
+        mCreatedTime = view.findViewById(R.id.textView_personal_createdTime);
+        mPageIndicatorView = view.findViewById(R.id.personal_indicator);
 
 //        mTitleRestaurantName = view.findViewById(R.id.personal_restaurant_name);
 //        mTitleLocation = view.findViewById(R.id.personal_restaurant_location);
@@ -181,6 +192,13 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
         mTextViewRestaurantName.setText(article.getRestaurantName());
         mTextViewRestaurantLocation.setText(article.getLocation());
         mAuthorName.setText(article.getAuthor().getName());
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm");
+        long lcc = Long.valueOf(article.getCreatedTime());
+        String time = formatter.format(new Date(lcc));
+        mCreatedTime.setText(time);
+
+
         if (article.getMenus().size() == 1) {
 
             mTextViewMenu1.setText(article.getMenus().get(0).getDishName());
@@ -212,10 +230,9 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
             mTextViewPrice3.setText(article.getMenus().get(2).getDishPrice());
         }
 
-        mRecyclerViewPhoto.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
-        mRecyclerViewPhoto.setHasFixedSize(true);
-        mRecyclerViewPhoto.setAdapter(new PersonalPhotoAdapter(article.getPictures()));
-//        mRecyclerViewPhoto.addItemDecoration(new ArticlePreviewItemDecoration(2));
+        setPhotoRecyclerView(article);
+
+
 
         mTextViewContent.setText(article.getContent());
 
@@ -262,6 +279,27 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
             mImageViewStar4.setImageResource(R.drawable.new_star_unselected);
             mImageViewStar5.setImageResource(R.drawable.new_star_unselected);
         }
+    }
+
+    private void setPhotoRecyclerView(Article article) {
+
+        mRecyclerViewPhoto.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        mRecyclerViewPhoto.setAdapter(new PersonalPhotoAdapter(article.getPictures()));
+        new PagerSnapHelper().attachToRecyclerView(mRecyclerViewPhoto);
+        final int size = article.getPictures().size();
+        int remain = Integer.MAX_VALUE / 2 % size;
+        mRecyclerViewPhoto.getLayoutManager().scrollToPosition(Integer.MAX_VALUE / 2 - remain);
+
+        mPageIndicatorView.setCount(size);
+        mRecyclerViewPhoto.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int pastVisibleItems = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                mPageIndicatorView.setSelection(pastVisibleItems % size);
+            }
+        });
     }
 
     @Override

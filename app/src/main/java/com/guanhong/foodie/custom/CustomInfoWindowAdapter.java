@@ -25,7 +25,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     private ImageView mStar3;
     private ImageView mStar4;
     private ImageView mStar5;
-    private Typeface mTypeface;
+//    private Typeface mTypeface;
 
 //    private Handler mHandler;
 
@@ -43,7 +43,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         mContext = context1;
 //        mCustomInfoWindowAdapter = this;
         mView = mActivityContext.getLayoutInflater().inflate(R.layout.custom_marker_info_layout, null);
-        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
+//        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
 
     }
 
@@ -61,7 +61,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         mStar5 = mView.findViewById(R.id.imageView_marker_star5);
 
         mTextViewRestaurantName.setText(mStringRestaurantName);
-        mTextViewRestaurantName.setTypeface(mTypeface);
+//        mTextViewRestaurantName.setTypeface(mTypeface);
         if (mStarCount == 5) {
 
             mStar1.setImageResource(R.drawable.new_star_selected);

@@ -29,7 +29,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class RestaurantFragment extends Fragment implements RestaurantContract.View {
 
     private RestaurantContract.Presenter mPresenter;
-    private RestaurantMainAdapter mRestaurantMainAdapter;
 
     private RecyclerView mRecyclerView;
     private AVLoadingIndicatorView mAVLoadingIndicatorView;

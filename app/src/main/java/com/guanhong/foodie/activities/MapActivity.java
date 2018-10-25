@@ -312,12 +312,13 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
 
         LinearLayout ll = (LinearLayout) dialog.findViewById(R.id.lldialog);
         ll.getLayoutParams().width = 1000;
+//        ll.getLayoutParams().height = 400;
 
         Window dialogWindow = dialog.getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
 //dialogWindow.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
-        lp.x = 0; // 新位置X坐標
-        lp.y = 0; // 新位置Y坐標
+//        lp.x = 0; // 新位置X坐標
+//        lp.y = 0; // 新位置Y坐標
         lp.width = 1100; // 寬度
         lp.height = 400; // 高度
 //                lp.alpha = 0.7f; // 透明度

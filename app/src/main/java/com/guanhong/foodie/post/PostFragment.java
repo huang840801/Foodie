@@ -72,7 +72,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private View mLoadingBackground;
 
 
-    private Typeface mTypeface;
+//    private Typeface mTypeface;
 
     private ArrayList<String> mPictureList = new ArrayList<>();
 
@@ -152,16 +152,16 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     }
 
     private void setTypeFace() {
-        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
-        mTextViewRestaurantName.setTypeface(mTypeface);
-        mTextViewLocation.setTypeface(mTypeface);
-        mTextViewMenu1.setTypeface(mTypeface);
-        mTextViewMenu2.setTypeface(mTypeface);
-        mTextViewMenu3.setTypeface(mTypeface);
-        mTextViewPictures.setTypeface(mTypeface);
-        mTextViewContent.setTypeface(mTypeface);
-        mTextViewRating.setTypeface(mTypeface);
-        mPostArticle.setTypeface(mTypeface);
+//        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
+//        mTextViewRestaurantName.setTypeface(mTypeface);
+//        mTextViewLocation.setTypeface(mTypeface);
+//        mTextViewMenu1.setTypeface(mTypeface);
+//        mTextViewMenu2.setTypeface(mTypeface);
+//        mTextViewMenu3.setTypeface(mTypeface);
+//        mTextViewPictures.setTypeface(mTypeface);
+//        mTextViewContent.setTypeface(mTypeface);
+//        mTextViewRating.setTypeface(mTypeface);
+//        mPostArticle.setTypeface(mTypeface);
     }
 
     @Override

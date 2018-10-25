@@ -29,7 +29,7 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
     private ArrayList<Article> mArticleArrayList;
 //    private ArrayList<Bitmap> mBitmapList;
     private Context mContext;
-    private Typeface mTypeface;
+//    private Typeface mTypeface;
 
 
     public ProfileArticleAdapter(ArrayList<Article> articleArrayList, ProfileContract.Presenter presenter) {
@@ -110,11 +110,11 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
         }
 
         private void setTypeFace() {
-            mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
-
-            mRestaurantName.setTypeface(mTypeface);
-            mContent.setTypeface(mTypeface);
-            mCreatedTime.setTypeface(mTypeface);
+//            mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
+//
+//            mRestaurantName.setTypeface(mTypeface);
+//            mContent.setTypeface(mTypeface);
+//            mCreatedTime.setTypeface(mTypeface);
 
         }
 

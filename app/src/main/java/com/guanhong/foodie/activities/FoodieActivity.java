@@ -1,7 +1,9 @@
 package com.guanhong.foodie.activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -62,11 +64,9 @@ import java.util.List;
 public class FoodieActivity extends BaseActivity implements FoodieContract.View, TabLayout.OnTabSelectedListener {
 
     private FoodieContract.Presenter mPresenter;
-    private static final int REQUEST_WRITE_STORAGE_REQUEST_CODE = 102;
 
     private Context mContext;
 
-    private ImageView mImageViewPost;
     private MapFragment mMapFragment;
     private ProfileFragment mProfileFragment;
     private SearchFragment mSearchFragment;
@@ -90,15 +90,49 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     private String[] mTitles;
     private List<Fragment> mFragmentList = new ArrayList<>();
 
+    public int reverse(int x) {
+
+        String y = String.valueOf(x);
+        String reverse;
+
+        if(y.contains("-")) {
+           y = y.replace("-","");
+            reverse = new StringBuilder(y).reverse().toString();
+            Log.d(Constants.CODING_TIME, "ans = " +reverse );
+
+            return 0-Integer.valueOf(reverse);
+
+        }else {
+            reverse = new StringBuilder(y).reverse().toString();
+            return Integer.valueOf(reverse);
+
+        }
+    }
+//    public int lengthOfLongestSubstring(String s) {
+//
+//
+//        int i;
+//        int j;
+//
+//
+//        char[] b = new char[s.length()];
+//        for (i = 0; i < s.length(); i++) {
+//            b[i] = s.charAt(i);
+//        }
+//
+//        for (j = 0; j < s.length(); j++) {
+//            for (int k = j + 1; k < s.length(); k++) {
+//
+//            }
+//
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-//        Logger.d("hiiii");
-//        Log.d("UserManager ", "email = " + UserManager.getInstance().getUserEmail());
-//        Log.d("UserManager ", "id = " + UserManager.getInstance().getUserId());
-//        Log.d("UserManager ", "image = " + UserManager.getInstance().getUserImage());
-//        Log.d("UserManager ", "name = " + UserManager.getInstance().getUserName());
+        Log.d(Constants.CODING_TIME, "ans = " +reverse(964632431));
+//        lengthOfLongestSubstring("lgggopp");
 
 //        String s = "s";
 //        String empty = null;
@@ -136,12 +170,9 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     private void saveUserData() {
         SharedPreferences userData = this.getSharedPreferences("userData", Context.MODE_PRIVATE);
-//        String name = userData.getString("userName", "");
-//        String email = userData.getString("userEmail", "");
+
         final String userId = userData.getString("userId", "");
-//        String image = userData.getString("userImage", "");
-//        Log.d(Constants.TAG, " userName : " + name);
-//        Log.d(Constants.TAG, " userEmail : " + email);
+
         Log.d(Constants.TAG, " SharedPreferences userUid : " + userId);
 //        Log.d(Constants.TAG, " userImage : " + image);
 
@@ -191,23 +222,15 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         setContentView(R.layout.activity_main);
 
-        ImageConfig config = new ImageConfig();
-        config.minHeight = 400;
-        config.minWidth = 400;
-        config.mimeType = new String[]{"image/jpeg", "image/png"}; // 图片类型 image/gif ...
-        config.minSize = 1024 * 1024; // 1Mb 图片大小
+//        ImageConfig config = new ImageConfig();
+//        config.minHeight = 400;
+//        config.minWidth = 400;
+//        config.mimeType = new String[]{"image/jpeg", "image/png"}; // 图片类型 image/gif ...
+//        config.minSize = 1024 * 1024; // 1Mb 图片大小
 
 
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
-//        mImageViewPost = findViewById(R.id.imageView_activity_post_article);
-
-//        mImageViewPost.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                transToPostArticle();
-//            }
-//        });
 
         mTitles = new String[]{
                 getResources().getString(R.string.map),
@@ -219,24 +242,19 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         };
 
         setTabLayout();
-
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mTitles, mFragmentList, this);
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
-
-//        mTabLayout.getTabAt(0).setCustomView(mViewPagerAdapter.getTabView(0));
-//        mTabLayout.getTabAt(1).setCustomView(mViewPagerAdapter.getTabView(1));
-//        mTabLayout.getTabAt(2).setCustomView(mViewPagerAdapter.getTabView(2));
-//        mTabLayout.getTabAt(3).setCustomView(mViewPagerAdapter.getTabView(3));
-//        mTabLayout.getTabAt(4).setCustomView(mViewPagerAdapter.getTabView(4));
-
-
         for (int i = 0; i < mTabLayout.getTabCount(); i++) {
             mTabLayout.getTabAt(i).setCustomView(mViewPagerAdapter.getTabView(i));
+//            mTabLayout.getTabAt(0).getCustomView().setSelected(true);
 
         }
-//        onTabSelected(mTabLayout.getTabAt(0));
+
+
+        Log.d(Constants.TAG, " getSelectedTabPosition : " + mTabLayout.getSelectedTabPosition());
+
 
 //        mTabLayout.getTabAt(0).getCustomView().setSelected(true);
 
@@ -250,6 +268,8 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 //        mViewPager.setCurrentItem(0);
 //        mTabLayout.setSelected(true);
 //        mTabLayout.getTabAt(0).select();
+
+
 
     }
 
@@ -329,13 +349,11 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     public void onBackPressed() {
         Log.d(Constants.TAG, "onBackPressed: ");
+
         super.onBackPressed();
 
+
     }
-
-
-
-
 
 
     @Override
@@ -466,7 +484,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
                 Log.d("MULTIPLE_PICKER ", "" + pictures.size());
 
                 mPresenter.getPostRestaurantPictures(pictures);
-            }else if(requestCode == Constants.CHILD_MAP_REQUEST_CODE){
+            } else if (requestCode == Constants.CHILD_MAP_REQUEST_CODE) {
                 Log.d("CHILD_MAP_REQUEST_CODE", " address " + data.getExtras().getString("address"));
                 Log.d("CHILD_MAP_REQUEST_CODE", " lat " + data.getExtras().getString("lat"));
                 Log.d("CHILD_MAP_REQUEST_CODE", " lng " + data.getExtras().getString("lng"));
@@ -529,8 +547,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         startActivityForResult(intent, Constants.MULTIPLE_PICKER);
 
     }
-
-
 
 
     public void transToMap() {

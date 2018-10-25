@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_marginTop="10dp">
 
 
     <EditText
-    android:id="@+id/edittext_post_menu"
-    android:layout_width="274dp"
-    android:layout_height="30dp"
-    android:background="@drawable/corner_bg_post_edittext"
-    android:hint="@string/what_did_you_eat"
-    android:paddingBottom="2dp"
-    android:paddingStart="2dp"
-    android:paddingTop="2dp"
-    tools:layout_editor_absoluteX="32dp"
-    tools:layout_editor_absoluteY="174dp" />
+        android:id="@+id/edittext_post_menu"
+        android:layout_width="274dp"
+        android:layout_height="30dp"
+        android:background="@drawable/corner_bg_post_edittext"
+        android:hint="@string/what_did_you_eat"
+        android:paddingBottom="2dp"
+        android:paddingStart="2dp"
+        android:paddingTop="2dp"
+        android:typeface="sans"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="174dp" />
 
     <EditText
-    android:id="@+id/edittext_post_price"
-    android:layout_width="55dp"
-    android:layout_height="30dp"
-    android:layout_marginLeft="10dp"
-    android:background="@drawable/corner_bg_post_edittext"
-    android:hint="@string/price"
-    android:paddingBottom="2dp"
-    android:paddingStart="2dp"
-    android:paddingTop="2dp"
-    tools:layout_editor_absoluteX="273dp"
-    tools:layout_editor_absoluteY="174dp" />
-
+        android:id="@+id/edittext_post_price"
+        android:layout_width="55dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/corner_bg_post_edittext"
+        android:hint="@string/price"
+        android:typeface="sans"
+        android:paddingBottom="2dp"
+        android:paddingStart="2dp"
+        android:paddingTop="2dp"
+        tools:layout_editor_absoluteX="273dp"
+        tools:layout_editor_absoluteY="174dp" />
 
 
 </LinearLayout>

@@ -99,7 +99,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         mPostButton = rootView.findViewById(R.id.imageView_map_post_article);
         mContext = getContext();
 
-//mGoogleMapView.onCreate(savedInstanceState);
         return rootView;
     }
 
@@ -263,10 +262,12 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
     @Override
     public void onStart() {
+        super.onStart();
+
         mGoogleApiClient.connect();
         Log.d("lifecycle", "  MapFragment onStart");
 
-        super.onStart();
+
     }
 
     @Override
@@ -341,18 +342,11 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
                 public boolean onMarkerClick(final Marker marker) {
                     Log.d(Constants.TAG, "onMarkerClick: ");
 
-//                Log.d(Constants.TAG, " hongtest MapFragment marker : " + marker.getPosition().latitude);
-//                Log.d(Constants.TAG, " hongtest MapFragment marker : " + marker.getPosition().longitude);
-
-
                     String lat = String.valueOf(marker.getPosition().latitude).replace(".", "@");
                     String lng = String.valueOf(marker.getPosition().longitude).replace(".", "@");
-//                lat = lat.substring(0, Constants.LATLNG_SAVE_DIGITS);
-//                lng = lng.substring(0, Constants.LATLNG_SAVE_DIGITS);
+
                     String key = (lat + "_" + lng);
-//                Log.d(Constants.TAG, " hongtest MapFragment: " + lat);
-//                Log.d(Constants.TAG, " hongtest MapFragment: " + lng);
-//                Log.d(Constants.TAG, " hongtest MapFragment: " + key);
+
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                     DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(key);
 //                DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(key);
@@ -443,7 +437,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
     @Override
     public void showMap() {
-//        Log.d(Constants.TAG, "  MapPresenter  showMap");
         mGoogleMapView.getMapAsync(this);
     }
 

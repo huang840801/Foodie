@@ -27,7 +27,7 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
 
     private RestaurantContract.Presenter mPresenter;
 
-    private Typeface mTypeface;
+//    private Typeface mTypeface;
     private Context mContext;
     private ArrayList<Article> mArticleArrayList;
 
@@ -50,7 +50,7 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         mContext = parent.getContext();
-        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
+//        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_restaurant_article_preview, parent, false);
         return new ArticleItemViewHolder(view);
@@ -67,9 +67,9 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
 
     private void bindMainItem(ArticleItemViewHolder holder, int position) {
 
-        holder.getAuthorName().setTypeface(mTypeface);
-        holder.getContent().setTypeface(mTypeface);
-        holder.getCreatedTime().setTypeface(mTypeface);
+//        holder.getAuthorName().setTypeface(mTypeface);
+//        holder.getContent().setTypeface(mTypeface);
+//        holder.getCreatedTime().setTypeface(mTypeface);
 
         holder.getAuthorName().setText(mArticleArrayList.get(position).getAuthor().getName());
         holder.getContent().setText(mArticleArrayList.get(position).getContent());

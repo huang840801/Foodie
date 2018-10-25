@@ -36,8 +36,6 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
 
     public RestaurantPhotoGalleryAdapter(ArrayList<String> restaurantPictures) {
         this.mPictureList = restaurantPictures;
-        if (mPictureList.size() > 0) {
-        }
     }
 
     @NonNull

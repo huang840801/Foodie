@@ -70,6 +70,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     Log.d(Constants.TAG, " LoginWithFirebase Id:  " + user.getUid());
                     Log.d(Constants.TAG, " LoginWithFirebase email:  " + user.getEmail());
                     Log.d(Constants.TAG, " LoginWithFirebase name:  " + mName);
+
+                    //註冊新帳號
                     if (mName != null && !mName.equals("")) {
 
 
@@ -92,7 +94,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         userManager.setUserData(user1);
 
                         myRef.child(user.getUid()).setValue(user1);
-                    } else {
+                    }
+                    //用已有的帳號登入
+                    else {
                         Log.d(Constants.TAG, " LoginWithFirebase : mName == null ");
 
                         FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();

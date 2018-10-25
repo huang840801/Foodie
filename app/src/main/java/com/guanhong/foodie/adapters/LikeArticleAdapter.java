@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class LikeArticleAdapter extends RecyclerView.Adapter {
     private ArrayList<Restaurant> mRestaurantArrayList;
     private Context mContext;
-    private Typeface mTypeface;
+//    private Typeface mTypeface;
     private LikeContract.Presenter mPresenter;
 
     public LikeArticleAdapter(LikeContract.Presenter presenter, ArrayList<Restaurant> restaurantArrayList) {
@@ -43,7 +43,7 @@ public class LikeArticleAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
+//        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_like_article, parent, false);
         return new LikeArticleAdapter.LikeArticleHolder(view);
@@ -59,8 +59,8 @@ public class LikeArticleAdapter extends RecyclerView.Adapter {
 
     private void bindMainItem(LikeArticleHolder holder, int position) {
 //                holder.mImageView.setImageResource(Integer.parseInt(mRestaurantArrayList.get(position).getRestaurantPictures().get(0)));
-        holder.mTextViewRestaurantName.setTypeface(mTypeface);
-        holder.mTextViewLocation.setTypeface(mTypeface);
+//        holder.mTextViewRestaurantName.setTypeface(mTypeface);
+//        holder.mTextViewLocation.setTypeface(mTypeface);
         holder.mTextViewRestaurantName.setText(mRestaurantArrayList.get(position).getRestaurantName());
         holder.mTextViewLocation.setText(mRestaurantArrayList.get(position).getRestaurantLocation());
 

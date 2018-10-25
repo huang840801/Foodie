@@ -192,7 +192,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                         holder.getBookmark().setImageResource(R.drawable.bookmark_selected);
                         isLike = true;
 
-
                     }
 
                 }
@@ -246,7 +245,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
 //                    Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
 //                    String str = formatter.format(curDate);
-//
+
 
                     Log.d("comment", " getLat_Lng = " + mRestaurant.getLat_Lng());
                     Log.d("comment", " comment = " + comment);
@@ -267,7 +266,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                     comment1.setComment(comment);
                     comment1.setCreatedTime(System.currentTimeMillis() + "");
 
-
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
                     DatabaseReference restaurantDataBase = firebaseDatabase.getReference("comment");
@@ -279,7 +277,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
 //                    mRestaurantMainAdapter.notifyDataSetChanged();
                 }
-
 
             }
         });
@@ -383,11 +380,10 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
     private void setPhotoRecyclerView(final RestaurantMainItemViewHolder holder) {
         holder.getRecyclerViewPhotoGallery().setLayoutManager((new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false)));
-//        holder.getRecyclerViewPhotoGallery().setOnFlingListener(null);
-//        new LinearSnapHelper().attachToRecyclerView(holder.mRecyclerViewPhotoGallery);
+
         holder.getRecyclerViewPhotoGallery()
                 .setAdapter(new RestaurantPhotoGalleryAdapter(mRestaurant.getRestaurantPictures()));
-        new PagerSnapHelper().attachToRecyclerView(holder.mRecyclerViewPhotoGallery);
+        new PagerSnapHelper().attachToRecyclerView(holder.getRecyclerViewPhotoGallery());
         final int size = mRestaurant.getRestaurantPictures().size();
         int remain = Integer.MAX_VALUE / 2 % size;
         holder.getRecyclerViewPhotoGallery().getLayoutManager().scrollToPosition(Integer.MAX_VALUE / 2 - remain);
@@ -416,7 +412,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         private RecyclerView mRecyclerViewArticlePreview;
         private EditText mEditTextComment;
         private ImageView mButtonSend;
-        private PageIndicatorView pageIndicatorView;
+        private PageIndicatorView mPageIndicatorView;
         private ImageView mBookmark;
         private TextView mTextViewArticleTitle;
         private TextView mTextViewPostArticle;
@@ -435,7 +431,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             mRecyclerViewArticlePreview = itemView.findViewById(R.id.recyclerView_article_preview);
             mEditTextComment = itemView.findViewById(R.id.editText_comments);
             mButtonSend = itemView.findViewById(R.id.imageView_send);
-            pageIndicatorView = itemView.findViewById(R.id.indicator);
+            mPageIndicatorView = itemView.findViewById(R.id.indicator);
             mBookmark = itemView.findViewById(R.id.imageView_bookmark);
             mTextViewArticleTitle = itemView.findViewById(R.id.textView_restaurant_article_title);
             mTextViewPostArticle = itemView.findViewById(R.id.button_restaurant_post);
@@ -499,7 +495,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         }
 
         public PageIndicatorView getPageIndicatorView() {
-            return pageIndicatorView;
+            return mPageIndicatorView;
         }
 
         public TextView getTextViewArticleTitle() {

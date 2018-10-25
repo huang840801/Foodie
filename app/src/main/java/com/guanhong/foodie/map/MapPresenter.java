@@ -107,58 +107,6 @@ public class MapPresenter implements MapContract.Presenter {
 
     }
 
-    private void getRestaurantComments(final String lat_lng, final Restaurant restaurant) {
-        Log.d("myCommentsBug ", " MapPresenter getRestaurantComments  " );
-
-        final ArrayList<Comment> comments = new ArrayList<>();
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("comment");
-
-        Query query = databaseReference;
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                Log.d("myCommentsBug ", "  MapPresenter onDataChange comments.size = " + comments.size());
-
-                comments.clear();
-                for (DataSnapshot snapshot : dataSnapshot.child(lat_lng).getChildren()) {
-
-                    Comment comment = new Comment();
-                    Author author = new Author();
-
-//                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("id").getValue());
-//                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("image").getValue());
-//                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("name").getValue());
-//                    Log.d("Comments ", " snapshot : " + snapshot.child("comment").getValue());
-//                    Log.d("Comments ", " snapshot : " + snapshot.child("createdTime").getValue());
-
-                    author.setId((String) snapshot.child("author").child("id").getValue());
-                    author.setImage((String) snapshot.child("author").child("image").getValue());
-                    author.setName((String) snapshot.child("author").child("name").getValue());
-
-                    comment.setAuthor(author);
-                    comment.setComment((String) snapshot.child("comment").getValue());
-                    comment.setCreatedTime(String.valueOf(snapshot.child("createdTime").getValue()));
-
-                    comments.add(comment);
-                }
-
-                Collections.reverse(comments);
-
-//                mMapView.showRestaurantUi(restaurant, comments);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-
     @Override
     public void createCustomMarker(Context context, String title) {
 

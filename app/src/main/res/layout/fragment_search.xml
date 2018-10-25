@@ -24,7 +24,7 @@
         android:id="@+id/editText_search"
         android:layout_width="0dp"
         android:layout_height="35dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/corners_bg"
         android:hint="@string/search"
@@ -33,16 +33,17 @@
         android:paddingStart="@dimen/text_padding_start"
         android:paddingTop="@dimen/text_padding_top"
         android:textSize="12dp"
+        android:typeface="sans"
         app:layout_constraintEnd_toStartOf="@+id/imageView_magnifier"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/divider"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="8dp"
         android:background="#e7e7e7"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,10 +52,10 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/search_recyclerView"
-        android:layout_width="344dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

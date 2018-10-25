@@ -22,8 +22,7 @@ import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.ProfileArticleAdapter;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.User;
-import com.guanhong.foodie.util.ArticlePreviewItemDecoration;
-import com.guanhong.foodie.util.ProfileArticleItemDecoration;
+import com.guanhong.foodie.util.NormalArticleItemDecoration;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     private TextView mArticleCount;
     //    private ImageView mImageViewPost;
     private RecyclerView mRecyclerView;
-    private Typeface mTypeface;
+//    private Typeface mTypeface;
     private ArrayList<Article> mArticleArrayList;
 
     private Context mContext;
@@ -118,11 +117,11 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
 
     private void setTypeFace() {
 
-        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
-        mUserName.setTypeface(mTypeface);
-        mUserEmail.setTypeface(mTypeface);
-        mCoinCount.setTypeface(mTypeface);
-        mArticleCount.setTypeface(mTypeface);
+//        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
+//        mUserName.setTypeface(mTypeface);
+//        mUserEmail.setTypeface(mTypeface);
+//        mCoinCount.setTypeface(mTypeface);
+//        mArticleCount.setTypeface(mTypeface);
 
     }
 
@@ -184,7 +183,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(new ProfileArticleAdapter(mArticleArrayList, mPresenter));
-        mRecyclerView.addItemDecoration(new ProfileArticleItemDecoration(40));
+//        mRecyclerView.addItemDecoration(new NormalArticleItemDecoration(40));
         mArticleCount.setText(String.valueOf(mArticleArrayList.size()));
     }
 

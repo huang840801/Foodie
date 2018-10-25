@@ -36,6 +36,7 @@
             android:text="@string/post"
             android:textColor="@color/white"
             android:textSize="20dp"
+            android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/topView"
             app:layout_constraintEnd_toEndOf="@+id/topView"
             app:layout_constraintTop_toTopOf="@+id/topView" />
@@ -48,6 +49,7 @@
             android:layout_marginStart="16dp"
             android:text="@string/restaurant_name"
             android:textSize="18dp"
+            android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_restaurant_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_restaurant_name" />
@@ -58,6 +60,7 @@
             android:layout_height="wrap_content"
             android:text="@string/location"
             android:textSize="18dp"
+            android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/textview_post_restaurant_location"
             app:layout_constraintStart_toStartOf="@+id/post_restaurant_name"
             app:layout_constraintTop_toTopOf="@+id/textview_post_restaurant_location" />
@@ -135,6 +138,7 @@
             android:paddingStart="@dimen/text_padding_start"
             android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
+            android:typeface="sans"
             app:layout_constraintStart_toStartOf="@+id/textview_post_restaurant_location"
             app:layout_constraintTop_toBottomOf="@+id/textview_post_restaurant_location" />
 
@@ -150,6 +154,7 @@
             android:paddingStart="@dimen/text_padding_start"
             android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
+            android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu1"
             app:layout_constraintEnd_toEndOf="@+id/textview_post_restaurant_location"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu1" />
@@ -175,6 +180,7 @@
             android:paddingStart="@dimen/text_padding_start"
             android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
+            android:typeface="sans"
             app:layout_constraintStart_toStartOf="@+id/edittext_post_menu1"
             app:layout_constraintTop_toBottomOf="@+id/edittext_post_menu1" />
 
@@ -190,6 +196,7 @@
             android:paddingStart="@dimen/text_padding_start"
             android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
+            android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu2"
             app:layout_constraintEnd_toEndOf="@+id/edittext_post_price1"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu2" />
@@ -215,6 +222,7 @@
             android:paddingStart="@dimen/text_padding_start"
             android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
+            android:typeface="sans"
             app:layout_constraintStart_toStartOf="@+id/edittext_post_menu2"
             app:layout_constraintTop_toBottomOf="@+id/edittext_post_menu2" />
 
@@ -230,6 +238,7 @@
             android:paddingStart="@dimen/text_padding_start"
             android:paddingTop="@dimen/text_padding_top"
             android:textSize="12dp"
+            android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu3"
             app:layout_constraintEnd_toEndOf="@+id/edittext_post_price2"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu3" />
@@ -316,6 +325,7 @@
             android:layout_height="wrap_content"
             android:text="菜單"
             android:textSize="18dp"
+            android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu1"
             app:layout_constraintStart_toStartOf="@+id/post_restaurant_location"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu1" />
@@ -327,6 +337,7 @@
 
             android:text="菜單"
             android:textSize="18dp"
+            android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu2"
             app:layout_constraintStart_toStartOf="@+id/textView_menu1"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu2" />
@@ -338,6 +349,7 @@
             android:text="菜單"
 
             android:textSize="18dp"
+            android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu3"
             app:layout_constraintStart_toStartOf="@+id/textView_menu2"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu3" />
@@ -348,6 +360,7 @@
             android:layout_height="wrap_content"
             android:text="內容"
             android:textSize="18dp"
+            android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_content"
             app:layout_constraintStart_toStartOf="@+id/textView_pictures"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_content" />
@@ -358,6 +371,7 @@
             android:layout_height="wrap_content"
             android:text="照片"
             android:textSize="18dp"
+            android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/constraintggg"
             app:layout_constraintStart_toStartOf="@+id/textView_menu3"
             app:layout_constraintTop_toTopOf="@+id/constraintggg" />
@@ -368,6 +382,7 @@
             android:layout_height="wrap_content"
             android:text="評分"
             android:textSize="18dp"
+            android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/ratingBar2"
             app:layout_constraintStart_toStartOf="@+id/textView_content"
             app:layout_constraintTop_toTopOf="@+id/ratingBar2" />

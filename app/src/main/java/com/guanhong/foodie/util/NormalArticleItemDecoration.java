@@ -4,7 +4,7 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class ProfileArticleItemDecoration extends RecyclerView.ItemDecoration {
+public class NormalArticleItemDecoration extends RecyclerView.ItemDecoration {
 
     int mSpace;
 
@@ -18,7 +18,7 @@ public class ProfileArticleItemDecoration extends RecyclerView.ItemDecoration {
 
     }
 
-    public ProfileArticleItemDecoration(int space) {
+    public NormalArticleItemDecoration(int space) {
         this.mSpace = space;
     }
 }

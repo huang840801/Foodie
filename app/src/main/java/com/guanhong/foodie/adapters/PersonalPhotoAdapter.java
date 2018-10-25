@@ -1,7 +1,6 @@
 package com.guanhong.foodie.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,13 +17,13 @@ import java.util.ArrayList;
 
 public class PersonalPhotoAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<String> mPhotosList;
+    private ArrayList<String> mPictureList;
     private Context mContext;
 
     public PersonalPhotoAdapter(ArrayList<String> pictures) {
-        mPhotosList = pictures;
-        Log.d(Constants.TAG, "  showNewPictures " + mPhotosList);
-        Log.d(Constants.TAG, "  showNewPictures " + mPhotosList.get(0));
+        mPictureList = pictures;
+//        Log.d(Constants.TAG, "  showNewPictures " + mPictureList);
+//        Log.d(Constants.TAG, "  showNewPictures " + mPictureList.get(0));
 
 
     }
@@ -54,7 +53,7 @@ public class PersonalPhotoAdapter extends RecyclerView.Adapter {
 //    }
     @Override
     public int getItemCount() {
-        return mPhotosList.size();
+        return Integer.MAX_VALUE;
     }
 
     private class PersonalArticlePhotoItemViewHolder extends RecyclerView.ViewHolder {
@@ -72,8 +71,10 @@ public class PersonalPhotoAdapter extends RecyclerView.Adapter {
 //        }
 
         public void bindData(int position) {
+            int positionInPhoto = position % mPictureList.size();
+
             Picasso.get()
-                    .load(mPhotosList.get(position))
+                    .load(mPictureList.get(positionInPhoto))
                     .fit()
                     .placeholder(R.drawable.animated_rotate_drawable)
                     .error(R.drawable.photo_error)

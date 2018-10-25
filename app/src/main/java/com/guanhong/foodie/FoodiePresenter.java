@@ -1,6 +1,8 @@
 package com.guanhong.foodie;
 
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -69,12 +71,11 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
     private ViewPager mViewPager;
 
-    public FoodiePresenter(FoodieContract.View foodieView, ViewPager viewPager, android.support.v4.app.FragmentManager supportFragmentManager) {
+
+    public FoodiePresenter(FoodieContract.View foodieView, ViewPager viewPager, FragmentManager supportFragmentManager) {
         mFoodieView = checkNotNull(foodieView, "foodieView cannot be null!");
-//        mFoodieView = foodieView;
         mFoodieView.setPresenter(this);
 
-//        mFoodieView = foodieView;
         mViewPager = viewPager;
         mFragmentManager = supportFragmentManager;
     }
@@ -110,10 +111,12 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 //            Log.d(Constants.TAG, "  transToMap mRestaurantFragment isHidden");
 //            fragmentTransaction.remove(mPostChildMapFragment);
 //        }
-        fragmentTransaction.commit();
 
         mViewPager.setCurrentItem(0);
         mFoodieView.setTabLayoutVisibility(true);
+
+        fragmentTransaction.commit();
+
     }
 
     @Override

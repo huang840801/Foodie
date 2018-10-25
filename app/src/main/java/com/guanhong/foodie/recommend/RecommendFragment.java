@@ -25,6 +25,7 @@ import com.guanhong.foodie.adapters.RecommendPhotoAdapter;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
 import com.guanhong.foodie.util.ArticlePreviewItemDecoration;
+import com.guanhong.foodie.util.NormalArticleItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -40,7 +41,7 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     private TextView mTitle;
     private TextView mRestaurantName;
     private TextView mLocation;
-    private TextView mPhoto;
+//    private TextView mPhoto;
     private ImageView mStar1;
     private ImageView mStar2;
     private ImageView mStar3;
@@ -48,7 +49,7 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     private ImageView mStar5;
     private RecyclerView mRecyclerView;
 
-    private Typeface mTypeface;
+//    private Typeface mTypeface;
     private ArrayList<Restaurant> mRestaurantArrayList = new ArrayList<>();
 
     private Timer mTimer ;
@@ -64,7 +65,7 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         mTitle = v.findViewById(R.id.textView_recommend_title);
         mRestaurantName = v.findViewById(R.id.textView_restaurant_name);
         mLocation = v.findViewById(R.id.textView_location);
-        mPhoto = v.findViewById(R.id.textView_photo);
+//        mPhoto = v.findViewById(R.id.textView_photo);
         mStar1 = v.findViewById(R.id.imageView_recommend_star1);
         mStar2 = v.findViewById(R.id.imageView_recommend_star2);
         mStar3 = v.findViewById(R.id.imageView_recommend_star3);
@@ -134,11 +135,11 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     }
 
     private void setTypeFace() {
-        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
-        mTitle.setTypeface(mTypeface);
-        mRestaurantName.setTypeface(mTypeface);
-        mLocation.setTypeface(mTypeface);
-        mPhoto.setTypeface(mTypeface);
+//        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
+//        mTitle.setTypeface(mTypeface);
+//        mRestaurantName.setTypeface(mTypeface);
+//        mLocation.setTypeface(mTypeface);
+//        mPhoto.setTypeface(mTypeface);
     }
 
 
@@ -212,7 +213,7 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
                     mRecyclerView.setHasFixedSize(true);
                     mRecyclerView.setAdapter(new RecommendPhotoAdapter(restaurant.getRestaurantPictures()));
-                    mRecyclerView.addItemDecoration(new ArticlePreviewItemDecoration(15));
+//                    mRecyclerView.addItemDecoration(new NormalArticleItemDecoration(25));
                 }
 
 
