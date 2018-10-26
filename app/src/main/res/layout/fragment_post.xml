@@ -297,11 +297,11 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/corner_bg_post_edittext"
             android:gravity="start"
-            android:hint="今天來到了XXX餐館..."
+            android:hint="@string/content_hint"
             android:padding="10dp"
             android:textSize="12dp"
-            app:layout_constraintStart_toStartOf="@+id/constraintggg"
-            app:layout_constraintTop_toBottomOf="@+id/constraintggg" />
+            app:layout_constraintStart_toStartOf="@+id/constraint"
+            app:layout_constraintTop_toBottomOf="@+id/constraint" />
 
 
         <RatingBar
@@ -323,7 +323,7 @@
             android:id="@+id/textView_menu1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="菜單"
+            android:text="@string/menu"
             android:textSize="18dp"
             android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu1"
@@ -358,7 +358,7 @@
             android:id="@+id/textView_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="內容"
+            android:text="@string/content"
             android:textSize="18dp"
             android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_content"
@@ -369,19 +369,19 @@
             android:id="@+id/textView_pictures"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="照片"
+            android:text="@string/pictures"
             android:textSize="18dp"
             android:typeface="sans"
-            app:layout_constraintBottom_toBottomOf="@+id/constraintggg"
+            app:layout_constraintBottom_toBottomOf="@+id/constraint"
             app:layout_constraintStart_toStartOf="@+id/textView_menu1"
-            app:layout_constraintTop_toTopOf="@+id/constraintggg" />
+            app:layout_constraintTop_toTopOf="@+id/constraint" />
 
         <TextView
             android:id="@+id/textView_rating_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="評分"
+            android:text="@string/rate"
             android:textSize="18dp"
             android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/ratingBar2"
@@ -389,7 +389,7 @@
             app:layout_constraintTop_toTopOf="@+id/ratingBar2" />
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintggg"
+            android:id="@+id/constraint"
             android:layout_width="228dp"
             android:layout_height="150dp"
             android:layout_marginTop="16dp"
@@ -404,9 +404,9 @@
                 android:layout_marginEnd="0dp"
                 android:background="@drawable/dash_background"
                 android:padding="48dp"
-                app:layout_constraintBottom_toBottomOf="@+id/constraintggg"
+                app:layout_constraintBottom_toBottomOf="@+id/constraint"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/constraintggg"
+                app:layout_constraintTop_toTopOf="@+id/constraint"
                 app:srcCompat="@drawable/picture" />
 
             <android.support.v7.widget.RecyclerView

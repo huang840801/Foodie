@@ -21,7 +21,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="0dp"
-        android:text="GuanHong"
+        android:text="@string/guanhong"
         android:textSize="14dp"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -37,7 +37,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="2dp"
-        android:text="很好吃mmmmmmmmmmmmmmmmmmmmmmmmmmmmm!"
+        android:text=""
         android:textSize="12dp"
 
         android:textColor="@color/black"
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
-        android:text="2018年10月07日18:40"
+        android:text="@string/time_preview"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_authorName" />

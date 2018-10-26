@@ -29,5 +29,19 @@
     <string name="author">作者 :</string>
     <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
     <string name="already_have_account_login">Already have account? Login</string>
+    <string name="address">110台灣台北市信義區基隆路一段178號</string>
+    <string name="like_preview">加入收藏的文章會放在這裡, 方便隨時瀏覽!</string>
+    <string name="menu">菜單</string>
+    <string name="content">內容</string>
+    <string name="content_hint">今天來到了XXX餐館...</string>
+    <string name="pictures">照片</string>
+    <string name="rate">評分</string>
+    <string name="zero">0</string>
+    <string name="recommend_first">本</string>
+    <string name="recommend_second">日</string>
+    <string name="recommend_third">精</string>
+    <string name="recommend_forth">選</string>
+    <string name="guanhong">GuanHong</string>
+    <string name="i_want_post">我要評論</string>
 
 </resources>
