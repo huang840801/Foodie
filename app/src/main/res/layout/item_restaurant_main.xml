@@ -53,7 +53,7 @@
 
     <ImageView
         android:id="@+id/imageView_star2"
-         android:layout_width="18dp"
+        android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginStart="8dp"
 
@@ -63,7 +63,7 @@
 
     <ImageView
         android:id="@+id/imageView_star3"
-         android:layout_width="18dp"
+        android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginStart="8dp"
 
@@ -73,7 +73,7 @@
 
     <ImageView
         android:id="@+id/imageView_star4"
-         android:layout_width="18dp"
+        android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginStart="8dp"
 
@@ -83,7 +83,7 @@
 
     <ImageView
         android:id="@+id/imageView_star5"
-         android:layout_width="18dp"
+        android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginStart="8dp"
 
@@ -92,14 +92,14 @@
         app:srcCompat="@drawable/new_star_unselected" />
 
     <!--<ImageView-->
-        <!--android:id="@+id/imageView2"-->
-        <!--android:layout_width="17dp"-->
-        <!--android:layout_height="20dp"-->
-        <!--android:layout_marginTop="4dp"-->
-        <!--android:padding="2dp"-->
-        <!--app:layout_constraintStart_toStartOf="@+id/imageView_star1"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/imageView_star1"-->
-        <!--app:srcCompat="@drawable/new_yellow_marker" />-->
+    <!--android:id="@+id/imageView2"-->
+    <!--android:layout_width="17dp"-->
+    <!--android:layout_height="20dp"-->
+    <!--android:layout_marginTop="4dp"-->
+    <!--android:padding="2dp"-->
+    <!--app:layout_constraintStart_toStartOf="@+id/imageView_star1"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/imageView_star1"-->
+    <!--app:srcCompat="@drawable/new_yellow_marker" />-->
 
     <TextView
         android:id="@+id/textView_location"
@@ -152,7 +152,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView_article_preview" />
 
-    <EditText
+    <!--<EditText-->
+    <!--android:id="@+id/editText_comments"-->
+    <!--android:layout_width="300dp"-->
+    <!--android:layout_height="35dp"-->
+    <!--android:layout_marginStart="12dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:background="@drawable/corners_bg"-->
+    <!--android:hint="@string/say_something"-->
+    <!--android:paddingBottom="@dimen/text_padding_bottom"-->
+    <!--android:paddingEnd="@dimen/text_padding_end"-->
+    <!--android:paddingStart="@dimen/text_padding_start"-->
+    <!--android:paddingTop="@dimen/text_padding_top"-->
+    <!--android:textSize="12dp"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/imageView_send"-->
+    <!--app:layout_constraintHorizontal_bias="0.0"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/topView"-->
+    <!--app:layout_constraintVertical_bias="1.0" />-->
+    <me.james.biuedittext.BiuEditText
         android:id="@+id/editText_comments"
         android:layout_width="300dp"
         android:layout_height="35dp"
@@ -164,7 +183,12 @@
         android:paddingEnd="@dimen/text_padding_end"
         android:paddingStart="@dimen/text_padding_start"
         android:paddingTop="@dimen/text_padding_top"
-        android:textSize="12dp"
+        android:textColor="@color/black"
+        app:biu_duration="800"
+        app:biu_text_color="@color/black"
+        app:biu_text_scale="1.5"
+        app:biu_text_start_size="12sp"
+        app:biu_type="flyup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageView_send"
         app:layout_constraintHorizontal_bias="0.0"
@@ -207,7 +231,7 @@
         android:text="@string/tourist_article"
 
         android:textColor="#000000"
-        android:textSize="22dp"
+        android:textSize="16dp"
         android:textStyle="bold"
         android:typeface="sans"
         app:layout_constraintStart_toStartOf="parent"
@@ -218,13 +242,14 @@
         android:id="@+id/button_restaurant_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="我要評論"
 
+        android:text="我要評論"
         android:textColor="@color/main"
         android:textSize="14dp"
         android:typeface="sans"
-        app:layout_constraintBottom_toBottomOf="@+id/textView_location"
-        app:layout_constraintEnd_toStartOf="@+id/imageView_arrow_right" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView_restaurant_article_title"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_arrow_right"
+        app:layout_constraintTop_toTopOf="@+id/textView_restaurant_article_title" />
 
     <ImageView
         android:id="@+id/imageView_arrow_right"

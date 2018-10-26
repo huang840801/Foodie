@@ -289,7 +289,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
 
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.emerge, R.anim.emerge);
+        fragmentTransaction.setCustomAnimations(R.anim.fragment_transition, R.anim.fragment_transition);
 
         mPersonalArticleFragment = PersonalArticleFragment.newInstance();
         mPersonalArticlePresenter = new PersonalArticlePresenter(mPersonalArticleFragment, article);

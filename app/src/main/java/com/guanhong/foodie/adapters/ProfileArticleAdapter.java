@@ -60,7 +60,7 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
         holder.getContent().setText(mArticleArrayList.get(position).getContent());
 
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy 年 MM月dd日 HH:mm");
         long lcc = Long.valueOf(mArticleArrayList.get(position).getCreatedTime());
         String time = formatter.format(new Date(lcc));
         holder.getCreatedTime().setText(time);

@@ -20,8 +20,11 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:text="GuanHong"
+        android:textSize="14dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         android:typeface="sans"
         app:layout_constraintStart_toEndOf="@+id/imageView_authorImage"
         app:layout_constraintTop_toTopOf="@+id/imageView_authorImage" />
@@ -32,16 +35,17 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:text="很好吃!"
-        android:typeface="sans"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:text="很好吃mmmmmmmmmmmmmmmmmmmmmmmmmmmmm!"
+        android:textSize="12dp"
 
+        android:textColor="@color/black"
+        android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_authorImage" />
+        app:layout_constraintStart_toEndOf="@+id/imageView_authorImage"
+        app:layout_constraintTop_toBottomOf="@+id/textView_authorName" />
 
     <TextView
         android:id="@+id/textView_comment_createdTime"
@@ -49,6 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:text="2018年10月07日18:40"
+        android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_authorName" />
 </android.support.constraint.ConstraintLayout>

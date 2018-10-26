@@ -193,7 +193,7 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
         mTextViewRestaurantLocation.setText(article.getLocation());
         mAuthorName.setText(article.getAuthor().getName());
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy 年 MM月dd日 HH:mm");
         long lcc = Long.valueOf(article.getCreatedTime());
         String time = formatter.format(new Date(lcc));
         mCreatedTime.setText(time);

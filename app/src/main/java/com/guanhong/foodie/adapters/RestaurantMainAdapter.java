@@ -41,6 +41,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import me.james.biuedittext.BiuEditText;
+
 public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
     private RestaurantContract.Presenter mPresenter;
@@ -212,7 +214,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         });
 
         Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.arrow);
-
         holder.mImageViewArrowRight.setAnimation(animation);
 
         holder.getBookmark().setOnClickListener(new View.OnClickListener() {
@@ -410,7 +411,8 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         private ImageView mStar5;
         private TextView mRestaurantPosition;
         private RecyclerView mRecyclerViewArticlePreview;
-        private EditText mEditTextComment;
+//        private EditText mEditTextComment;
+        private BiuEditText mBiuEditText;
         private ImageView mButtonSend;
         private PageIndicatorView mPageIndicatorView;
         private ImageView mBookmark;
@@ -429,7 +431,8 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             mStar5 = itemView.findViewById(R.id.imageView_star5);
             mRestaurantPosition = itemView.findViewById(R.id.textView_location);
             mRecyclerViewArticlePreview = itemView.findViewById(R.id.recyclerView_article_preview);
-            mEditTextComment = itemView.findViewById(R.id.editText_comments);
+//            mEditTextComment = itemView.findViewById(R.id.editText_comments);
+            mBiuEditText = itemView.findViewById(R.id.editText_comments);
             mButtonSend = itemView.findViewById(R.id.imageView_send);
             mPageIndicatorView = itemView.findViewById(R.id.indicator);
             mBookmark = itemView.findViewById(R.id.imageView_bookmark);
@@ -487,7 +490,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         }
 
         public EditText getEditTextComment() {
-            return mEditTextComment;
+            return mBiuEditText;
         }
 
         public ImageView getButtonSend() {
@@ -521,7 +524,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                     .into(holder.getImageAuthorImage());
         }
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy 年 MM月dd日 HH:mm");
         long lcc = Long.valueOf(mComments.get(i).getCreatedTime());
         String time = formatter.format(new Date(lcc));
         holder.getTextCreatedTime().setText(time);

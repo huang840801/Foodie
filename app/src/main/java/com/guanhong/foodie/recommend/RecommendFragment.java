@@ -3,7 +3,6 @@ package com.guanhong.foodie.recommend;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,8 +25,6 @@ import com.guanhong.foodie.R;
 import com.guanhong.foodie.adapters.RecommendPhotoAdapter;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
-import com.guanhong.foodie.util.ArticlePreviewItemDecoration;
-import com.guanhong.foodie.util.NormalArticleItemDecoration;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -33,28 +32,38 @@ import java.util.TimerTask;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class RecommendFragment extends Fragment implements RecommendContract.View {
+public class RecommendFragment extends Fragment implements RecommendContract.View, Animation.AnimationListener {
 
     private RecommendContract.Presenter mPresenter;
     private Context mContext;
 
-    private TextView mTitle;
+    private TextView mTitle_first;
+    private TextView mTitle_second;
+    private TextView mTitle_third;
+    private TextView mTitle_forth;
+
     private TextView mRestaurantName;
     private TextView mLocation;
-//    private TextView mPhoto;
+    //    private TextView mPhoto;
     private ImageView mStar1;
     private ImageView mStar2;
     private ImageView mStar3;
     private ImageView mStar4;
     private ImageView mStar5;
     private RecyclerView mRecyclerView;
+    private ImageView mLabel;
 
-//    private Typeface mTypeface;
+    //    private Typeface mTypeface;
     private ArrayList<Restaurant> mRestaurantArrayList = new ArrayList<>();
 
-    private Timer mTimer ;
-    private int mCount =  0;
+    private Timer mTimer;
+    private int mCount = 0;
 
+    private Animation mLabelAnimation;
+    private Animation mFirstTextAnimation;
+    private Animation mSecondTextAnimation;
+    private Animation mThirdTextAnimation;
+    private Animation mForthTextAnimation;
 
     @Nullable
     @Override
@@ -62,9 +71,13 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         View v = inflater.inflate(R.layout.fragment_recommend, container, false);
         mContext = getContext();
 
-        mTitle = v.findViewById(R.id.textView_recommend_title);
+        mTitle_first = v.findViewById(R.id.textView_recommend_title_first);
+        mTitle_second = v.findViewById(R.id.textView_recommend_title_second);
+        mTitle_third = v.findViewById(R.id.textView_recommend_title_third);
+        mTitle_forth = v.findViewById(R.id.textView_recommend_title_forth);
         mRestaurantName = v.findViewById(R.id.textView_restaurant_name);
         mLocation = v.findViewById(R.id.textView_location);
+        mLabel = v.findViewById(R.id.imageView_recommend_label);
 //        mPhoto = v.findViewById(R.id.textView_photo);
         mStar1 = v.findViewById(R.id.imageView_recommend_star1);
         mStar2 = v.findViewById(R.id.imageView_recommend_star2);
@@ -72,6 +85,10 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         mStar4 = v.findViewById(R.id.imageView_recommend_star4);
         mStar5 = v.findViewById(R.id.imageView_recommend_star5);
         mRecyclerView = v.findViewById(R.id.recommend_recyclerView);
+        mTitle_first.setVisibility(View.GONE);
+        mTitle_second.setVisibility(View.GONE);
+        mTitle_third.setVisibility(View.GONE);
+        mTitle_forth.setVisibility(View.GONE);
 
         return v;
     }
@@ -90,7 +107,10 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTypeFace();
+        setAnimation();
+
         mPresenter.start();
+
 
 //        mHandler = new Handler()
 //        startMyService();
@@ -105,9 +125,9 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Log.d(Constants.TAG, "RecommendFragment mCount = " +mCount);
+                Log.d(Constants.TAG, "RecommendFragment mCount = " + mCount);
 
-                ((Activity)mContext).runOnUiThread(new Runnable() {
+                ((Activity) mContext).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         createRandomRestaurant();
@@ -163,61 +183,114 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
 
         Log.d(Constants.TAG, "RecommendFragment " + restaurant.getRestaurantName());
 
-                    mRestaurantName.setText(restaurant.getRestaurantName());
-                    mLocation.setText(restaurant.getRestaurantLocation());
-                    if (restaurant.getStarCount() == 5) {
-                        mStar1.setImageResource(R.drawable.new_star_selected);
-                        mStar2.setImageResource(R.drawable.new_star_selected);
-                        mStar3.setImageResource(R.drawable.new_star_selected);
-                        mStar4.setImageResource(R.drawable.new_star_selected);
-                        mStar5.setImageResource(R.drawable.new_star_selected);
 
-                    } else if (restaurant.getStarCount() == 4) {
-                        mStar1.setImageResource(R.drawable.new_star_selected);
-                        mStar2.setImageResource(R.drawable.new_star_selected);
-                        mStar3.setImageResource(R.drawable.new_star_selected);
-                        mStar4.setImageResource(R.drawable.new_star_selected);
-                        mStar5.setImageResource(R.drawable.new_star_unselected);
+        mRestaurantName.setText(restaurant.getRestaurantName());
+        mLocation.setText(restaurant.getRestaurantLocation());
+        if (restaurant.getStarCount() == 5) {
+            mStar1.setImageResource(R.drawable.new_star_selected);
+            mStar2.setImageResource(R.drawable.new_star_selected);
+            mStar3.setImageResource(R.drawable.new_star_selected);
+            mStar4.setImageResource(R.drawable.new_star_selected);
+            mStar5.setImageResource(R.drawable.new_star_selected);
 
-                    } else if (restaurant.getStarCount() == 3) {
-                        mStar1.setImageResource(R.drawable.new_star_selected);
-                        mStar2.setImageResource(R.drawable.new_star_selected);
-                        mStar3.setImageResource(R.drawable.new_star_selected);
-                        mStar4.setImageResource(R.drawable.new_star_unselected);
-                        mStar5.setImageResource(R.drawable.new_star_unselected);
+        } else if (restaurant.getStarCount() == 4) {
+            mStar1.setImageResource(R.drawable.new_star_selected);
+            mStar2.setImageResource(R.drawable.new_star_selected);
+            mStar3.setImageResource(R.drawable.new_star_selected);
+            mStar4.setImageResource(R.drawable.new_star_selected);
+            mStar5.setImageResource(R.drawable.new_star_unselected);
 
-                    } else if (restaurant.getStarCount() == 2) {
-                        mStar1.setImageResource(R.drawable.new_star_selected);
-                        mStar2.setImageResource(R.drawable.new_star_selected);
-                        mStar3.setImageResource(R.drawable.new_star_unselected);
-                        mStar4.setImageResource(R.drawable.new_star_unselected);
-                        mStar5.setImageResource(R.drawable.new_star_unselected);
+        } else if (restaurant.getStarCount() == 3) {
+            mStar1.setImageResource(R.drawable.new_star_selected);
+            mStar2.setImageResource(R.drawable.new_star_selected);
+            mStar3.setImageResource(R.drawable.new_star_selected);
+            mStar4.setImageResource(R.drawable.new_star_unselected);
+            mStar5.setImageResource(R.drawable.new_star_unselected);
 
-                    } else if (restaurant.getStarCount() == 1) {
-                        mStar1.setImageResource(R.drawable.new_star_selected);
-                        mStar2.setImageResource(R.drawable.new_star_unselected);
-                        mStar3.setImageResource(R.drawable.new_star_unselected);
-                        mStar4.setImageResource(R.drawable.new_star_unselected);
-                        mStar5.setImageResource(R.drawable.new_star_unselected);
+        } else if (restaurant.getStarCount() == 2) {
+            mStar1.setImageResource(R.drawable.new_star_selected);
+            mStar2.setImageResource(R.drawable.new_star_selected);
+            mStar3.setImageResource(R.drawable.new_star_unselected);
+            mStar4.setImageResource(R.drawable.new_star_unselected);
+            mStar5.setImageResource(R.drawable.new_star_unselected);
 
-                    } else if (restaurant.getStarCount() == 0) {
-                        mStar1.setImageResource(R.drawable.new_star_unselected);
-                        mStar2.setImageResource(R.drawable.new_star_unselected);
-                        mStar3.setImageResource(R.drawable.new_star_unselected);
-                        mStar4.setImageResource(R.drawable.new_star_unselected);
-                        mStar5.setImageResource(R.drawable.new_star_unselected);
+        } else if (restaurant.getStarCount() == 1) {
+            mStar1.setImageResource(R.drawable.new_star_selected);
+            mStar2.setImageResource(R.drawable.new_star_unselected);
+            mStar3.setImageResource(R.drawable.new_star_unselected);
+            mStar4.setImageResource(R.drawable.new_star_unselected);
+            mStar5.setImageResource(R.drawable.new_star_unselected);
 
-                    }
+        } else if (restaurant.getStarCount() == 0) {
+            mStar1.setImageResource(R.drawable.new_star_unselected);
+            mStar2.setImageResource(R.drawable.new_star_unselected);
+            mStar3.setImageResource(R.drawable.new_star_unselected);
+            mStar4.setImageResource(R.drawable.new_star_unselected);
+            mStar5.setImageResource(R.drawable.new_star_unselected);
+
+        }
 
 
-                    mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
-                    mRecyclerView.setHasFixedSize(true);
-                    mRecyclerView.setAdapter(new RecommendPhotoAdapter(restaurant.getRestaurantPictures()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(new RecommendPhotoAdapter(restaurant.getRestaurantPictures()));
 //                    mRecyclerView.addItemDecoration(new NormalArticleItemDecoration(25));
-                }
 
 
 
+    }
+
+    private void setAnimation() {
+
+        mLabelAnimation = AnimationUtils.loadAnimation(mContext, R.anim.label);
+        mLabel.setAnimation(mLabelAnimation);
+
+        mFirstTextAnimation = AnimationUtils.loadAnimation(mContext, R.anim.text_alpha);
+        mSecondTextAnimation = AnimationUtils.loadAnimation(mContext, R.anim.text_alpha);
+        mThirdTextAnimation = AnimationUtils.loadAnimation(mContext, R.anim.text_alpha);
+        mForthTextAnimation = AnimationUtils.loadAnimation(mContext, R.anim.text_alpha);
 
 
+        mLabelAnimation.setAnimationListener(this);
+        mFirstTextAnimation.setAnimationListener(this);
+        mSecondTextAnimation.setAnimationListener(this);
+        mThirdTextAnimation.setAnimationListener(this);
+
+    }
+
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+        if (animation == mLabelAnimation) {
+            mTitle_first.setVisibility(View.VISIBLE);
+            mTitle_first.setAnimation(mFirstTextAnimation);
+
+        }
+        if (animation == mFirstTextAnimation) {
+            mTitle_second.setVisibility(View.VISIBLE);
+            mTitle_second.setAnimation(mSecondTextAnimation);
+
+        }
+        if (animation == mSecondTextAnimation) {
+            mTitle_third.setVisibility(View.VISIBLE);
+            mTitle_third.setAnimation(mThirdTextAnimation);
+
+        }
+        if (animation == mThirdTextAnimation) {
+            mTitle_forth.setVisibility(View.VISIBLE);
+            mTitle_forth.setAnimation(mForthTextAnimation);
+
+        }
+
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+
+    }
 }

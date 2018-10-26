@@ -60,6 +60,8 @@ dependencies {
     implementation 'com.orhanobut:logger:1.15'
     implementation'com.wang.avi:library:1.0.0'
     implementation'com.nineoldandroids:library:2.4.0'
+    implementation 'com.xujinyang.BiuEditText:library:1.4.1'
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
