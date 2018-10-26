@@ -1,6 +1,5 @@
 package com.guanhong.foodie;
 
-
 import com.google.android.gms.maps.model.LatLng;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Comment;
@@ -31,8 +30,6 @@ public interface FoodieContract {
         void transToRestaurant(Restaurant restaurant, ArrayList<Comment> comments);
 
         void transToPostArticle();
-
-        void transToPostChildMap();
 
         void transToPostArticle(String addressLine, LatLng latLng);
 

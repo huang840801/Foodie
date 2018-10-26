@@ -63,6 +63,7 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
     private static final int REQUEST_FINE_LOCATION_PERMISSION = 102;
     private boolean getService = false;     //是否已開啟定位服務
     private LocationManager status;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,8 +162,8 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
                         Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap, width, height, false);
 
                         mGoogleMap.addMarker(new MarkerOptions()
-                                  .position(latLng)
-                                  .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                                .position(latLng)
+                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
 
 //                        showDialog(addressList.get(0).getAddressLine(0), latLng);
@@ -331,7 +332,7 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(MapActivity.this, FoodieActivity.class);
+                final Intent intent = new Intent(MapActivity.this, FoodieActivity.class);
                 Bundle bundle = new Bundle();
 
                 bundle.putString("address", addressLine);

@@ -93,12 +93,12 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
 
 //                Picasso.get().load(uri).placeholder(R.drawable.all_picture_placeholder).into(mImagePictures);
 //            }else {
-                Picasso.get()
-                        .load(mPictureList.get(positionInPhoto))
-                        .fit()
-                        .placeholder(R.drawable.animated_rotate_drawable)
-                        .error(R.drawable.photo_error)
-                        .into(mImagePictures);
+            Picasso.get()
+                    .load(mPictureList.get(positionInPhoto))
+                    .fit()
+                    .placeholder(R.drawable.animated_rotate_drawable)
+                    .error(R.drawable.photo_error)
+                    .into(mImagePictures);
 
 //            }
         }

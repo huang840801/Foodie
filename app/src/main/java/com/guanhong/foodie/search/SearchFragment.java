@@ -1,5 +1,7 @@
 package com.guanhong.foodie.search;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,7 +25,6 @@ import com.guanhong.foodie.objects.Restaurant;
 
 import java.util.ArrayList;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class SearchFragment extends Fragment implements SearchContract.View, View.OnClickListener {
 
@@ -46,7 +47,8 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
         mRecyclerView = v.findViewById(R.id.search_recyclerView);
         return v;
     }
-    public static SearchFragment newInstance(){
+
+    public static SearchFragment newInstance() {
         return new SearchFragment();
     }
 
@@ -66,10 +68,10 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.imageView_magnifier){
-            if(!"".equals(mEditTextSearch.getText().toString())) {
+        if (view.getId() == R.id.imageView_magnifier) {
+            if (!"".equals(mEditTextSearch.getText().toString())) {
                 mPresenter.searchArticles(mEditTextSearch.getText().toString());
-            }else {
+            } else {
                 Toast.makeText(mContext, R.string.cannot_be_empty, Toast.LENGTH_SHORT).show();
             }
         }
@@ -87,11 +89,11 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
 //        }
 
 
-            mSearchRestaurantAdapter = new SearchRestaurantAdapter(mPresenter, restaurantArrayList);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
-            mRecyclerView.setHasFixedSize(true);
-            mRecyclerView.setAdapter(mSearchRestaurantAdapter);
-            mSearchRestaurantAdapter.notifyDataSetChanged();
+        mSearchRestaurantAdapter = new SearchRestaurantAdapter(mPresenter, restaurantArrayList);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mSearchRestaurantAdapter);
+        mSearchRestaurantAdapter.notifyDataSetChanged();
 
 
     }
@@ -104,6 +106,6 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
 
     @Override
     public void transToRestaurant(Restaurant restaurant) {
-        ((FoodieActivity)getActivity()).transToRestaurant(restaurant);
+        ((FoodieActivity) getActivity()).transToRestaurant(restaurant);
     }
 }

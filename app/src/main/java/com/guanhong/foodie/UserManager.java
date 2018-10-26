@@ -6,7 +6,7 @@ import com.guanhong.foodie.objects.User;
 
 public class UserManager {
 
-    private static UserManager userManager ;
+    private static UserManager userManager;
 
     private String mUserId;
     private String mUserName;
@@ -23,7 +23,8 @@ public class UserManager {
                 }
             }
         }
-        return userManager;    }
+        return userManager;
+    }
 
 //    private UserManager() {
 //    }

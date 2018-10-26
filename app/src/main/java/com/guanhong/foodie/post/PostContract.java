@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public interface PostContract {
 
-    interface View extends BaseView<Presenter>{
+    interface View extends BaseView<Presenter> {
 
         void setTabLayoutVisibility(boolean visible);
 
@@ -25,8 +25,7 @@ public interface PostContract {
 
     }
 
-    interface Presenter extends BasePresenter{
-
+    interface Presenter extends BasePresenter {
 
 
         void postArticle(Article article);

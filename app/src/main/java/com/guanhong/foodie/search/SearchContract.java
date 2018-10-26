@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface SearchContract {
 
-    interface View extends BaseView<Presenter>{
+    interface View extends BaseView<Presenter> {
 
         void showSearchResult(ArrayList<Restaurant> restaurantArrayList);
 
@@ -17,7 +17,7 @@ public interface SearchContract {
         void transToRestaurant(Restaurant restaurant);
     }
 
-    interface Presenter extends BasePresenter{
+    interface Presenter extends BasePresenter {
 
         void searchArticles(String s);
 

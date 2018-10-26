@@ -1,5 +1,7 @@
 package com.guanhong.foodie.search;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -13,7 +15,6 @@ import com.guanhong.foodie.objects.Restaurant;
 
 import java.util.ArrayList;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class SearchPresenter implements SearchContract.Presenter {
 
@@ -138,12 +139,12 @@ public class SearchPresenter implements SearchContract.Presenter {
 //                            }
 
 
-                        }else {
+                        } else {
 //                            mSearchView.showResultToast();
                         }
 
                     }
-                    if (mRestaurantArrayList.size()==restaurantNum){
+                    if (mRestaurantArrayList.size() == restaurantNum) {
 
 //                                Log.d("SearchPresenter", " mRestaurantArrayList size: " + mRestaurantArrayList.size());
 //
@@ -157,9 +158,6 @@ public class SearchPresenter implements SearchContract.Presenter {
 //                                        }
 //                                    }
 //                                }
-
-
-
 
 
                         mSearchView.showSearchResult(mRestaurantArrayList);

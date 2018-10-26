@@ -1,6 +1,7 @@
 package com.guanhong.foodie.profile;
 
-import android.content.ContentResolver;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -32,7 +33,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ProfilePresenter implements ProfileContract.Presenter {
 
@@ -83,8 +83,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                         Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("createdTime").getValue());
 //                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("pictures").getChildrenCount());
 
-                        Article article = new Article();
-                        Author author = new Author();
+                        final Article article = new Article();
+                        final Author author = new Author();
                         author.setId((String) snapshot.child("author").child("id").getValue());
                         author.setImage((String) snapshot.child("author").child("image").getValue());
                         author.setName((String) snapshot.child("author").child("name").getValue());
@@ -150,10 +150,10 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         final DatabaseReference databaseReference = firebaseDatabase.getReference("user");
 
 
-        StorageReference mStorageReference;
-        mStorageReference = FirebaseStorage.getInstance().getReference();
+        StorageReference storageReference;
+        storageReference = FirebaseStorage.getInstance().getReference();
         Uri file = Uri.fromFile(new File(pictures.get(0)));
-        final StorageReference myRef = mStorageReference.child(UserManager.getInstance().getUserId() + file);
+        final StorageReference myRef = storageReference.child(UserManager.getInstance().getUserId() + file);
 
         myRef.putFile(file).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override

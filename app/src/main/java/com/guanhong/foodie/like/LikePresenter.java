@@ -1,8 +1,6 @@
 package com.guanhong.foodie.like;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.common.base.Preconditions;
@@ -14,12 +12,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.UserManager;
-import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Restaurant;
 
 import java.util.ArrayList;
-
-import static android.support.v4.util.Preconditions.checkNotNull;
 
 
 public class LikePresenter implements LikeContract.Presenter {
@@ -71,7 +66,7 @@ public class LikePresenter implements LikeContract.Presenter {
     private void loadRestaurant(final ArrayList<String> restaurantKeyArrayList) {
 
 //        Log.d("LikePresenter ", "restaurantKeyArrayList : " + restaurantKeyArrayList.size());
-       final int num = restaurantKeyArrayList.size();
+        final int num = restaurantKeyArrayList.size();
 
         for (int i = 0; i < restaurantKeyArrayList.size(); i++) {
 //            Log.d("LikePresenter ", "restaurantKeyArrayList : " + restaurantKeyArrayList.get(i));
@@ -99,7 +94,8 @@ public class LikePresenter implements LikeContract.Presenter {
                     restaurant.setRestaurantName((String) dataSnapshot.child("restaurantName").getValue());
                     try {
                         restaurant.setStarCount(Integer.valueOf(dataSnapshot.child("starCount").getValue().toString()));
-                    }catch (NullPointerException e){
+                    } catch (NullPointerException e) {
+                        Log.d("LikePresenter ", "NullPointerException : ");
 
                     }
 
@@ -111,7 +107,7 @@ public class LikePresenter implements LikeContract.Presenter {
 
                     mRestaurantArrayList.add(restaurant);
 
-                    if(num ==mRestaurantArrayList.size()){
+                    if (num == mRestaurantArrayList.size()) {
                         mLikeView.showLikeArticleList(mRestaurantArrayList);
                     }
                 }

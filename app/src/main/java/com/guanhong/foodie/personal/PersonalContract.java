@@ -1,12 +1,12 @@
-package com.guanhong.foodie.personal_article;
+package com.guanhong.foodie.personal;
 
 import com.guanhong.foodie.BasePresenter;
 import com.guanhong.foodie.BaseView;
 import com.guanhong.foodie.objects.Article;
 
-public interface PersonalArticleContract {
+public interface PersonalContract {
 
-    interface View extends BaseView<Presenter>{
+    interface View extends BaseView<Presenter> {
 
         void showArticleUi(Article article);
 
@@ -14,7 +14,7 @@ public interface PersonalArticleContract {
 
     }
 
-    interface Presenter extends BasePresenter{
+    interface Presenter extends BasePresenter {
 
     }
 }

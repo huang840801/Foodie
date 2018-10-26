@@ -1,5 +1,7 @@
 package com.guanhong.foodie.restaurant;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -17,8 +19,6 @@ import com.guanhong.foodie.util.Constants;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 
 public class RestaurantPresenter implements RestaurantContract.Presenter {
@@ -65,9 +65,9 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
 //        mRestaurantView.showRestaurant(mRestaurant, mComments);
     }
 
-    private void getRestaurantComments(final String lat_lng) {
+    private void getRestaurantComments(final String latLng) {
 
-        Log.d("myCommentsBug ", " MapPresenter getRestaurantComments  " );
+        Log.d("myCommentsBug ", " MapPresenter getRestaurantComments  ");
 
         final ArrayList<Comment> comments = new ArrayList<>();
 
@@ -82,9 +82,9 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
                 Log.d("myCommentsBug ", "  MapPresenter onDataChange comments.size = " + comments.size());
 
                 comments.clear();
-                for (DataSnapshot snapshot : dataSnapshot.child(lat_lng).getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.child(latLng).getChildren()) {
 
-                    Comment comment = new Comment();
+                    final Comment comment = new Comment();
                     Author author = new Author();
 
 //                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("id").getValue());

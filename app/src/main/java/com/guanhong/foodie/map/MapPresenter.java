@@ -1,5 +1,6 @@
 package com.guanhong.foodie.map;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,8 +31,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 
 public class MapPresenter implements MapContract.Presenter {
 
@@ -52,8 +51,8 @@ public class MapPresenter implements MapContract.Presenter {
 //    public static Bitmap createCustomMarker(Context context, @DrawableRes int resource, String _name) {
 
     @Override
-    public void getRestaurantData(String lat_lng) {
-        Log.d("myCommentsBug ", " MapPresenter getRestaurantData  " );
+    public void getRestaurantData(String latLng) {
+        Log.d("myCommentsBug ", " MapPresenter getRestaurantData  ");
 
 
         final Restaurant restaurant = new Restaurant();
@@ -61,7 +60,7 @@ public class MapPresenter implements MapContract.Presenter {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
 
-        Query query = databaseReference.child(lat_lng);
+        Query query = databaseReference.child(latLng);
 
 
         query.addValueEventListener(new ValueEventListener() {

@@ -7,15 +7,15 @@ import com.guanhong.foodie.BasePresenter;
 import com.guanhong.foodie.BaseView;
 
 public interface PostChildMapContract {
-    
-    interface View extends BaseView<Presenter>{
+
+    interface View extends BaseView<Presenter> {
 
         void showMap();
 
         void showDialog(String addressLine, LatLng latLng);
     }
-    
-    interface Presenter extends BasePresenter{
+
+    interface Presenter extends BasePresenter {
 
         void hideTabLayout();
 

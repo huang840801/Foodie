@@ -49,7 +49,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
 
         init();
-        LoginWithFirebase();
+        loginWithFireBase();
 
         mRegisterButton.setOnClickListener(this);
         mLoginButton.setOnClickListener(this);
@@ -58,7 +58,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
-    private void LoginWithFirebase() {
+    private void loginWithFireBase() {
 
         mAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -81,7 +81,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         Log.d(Constants.TAG, " LoginWithFirebase email:  " + user.getEmail());
                         Log.d(Constants.TAG, " LoginWithFirebase name:  " + mName);
                         FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
-                        DatabaseReference myRef = userDatabase.getReference("user");
+                        final DatabaseReference myRef = userDatabase.getReference("user");
 
                         User user1 = new User();
                         user1.setName(mName);
@@ -94,9 +94,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         userManager.setUserData(user1);
 
                         myRef.child(user.getUid()).setValue(user1);
-                    }
-                    //用已有的帳號登入
-                    else {
+                    } else {
+                        //用已有的帳號登入
+
                         Log.d(Constants.TAG, " LoginWithFirebase : mName == null ");
 
                         FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
@@ -213,7 +213,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             if ("".equals(email) || "".equals(password)) {
                 Toast.makeText(this, R.string.cannot_be_empty, Toast.LENGTH_SHORT).show();
             } else {
-                Login(email, password);
+                login(email, password);
             }
         } else if (view.getId() == R.id.textView_sign_up) {
             mNameEditText.setVisibility(View.VISIBLE);
@@ -233,7 +233,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
-    private void Login(String email, String password) {
+    private void login(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

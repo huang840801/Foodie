@@ -1,5 +1,7 @@
 package com.guanhong.foodie.postchildmap;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
@@ -45,7 +47,6 @@ import com.guanhong.foodie.util.Constants;
 
 import java.util.Locale;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PostChildMapFragment extends Fragment implements PostChildMapContract.View, OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
@@ -293,6 +294,9 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
                 requestPermissions(
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         REQUEST_FINE_LOCATION_PERMISSION);
+            } else {
+                // 啟動地圖與定位元件
+
             }
 //            if (hasPermission2!=PackageManager.PERMISSION_GRANTED){
 //                requestPermissions(
@@ -300,10 +304,7 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
 //                        REQUEST_COARSE_LOCATION_PERMISSION);
 //
 //            }
-            else {
-                // 啟動地圖與定位元件
 
-            }
         }
     }
 
@@ -318,10 +319,9 @@ public class PostChildMapFragment extends Fragment implements PostChildMapContra
     public void onMapReady(GoogleMap googleMap) {
 
 
-
         mGoogleMap = googleMap;
         Log.d(Constants.TAG, " onMapReady clear");
-        Log.d(Constants.TAG, " onMapReady  PostChildMapFragment GoogleMapView : "+ mGoogleMapView);
+        Log.d(Constants.TAG, " onMapReady  PostChildMapFragment GoogleMapView : " + mGoogleMapView);
 
 //        mGoogleMapView.getLayoutParams().height = 1;
 //        mGoogleMapView.getLayoutParams().width = 1;

@@ -20,7 +20,7 @@ public interface MapContract {
 
         void setMarkerBitmap(Bitmap bitmap);
 
-        void showRestaurantUi(Restaurant restaurant, ArrayList<Comment> comments);
+//        void showRestaurantUi(Restaurant restaurant, ArrayList<Comment> comments);
 
         void showMarker(List<LatLng> locations);
 

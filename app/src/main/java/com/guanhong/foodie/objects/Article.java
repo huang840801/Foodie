@@ -13,7 +13,7 @@ public class Article {
     private String mContent;
     private int mStarCount;
     private LatLng mLatLng;
-    private String lat_lng;
+    private String mLatDashLng;
     private String mCreatedTime;
 
 
@@ -26,7 +26,7 @@ public class Article {
         mContent = "";
         mStarCount = 0;
         mLatLng = new LatLng(0, 0);
-        lat_lng = "";
+        mLatDashLng = "";
         mCreatedTime = "";
     }
 
@@ -95,11 +95,11 @@ public class Article {
     }
 
     public String getLat_lng() {
-        return lat_lng;
+        return mLatDashLng;
     }
 
-    public void setLat_lng(String lat_lng) {
-        this.lat_lng = lat_lng;
+    public void setLat_lng(String latDashLng) {
+        this.mLatDashLng = latDashLng;
     }
 
     public String getCreatedTime() {

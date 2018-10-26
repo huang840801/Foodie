@@ -13,12 +13,12 @@ import java.util.TimerTask;
 
 public class MyService extends Service {
 
-//    private Runnable mRunnable;
+    //    private Runnable mRunnable;
 //    private Handler mHandler;
 //    private int mTime = 1000*1;
 //    private int mHour = 1*1000;
-    private Timer mTimer ;
-    private int mCount =  0;
+    private Timer mTimer;
+    private int mCount = 0;
     private RecommendFragment mRecommendFragment;
 
     @Nullable
@@ -64,9 +64,9 @@ public class MyService extends Service {
     }
 
     private void showNotification() {
-        Log.d("MyService",   " mCount = " + mCount);
+        Log.d("MyService", " mCount = " + mCount);
 
-        if(mRecommendFragment==null){
+        if (mRecommendFragment == null) {
             mRecommendFragment = RecommendFragment.newInstance();
         }
         mRecommendFragment.createRandomRestaurant();

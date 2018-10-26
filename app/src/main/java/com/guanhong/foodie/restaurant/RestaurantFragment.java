@@ -1,5 +1,7 @@
 package com.guanhong.foodie.restaurant;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,12 +20,10 @@ import com.guanhong.foodie.adapters.RestaurantMainAdapter;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
-import com.guanhong.foodie.util.Constants;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 
 public class RestaurantFragment extends Fragment implements RestaurantContract.View {
@@ -31,7 +31,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     private RestaurantContract.Presenter mPresenter;
 
     private RecyclerView mRecyclerView;
-    private AVLoadingIndicatorView mAVLoadingIndicatorView;
+    private AVLoadingIndicatorView mAvLoadingIndicatorView;
 
     public RestaurantFragment() {
 
@@ -53,7 +53,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         View root = inflater.inflate(R.layout.fragment_restaurant, container, false);
 
         mRecyclerView = root.findViewById(R.id.recyclerview_restaurant);
-        mAVLoadingIndicatorView = root.findViewById(R.id.AVLoadingIndicatorView_restaurant);
+        mAvLoadingIndicatorView = root.findViewById(R.id.AVLoadingIndicatorView_restaurant);
 
 //        recyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext()));
 //        recyclerView.setHasFixedSize(true);
@@ -81,7 +81,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter.start();
-        mAVLoadingIndicatorView.setVisibility(View.GONE);
+        mAvLoadingIndicatorView.setVisibility(View.GONE);
     }
 
     @Override

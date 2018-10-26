@@ -1,5 +1,7 @@
 package com.guanhong.foodie.profile;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -27,7 +29,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class ProfileFragment extends Fragment implements ProfileContract.View, View.OnClickListener {
 

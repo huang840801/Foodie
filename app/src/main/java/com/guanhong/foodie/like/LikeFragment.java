@@ -1,5 +1,7 @@
 package com.guanhong.foodie.like;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -23,10 +25,8 @@ import com.guanhong.foodie.util.Constants;
 
 import java.util.ArrayList;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
-
-public class LikeFragment extends Fragment implements LikeContract.View{
+public class LikeFragment extends Fragment implements LikeContract.View {
 
     private LikeContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
@@ -46,7 +46,7 @@ public class LikeFragment extends Fragment implements LikeContract.View{
         return v;
     }
 
-    public static LikeFragment newInstance(){
+    public static LikeFragment newInstance() {
         return new LikeFragment();
     }
 
@@ -72,10 +72,10 @@ public class LikeFragment extends Fragment implements LikeContract.View{
     @Override
     public void showLikeArticleList(ArrayList<Restaurant> restaurantArrayList) {
 
-        Log.d("LikeFragment ", ""+ restaurantArrayList.size());
-        if(restaurantArrayList.size()>0){
+        Log.d("LikeFragment ", "" + restaurantArrayList.size());
+        if (restaurantArrayList.size() > 0) {
             mTextView.setVisibility(View.GONE);
-        }else {
+        } else {
             mTextView.setVisibility(View.VISIBLE);
         }
 
@@ -87,7 +87,7 @@ public class LikeFragment extends Fragment implements LikeContract.View{
 
     @Override
     public void transToRestaurant(Restaurant restaurant) {
-        ((FoodieActivity)getActivity()).transToRestaurant(restaurant);
+        ((FoodieActivity) getActivity()).transToRestaurant(restaurant);
 
     }
 }

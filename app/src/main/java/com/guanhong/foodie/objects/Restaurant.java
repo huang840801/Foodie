@@ -12,7 +12,7 @@ public class Restaurant {
     private int mStarCount;
     private String mRestaurantName;
     private String mRestaurantLocation;
-    private String mLat_Lng;
+    private String mLatLng;
 
 
     public Restaurant() {
@@ -22,7 +22,7 @@ public class Restaurant {
         mStarCount = -1;
         mRestaurantName = "";
         mRestaurantLocation = "";
-        mLat_Lng = "";
+        mLatLng = "";
 
 
     }
@@ -68,10 +68,10 @@ public class Restaurant {
     }
 
     public String getLat_Lng() {
-        return mLat_Lng;
+        return mLatLng;
     }
 
-    public void setLat_Lng(String lat_Lng) {
-        mLat_Lng = lat_Lng;
+    public void setLat_Lng(String latLng) {
+        mLatLng = latLng;
     }
 }

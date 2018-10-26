@@ -1,6 +1,7 @@
 package com.guanhong.foodie.post;
 
-import android.content.Context;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -21,7 +22,6 @@ import com.guanhong.foodie.util.Constants;
 import java.io.File;
 import java.util.ArrayList;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PostPresenter implements PostContract.Presenter {
 
@@ -41,7 +41,6 @@ public class PostPresenter implements PostContract.Presenter {
     }
 
 
-
     @Override
     public void postArticle(final Article article) {
 
@@ -55,7 +54,6 @@ public class PostPresenter implements PostContract.Presenter {
 //        Log.d(Constants.TAG, " postArticle getStarCount = " + article.getStarCount());
 //        Log.d(Constants.TAG, " postArticle latitude = " + article.getLatLng().latitude);
 //        Log.d(Constants.TAG, " postArticle longitude = " + article.getLatLng().longitude);
-
 
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -77,13 +75,13 @@ public class PostPresenter implements PostContract.Presenter {
         for (int i = 0; i < pictureList.size(); i++) {
 
 
-            StorageReference mStorageReference;
-            mStorageReference = FirebaseStorage.getInstance().getReference();
+            StorageReference storageReference;
+            storageReference = FirebaseStorage.getInstance().getReference();
 //            Log.d("MULTIPLE_PICKER ", "" + article.getPictures().get(i));
 
 
             Uri file = Uri.fromFile(new File(pictureList.get(i)));
-            final StorageReference myRef = mStorageReference.child(UserManager.getInstance().getUserId() + file);
+            final StorageReference myRef = storageReference.child(UserManager.getInstance().getUserId() + file);
 
             final int finalI = i;
             myRef.putFile(file).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -101,7 +99,7 @@ public class PostPresenter implements PostContract.Presenter {
                         Uri downloadUri = task.getResult();
                         Log.d("MULTIPLE_PICKER ", " isSuccessful " + downloadUri);
                         newPictures.add(String.valueOf(downloadUri));
-                        if(newPictures.size()==num){
+                        if (newPictures.size() == num) {
                             mPostView.showNewPictures(newPictures);
                         }
 

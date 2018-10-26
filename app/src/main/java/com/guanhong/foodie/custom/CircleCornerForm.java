@@ -7,11 +7,11 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+
 import com.squareup.picasso.Transformation;
 
-import com.guanhong.foodie.util.BlurBitmapUtil;
 
-public class CircleCornerForm implements Transformation{
+public class CircleCornerForm implements Transformation {
 
     @Override
     public Bitmap transform(Bitmap bitmap) {
@@ -21,8 +21,11 @@ public class CircleCornerForm implements Transformation{
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
 
-        int left = 0, top = 0, right = width, bottom = height;
-        float roundPx = (float) (height / 40);   //角度
+        int left = 0;
+        int top = 0;
+        int right = width;
+        int bottom = height;
+        final float roundPx = (float) (height / 40);   //角度
 
 
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -31,7 +34,7 @@ public class CircleCornerForm implements Transformation{
         int color = 0xff424242;
         Paint paint = new Paint();
         Rect rect = new Rect(left, top, right, bottom);
-        RectF rectF = new RectF(rect);
+        final RectF rectF = new RectF(rect);
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);   //填充背景
@@ -40,7 +43,6 @@ public class CircleCornerForm implements Transformation{
         canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN)); //兩圖交互顯示 mode (相交）
         canvas.drawBitmap(bitmap, rect, rect, paint);
-
 
 
         bitmap.recycle();

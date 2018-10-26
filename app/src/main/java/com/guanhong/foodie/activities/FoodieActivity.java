@@ -33,13 +33,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.FoodiePresenter;
-
+import com.guanhong.foodie.R;
 import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.ViewPagerAdapter;
-import com.guanhong.foodie.R;
 import com.guanhong.foodie.like.LikeFragment;
 import com.guanhong.foodie.like.LikePresenter;
-import com.guanhong.foodie.recommend.RecommendFragment;
 import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.map.MapPresenter;
 import com.guanhong.foodie.objects.Article;
@@ -50,6 +48,7 @@ import com.guanhong.foodie.post.PostFragment;
 import com.guanhong.foodie.post.PostPresenter;
 import com.guanhong.foodie.profile.ProfileFragment;
 import com.guanhong.foodie.profile.ProfilePresenter;
+import com.guanhong.foodie.recommend.RecommendFragment;
 import com.guanhong.foodie.recommend.RecommendPresenter;
 import com.guanhong.foodie.restaurant.RestaurantFragment;
 import com.guanhong.foodie.restaurant.RestaurantPresenter;
@@ -95,14 +94,14 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         String y = String.valueOf(x);
         String reverse;
 
-        if(y.contains("-")) {
-           y = y.replace("-","");
+        if (y.contains("-")) {
+            y = y.replace("-", "");
             reverse = new StringBuilder(y).reverse().toString();
-            Log.d(Constants.CODING_TIME, "ans = " +reverse );
+            Log.d(Constants.CODING_TIME, "ans = " + reverse);
 
-            return 0-Integer.valueOf(reverse);
+            return 0 - Integer.valueOf(reverse);
 
-        }else {
+        } else {
             reverse = new StringBuilder(y).reverse().toString();
             return Integer.valueOf(reverse);
 
@@ -131,7 +130,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.d(Constants.CODING_TIME, "ans = " +reverse(964632431));
+        Log.d(Constants.CODING_TIME, "ans = " + reverse(964632431));
 //        lengthOfLongestSubstring("lgggopp");
 
 //        String s = "s";
@@ -270,7 +269,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 //        mTabLayout.getTabAt(0).select();
 
 
-
     }
 
 
@@ -367,6 +365,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         Log.d("getTabView ", " onTabSelected position = " + tab.getPosition());
 
         switch (tab.getPosition()) {
+            default:
             case 0:
                 tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.map_selected);
                 mPresenter.transToMap();
@@ -402,6 +401,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
 
         switch (tab.getPosition()) {
+            default:
             case 0:
                 tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.map_normal);
                 break;

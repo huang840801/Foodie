@@ -34,7 +34,7 @@
         <TextView
 
             android:id="@+id/textView_personal_restaurant_name"
-            android:layout_width="206dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="12dp"
@@ -45,6 +45,7 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:typeface="sans"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintEnd_toStartOf="@+id/textView_personal_createdTime"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerview_personal_photo" />
@@ -275,13 +276,11 @@
             android:id="@+id/divider1"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="60dp"
             android:background="#e7e7e7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_personal_menu3" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_personal_menu1" />
 
         <TextView
             android:id="@+id/textView_content"

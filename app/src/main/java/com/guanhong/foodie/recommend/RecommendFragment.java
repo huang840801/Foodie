@@ -1,5 +1,7 @@
 package com.guanhong.foodie.recommend;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,17 +32,16 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class RecommendFragment extends Fragment implements RecommendContract.View, Animation.AnimationListener {
 
     private RecommendContract.Presenter mPresenter;
     private Context mContext;
 
-    private TextView mTitle_first;
-    private TextView mTitle_second;
-    private TextView mTitle_third;
-    private TextView mTitle_forth;
+    private TextView mTitleFirst;
+    private TextView mTitleSecond;
+    private TextView mTitleThird;
+    private TextView mTitleForth;
 
     private TextView mRestaurantName;
     private TextView mLocation;
@@ -71,10 +72,10 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         View v = inflater.inflate(R.layout.fragment_recommend, container, false);
         mContext = getContext();
 
-        mTitle_first = v.findViewById(R.id.textView_recommend_title_first);
-        mTitle_second = v.findViewById(R.id.textView_recommend_title_second);
-        mTitle_third = v.findViewById(R.id.textView_recommend_title_third);
-        mTitle_forth = v.findViewById(R.id.textView_recommend_title_forth);
+        mTitleFirst = v.findViewById(R.id.textView_recommend_title_first);
+        mTitleSecond = v.findViewById(R.id.textView_recommend_title_second);
+        mTitleThird = v.findViewById(R.id.textView_recommend_title_third);
+        mTitleForth = v.findViewById(R.id.textView_recommend_title_forth);
         mRestaurantName = v.findViewById(R.id.textView_restaurant_name);
         mLocation = v.findViewById(R.id.textView_location);
         mLabel = v.findViewById(R.id.imageView_recommend_label);
@@ -85,10 +86,10 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         mStar4 = v.findViewById(R.id.imageView_recommend_star4);
         mStar5 = v.findViewById(R.id.imageView_recommend_star5);
         mRecyclerView = v.findViewById(R.id.recommend_recyclerView);
-        mTitle_first.setVisibility(View.GONE);
-        mTitle_second.setVisibility(View.GONE);
-        mTitle_third.setVisibility(View.GONE);
-        mTitle_forth.setVisibility(View.GONE);
+        mTitleFirst.setVisibility(View.GONE);
+        mTitleSecond.setVisibility(View.GONE);
+        mTitleThird.setVisibility(View.GONE);
+        mTitleForth.setVisibility(View.GONE);
 
         return v;
     }
@@ -237,7 +238,6 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
 //                    mRecyclerView.addItemDecoration(new NormalArticleItemDecoration(25));
 
 
-
     }
 
     private void setAnimation() {
@@ -267,23 +267,23 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     @Override
     public void onAnimationEnd(Animation animation) {
         if (animation == mLabelAnimation) {
-            mTitle_first.setVisibility(View.VISIBLE);
-            mTitle_first.setAnimation(mFirstTextAnimation);
+            mTitleFirst.setVisibility(View.VISIBLE);
+            mTitleFirst.setAnimation(mFirstTextAnimation);
 
         }
         if (animation == mFirstTextAnimation) {
-            mTitle_second.setVisibility(View.VISIBLE);
-            mTitle_second.setAnimation(mSecondTextAnimation);
+            mTitleSecond.setVisibility(View.VISIBLE);
+            mTitleSecond.setAnimation(mSecondTextAnimation);
 
         }
         if (animation == mSecondTextAnimation) {
-            mTitle_third.setVisibility(View.VISIBLE);
-            mTitle_third.setAnimation(mThirdTextAnimation);
+            mTitleThird.setVisibility(View.VISIBLE);
+            mTitleThird.setAnimation(mThirdTextAnimation);
 
         }
         if (animation == mThirdTextAnimation) {
-            mTitle_forth.setVisibility(View.VISIBLE);
-            mTitle_forth.setAnimation(mForthTextAnimation);
+            mTitleForth.setVisibility(View.VISIBLE);
+            mTitleForth.setAnimation(mForthTextAnimation);
 
         }
 

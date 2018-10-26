@@ -1,7 +1,7 @@
 package com.guanhong.foodie;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -10,20 +10,20 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 import com.guanhong.foodie.like.LikeFragment;
 import com.guanhong.foodie.like.LikePresenter;
-import com.guanhong.foodie.recommend.RecommendFragment;
 import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.map.MapPresenter;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
-import com.guanhong.foodie.personal_article.PersonalArticleFragment;
-import com.guanhong.foodie.personal_article.PersonalArticlePresenter;
+import com.guanhong.foodie.personal.PersonalFragment;
+import com.guanhong.foodie.personal.PersonalPresenter;
 import com.guanhong.foodie.post.PostFragment;
 import com.guanhong.foodie.post.PostPresenter;
 import com.guanhong.foodie.postchildmap.PostChildMapFragment;
 import com.guanhong.foodie.postchildmap.PostChildMapPresenter;
 import com.guanhong.foodie.profile.ProfileFragment;
 import com.guanhong.foodie.profile.ProfilePresenter;
+import com.guanhong.foodie.recommend.RecommendFragment;
 import com.guanhong.foodie.restaurant.RestaurantFragment;
 import com.guanhong.foodie.restaurant.RestaurantPresenter;
 import com.guanhong.foodie.search.SearchFragment;
@@ -31,11 +31,8 @@ import com.guanhong.foodie.util.Constants;
 
 import java.util.ArrayList;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 
 public class FoodiePresenter implements FoodieContract.Presenter {
-
 
     private FoodieContract.View mFoodieView;
     private android.support.v4.app.FragmentManager mFragmentManager;
@@ -58,7 +55,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     private RestaurantFragment mRestaurantFragment;
     private PostFragment mPostFragment;
     private PostChildMapFragment mPostChildMapFragment;
-    private PersonalArticleFragment mPersonalArticleFragment;
+    private PersonalFragment mPersonalFragment;
 
 
     private MapPresenter mMapPresenter;
@@ -67,7 +64,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     private LikePresenter mLikePresenter;
     private PostPresenter mPostPresenter;
     private PostChildMapPresenter mPostChildMapPresenter;
-    private PersonalArticlePresenter mPersonalArticlePresenter;
+    private PersonalPresenter mPersonalPresenter;
 
     private ViewPager mViewPager;
 
@@ -89,7 +86,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     public void transToMap() {
 
 //        Log.d(Constants.TAG, "  transToMap");
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+//        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 //        if (mMapFragment == null) {
 //            mMapFragment = MapFragment.newInstance();
 //        }
@@ -113,7 +110,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 //        }
         mViewPager.setCurrentItem(0);
         mFoodieView.setTabLayoutVisibility(true);
-        fragmentTransaction.commit();
+//        fragmentTransaction.commit();
 
     }
 
@@ -205,6 +202,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         mFoodieView.setTabLayoutVisibility(false);
         fragmentTransaction.commit();
     }
+
     @Override
     public void transToPostArticle() {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
@@ -226,39 +224,11 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void transToPostChildMap() {
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        if (mPostChildMapFragment == null) {
-            mPostChildMapFragment = PostChildMapFragment.newInstance();
-        }
-
-//        if (mMapFragment != null && !mMapFragment.isHidden()) {
-//        Log.d(Constants.TAG, "  transToProfile mPostFragment isHidden");
-//            fragmentTransaction.hide(mMapFragment);
-//            mFoodieView.setTabLayoutVisibility(true);
-//        }
-        if (mMapFragment != null && !mMapFragment.isHidden()) {
-            Log.d(Constants.TAG, "  transToProfile mMapFragment isHidden");
-            fragmentTransaction.remove(mMapFragment);
-        }
-
-        mPostChildMapPresenter = new PostChildMapPresenter(mPostChildMapFragment);
-
-        if (!mPostChildMapFragment.isAdded()) {
-            fragmentTransaction.add(R.id.fragment_container, mPostChildMapFragment, POST_CHILD_MAP);
-        } else {
-            fragmentTransaction.show(mPostChildMapFragment);
-        }
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
-    }
 
     @Override
     public void transToPostArticle(String addressLine, LatLng latLng) {
 
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        final FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         if (mPostFragment == null) {
             mPostFragment = PostFragment.newInstance();
         }
@@ -287,8 +257,8 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.fragment_transition, R.anim.fragment_transition);
 
-        mPersonalArticleFragment = PersonalArticleFragment.newInstance();
-        mPersonalArticlePresenter = new PersonalArticlePresenter(mPersonalArticleFragment, article);
+        mPersonalFragment = PersonalFragment.newInstance();
+        mPersonalPresenter = new PersonalPresenter(mPersonalFragment, article);
 
 //        if (mRestaurantFragment != null && !mRestaurantFragment.isHidden()) {
 //            fragmentTransaction.hide(mRestaurantFragment);
@@ -298,8 +268,8 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 //        fragmentTransaction.hide(mRestaurantFragment);
 //        fragmentTransaction.addToBackStack(RESTAURANT);
 
-//        if(!mPersonalArticleFragment.isAdded()){
-        fragmentTransaction.add(R.id.fragment_container, mPersonalArticleFragment, PERSONAL_ARTICLE);
+//        if(!mPersonalFragment.isAdded()){
+        fragmentTransaction.add(R.id.fragment_container, mPersonalFragment, PERSONAL_ARTICLE);
         fragmentTransaction.commit();
 //        }
         mFoodieView.setTabLayoutVisibility(false);
@@ -309,9 +279,9 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     @Override
     public void checkRestaurantExists() {
 
-        Log.d("fragmentflow", "  check mRestaurantFragment = " +mRestaurantFragment);
+        Log.d("fragmentflow", "  check mRestaurantFragment = " + mRestaurantFragment);
 
-        if (mFragmentManager.findFragmentByTag(RESTAURANT) != null){
+        if (mFragmentManager.findFragmentByTag(RESTAURANT) != null) {
             Log.d("fragmentflow", "   mRestaurantFragment != null ");
             mFoodieView.setTabLayoutVisibility(false);
         } else {
@@ -330,14 +300,12 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
     @Override
     public void removeRestaurantFragment() {
-        Log.d("fragmentflow", " remove  mRestaurantFragment = " +mRestaurantFragment);
+        Log.d("fragmentflow", " remove  mRestaurantFragment = " + mRestaurantFragment);
 
 //        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 //        fragmentTransaction.remove(mRestaurantFragment);
 //        fragmentTransaction.commit();
     }
-
-
 
 
 }

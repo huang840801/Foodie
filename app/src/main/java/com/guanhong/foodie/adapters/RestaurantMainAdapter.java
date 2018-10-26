@@ -256,7 +256,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                     Log.d("comment", " currentTimeMillis = " + System.currentTimeMillis());
 //                    Log.d("comment", " str = " + str);
 
-                    Comment comment1 = new Comment();
+                    final Comment comment1 = new Comment();
 
                     Author author = new Author();
                     author.setId(UserManager.getInstance().getUserId());
@@ -284,22 +284,22 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
     }
 
-    private void deleteMyLikedArticleToFirebase(String lat_lng) {
+    private void deleteMyLikedArticleToFirebase(String latLng) {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
         DatabaseReference likeDataBase = firebaseDatabase.getReference("like");
-        likeDataBase.child(UserManager.getInstance().getUserId()).child(lat_lng).removeValue();
+        likeDataBase.child(UserManager.getInstance().getUserId()).child(latLng).removeValue();
     }
 
-    private void uploadMyLikedArticleToFirebase(String lat_lng, Restaurant restaurant) {
+    private void uploadMyLikedArticleToFirebase(String latLng, Restaurant restaurant) {
 
 //        Log.d(Constants.TAG, " RestaurantMainAdaptergetArticleArrayList().size(): " + mRestaurant.getArticleArrayList().size());
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
         DatabaseReference likeDataBase = firebaseDatabase.getReference("like");
-        likeDataBase.child(UserManager.getInstance().getUserId()).child(lat_lng).setValue(restaurant);
+        likeDataBase.child(UserManager.getInstance().getUserId()).child(latLng).setValue(restaurant);
 
 //        DatabaseReference articleDataBase = firebaseDatabase.getReference("article");
 //        articleDataBase.push().setValue(article);
@@ -334,7 +334,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                     Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("location").getValue());
                     Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("createdTime").getValue());
 
-                    Article article = new Article();
+                    final Article article = new Article();
 
                     Author author = new Author();
                     author.setId((String) snapshot.child("author").child("id").getValue());
@@ -411,7 +411,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         private ImageView mStar5;
         private TextView mRestaurantPosition;
         private RecyclerView mRecyclerViewArticlePreview;
-//        private EditText mEditTextComment;
+        //        private EditText mEditTextComment;
         private BiuEditText mBiuEditText;
         private ImageView mButtonSend;
         private PageIndicatorView mPageIndicatorView;

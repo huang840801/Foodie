@@ -1,5 +1,7 @@
 package com.guanhong.foodie.recommend;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -13,7 +15,6 @@ import com.guanhong.foodie.objects.Restaurant;
 
 import java.util.ArrayList;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class RecommendPresenter implements RecommendContract.Presenter {
 

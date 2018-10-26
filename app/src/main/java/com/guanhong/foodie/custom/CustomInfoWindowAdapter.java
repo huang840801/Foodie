@@ -29,10 +29,10 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
 
 //    private Handler mHandler;
 
-//    private CustomInfoWindowAdapter mCustomInfoWindowAdapter;
+    //    private CustomInfoWindowAdapter mCustomInfoWindowAdapter;
     //    private ArrayList<String> mStringRestaurantName = new ArrayList<>();
     private String mStringRestaurantName;
-    private int mStarCount =0;
+    private int mStarCount = 0;
 
 //    private boolean isMarkerChange = false;
 

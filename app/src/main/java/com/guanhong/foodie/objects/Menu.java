@@ -5,7 +5,7 @@ public class Menu {
     private String mDishName;
     private String mDishPrice;
 
-    public Menu(){
+    public Menu() {
         mDishName = "";
         mDishPrice = "";
     }

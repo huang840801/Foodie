@@ -120,10 +120,13 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
 
-        int left = 0, top = 0, right = width, bottom = height;
+        int left = 0;
+        int top = 0;
+        int right = width;
+        int bottom = height;
 //        int left = width, top = height, right = width, bottom = height;
 
-        float roundPx = (float) (height / 10);   //角度
+        final float roundPx = (float) (height / 10);   //角度
 //        if (width > height) {
 //            left = (width - height) / 2;
 //            top = 0;
@@ -142,7 +145,7 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
         int color = 0xff424242;
         Paint paint = new Paint();
         Rect rect = new Rect(left, top, right, bottom);
-        RectF rectF = new RectF(rect);
+        final RectF rectF = new RectF(rect);
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);   //填充背景

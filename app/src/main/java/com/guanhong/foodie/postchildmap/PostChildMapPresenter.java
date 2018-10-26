@@ -10,11 +10,9 @@ import com.guanhong.foodie.util.Constants;
 import java.io.IOException;
 import java.util.List;
 
-public class PostChildMapPresenter implements PostChildMapContract.Presenter{
+public class PostChildMapPresenter implements PostChildMapContract.Presenter {
 
     private PostChildMapContract.View mPostChildMapView;
-
-
 
 
     public PostChildMapPresenter(PostChildMapContract.View postChildMapView) {
@@ -41,15 +39,14 @@ public class PostChildMapPresenter implements PostChildMapContract.Presenter{
     @Override
     public void getAddress(Geocoder geocoder, LatLng latLng) {
 
-        try{
+        try {
 
             List<Address> addressList = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
 //            Log.d(Constants.TAG, "  地址 = " + addressList.get(0).getAddressLine(0));
 
-            if (addressList.size() == 0) {
-
-            }else {
+            if (addressList.size() != 0) {
                 mPostChildMapView.showDialog(addressList.get(0).getAddressLine(0), latLng);
+
             }
         } catch (IOException e) {
             e.printStackTrace();

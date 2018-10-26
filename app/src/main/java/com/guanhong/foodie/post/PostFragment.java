@@ -1,11 +1,11 @@
 package com.guanhong.foodie.post;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,7 +33,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
 public class PostFragment extends Fragment implements PostContract.View, View.OnClickListener, RatingBar.OnRatingBarChangeListener {
 
@@ -68,7 +67,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 //    private TextView mTextViewContent;
 //    private TextView mTextViewRating;
 
-    private AVLoadingIndicatorView mAVLoadingIndicatorView;
+    private AVLoadingIndicatorView mAvLoadingIndicatorView;
     private View mLoadingBackground;
 
 
@@ -139,7 +138,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 //        mTextViewRating = rootView.findViewById(R.id.textView_rating_bar);
         mPostArticle = rootView.findViewById(R.id.textview_post_post);
 
-        mAVLoadingIndicatorView = rootView.findViewById(R.id.AVLoadingIndicatorView);
+        mAvLoadingIndicatorView = rootView.findViewById(R.id.AVLoadingIndicatorView);
         mLoadingBackground = rootView.findViewById(R.id.loading_background);
 
         setTypeFace();
@@ -170,7 +169,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
         setTopViewPadding();
 
-        mAVLoadingIndicatorView.setVisibility(View.GONE);
+        mAvLoadingIndicatorView.setVisibility(View.GONE);
         mLoadingBackground.setVisibility(View.GONE);
 //        mTextViewMenu2.setVisibility(View.GONE);
         mEditTextMenu2.setVisibility(View.GONE);
@@ -261,7 +260,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     @Override
     public void transToMap() {
 
-        mAVLoadingIndicatorView.setVisibility(View.GONE);
+        mAvLoadingIndicatorView.setVisibility(View.GONE);
         mLoadingBackground.setVisibility(View.GONE);
         ((FoodieActivity) getActivity()).transToMap();
 
@@ -270,7 +269,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     @Override
     public void onClick(View view) {
 
-        if (view.getId() == R.id.imageView_post_location||view.getId() == R.id.textview_post_restaurant_location) {
+        if (view.getId() == R.id.imageView_post_location || view.getId() == R.id.textview_post_restaurant_location) {
             Log.d(Constants.TAG, "Clicked????");
             ((FoodieActivity) getActivity()).transToPostChildMap();
         }
@@ -289,7 +288,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         }
         if (view.getId() == R.id.textview_post_post) {
             checkInformation();
-//            mAVLoadingIndicatorView.setVisibility(View.VISIBLE);
+//            mAvLoadingIndicatorView.setVisibility(View.VISIBLE);
 //            mLoadingBackground.setVisibility(View.VISIBLE);
 //            mPresenter.postArticle(new Article());
 //            postImage();
@@ -360,20 +359,20 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
                     Toast.makeText(mContext, "價格必填!", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    mAVLoadingIndicatorView.setVisibility(View.VISIBLE);
+                    mAvLoadingIndicatorView.setVisibility(View.VISIBLE);
                     mLoadingBackground.setVisibility(View.VISIBLE);
                     postImage();
 //                    Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                mAVLoadingIndicatorView.setVisibility(View.VISIBLE);
+                mAvLoadingIndicatorView.setVisibility(View.VISIBLE);
                 mLoadingBackground.setVisibility(View.VISIBLE);
                 postImage();
 //                Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
             }
 
         } else {
-            mAVLoadingIndicatorView.setVisibility(View.VISIBLE);
+            mAvLoadingIndicatorView.setVisibility(View.VISIBLE);
             mLoadingBackground.setVisibility(View.VISIBLE);
             postImage();
 //            Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
@@ -434,9 +433,9 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         Log.d("UserManager", " image = " + UserManager.getInstance().getUserImage());
         Log.d("UserManager", " name = " + UserManager.getInstance().getUserName());
 
-        Article article = new Article();
-        Author author = new Author();
-        ArrayList<Menu> menus = new ArrayList<>();
+        final Article article = new Article();
+        final Author author = new Author();
+        final ArrayList<Menu> menus = new ArrayList<>();
 //        ArrayList<String> pictures = new ArrayList<>();
 //        Menu menu = new Menu();
 
@@ -479,10 +478,10 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
         }
 
-        String restaurantName = mEditTextRestaurantName.getText().toString();
-        String address = mTextViewRestaurantLocation.getText().toString();
-        String content = mEditTextContent.getText().toString();
-        int starCount = mStarCount;
+        final String restaurantName = mEditTextRestaurantName.getText().toString();
+        final String address = mTextViewRestaurantLocation.getText().toString();
+        final String content = mEditTextContent.getText().toString();
+        final int starCount = mStarCount;
 
 //        Geocoder geoCoder = new Geocoder(mContext, Locale.getDefault());
 //        List<Address> addressLocation = null;

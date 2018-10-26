@@ -1,4 +1,6 @@
-package com.guanhong.foodie.personal_article;
+package com.guanhong.foodie.personal;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -27,11 +29,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static com.google.common.base.Preconditions.checkNotNull;
 
-public class PersonalArticleFragment extends Fragment implements PersonalArticleContract.View {
+public class PersonalFragment extends Fragment implements PersonalContract.View {
 
-    private PersonalArticleContract.Presenter mPresenter;
+    private PersonalContract.Presenter mPresenter;
     private Context mContext;
 
     private TextView mTextViewRestaurantName;
@@ -89,17 +90,17 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
 //
 //    }
 
-    ArrayList<Integer> sum (){
+    ArrayList<Integer> sum() {
 
 
         return new ArrayList<>();
     }
 
-    public PersonalArticleFragment() {
+    public PersonalFragment() {
     }
 
-    public static PersonalArticleFragment newInstance() {
-        return new PersonalArticleFragment();
+    public static PersonalFragment newInstance() {
+        return new PersonalFragment();
     }
 
 
@@ -142,7 +143,7 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
     }
 
     @Override
-    public void setPresenter(PersonalArticleContract.Presenter presenter) {
+    public void setPresenter(PersonalContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
 
@@ -157,9 +158,9 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("fragmentflow", "   PersonalArticleFragment onDestroy ");
+        Log.d("fragmentflow", "   PersonalFragment onDestroy ");
 
-        ((FoodieActivity)getActivity()).checkRestaurantExists();
+        ((FoodieActivity) getActivity()).checkRestaurantExists();
     }
 
     private void setTypeFace() {
@@ -233,7 +234,6 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
         setPhotoRecyclerView(article);
 
 
-
         mTextViewContent.setText(article.getContent());
 
         if (article.getStarCount() == 5) {
@@ -242,37 +242,32 @@ public class PersonalArticleFragment extends Fragment implements PersonalArticle
             mImageViewStar3.setImageResource(R.drawable.new_star_selected);
             mImageViewStar4.setImageResource(R.drawable.new_star_selected);
             mImageViewStar5.setImageResource(R.drawable.new_star_selected);
-        }
-        else if (article.getStarCount() == 4) {
+        } else if (article.getStarCount() == 4) {
             mImageViewStar1.setImageResource(R.drawable.new_star_selected);
             mImageViewStar2.setImageResource(R.drawable.new_star_selected);
             mImageViewStar3.setImageResource(R.drawable.new_star_selected);
             mImageViewStar4.setImageResource(R.drawable.new_star_selected);
             mImageViewStar5.setImageResource(R.drawable.new_star_unselected);
-        }
-        else if (article.getStarCount() == 3) {
+        } else if (article.getStarCount() == 3) {
             mImageViewStar1.setImageResource(R.drawable.new_star_selected);
             mImageViewStar2.setImageResource(R.drawable.new_star_selected);
             mImageViewStar3.setImageResource(R.drawable.new_star_selected);
             mImageViewStar4.setImageResource(R.drawable.new_star_unselected);
             mImageViewStar5.setImageResource(R.drawable.new_star_unselected);
-        }
-        else if (article.getStarCount() == 2) {
+        } else if (article.getStarCount() == 2) {
             mImageViewStar1.setImageResource(R.drawable.new_star_selected);
             mImageViewStar2.setImageResource(R.drawable.new_star_selected);
             mImageViewStar3.setImageResource(R.drawable.new_star_unselected);
             mImageViewStar4.setImageResource(R.drawable.new_star_unselected);
             mImageViewStar5.setImageResource(R.drawable.new_star_unselected);
 
-        }
-        else if (article.getStarCount() == 1) {
+        } else if (article.getStarCount() == 1) {
             mImageViewStar1.setImageResource(R.drawable.new_star_selected);
             mImageViewStar2.setImageResource(R.drawable.new_star_unselected);
             mImageViewStar3.setImageResource(R.drawable.new_star_unselected);
             mImageViewStar4.setImageResource(R.drawable.new_star_unselected);
             mImageViewStar5.setImageResource(R.drawable.new_star_unselected);
-        }
-        else if (article.getStarCount() == 0) {
+        } else if (article.getStarCount() == 0) {
             mImageViewStar1.setImageResource(R.drawable.new_star_unselected);
             mImageViewStar2.setImageResource(R.drawable.new_star_unselected);
             mImageViewStar3.setImageResource(R.drawable.new_star_unselected);

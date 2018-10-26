@@ -1,6 +1,5 @@
 package com.guanhong.foodie.custom;
 
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -18,6 +17,7 @@ import com.squareup.picasso.Transformation;
 public class Blur implements Transformation {
 
     private Context mContext;
+
     public Blur(Context context) {
         mContext = context;
     }
@@ -30,8 +30,11 @@ public class Blur implements Transformation {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
 
-        int left = 0, top = 0, right = width, bottom = height;
-        float roundPx = (float) (height / 20);   //角度
+        int left = 0;
+        int top = 0;
+        int right = width;
+        int bottom = height;
+        final float roundPx = (float) (height / 20);   //角度
 
 
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -40,7 +43,7 @@ public class Blur implements Transformation {
         int color = 0xff424242;
         Paint paint = new Paint();
         Rect rect = new Rect(left, top, right, bottom);
-        RectF rectF = new RectF(rect);
+        final RectF rectF = new RectF(rect);
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);   //填充背景

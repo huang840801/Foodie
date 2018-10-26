@@ -1,5 +1,7 @@
 package com.guanhong.foodie.map;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -53,8 +55,6 @@ import com.guanhong.foodie.util.Constants;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 
 public class MapFragment extends Fragment implements MapContract.View, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -161,7 +161,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (mLastLocation != null) {
 
-                Geocoder geocoder = new Geocoder(mContext, Locale.TRADITIONAL_CHINESE);
+                final Geocoder geocoder = new Geocoder(mContext, Locale.TRADITIONAL_CHINESE);
 
                 LatLng latLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
 
@@ -318,75 +318,75 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Log.d(Constants.TAG, " MapFragment ready");
-        Log.d(Constants.TAG, " onMapReady  MapFragment GoogleMapView : "+ mGoogleMapView);
+        Log.d(Constants.TAG, " onMapReady  MapFragment GoogleMapView : " + mGoogleMapView);
 
 //
 
-            Log.d(Constants.TAG, "MapFragment ready !isHidden");
-            mGoogleMap = googleMap;
+        Log.d(Constants.TAG, "MapFragment ready !isHidden");
+        mGoogleMap = googleMap;
 
 
-            mPresenter.createCustomMarker(mContext, "");
+        mPresenter.createCustomMarker(mContext, "");
 
 
-            mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-                @Override
-                public void onMapLoaded() {
-                    mPresenter.addMarker();
-                }
-            });
+        mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                mPresenter.addMarker();
+            }
+        });
 
-            mGoogleMap.setOnInfoWindowClickListener(this);
-            mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                @Override
-                public boolean onMarkerClick(final Marker marker) {
-                    Log.d(Constants.TAG, "onMarkerClick: ");
+        mGoogleMap.setOnInfoWindowClickListener(this);
+        mGoogleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(final Marker marker) {
+                Log.d(Constants.TAG, "onMarkerClick: ");
 
-                    String lat = String.valueOf(marker.getPosition().latitude).replace(".", "@");
-                    String lng = String.valueOf(marker.getPosition().longitude).replace(".", "@");
+                String lat = String.valueOf(marker.getPosition().latitude).replace(".", "@");
+                String lng = String.valueOf(marker.getPosition().longitude).replace(".", "@");
 
-                    String key = (lat + "_" + lng);
+                String key = (lat + "_" + lng);
 
-                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                    DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(key);
+                FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(key);
 //                DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(key);
 
-                    Query query = databaseReference.orderByValue();
-                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                Query query = databaseReference.orderByValue();
+                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
 //                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot);
 //                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").getValue());
 //                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").child("latitude").getValue());
 //                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").child("longitude").getValue());
 
-                                double lat = Double.parseDouble(snapshot.child("latLng").child("latitude").getValue() + "");
-                                double lng = Double.parseDouble(snapshot.child("latLng").child("longitude").getValue() + "");
+                            double lat = Double.parseDouble(snapshot.child("latLng").child("latitude").getValue() + "");
+                            double lng = Double.parseDouble(snapshot.child("latLng").child("longitude").getValue() + "");
 
-                                if (marker.getPosition().longitude == lng && marker.getPosition().latitude == lat) {
+                            if (marker.getPosition().longitude == lng && marker.getPosition().latitude == lat) {
 
-                                    mRestaurantName = snapshot.child("restaurantName").getValue() + "";
-                                    mStarCount = snapshot.child("starCount").getValue() + "";
+                                mRestaurantName = snapshot.child("restaurantName").getValue() + "";
+                                mStarCount = snapshot.child("starCount").getValue() + "";
 
-                                    mCustomInfoWindowAdapter.setMarkerData(mRestaurantName, mStarCount);
+                                mCustomInfoWindowAdapter.setMarkerData(mRestaurantName, mStarCount);
 
-                                    marker.showInfoWindow();
-                                    break;
-                                }
+                                marker.showInfoWindow();
+                                break;
                             }
                         }
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
-                    });
+                    }
+                });
 
-                    return false;
-                }
-            });
+                return false;
+            }
+        });
 
 
     }
@@ -429,9 +429,9 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         Log.d(Constants.TAG, "  lng = " + marker.getPosition().longitude);
         String lat = String.valueOf(marker.getPosition().latitude).replace(".", "@");
         String lng = String.valueOf(marker.getPosition().longitude).replace(".", "@");
-        String lat_lng = lat + "_" + lng;
-        mPresenter.getRestaurantData(lat_lng);
-        Log.d(Constants.TAG, "  lng = " + lat_lng);
+        String latLng = lat + "_" + lng;
+        mPresenter.getRestaurantData(latLng);
+        Log.d(Constants.TAG, "  lng = " + latLng);
 
     }
 
@@ -445,11 +445,11 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         mBitmap = bitmap;
     }
 
-    @Override
-    public void showRestaurantUi(Restaurant restaurant, ArrayList<Comment> comments) {
-        Log.d("myCommentsBug ", "  MapFragment  comments.size = " + comments.size());
-        ((FoodieActivity) getActivity()).transToRestaurant(restaurant, comments);
-    }
+//    @Override
+//    public void showRestaurantUi(Restaurant restaurant, ArrayList<Comment> comments) {
+//        Log.d("myCommentsBug ", "  MapFragment  comments.size = " + comments.size());
+//        ((FoodieActivity) getActivity()).transToRestaurant(restaurant, comments);
+//    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
