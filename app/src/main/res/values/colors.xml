@@ -12,6 +12,7 @@
     <color name="profile_main_bg">#f7f8f9</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="grey">#c4c0c0</color>
     <color name="test">#355C7D</color>
     <color name="test1">#355C7D</color>
     <color name="login_button">#bbc16c</color>

@@ -59,14 +59,14 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private TextView mPostArticle;
     private RatingBar mRatingBar;
 
-    private TextView mTextViewRestaurantName;
-    private TextView mTextViewLocation;
-    private TextView mTextViewMenu1;
-    private TextView mTextViewMenu2;
-    private TextView mTextViewMenu3;
-    private TextView mTextViewPictures;
-    private TextView mTextViewContent;
-    private TextView mTextViewRating;
+//    private TextView mTextViewRestaurantName;
+//    private TextView mTextViewLocation;
+//    private TextView mTextViewMenu1;
+//    private TextView mTextViewMenu2;
+//    private TextView mTextViewMenu3;
+//    private TextView mTextViewPictures;
+//    private TextView mTextViewContent;
+//    private TextView mTextViewRating;
 
     private AVLoadingIndicatorView mAVLoadingIndicatorView;
     private View mLoadingBackground;
@@ -101,7 +101,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     public void onDestroy() {
         super.onDestroy();
 
-        ((FoodieActivity)getActivity()).checkRestaurantExists();
+        ((FoodieActivity) getActivity()).checkRestaurantExists();
 //        setTabLayoutVisibility(true);
     }
 
@@ -129,14 +129,14 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mImageViewAddPhoto = rootView.findViewById(R.id.imageView_post_add_pictures);
         mEditTextContent = rootView.findViewById(R.id.edittext_post_content);
 
-        mTextViewRestaurantName = rootView.findViewById(R.id.post_restaurant_name);
-        mTextViewLocation = rootView.findViewById(R.id.post_restaurant_location);
-        mTextViewMenu1 = rootView.findViewById(R.id.textView_menu1);
-        mTextViewMenu2 = rootView.findViewById(R.id.textView_menu2);
-        mTextViewMenu3 = rootView.findViewById(R.id.textView_menu3);
-        mTextViewPictures = rootView.findViewById(R.id.textView_pictures);
-        mTextViewContent = rootView.findViewById(R.id.textView_content);
-        mTextViewRating = rootView.findViewById(R.id.textView_rating_bar);
+//        mTextViewRestaurantName = rootView.findViewById(R.id.post_restaurant_name);
+//        mTextViewLocation = rootView.findViewById(R.id.post_restaurant_location);
+//        mTextViewMenu1 = rootView.findViewById(R.id.textView_menu1);
+//        mTextViewMenu2 = rootView.findViewById(R.id.textView_menu2);
+//        mTextViewMenu3 = rootView.findViewById(R.id.textView_menu3);
+//        mTextViewPictures = rootView.findViewById(R.id.textView_pictures);
+//        mTextViewContent = rootView.findViewById(R.id.textView_content);
+//        mTextViewRating = rootView.findViewById(R.id.textView_rating_bar);
         mPostArticle = rootView.findViewById(R.id.textview_post_post);
 
         mAVLoadingIndicatorView = rootView.findViewById(R.id.AVLoadingIndicatorView);
@@ -172,10 +172,10 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
         mAVLoadingIndicatorView.setVisibility(View.GONE);
         mLoadingBackground.setVisibility(View.GONE);
-        mTextViewMenu2.setVisibility(View.GONE);
+//        mTextViewMenu2.setVisibility(View.GONE);
         mEditTextMenu2.setVisibility(View.GONE);
         mEditTextPrice2.setVisibility(View.GONE);
-        mTextViewMenu3.setVisibility(View.GONE);
+//        mTextViewMenu3.setVisibility(View.GONE);
         mEditTextMenu3.setVisibility(View.GONE);
         mEditTextPrice3.setVisibility(View.GONE);
 
@@ -185,6 +185,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mImageViewAddPhoto.setOnClickListener(this);
         mRecyclerViewPhoto.setOnClickListener(this);
         mPostArticle.setOnClickListener(this);
+        mTextViewRestaurantLocation.setOnClickListener(this);
         mRatingBar.setOnRatingBarChangeListener(this);
 
     }
@@ -269,18 +270,20 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     @Override
     public void onClick(View view) {
 
-        if (view.getId() == R.id.imageView_post_location) {
+        if (view.getId() == R.id.imageView_post_location||view.getId() == R.id.textview_post_restaurant_location) {
+            Log.d(Constants.TAG, "Clicked????");
             ((FoodieActivity) getActivity()).transToPostChildMap();
         }
+//        if (view.getId() == R.id.textview_post_restaurant_location) {
+//            Log.d(Constants.TAG, "Clicked????");
+//            ((FoodieActivity) getActivity()).transToPostChildMap();
+//        }
         if (view.getId() == R.id.imageView_post_addMenu) {
             addMenu();
         }
         if (view.getId() == R.id.recyclerview_post_photo) {
             addPictures();
         }
-//        if (view.getId() == R.id.imageView_post_subtractMenu) {
-//            subtractMenu();
-//        }
         if (view.getId() == R.id.imageView_post_add_pictures) {
             addPictures();
         }

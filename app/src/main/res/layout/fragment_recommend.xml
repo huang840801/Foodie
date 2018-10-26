@@ -11,20 +11,19 @@
         android:id="@+id/imageView_recommend_label"
         android:layout_width="122dp"
         android:layout_height="44dp"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/label" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_restaurant_name"
+        app:srcCompat="@drawable/label_right_deep" />
 
 
     <TextView
         android:id="@+id/textView_recommend_title_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="32dp"
         android:text="本"
         android:textColor="@color/black"
-        android:textSize="22dp"
+        android:textSize="18dp"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="@+id/imageView_recommend_label"
         app:layout_constraintStart_toStartOf="@+id/imageView_recommend_label"
@@ -38,7 +37,7 @@
         android:layout_marginTop="0dp"
         android:text="日"
         android:textColor="@color/black"
-        android:textSize="22dp"
+        android:textSize="18dp"
         android:typeface="sans"
         app:layout_constraintStart_toEndOf="@+id/textView_recommend_title_first"
         app:layout_constraintTop_toTopOf="@+id/textView_recommend_title_first" />
@@ -48,9 +47,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
-        android:text="推"
+        android:text="精"
         android:textColor="@color/black"
-        android:textSize="22dp"
+        android:textSize="18dp"
         android:typeface="sans"
         app:layout_constraintStart_toEndOf="@+id/textView_recommend_title_second"
         app:layout_constraintTop_toTopOf="@+id/textView_recommend_title_second" />
@@ -60,22 +59,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
-        android:text="薦"
+        android:text="選"
         android:textColor="@color/black"
-        android:textSize="22dp"
+        android:textSize="18dp"
         android:typeface="sans"
         app:layout_constraintStart_toEndOf="@+id/textView_recommend_title_third"
         app:layout_constraintTop_toTopOf="@+id/textView_recommend_title_third" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="60dp"
-        android:background="#e7e7e7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<View-->
+        <!--android:id="@+id/divider"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_marginTop="60dp"-->
+        <!--android:background="#e7e7e7"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/textView_restaurant_name"
@@ -89,7 +88,7 @@
         android:textStyle="bold"
         android:typeface="sans"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView_recommend_star1"

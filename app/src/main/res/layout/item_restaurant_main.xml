@@ -30,8 +30,9 @@
 
     <TextView
         android:id="@+id/textView_restaurant_name"
-        android:layout_width="wrap_content"
+        android:layout_width="298dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:text="AppWorks School"
@@ -39,6 +40,8 @@
         android:textSize="20dp"
         android:textStyle="bold"
         android:typeface="sans"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_bookmark"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerview_photo" />
 
@@ -103,7 +106,7 @@
 
     <TextView
         android:id="@+id/textView_location"
-        android:layout_width="254dp"
+        android:layout_width="309dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"

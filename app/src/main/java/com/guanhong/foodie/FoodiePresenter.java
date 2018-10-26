@@ -111,10 +111,8 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 //            Log.d(Constants.TAG, "  transToMap mRestaurantFragment isHidden");
 //            fragmentTransaction.remove(mPostChildMapFragment);
 //        }
-
         mViewPager.setCurrentItem(0);
         mFoodieView.setTabLayoutVisibility(true);
-
         fragmentTransaction.commit();
 
     }
@@ -132,7 +130,6 @@ public class FoodiePresenter implements FoodieContract.Presenter {
             Log.d(Constants.TAG, "  transToMap mRestaurantFragment isHidden");
             mFragmentManager.popBackStack();
         }
-
         fragmentTransaction.commit();
 
         mViewPager.setCurrentItem(4);
@@ -146,7 +143,6 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         mViewPager.setCurrentItem(1);
         mFoodieView.setTabLayoutVisibility(true);
     }
-
 
     @Override
     public void transToRecommend() {

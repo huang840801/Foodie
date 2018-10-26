@@ -383,6 +383,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
             case 3:
                 tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.recommend_selected);
                 mPresenter.transToRecommend();
+
                 break;
             case 4:
 

@@ -34,8 +34,9 @@
         <TextView
 
             android:id="@+id/textView_personal_restaurant_name"
-            android:layout_width="173dp"
+            android:layout_width="206dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
             android:gravity="top"
@@ -44,6 +45,7 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:typeface="sans"
+            app:layout_constraintEnd_toStartOf="@+id/textView_personal_createdTime"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerview_personal_photo" />
 
@@ -122,7 +124,7 @@
         <TextView
             android:id="@+id/textView_personal_menu1"
 
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/what_did_you_eat"
@@ -135,15 +137,20 @@
         <TextView
             android:id="@+id/textView_personal_price1"
 
-            android:layout_width="wrap_content"
+            android:layout_width="24dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
             android:layout_marginStart="8dp"
             android:hint="@string/price"
+            android:maxLength="6"
             android:textSize="12dp"
             android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.008"
             app:layout_constraintStart_toEndOf="@+id/textView_personal_menu1"
-            app:layout_constraintTop_toTopOf="@+id/textView_personal_menu1" />
+            app:layout_constraintTop_toTopOf="@+id/textView_personal_menu1"
+            app:layout_constraintVertical_bias="0.0" />
 
         <!--</LinearLayout>-->
 
@@ -157,7 +164,7 @@
         <TextView
             android:id="@+id/textView_personal_menu2"
 
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/what_did_you_eat"
@@ -170,9 +177,10 @@
         <TextView
             android:id="@+id/textView_personal_price2"
 
-            android:layout_width="wrap_content"
+            android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:hint="@string/price"
+            android:maxLength="6"
             android:textSize="12dp"
 
             android:typeface="sans"
@@ -192,7 +200,7 @@
         <TextView
             android:id="@+id/textView_personal_menu3"
 
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/what_did_you_eat"
@@ -205,11 +213,13 @@
         <TextView
             android:id="@+id/textView_personal_price3"
 
-            android:layout_width="wrap_content"
+            android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:hint="@string/price"
+            android:maxLength="6"
             android:textSize="12dp"
             android:typeface="sans"
+
             app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu3"
             app:layout_constraintEnd_toEndOf="@+id/textView_personal_price2"
             app:layout_constraintTop_toTopOf="@+id/textView_personal_menu3" />
@@ -499,7 +509,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:layout_marginTop="4dp"
-            android:text="TextView"
+            android:text="2018 年 10月26日 15:06"
             android:textSize="12dp"
             android:typeface="sans"
             app:layout_constraintEnd_toEndOf="parent"

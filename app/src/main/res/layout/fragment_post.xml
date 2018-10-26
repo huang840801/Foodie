@@ -330,29 +330,29 @@
             app:layout_constraintStart_toStartOf="@+id/post_restaurant_location"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu1" />
 
-        <TextView
-            android:id="@+id/textView_menu2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <!--<TextView-->
+            <!--android:id="@+id/textView_menu2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
 
-            android:text="菜單"
-            android:textSize="18dp"
-            android:typeface="sans"
-            app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu2"
-            app:layout_constraintStart_toStartOf="@+id/textView_menu1"
-            app:layout_constraintTop_toTopOf="@+id/edittext_post_menu2" />
+            <!--android:text="菜單"-->
+            <!--android:textSize="18dp"-->
+            <!--android:typeface="sans"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu2"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView_menu1"-->
+            <!--app:layout_constraintTop_toTopOf="@+id/edittext_post_menu2" />-->
 
-        <TextView
-            android:id="@+id/textView_menu3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="菜單"
+        <!--<TextView-->
+            <!--android:id="@+id/textView_menu3"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="菜單"-->
 
-            android:textSize="18dp"
-            android:typeface="sans"
-            app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu3"
-            app:layout_constraintStart_toStartOf="@+id/textView_menu2"
-            app:layout_constraintTop_toTopOf="@+id/edittext_post_menu3" />
+            <!--android:textSize="18dp"-->
+            <!--android:typeface="sans"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu3"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/textView_menu2"-->
+            <!--app:layout_constraintTop_toTopOf="@+id/edittext_post_menu3" />-->
 
         <TextView
             android:id="@+id/textView_content"
@@ -373,7 +373,7 @@
             android:textSize="18dp"
             android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/constraintggg"
-            app:layout_constraintStart_toStartOf="@+id/textView_menu3"
+            app:layout_constraintStart_toStartOf="@+id/textView_menu1"
             app:layout_constraintTop_toTopOf="@+id/constraintggg" />
 
         <TextView

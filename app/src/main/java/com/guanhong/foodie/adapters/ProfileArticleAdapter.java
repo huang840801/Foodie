@@ -72,7 +72,7 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
                 .load(mArticleArrayList.get(position).getPictures().get(0))
                 .placeholder(R.drawable.animated_rotate_drawable)
                 .error(R.drawable.photo_error)
-                .transform(new Blur(mContext))
+//                .transform(new Blur(mContext))
                 .fit()
 //                .resize(500,300)
 //                .centerInside()
