@@ -32,7 +32,6 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
 
     private ArrayList<String> mPhotosList;
     private ArrayList<Bitmap> mBitmapList;
-    private Context mContext;
 
     public PostArticlePhotoAdapter(ArrayList<String> stringArrayListExtra, PostContract.Presenter presenter) {
         mPhotosList = stringArrayListExtra;
@@ -46,8 +45,8 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        mContext = parent.getContext();
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_post_restaurant_photo, parent, false);
+        Context context = parent.getContext();
+        View view = LayoutInflater.from(context).inflate(R.layout.item_post_restaurant_photo, parent, false);
         return new PostArticlePhotoAdapter.PostPhotoItemViewHolder(view);
     }
 
@@ -83,8 +82,6 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
         }
 
         public void bindData(int position) {
-//            String s = "/storage/44D7-8D89/DCIM/Camera/SAVE_20180912_122632.jpeg";
-//            Bitmap bitmap = BitmapFactory.decodeFile(s);
             for (int i = 0; i < mPhotosList.size(); i++) {
 
 
@@ -105,9 +102,6 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
             }
             mImageView.setImageBitmap(mBitmapList.get(position));
 
-//            Picasso.get().load(mPhotosList.get(position)).placeholder(R.drawable.all_picture_placeholder).into(mImageView);
-//            Picasso.get().load("44D7-8D89/DCIM/Camera/SAVE_20180912_122632.jpeg").placeholder(R.drawable.all_picture_placeholder).into(mImageView);
-
         }
 
         @Override
@@ -122,29 +116,15 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
 
         int left = 0;
         int top = 0;
-        int right = width;
-        int bottom = height;
-//        int left = width, top = height, right = width, bottom = height;
 
         final float roundPx = (float) (height / 10);   //角度
-//        if (width > height) {
-//            left = (width - height) / 2;
-//            top = 0;
-//            right = left + height;
-//            bottom = height;
-//        } else if (height > width) {
-//            left = 0;
-//            top = (height - width) / 2;
-//            right = width;
-//            bottom = top + width;
-//            roundPx = width / 2;
-//        }
+
         Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(output);
         int color = 0xff424242;
         Paint paint = new Paint();
-        Rect rect = new Rect(left, top, right, bottom);
+        Rect rect = new Rect(left, top, width, height);
         final RectF rectF = new RectF(rect);
 
         paint.setAntiAlias(true);
@@ -165,7 +145,6 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
         options.inPurgeable = true;
         options.inSampleSize = i;
         return options;
-
 
     }
 }

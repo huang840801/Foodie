@@ -13,8 +13,6 @@ public interface ProfileContract {
 
     interface View extends BaseView<Presenter> {
 
-//        void showUserPicture(Bitmap bitmap);
-
         void showUserData(User user);
 
         void showMyArticles(ArrayList<Article> articleArrayList);

@@ -27,7 +27,6 @@ public class PostPresenter implements PostContract.Presenter {
 
     private PostContract.View mPostView;
 
-
     public PostPresenter(PostContract.View postView) {
 
         mPostView = checkNotNull(postView, "postView cannot be null");
@@ -43,18 +42,6 @@ public class PostPresenter implements PostContract.Presenter {
 
     @Override
     public void postArticle(final Article article) {
-
-//        Log.d(Constants.TAG, " postArticle  getAuthor getId = " + article.getAuthor().getId());
-//        Log.d(Constants.TAG, " postArticle  getAuthor getName = " + article.getAuthor().getName());
-//        Log.d(Constants.TAG, " postArticle  getRestaurantName = " + article.getRestaurantName());
-//        Log.d(Constants.TAG, " postArticle  getLocation = " + article.getLocation());
-//        Log.d(Constants.TAG, " postArticle  getMenus = " + article.getMenus().get(0).getDishName());
-//        Log.d(Constants.TAG, " postArticle  getMenus = " + article.getMenus().get(0).getDishPrice());
-//        Log.d(Constants.TAG, " postArticle mStarCount = " + article.getContent());
-//        Log.d(Constants.TAG, " postArticle getStarCount = " + article.getStarCount());
-//        Log.d(Constants.TAG, " postArticle latitude = " + article.getLatLng().latitude);
-//        Log.d(Constants.TAG, " postArticle longitude = " + article.getLatLng().longitude);
-
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -74,11 +61,8 @@ public class PostPresenter implements PostContract.Presenter {
         final int num = pictureList.size();
         for (int i = 0; i < pictureList.size(); i++) {
 
-
             StorageReference storageReference;
             storageReference = FirebaseStorage.getInstance().getReference();
-//            Log.d("MULTIPLE_PICKER ", "" + article.getPictures().get(i));
-
 
             Uri file = Uri.fromFile(new File(pictureList.get(i)));
             final StorageReference myRef = storageReference.child(UserManager.getInstance().getUserId() + file);
@@ -109,11 +93,7 @@ public class PostPresenter implements PostContract.Presenter {
 //                                        mPostView.showNewPictures(newPictures);
 
             });
-//            if(newPictures.size() == finalI){
-//                mPostView.showNewPictures(newPictures);
-//            }
         }
-//        uploadImage.showImageUriList(newPictures);
 
     }
 

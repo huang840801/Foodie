@@ -12,8 +12,6 @@ public interface SearchContract {
 
         void showSearchResult(ArrayList<Restaurant> restaurantArrayList);
 
-        void showResultToast();
-
         void transToRestaurant(Restaurant restaurant);
     }
 

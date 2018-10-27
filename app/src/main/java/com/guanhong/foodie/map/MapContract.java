@@ -20,13 +20,9 @@ public interface MapContract {
 
         void setMarkerBitmap(Bitmap bitmap);
 
-//        void showRestaurantUi(Restaurant restaurant, ArrayList<Comment> comments);
-
         void showMarker(List<LatLng> locations);
 
         void showRestaurantUi(Restaurant restaurant);
-
-//        void setRestaurantData(Restaurant restaurant);
     }
 
     interface Presenter extends BasePresenter {

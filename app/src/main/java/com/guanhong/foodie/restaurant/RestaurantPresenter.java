@@ -60,9 +60,7 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
 
     @Override
     public void start() {
-
         getRestaurantComments(mRestaurant.getLat_Lng());
-//        mRestaurantView.showRestaurant(mRestaurant, mComments);
     }
 
     private void getRestaurantComments(final String latLng) {
@@ -86,12 +84,6 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
 
                     final Comment comment = new Comment();
                     Author author = new Author();
-
-//                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("id").getValue());
-//                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("image").getValue());
-//                    Log.d("Comments ", " snapshot : " + snapshot.child("author").child("name").getValue());
-//                    Log.d("Comments ", " snapshot : " + snapshot.child("comment").getValue());
-//                    Log.d("Comments ", " snapshot : " + snapshot.child("createdTime").getValue());
 
                     author.setId((String) snapshot.child("author").child("id").getValue());
                     author.setImage((String) snapshot.child("author").child("image").getValue());

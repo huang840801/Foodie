@@ -22,28 +22,17 @@ import java.util.ArrayList;
 public class LikeArticleAdapter extends RecyclerView.Adapter {
     private ArrayList<Restaurant> mRestaurantArrayList;
     private Context mContext;
-//    private Typeface mTypeface;
     private LikeContract.Presenter mPresenter;
 
     public LikeArticleAdapter(LikeContract.Presenter presenter, ArrayList<Restaurant> restaurantArrayList) {
-//        Log.d("LikeArticleAdapter ", "" + restaurantArrayList.size());
-//        Log.d("LikeArticleAdapter ", "" + restaurantArrayList.get(0).getRestaurantName());
-//        Log.d("LikeArticleAdapter ", "" + restaurantArrayList.get(0).getStarCount());
-//        Log.d("LikeArticleAdapter ", "" + restaurantArrayList.get(1).getRestaurantName());
-//        Log.d("LikeArticleAdapter ", "" + restaurantArrayList.get(1).getStarCount());
-//        Log.d("LikeArticleAdapter ", "" + restaurantArrayList.get(2).getRestaurantName());
-//        Log.d("LikeArticleAdapter ", "" + restaurantArrayList.get(2).getStarCount());
-
         mRestaurantArrayList = restaurantArrayList;
         mPresenter = presenter;
-
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-//        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_like_article, parent, false);
         return new LikeArticleAdapter.LikeArticleHolder(view);
@@ -58,9 +47,6 @@ public class LikeArticleAdapter extends RecyclerView.Adapter {
     }
 
     private void bindMainItem(LikeArticleHolder holder, int position) {
-//                holder.mImageView.setImageResource(Integer.parseInt(mRestaurantArrayList.get(position).getRestaurantPictures().get(0)));
-//        holder.mTextViewRestaurantName.setTypeface(mTypeface);
-//        holder.mTextViewLocation.setTypeface(mTypeface);
         holder.mTextViewRestaurantName.setText(mRestaurantArrayList.get(position).getRestaurantName());
         holder.mTextViewLocation.setText(mRestaurantArrayList.get(position).getRestaurantLocation());
 
@@ -68,7 +54,6 @@ public class LikeArticleAdapter extends RecyclerView.Adapter {
             Picasso.get()
                     .load(mRestaurantArrayList.get(position).getRestaurantPictures().get(0))
                     .fit()
-//                    .resize(150, 100)
                     .transform(new CircleCornerForm())
                     .placeholder(R.drawable.animated_rotate_drawable)
                     .error(R.drawable.photo_error)
@@ -123,7 +108,6 @@ public class LikeArticleAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-//        return 0;
         return mRestaurantArrayList.size();
     }
 

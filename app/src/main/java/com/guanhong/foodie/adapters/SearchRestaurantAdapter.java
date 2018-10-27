@@ -23,22 +23,18 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter {
 
     private ArrayList<Restaurant> mRestaurantArrayList;
     private Context mContext;
-//    private Typeface mTypeface;
     private SearchContract.Presenter mPresenter;
 
 
     public SearchRestaurantAdapter(SearchContract.Presenter presenter, ArrayList<Restaurant> restaurantArrayList) {
         mRestaurantArrayList = restaurantArrayList;
         mPresenter = presenter;
-//        Log.d("Huang ", "SearchRestaurantAdapter " + restaurantArrayList.get(0).getRestaurantName());
-//        Log.d("Huang ", "SearchRestaurantAdapter " + restaurantArrayList.get(0).getStarCount());
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-//        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_search_articles, parent, false);
         return new SearchArticleHolder(view);
@@ -54,8 +50,6 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter {
 
     private void bindMainItem(SearchArticleHolder holder, int position) {
 
-//        holder.mTextViewRestaurantName.setTypeface(mTypeface);
-//        holder.mTextViewLocation.setTypeface(mTypeface);
         holder.mTextViewRestaurantName.setText(mRestaurantArrayList.get(position).getRestaurantName());
         holder.mTextViewLocation.setText(mRestaurantArrayList.get(position).getRestaurantLocation());
 

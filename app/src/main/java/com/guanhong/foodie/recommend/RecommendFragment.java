@@ -45,7 +45,6 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
 
     private TextView mRestaurantName;
     private TextView mLocation;
-    //    private TextView mPhoto;
     private ImageView mStar1;
     private ImageView mStar2;
     private ImageView mStar3;
@@ -54,7 +53,6 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     private RecyclerView mRecyclerView;
     private ImageView mLabel;
 
-    //    private Typeface mTypeface;
     private ArrayList<Restaurant> mRestaurantArrayList = new ArrayList<>();
 
     private Timer mTimer;
@@ -79,7 +77,6 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         mRestaurantName = v.findViewById(R.id.textView_restaurant_name);
         mLocation = v.findViewById(R.id.textView_location);
         mLabel = v.findViewById(R.id.imageView_recommend_label);
-//        mPhoto = v.findViewById(R.id.textView_photo);
         mStar1 = v.findViewById(R.id.imageView_recommend_star1);
         mStar2 = v.findViewById(R.id.imageView_recommend_star2);
         mStar3 = v.findViewById(R.id.imageView_recommend_star3);
@@ -107,15 +104,10 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setTypeFace();
         setAnimation();
 
         mPresenter.start();
 
-
-//        mHandler = new Handler()
-//        startMyService();
-//        startTimer();
 
     }
 
@@ -135,7 +127,6 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
                     }
                 });
 
-//                createRandomRestaurant();
                 mCount++;
 //                if (mCount >= 5) {
 //                    mTimer.cancel();
@@ -155,13 +146,6 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         }
     }
 
-    private void setTypeFace() {
-//        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
-//        mTitle.setTypeface(mTypeface);
-//        mRestaurantName.setTypeface(mTypeface);
-//        mLocation.setTypeface(mTypeface);
-//        mPhoto.setTypeface(mTypeface);
-    }
 
 
     @Override
@@ -235,8 +219,6 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(new RecommendPhotoAdapter(restaurant.getRestaurantPictures()));
-//                    mRecyclerView.addItemDecoration(new NormalArticleItemDecoration(25));
-
 
     }
 

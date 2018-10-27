@@ -45,7 +45,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private TextView mTextViewRestaurantLocation;
     private ImageView mImageViewMarker;
     private ImageView mImageViewAddMenu;
-    //    private ImageView mImageViewSubtractMenu;
     private EditText mEditTextMenu1;
     private EditText mEditTextPrice1;
     private EditText mEditTextMenu2;
@@ -58,20 +57,9 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private TextView mPostArticle;
     private RatingBar mRatingBar;
 
-//    private TextView mTextViewRestaurantName;
-//    private TextView mTextViewLocation;
-//    private TextView mTextViewMenu1;
-//    private TextView mTextViewMenu2;
-//    private TextView mTextViewMenu3;
-//    private TextView mTextViewPictures;
-//    private TextView mTextViewContent;
-//    private TextView mTextViewRating;
-
     private AVLoadingIndicatorView mAvLoadingIndicatorView;
     private View mLoadingBackground;
 
-
-//    private Typeface mTypeface;
 
     private ArrayList<String> mPictureList = new ArrayList<>();
 
@@ -90,18 +78,14 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Log.d(Constants.TAG, " mPresenter = " + mPresenter);
-//        setTabLayoutVisibility(false);
 
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         ((FoodieActivity) getActivity()).checkRestaurantExists();
-//        setTabLayoutVisibility(true);
     }
 
     @Nullable
@@ -117,7 +101,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mTextViewRestaurantLocation = rootView.findViewById(R.id.textview_post_restaurant_location);
         mImageViewMarker = rootView.findViewById(R.id.imageView_post_location);
         mImageViewAddMenu = rootView.findViewById(R.id.imageView_post_addMenu);
-//        mImageViewSubtractMenu = rootView.findViewById(R.id.imageView_post_subtractMenu);
         mEditTextMenu1 = rootView.findViewById(R.id.edittext_post_menu1);
         mEditTextPrice1 = rootView.findViewById(R.id.edittext_post_price1);
         mEditTextMenu2 = rootView.findViewById(R.id.edittext_post_menu2);
@@ -128,39 +111,16 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mImageViewAddPhoto = rootView.findViewById(R.id.imageView_post_add_pictures);
         mEditTextContent = rootView.findViewById(R.id.edittext_post_content);
 
-//        mTextViewRestaurantName = rootView.findViewById(R.id.post_restaurant_name);
-//        mTextViewLocation = rootView.findViewById(R.id.post_restaurant_location);
-//        mTextViewMenu1 = rootView.findViewById(R.id.textView_menu1);
-//        mTextViewMenu2 = rootView.findViewById(R.id.textView_menu2);
-//        mTextViewMenu3 = rootView.findViewById(R.id.textView_menu3);
-//        mTextViewPictures = rootView.findViewById(R.id.textView_pictures);
-//        mTextViewContent = rootView.findViewById(R.id.textView_content);
-//        mTextViewRating = rootView.findViewById(R.id.textView_rating_bar);
         mPostArticle = rootView.findViewById(R.id.textview_post_post);
 
         mAvLoadingIndicatorView = rootView.findViewById(R.id.AVLoadingIndicatorView);
         mLoadingBackground = rootView.findViewById(R.id.loading_background);
-
-        setTypeFace();
 
         mRecyclerViewPhoto = rootView.findViewById(R.id.recyclerview_post_photo);
 
         mRatingBar = rootView.findViewById(R.id.ratingBar2);
 
         return rootView;
-    }
-
-    private void setTypeFace() {
-//        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
-//        mTextViewRestaurantName.setTypeface(mTypeface);
-//        mTextViewLocation.setTypeface(mTypeface);
-//        mTextViewMenu1.setTypeface(mTypeface);
-//        mTextViewMenu2.setTypeface(mTypeface);
-//        mTextViewMenu3.setTypeface(mTypeface);
-//        mTextViewPictures.setTypeface(mTypeface);
-//        mTextViewContent.setTypeface(mTypeface);
-//        mTextViewRating.setTypeface(mTypeface);
-//        mPostArticle.setTypeface(mTypeface);
     }
 
     @Override
@@ -171,16 +131,13 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
         mAvLoadingIndicatorView.setVisibility(View.GONE);
         mLoadingBackground.setVisibility(View.GONE);
-//        mTextViewMenu2.setVisibility(View.GONE);
         mEditTextMenu2.setVisibility(View.GONE);
         mEditTextPrice2.setVisibility(View.GONE);
-//        mTextViewMenu3.setVisibility(View.GONE);
         mEditTextMenu3.setVisibility(View.GONE);
         mEditTextPrice3.setVisibility(View.GONE);
 
         mImageViewMarker.setOnClickListener(this);
         mImageViewAddMenu.setOnClickListener(this);
-//        mImageViewSubtractMenu.setOnClickListener(this);
         mImageViewAddPhoto.setOnClickListener(this);
         mRecyclerViewPhoto.setOnClickListener(this);
         mPostArticle.setOnClickListener(this);
@@ -210,10 +167,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         return result;
     }
 
-    @Override
-    public void setTabLayoutVisibility(boolean visible) {
-//        ((FoodieActivity) getActivity()).setTabLayoutVisibility(visible);
-    }
 
     @Override
     public void showAddress(final String addressLine, LatLng latLng) {
@@ -221,7 +174,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mLatLng = latLng;
 
         Log.d(Constants.TAG, "   " + addressLine);
-//        mTextViewRestaurantLocation.setText(addressLine);
         mTextViewRestaurantLocation.post(new Runnable() {
             @Override
             public void run() {
@@ -239,7 +191,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mRecyclerViewPhoto.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
         mRecyclerViewPhoto.setHasFixedSize(true);
         mRecyclerViewPhoto.setAdapter(new PostArticlePhotoAdapter(pictureArrayListExtra, mPresenter));
-//        mRecyclerViewPhoto.addItemDecoration(new ArticlePreviewItemDecoration(2));
 
         mRecyclerViewPhoto.smoothScrollToPosition(0);
 
@@ -247,23 +198,19 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
     @Override
     public void showNewPictures(ArrayList<String> newPictures) {
-//        Log.d(Constants.TAG, "  showNewPictures " + newPictures);
         getArticleData(newPictures);
     }
 
     @Override
     public void addPictures() {
         ((FoodieActivity) getActivity()).pickMultiplePictures();
-
     }
 
     @Override
     public void transToMap() {
-
         mAvLoadingIndicatorView.setVisibility(View.GONE);
         mLoadingBackground.setVisibility(View.GONE);
         ((FoodieActivity) getActivity()).transToMap();
-
     }
 
     @Override
@@ -273,10 +220,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
             Log.d(Constants.TAG, "Clicked????");
             ((FoodieActivity) getActivity()).transToPostChildMap();
         }
-//        if (view.getId() == R.id.textview_post_restaurant_location) {
-//            Log.d(Constants.TAG, "Clicked????");
-//            ((FoodieActivity) getActivity()).transToPostChildMap();
-//        }
         if (view.getId() == R.id.imageView_post_addMenu) {
             addMenu();
         }
@@ -288,10 +231,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         }
         if (view.getId() == R.id.textview_post_post) {
             checkInformation();
-//            mAvLoadingIndicatorView.setVisibility(View.VISIBLE);
-//            mLoadingBackground.setVisibility(View.VISIBLE);
-//            mPresenter.postArticle(new Article());
-//            postImage();
         }
 
     }
@@ -362,36 +301,18 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
                     mAvLoadingIndicatorView.setVisibility(View.VISIBLE);
                     mLoadingBackground.setVisibility(View.VISIBLE);
                     postImage();
-//                    Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 mAvLoadingIndicatorView.setVisibility(View.VISIBLE);
                 mLoadingBackground.setVisibility(View.VISIBLE);
                 postImage();
-//                Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
             }
 
         } else {
             mAvLoadingIndicatorView.setVisibility(View.VISIBLE);
             mLoadingBackground.setVisibility(View.VISIBLE);
             postImage();
-//            Toast.makeText(mContext, "可以發文囉!", Toast.LENGTH_SHORT).show();
         }
-//        String address = mTextViewRestaurantLocation.getText().toString();
-
-//        String dishName1 = mEditTextMenu1.getText().toString();
-//        String dishPrice1 = mEditTextPrice1.getText().toString();
-//
-//        String dishName2 = mEditTextMenu2.getText().toString();
-//        String dishPrice2 = mEditTextPrice2.getText().toString();
-//
-//        String dishName3 = mEditTextMenu3.getText().toString();
-//        String dishPrice3 = mEditTextPrice3.getText().toString();
-//
-//
-//        String content = mEditTextContent.getText().toString();
-
-
     }
 
 
@@ -427,7 +348,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
     private void getArticleData(ArrayList<String> newPictures) {
 
-
         Log.d("UserManager", " email = " + UserManager.getInstance().getUserEmail());
         Log.d("UserManager", " id = " + UserManager.getInstance().getUserId());
         Log.d("UserManager", " image = " + UserManager.getInstance().getUserImage());
@@ -436,14 +356,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         final Article article = new Article();
         final Author author = new Author();
         final ArrayList<Menu> menus = new ArrayList<>();
-//        ArrayList<String> pictures = new ArrayList<>();
-//        Menu menu = new Menu();
-
-//        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-//        String uid = userData.getString("userUid", "");
-//        String name = userData.getString("userName", "");
-//        String image = userData.getString("userImage", "");
-
         author.setId(UserManager.getInstance().getUserId());
         author.setName(UserManager.getInstance().getUserName());
         author.setImage(UserManager.getInstance().getUserImage());
@@ -483,24 +395,13 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         final String content = mEditTextContent.getText().toString();
         final int starCount = mStarCount;
 
-//        Geocoder geoCoder = new Geocoder(mContext, Locale.getDefault());
-//        List<Address> addressLocation = null;
-//        try {
-//            addressLocation = geoCoder.getFromLocationName(address, 1);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-//        double latitude = addressLocation.get(0).getLatitude();
-//        double longitude = addressLocation.get(0).getLongitude();
         double latitude = mLatLng.latitude;
         double longitude = mLatLng.longitude;
-//        String lat = (String.valueOf(latitude)).substring(0, Constants.LATLNG_SAVE_DIGITS);
-//        String lng = (String.valueOf(longitude)).substring(0, Constants.LATLNG_SAVE_DIGITS);
+
         String lat = (String.valueOf(latitude));
         String lng = (String.valueOf(longitude));
         String latlng = (lat + "_" + lng).replace(".", "@");
-//        latlng.replace(".", "");
+
         Log.d(Constants.TAG, "  hongtest post latitude = " + latitude);
         Log.d(Constants.TAG, "  hongtest post longitude = " + longitude);
         Log.d(Constants.TAG, "  hongtest post latlng = " + latlng);
@@ -510,7 +411,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         article.setRestaurantName(restaurantName);
         article.setLocation(address);
         article.setMenus(menus);
-//        article.setPictures(pictures);
         article.setContent(content);
         article.setStarCount(starCount);
         article.setLatLng(new LatLng(Double.parseDouble(lat), Double.parseDouble(lng)));

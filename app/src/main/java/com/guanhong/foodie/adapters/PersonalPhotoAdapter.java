@@ -22,10 +22,6 @@ public class PersonalPhotoAdapter extends RecyclerView.Adapter {
 
     public PersonalPhotoAdapter(ArrayList<String> pictures) {
         mPictureList = pictures;
-//        Log.d(Constants.TAG, "  showNewPictures " + mPictureList);
-//        Log.d(Constants.TAG, "  showNewPictures " + mPictureList.get(0));
-
-
     }
 
     @NonNull
@@ -33,7 +29,6 @@ public class PersonalPhotoAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_personal_article_photo, parent, false);
-//        return new PostArticlePhotoAdapter.PostPhotoItemViewHolder(view);
 
         return new PersonalPhotoAdapter.PersonalArticlePhotoItemViewHolder(view);
     }
@@ -47,10 +42,6 @@ public class PersonalPhotoAdapter extends RecyclerView.Adapter {
 
     }
 
-    //    if (holder instanceof PostPhotoItemViewHolder) {
-//        ((PostPhotoItemViewHolder) holder).bindData(position);
-//
-//    }
     @Override
     public int getItemCount() {
         return Integer.MAX_VALUE;
@@ -65,10 +56,6 @@ public class PersonalPhotoAdapter extends RecyclerView.Adapter {
             mImageView = view.findViewById(R.id.imageView_personal_article_photo);
 
         }
-
-//        public ImageView getImageView() {
-//            return mImageView;
-//        }
 
         public void bindData(int position) {
             int positionInPhoto = position % mPictureList.size();

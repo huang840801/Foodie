@@ -6,7 +6,7 @@ import android.view.View;
 
 public class NormalArticleItemDecoration extends RecyclerView.ItemDecoration {
 
-    int mSpace;
+    private int mSpace;
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {

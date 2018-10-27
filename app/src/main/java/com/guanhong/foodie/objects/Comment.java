@@ -2,8 +2,6 @@ package com.guanhong.foodie.objects;
 
 public class Comment {
 
-//    private String mId;
-//    private String mArticleId;
     private Author mAuthor;
     private String mComment;
     private String mCreatedTime;
@@ -15,22 +13,6 @@ public class Comment {
         mComment = "";
         mCreatedTime = "";
     }
-
-//    public String getId() {
-//        return mId;
-//    }
-//
-//    public void setId(String id) {
-//        mId = id;
-//    }
-
-//    public String getArticleId() {
-//        return mArticleId;
-//    }
-//
-//    public void setArticleId(String articleId) {
-//        mArticleId = articleId;
-//    }
 
     public Author getAuthor() {
         return mAuthor;

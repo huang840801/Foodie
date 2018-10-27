@@ -165,8 +165,6 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
                                 .position(latLng)
                                 .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
 
-
-//                        showDialog(addressList.get(0).getAddressLine(0), latLng);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -185,8 +183,6 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
 
             Toast.makeText(this, "SecurityException:\n" + mLastLocation.getLatitude() + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
 
-//            Log.d(Constants.TAG, "SecurityException:\n" + String.valueOf(mLastLocation.getLatitude()) + "\n"
-//                    + String.valueOf(mLastLocation.getLongitude()));
         }
     }
 
@@ -194,7 +190,6 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
         Log.d("Permissions", "requestLocationPermissions");
 
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-//            Log.d("Permissions", "android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP");
             return true;
         }
 
@@ -285,7 +280,6 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
 
                         Log.d(Constants.TAG, "  hongtest postchild latitude = " + latLng.latitude);
                         Log.d(Constants.TAG, "  hongtest postchild longitude = " + latLng.longitude);
-//                        mPresenter.getAddress(geocoder, latLng);
                         try {
                             List<Address> addressList = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
 
@@ -313,16 +307,11 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
 
         LinearLayout ll = (LinearLayout) dialog.findViewById(R.id.lldialog);
         ll.getLayoutParams().width = 1000;
-//        ll.getLayoutParams().height = 400;
 
         Window dialogWindow = dialog.getWindow();
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-//dialogWindow.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
-//        lp.x = 0; // 新位置X坐標
-//        lp.y = 0; // 新位置Y坐標
         lp.width = 1100; // 寬度
         lp.height = 400; // 高度
-//                lp.alpha = 0.7f; // 透明度
 
         TextView dialogAddress = dialog.findViewById(R.id.textView_dialog_address);
         dialogAddress.setText(addressLine);
@@ -353,7 +342,6 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
 
             @Override
             public void onClick(View v) {
-//                        Log.d(TAG, "   cancel");
                 dialog.cancel();
             }
         });

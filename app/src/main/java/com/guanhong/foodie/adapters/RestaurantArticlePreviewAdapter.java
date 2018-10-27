@@ -27,22 +27,12 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
 
     private RestaurantContract.Presenter mPresenter;
 
-//    private Typeface mTypeface;
     private Context mContext;
     private ArrayList<Article> mArticleArrayList;
 
     public RestaurantArticlePreviewAdapter(ArrayList<Article> articleArrayList, RestaurantContract.Presenter presenter) {
         mArticleArrayList = articleArrayList;
         mPresenter = presenter;
-//        Log.d(Constants.TAG, " RestaurantArticlePreviewAdapter presenter = " + presenter);
-//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.size());
-//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getPictures());
-//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getMenus().size());
-//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getMenus().get(0).getDishName());
-//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getMenus().get(0).getDishPrice());
-//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getLocation());
-//        Log.d(Constants.TAG, " mArticleArrayList.size() " + mArticleArrayList.get(0).getAuthor().getName());
-
     }
 
     @NonNull
@@ -50,7 +40,6 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         mContext = parent.getContext();
-//        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_restaurant_article_preview, parent, false);
         return new ArticleItemViewHolder(view);
@@ -67,13 +56,8 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
 
     private void bindMainItem(ArticleItemViewHolder holder, int position) {
 
-//        holder.getAuthorName().setTypeface(mTypeface);
-//        holder.getContent().setTypeface(mTypeface);
-//        holder.getCreatedTime().setTypeface(mTypeface);
-
         holder.getAuthorName().setText(mArticleArrayList.get(position).getAuthor().getName());
         holder.getContent().setText(mArticleArrayList.get(position).getContent());
-
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy 年 MM月dd日 HH:mm");
         long lcc = Long.valueOf(mArticleArrayList.get(position).getCreatedTime());
@@ -89,7 +73,6 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
 //                .centerInside()
                 .transform(new CircleCornerForm())
                 .into(holder.getArticlePhoto());
-
 
     }
 
@@ -136,6 +119,5 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
             mPresenter.openPersonalArticle(mArticleArrayList.get(getAdapterPosition()));
         }
     }
-
 
 }

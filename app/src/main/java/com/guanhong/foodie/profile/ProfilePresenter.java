@@ -51,7 +51,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     @Override
     public void start() {
         getUserData();
-//        getMyArticleData();
     }
 
     @Override
@@ -60,8 +59,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
         final String uid = userData.getString("userId", "");
 //
-//        Log.d(Constants.TAG, " ProfilePresenter uid = " + uid);
-
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("article");
         Query query = databaseReference;
@@ -72,16 +69,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 //
                     if (snapshot.child("author").child("id").getValue().equals(uid)) {
-//                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot);
-//                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("author").child("id").getValue());
-//                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("author").child("image").getValue());
-//                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("author").child("name").getValue());
-//                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("content").getValue());
-//                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("location").getValue());
-//                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("restaurantName").getValue());
-//                        Log.d(Constants.TAG, "ProfilePresenterstarCount : " + snapshot.child("starCount").getValue());
                         Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("createdTime").getValue());
-//                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("pictures").getChildrenCount());
 
                         final Article article = new Article();
                         final Author author = new Author();
@@ -109,18 +97,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                             menuList.add(menu);
                         }
                         article.setMenus(menuList);
-
-//                        Log.d(Constants.TAG, " ProfilePresenter  getAuthor getId = " + article.getAuthor().getId());
-//                        Log.d(Constants.TAG, " ProfilePresenter  getAuthor getName = " + article.getAuthor().getName());
-//                        Log.d(Constants.TAG, " ProfilePresenter  getRestaurantName = " + article.getRestaurantName());
-//                        Log.d(Constants.TAG, " ProfilePresenter  getLocation = " + article.getLocation());
-//                        Log.d(Constants.TAG, " ProfilePresenter  getMenus = " + article.getMenus().get(0).getDishName());
-//                        Log.d(Constants.TAG, " ProfilePresenter  getMenus = " + article.getMenus().get(0).getDishPrice());
-//                        Log.d(Constants.TAG, " ProfilePresenter getContent = " + article.getContent());
-//                        Log.d(Constants.TAG, " ProfilePresenter getStarCount = " + article.getStarCount());
-//                        Log.d(Constants.TAG, " ProfilePresenter getPictures = " + article.getPictures());
-//                        Log.d(Constants.TAG, " ProfilePresenter latitude = " + article.getLatLng().latitude);
-//                        Log.d(Constants.TAG, " ProfilePresenter longitude = " + article.getLatLng().longitude);
                         mArticleArrayList.add(article);
                     }
 
@@ -140,10 +116,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     @Override
     public void updateUserImageToFireBaseStorage(ArrayList<String> pictures) {
-//        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-//        String uid = userData.getString("userUid", "");
 
-//        Log.d(" updateUserImage  ", " ProfilePresenter  " + url);
         Log.d(" updateUserImage  ", " getUserId  " + UserManager.getInstance().getUserId());
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -176,7 +149,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 }
 
             }
-//                                        mPostView.showNewPictures(newPictures);
 
         });
 
@@ -188,9 +160,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         final String uid = userData.getString("userId", "");
         Log.d(Constants.TAG, " ProfilePresenteruid = " + uid);
 
-//        DatabaseReference mDatabaseReference = FirebaseDatabase.getInstance().getReference();
-//
-//        Query query = mDatabaseReference.child("user").orderByChild("id").equalTo(uid);
         FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = userDatabase.getReference("user");
         Query query = myRef;
@@ -215,11 +184,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                         user.setImage(image);
 
                         mProfileView.showUserData(user);
-
-//                        Log.d(Constants.TAG, " name = " + name);
-//                        Log.d(Constants.TAG, " email = " + email);
-//                        Log.d(Constants.TAG, " image = " + image);
-
                     }
                 }
             }

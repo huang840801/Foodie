@@ -12,10 +12,6 @@ public interface RestaurantContract {
 
     interface View extends BaseView<Presenter> {
 
-        void setTabLayoutVisibility(boolean visible);
-
-        void showRestaurant(Restaurant restaurant, ArrayList<Comment> comments);
-
         void showPersonalArticleUi(Article article);
 
         void transToPost();
@@ -24,10 +20,6 @@ public interface RestaurantContract {
     }
 
     interface Presenter extends BasePresenter {
-
-//        void showTabLayout();
-//
-//        void hideTabLayout();
 
         void openPersonalArticle(Article article);
 

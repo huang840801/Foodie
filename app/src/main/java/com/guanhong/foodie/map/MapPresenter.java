@@ -39,7 +39,6 @@ public class MapPresenter implements MapContract.Presenter {
     public MapPresenter(MapContract.View mapView) {
 
         mMapView = checkNotNull(mapView, "mapView cannot be null");
-//        mMapView = mapView;
         mMapView.setPresenter(this);
     }
 
@@ -48,12 +47,10 @@ public class MapPresenter implements MapContract.Presenter {
         mMapView.showMap();
     }
 
-//    public static Bitmap createCustomMarker(Context context, @DrawableRes int resource, String _name) {
 
     @Override
     public void getRestaurantData(String latLng) {
         Log.d("myCommentsBug ", " MapPresenter getRestaurantData  ");
-
 
         final Restaurant restaurant = new Restaurant();
 
@@ -69,32 +66,20 @@ public class MapPresenter implements MapContract.Presenter {
                 Log.d(Constants.TAG, "MapPresenter getChildrenCount : " + dataSnapshot.getChildrenCount());
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    Log.d(Constants.TAG, "MapPresenter: " + snapshot);
-//                    Log.d(Constants.TAG, "MapPresenter lat_lng : " + snapshot.child("lat_lng").getValue());
-//                    Log.d(Constants.TAG, "MapPresenter restaurantName : " + snapshot.child("restaurantName").getValue());
-//                    Log.d(Constants.TAG, "MapPresenter starCount : " + snapshot.child("starCount").getValue());
 
                     restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
                     restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
                     restaurant.setStarCount(Integer.valueOf(snapshot.child("starCount").getValue().toString()));
                     restaurant.setLat_Lng(snapshot.child("lat_lng").getValue().toString());
-//                    restaurant.setRestaurantPictures(snapshot.child("restaurantName").getValue().toString());
-//                    Log.d(Constants.TAG, "onDataChangepictures: " + snapshot.child("pictures").getChildrenCount());
 
                     ArrayList<String> pictures = new ArrayList<>();
                     for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
                         pictures.add(snapshot.child("pictures").child(String.valueOf(i)).getValue() + "");
                     }
-
-//                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(0));
-//                    Log.d(Constants.TAG, "onDataChangepictures 0 : " + pictures.get(1));
-
                     restaurant.setRestaurantPictures(pictures);
                 }
 
                 mMapView.showRestaurantUi(restaurant);
-
-//                getRestaurantComments(restaurant.getLat_Lng(), restaurant);
 
             }
 
@@ -114,9 +99,6 @@ public class MapPresenter implements MapContract.Presenter {
         Query query = databaseReference;
 
         View marker = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker_layout, null);
-
-//        TextView txt_name = (TextView) marker.findViewById(R.id.textView_marker_count);
-//        txt_name.setText(title);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -158,18 +140,12 @@ public class MapPresenter implements MapContract.Presenter {
 
                     lat = key.substring(0, key.indexOf("_")).replace("@", ".");
                     lng = key.substring(key.indexOf("_") + 1).replace("@", ".");
-//                    lng = key.substring(key.indexOf("_") + 1, key.indexOf("e") ).replace("@", ".");
 
                     Log.d(Constants.TAG, "onDataChange lat : " + lat);
                     Log.d(Constants.TAG, "onDataChange lng : " + lng);
 
-//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("restaurantName").getValue());
-//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("starCount").getValue());
-//                    Log.d(Constants.TAG, "onDataChange: " + snapshot.child("latLng").getValue());
                     locations.add((new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))));
-
-//                    locations.add((new LatLng(Double.parseDouble("" + snapshot.child("latLng").child("latitude").getValue()), Double.parseDouble("" + snapshot.child("latLng").child("longitude").getValue()))));
-                }
+                    }
                 mMapView.showMarker(locations);
             }
 

@@ -13,13 +13,9 @@ import android.view.WindowManager;
 
 public class BaseActivity extends AppCompatActivity {
 
-    private Context mContext;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        this.mContext = this;
 
         setStatusBar();
     }

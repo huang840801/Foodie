@@ -29,7 +29,6 @@ public class RecommendPresenter implements RecommendContract.Presenter {
 
     @Override
     public void start() {
-//        Log.d("Hello", " RecommendPresenter start");
         getMyRecommendRestaurant();
     }
 
@@ -48,11 +47,8 @@ public class RecommendPresenter implements RecommendContract.Presenter {
                 Log.d("RecommendPresenter", " getChildrenCount = " + dataSnapshot.getChildrenCount());
 
                 mRestaurantArrayList.clear();
-//                final int restaurantNum = (int) dataSnapshot.getChildrenCount();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-//                    Log.d("RecommendPresenter", " snapshot = "+snapshot);
-//                    Log.d("RecommendPresenter", " snapshot getChildrenCount = "+snapshot.getChildrenCount());
                     Log.d("RecommendPresenter", " snapshot = " + snapshot.child("restaurantName").getValue());
                     Log.d("RecommendPresenter", " snapshot = " + snapshot.child("location").getValue());
                     Log.d("RecommendPresenter", " snapshot = " + snapshot.child("starCount").getValue());
@@ -77,7 +73,6 @@ public class RecommendPresenter implements RecommendContract.Presenter {
                     }
 
                 }
-//                if (restaurantNum == mRestaurantArrayList.size()) ;
                 Log.d("RecommendPresenter", " mRestaurantArrayList = " + mRestaurantArrayList.size());
 
                 mRecommendView.showAllRestaurantList(mRestaurantArrayList);

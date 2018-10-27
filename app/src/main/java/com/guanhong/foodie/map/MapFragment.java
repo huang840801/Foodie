@@ -68,7 +68,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
-    private static final int REQUEST_FINE_LOCATION_PERMISSION = 102;
     private boolean getService = false;     //是否已開啟定位服務
     private LocationManager mStatus;
 
@@ -79,8 +78,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     private CustomInfoWindowAdapter mCustomInfoWindowAdapter;
     private String mRestaurantName;
     private String mStarCount;
-
-    public static boolean flags = false;
 
     public MapFragment() {
     }
@@ -167,37 +164,8 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
                 mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
 
-//                int height = 125;
-//                int width = 125;
-//                BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.pin_blue);
-//                Bitmap bitmap = bitmapDrawable.getBitmap();
-//                Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap, width, height, false);
-//
-
-//                MarkerOptions markerOptions = new MarkerOptions().position(latLng)
-//                mGoogleMap.addMarker(new MarkerOptions()
-//                        .position(latLng)
-//                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
-//                );
-
-//                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-
-                Log.d(Constants.TAG, "  MapFragmentgetMyLocation latitude = " + latLng.latitude);
-                Log.d(Constants.TAG, "  MapFragmentgetMyLocation  longitude = " + latLng.longitude);
-                Log.d(Constants.TAG, "  MapFragmentgetMyLocation  geocoder = " + geocoder);
-
-//                mPresenter.getAddress(geocoder, latLng);
-
-
                 Log.d(Constants.TAG, "getMyLocation: " + String.valueOf(mLastLocation.getLatitude()) + "\n"
                         + String.valueOf(mLastLocation.getLongitude()));
-
-//                Toast.makeText(mContext, "getMyLocation : " + mLastLocation.getLatitude() + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
-            } else {
-
-//                Log.d(Constants.TAG, "mLastLocation == null" + String.valueOf(mLastLocation.getLatitude()) + "\n"
-//                        + String.valueOf(mLastLocation.getLongitude()));
-//                Toast.makeText(mContext, "LastLocation == null" + mLastLocation.getLatitude() + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
 
             }
         } catch (SecurityException e) {
@@ -302,17 +270,9 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         mGoogleMapView.onDestroy();
     }
 
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        Log.d("lifecycle", "  MapFragment onDestroyView" );
-//
-//    }
-
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-//        mGoogleMapView.onLowMemory();
     }
 
     @Override
@@ -320,14 +280,10 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         Log.d(Constants.TAG, " MapFragment ready");
         Log.d(Constants.TAG, " onMapReady  MapFragment GoogleMapView : " + mGoogleMapView);
 
-//
-
         Log.d(Constants.TAG, "MapFragment ready !isHidden");
         mGoogleMap = googleMap;
 
-
         mPresenter.createCustomMarker(mContext, "");
-
 
         mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
@@ -349,18 +305,12 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
                 FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
                 DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(key);
-//                DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(key);
 
                 Query query = databaseReference.orderByValue();
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-//                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot);
-//                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").getValue());
-//                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").child("latitude").getValue());
-//                            Log.d(Constants.TAG, " hongtest MapFragment snapshot : " + snapshot.child("latLng").child("longitude").getValue());
 
                             double lat = Double.parseDouble(snapshot.child("latLng").child("latitude").getValue() + "");
                             double lng = Double.parseDouble(snapshot.child("latLng").child("longitude").getValue() + "");
@@ -397,14 +347,11 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
         for (LatLng latLng : locations) {
 
-//            Log.d(Constants.TAG, " hongtest MapFragment showMarker : " + latLng.latitude);
-//            Log.d(Constants.TAG, " hongtest MapFragment showMarker : " + latLng.longitude);
-
             mGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromBitmap(mBitmap)));
             builder.include(latLng);
         }
 
-        mCustomInfoWindowAdapter = new CustomInfoWindowAdapter((FoodieActivity) mContext, mContext);
+        mCustomInfoWindowAdapter = new CustomInfoWindowAdapter((FoodieActivity) mContext);
         mGoogleMap.setInfoWindowAdapter(mCustomInfoWindowAdapter);
 
         LatLngBounds bounds = builder.build();
@@ -444,12 +391,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     public void setMarkerBitmap(Bitmap bitmap) {
         mBitmap = bitmap;
     }
-
-//    @Override
-//    public void showRestaurantUi(Restaurant restaurant, ArrayList<Comment> comments) {
-//        Log.d("myCommentsBug ", "  MapFragment  comments.size = " + comments.size());
-//        ((FoodieActivity) getActivity()).transToRestaurant(restaurant, comments);
-//    }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {

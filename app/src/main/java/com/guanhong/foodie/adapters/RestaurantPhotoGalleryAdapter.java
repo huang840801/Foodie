@@ -31,7 +31,6 @@ import java.util.ArrayList;
 public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
 
     private ArrayList<String> mPictureList;
-    private Context mContext;
 
 
     public RestaurantPhotoGalleryAdapter(ArrayList<String> restaurantPictures) {
@@ -41,9 +40,9 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        mContext = parent.getContext();
+        Context context = parent.getContext();
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_restaurant_top_photos, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_restaurant_top_photos, parent, false);
         return new RestaurantGalleryItemViewHolder(view);
     }
 
@@ -77,22 +76,6 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
             int positionInPhoto = position % mPictureList.size();
             Log.d(Constants.TAG, "RestaurantPhotoGalleryAdapter: " + mPictureList.get(0));
 
-//            Bitmap bitmap = null;
-//            byte[] bitmapArray;
-//            bitmapArray = Base64.decode(mPictureList.get(positionInPhoto), Base64.DEFAULT);
-//            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
-//            mImagePictures.setImageBitmap(bitmap);
-//            if (mPictureList.get(positionInPhoto).contains("storage")) {
-//                Uri uri = Uri.fromFile(new File(mPictureList.get(positionInPhoto)));
-//                String url = mPictureList.get(0);
-//                try {
-//                    URLEncoder.encode(url, "UTF-8");
-//                } catch (UnsupportedEncodingException e) {
-//                    e.printStackTrace();
-//                }
-
-//                Picasso.get().load(uri).placeholder(R.drawable.all_picture_placeholder).into(mImagePictures);
-//            }else {
             Picasso.get()
                     .load(mPictureList.get(positionInPhoto))
                     .fit()
@@ -100,7 +83,6 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
                     .error(R.drawable.photo_error)
                     .into(mImagePictures);
 
-//            }
         }
     }
 }

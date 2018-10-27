@@ -31,7 +31,6 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void start() {
-
     }
 
     @Override
@@ -49,33 +48,21 @@ public class SearchPresenter implements SearchContract.Presenter {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-//                Log.d("SearchPresenter", " searchArticles " );
                 Log.d("SearchPresenter", " dataSnapshot " + dataSnapshot.getChildrenCount());
-//                Log.d("SearchPresenter", " dataSnapshot " +dataSnapshot.getKey());
                 final int keyNum = (int) dataSnapshot.getChildrenCount();
 
-//                mKeyArrayList.clear();
-
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    Log.d("SearchPresenter", " snapshot: " + snapshot.child("location").getValue());
-//                    Log.d("SearchPresenter", " snapshot: " + snapshot.child("restaurantName").getValue());
-//                    Log.d("SearchPresenter", " snapshot: " + snapshot.getChildrenCount());
-//                    Log.d("SearchPresenter", " snapshot: " + snapshot.getKey());
-//                    if (snapshot.toString().contains(s)) {
                     Log.d("SearchPresenter", " mKeyArrayList: " + snapshot.getKey());
                     Log.d("SearchPresenter", " mKeyArrayList: " + snapshot.getChildrenCount());
 
-//                        for (int i = 0; i < snapshot.getChildrenCount(); i++) {
                     mKeyArrayList.add(snapshot.getKey());
                     Log.d("SearchPresenter", " mKeyArrayList: " + mKeyArrayList.size());
 
-//                            Log.d("SearchPresenter", " snapshot: " + snapshot.child(snapshot.getKey()).child("restaurantName"));
                     if (mKeyArrayList.size() == keyNum) {
                         getRestaurantData(mKeyArrayList);
 
                     }
 
-//                    }
 
                 }
             }
@@ -96,8 +83,6 @@ public class SearchPresenter implements SearchContract.Presenter {
 
         Log.d("SearchPresenter", " keyArrayList.size(): " + keyArrayList.size());
 
-//        final int restaurantNum = keyArrayList.size();
-
         for (int i = 0; i < keyArrayList.size(); i++) {
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(keyArrayList.get(i));
@@ -106,7 +91,6 @@ public class SearchPresenter implements SearchContract.Presenter {
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                    mRestaurantArrayList.clear();
                     final int restaurantNum = (int) dataSnapshot.getChildrenCount();
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -134,31 +118,10 @@ public class SearchPresenter implements SearchContract.Presenter {
 
                             mRestaurantArrayList.add(restaurant);
 
-//                                    }
-//                                }
-//                            }
 
-
-                        } else {
-//                            mSearchView.showResultToast();
                         }
-
                     }
                     if (mRestaurantArrayList.size() == restaurantNum) {
-
-//                                Log.d("SearchPresenter", " mRestaurantArrayList size: " + mRestaurantArrayList.size());
-//
-//                                for (int j = 0; j < mRestaurantArrayList.size()-1; j++) {
-//
-//                                    for (int k = mRestaurantArrayList.size()-1; k > j; k--) {
-//                                        if(mRestaurantArrayList.get(j).getRestaurantName().equals(mRestaurantArrayList.get(k).getRestaurantName())){
-//                                            mRestaurantArrayList.remove(j);
-////                                            j=j-1;
-////                                            break;
-//                                        }
-//                                    }
-//                                }
-
 
                         mSearchView.showSearchResult(mRestaurantArrayList);
 

@@ -71,8 +71,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     private SearchFragment mSearchFragment;
     private RecommendFragment mRecommendFragment;
     private LikeFragment mLikeFragment;
-    private RestaurantFragment mRestaurantFragment;
-    private PostFragment mPostFragment;
 
     private MapPresenter mMapPresenter;
     private ProfilePresenter mProfilePresenter;
@@ -89,61 +87,8 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     private String[] mTitles;
     private List<Fragment> mFragmentList = new ArrayList<>();
 
-    public int reverse(int x) {
-
-        String y = String.valueOf(x);
-        String reverse;
-
-        if (y.contains("-")) {
-            y = y.replace("-", "");
-            reverse = new StringBuilder(y).reverse().toString();
-            Log.d(Constants.CODING_TIME, "ans = " + reverse);
-
-            return 0 - Integer.valueOf(reverse);
-
-        } else {
-            reverse = new StringBuilder(y).reverse().toString();
-            return Integer.valueOf(reverse);
-
-        }
-    }
-//    public int lengthOfLongestSubstring(String s) {
-//
-//
-//        int i;
-//        int j;
-//
-//
-//        char[] b = new char[s.length()];
-//        for (i = 0; i < s.length(); i++) {
-//            b[i] = s.charAt(i);
-//        }
-//
-//        for (j = 0; j < s.length(); j++) {
-//            for (int k = j + 1; k < s.length(); k++) {
-//
-//            }
-//
-//        }
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Log.d(Constants.CODING_TIME, "ans = " + reverse(964632431));
-//        lengthOfLongestSubstring("lgggopp");
-
-//        String s = "s";
-//        String empty = null;
-//        if(!"".equals(s)){
-//            Log.d(Constants.TAG, "helloooo");
-//        }
-//        if (!"s".equals(s)) {
-//            Log.d(Constants.TAG, "helloooo sssss");
-//        }
-//        if(!"".equals(empty)){
-//            Log.d(Constants.TAG, "helloooo empty");
-//        }
 
         super.onCreate(savedInstanceState);
         init();
@@ -200,7 +145,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
                     }
 
-
                 }
             }
 
@@ -216,18 +160,9 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         mContext = this;
 
-
         requestReadAndWritePermissions();
 
         setContentView(R.layout.activity_main);
-
-//        ImageConfig config = new ImageConfig();
-//        config.minHeight = 400;
-//        config.minWidth = 400;
-//        config.mimeType = new String[]{"image/jpeg", "image/png"}; // 图片类型 image/gif ...
-//        config.minSize = 1024 * 1024; // 1Mb 图片大小
-
-
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
 
@@ -247,42 +182,22 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         for (int i = 0; i < mTabLayout.getTabCount(); i++) {
             mTabLayout.getTabAt(i).setCustomView(mViewPagerAdapter.getTabView(i));
-//            mTabLayout.getTabAt(0).getCustomView().setSelected(true);
 
         }
-
-
-        Log.d(Constants.TAG, " getSelectedTabPosition : " + mTabLayout.getSelectedTabPosition());
-
-
-//        mTabLayout.getTabAt(0).getCustomView().setSelected(true);
 
         mPresenter = new FoodiePresenter(this, mViewPager, getSupportFragmentManager());
         mPresenter.start();
 
-//        mTabLayout.getTabAt(0).select();
         //设置TabLayout点击事件
         mTabLayout.setOnTabSelectedListener(this);
-//        mTabLayout.getTabAt(0).getCustomView().setSelected(true);
-//        mViewPager.setCurrentItem(0);
-//        mTabLayout.setSelected(true);
-//        mTabLayout.getTabAt(0).select();
-
 
     }
 
 
     private void setTabLayout() {
         //设置TabLayout标签的显示方式
-//        mTabLayout.getTabAt(0).select();
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
-
-        //循环注入标签
-//        for (String tab : mTitles) {
-//            mTabLayout.addTab(mTabLayout.newTab().setText(tab));
-//
-//        }
 
         if (mMapFragment == null) {
             mMapFragment = MapFragment.newInstance();
@@ -291,12 +206,10 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         if (mProfileFragment == null) {
             mProfileFragment = ProfileFragment.newInstance();
             mProfilePresenter = new ProfilePresenter(mProfileFragment, mContext);
-
         }
         if (mSearchFragment == null) {
             mSearchFragment = SearchFragment.newInstance();
             mSearchPresenter = new SearchPresenter(mSearchFragment);
-
         }
         if (mRecommendFragment == null) {
             mRecommendFragment = RecommendFragment.newInstance();
@@ -305,7 +218,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         if (mLikeFragment == null) {
             mLikeFragment = LikeFragment.newInstance();
             mLikePresenter = new LikePresenter(mLikeFragment);
-
         }
 
         mFragmentList.add(mMapFragment);
@@ -347,10 +259,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     @Override
     public void onBackPressed() {
         Log.d(Constants.TAG, "onBackPressed: ");
-
         super.onBackPressed();
-
-
     }
 
 
@@ -399,7 +308,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         Log.d("getTabView ", " onTabUnselected position = " + tab.getPosition());
 
-
         switch (tab.getPosition()) {
             default:
             case 0:
@@ -429,11 +337,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     }
 
-    public void transToRestaurant(Restaurant restaurant, ArrayList<Comment> comments) {
-//        Log.d("restaurant ", " FoodieActivity : " + restaurant);
-//        mPresenter.transToRestaurant(restaurant, comments);
-    }
-
     public void transToPostArticle() {
         mPresenter.transToPostArticle();
     }
@@ -442,9 +345,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         Intent intent = new Intent(FoodieActivity.this, MapActivity.class);
         startActivityForResult(intent, Constants.CHILD_MAP_REQUEST_CODE);
-//        finish();
 
-//        mPresenter.transToPostChildMap();
     }
 
     public void transToPostArticle(String addressLine, LatLng latLng) {
@@ -463,21 +364,15 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         if (resultCode == RESULT_OK) {
 
             if (requestCode == Constants.SINGLE_PICKER) {
-//
+
                 ArrayList<String> pictures = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
 
                 Log.d("updateUserImage ", " onActivityResult" + pictures);
                 Log.d("updateUserImage ", " onActivityResult" + pictures.size());
 
                 mProfilePresenter.updateUserImageToFireBaseStorage(pictures);
-//                SharedPreferences userImage = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-//                userImage.edit()
-//                        .putString("userImage", String.valueOf(uri))
-//                        .commit();
 
             } else if (requestCode == Constants.MULTIPLE_PICKER) {
-//                Log.d("MULTIPLE_PICKER ", data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT) + "");
-//                Log.d("MULTIPLE_PICKER ", data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT).size() + "");
 
                 ArrayList<String> pictures = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
 
@@ -506,23 +401,12 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     public void pickSinglePicture() {
 
-
-//        Intent intent = new Intent();
-//        //開啟Pictures畫面Type設定為image
-//        intent.setType("image/*");
-//        //使用Intent.ACTION_GET_CONTENT這個Action
-//        //會開啟選取圖檔視窗讓您選取手機內圖檔
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        //取得相片後返回本畫面
-//        startActivityForResult(intent, Constants.SINGLE_PICKER);
-
         ArrayList<String> picturesList = new ArrayList<>();
 
         PhotoPickerIntent intent = new PhotoPickerIntent(FoodieActivity.this);
         intent.setSelectModel(SelectModel.MULTI);
         intent.setType("image/*");
 
-//        intent.setShowCarema(true);
         intent.setMaxTotal(1);
         intent.setSelectedPaths(picturesList);
 
@@ -536,19 +420,16 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         ArrayList<String> picturesList = new ArrayList<>();
 
-
         PhotoPickerIntent intent = new PhotoPickerIntent(FoodieActivity.this);
         intent.setSelectModel(SelectModel.MULTI);
         intent.setType("image/*");
 
-//        intent.setShowCarema(true);
         intent.setMaxTotal(10);
         intent.setSelectedPaths(picturesList);
 
         startActivityForResult(intent, Constants.MULTIPLE_PICKER);
 
     }
-
 
     public void transToMap() {
         mPresenter.transToMap();
@@ -558,10 +439,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         mPresenter.checkRestaurantExists();
     }
 
-    public void removeRestaurantFragment() {
-        mPresenter.removeRestaurantFragment();
-
-    }
 
     public void transToRestaurant(Restaurant restaurant) {
         mPresenter.transToRestaurant(restaurant);

@@ -19,7 +19,6 @@ public class PersonalPresenter implements PersonalContract.Presenter {
         Log.d(Constants.TAG, "  PersonalPresenter " + mArticle);
         mPersonalArticleView.setPresenter(this);
 
-
     }
 
     @Override

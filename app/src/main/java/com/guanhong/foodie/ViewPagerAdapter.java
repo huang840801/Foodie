@@ -36,12 +36,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         return mFragmentList.get(arg0);
     }
 
-//    @Override
-//    public CharSequence getPageTitle(int position) {
-//        return mTitles[position];
-//    }
-
-
     @Override
     public int getCount() {
         return mFragmentList.size();
@@ -61,23 +55,14 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
         Fragment fragment = mFragmentList.get(position);
         mFragmentManager.beginTransaction().hide(fragment).commit();
-//        super.destroyItem(container, position, object);
     }
 
     public View getTabView(int position) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.custom_tabview, null);
         ImageView imageView = v.findViewById(R.id.imageView_custom_tab);
-//        TextView textView = v.findViewById(R.id.textView_custom_tab);
         imageView.setImageResource(ints[position]);
-//        textView.setText(mTitles[position]);
-
-
+        
         Log.d("getTabView ", "  position = " + position);
-//        if(position==0){
-//            Log.d("updateUserImage ", "  position = " + position);
-//
-//            imageView.setImageResource(R.drawable.map_selected);
-//        }
         return v;
     }
 

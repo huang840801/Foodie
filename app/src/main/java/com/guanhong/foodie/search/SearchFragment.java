@@ -34,7 +34,6 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
     private EditText mEditTextSearch;
     private ImageView mImageViewSearch;
     private RecyclerView mRecyclerView;
-    private SearchRestaurantAdapter mSearchRestaurantAdapter;
 
     @Nullable
     @Override
@@ -81,26 +80,12 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
     public void showSearchResult(ArrayList<Restaurant> restaurantArrayList) {
 
         Log.d("SearchFragment", " result: " + restaurantArrayList.size());
-//        for(int i=0;i<restaurantArrayList.size();i++){
-//            Log.d("SearchFragment", " result: " + restaurantArrayList.get(i).getRestaurantName());
-//            Log.d("SearchFragment", " result: " + restaurantArrayList.get(i).getRestaurantLocation());
-//
-//
-//        }
 
-
-        mSearchRestaurantAdapter = new SearchRestaurantAdapter(mPresenter, restaurantArrayList);
+        SearchRestaurantAdapter searchRestaurantAdapter = new SearchRestaurantAdapter(mPresenter, restaurantArrayList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(mSearchRestaurantAdapter);
-        mSearchRestaurantAdapter.notifyDataSetChanged();
-
-
-    }
-
-    @Override
-    public void showResultToast() {
-        Toast.makeText(mContext, "查無店家", Toast.LENGTH_SHORT).show();
+        mRecyclerView.setAdapter(searchRestaurantAdapter);
+        searchRestaurantAdapter.notifyDataSetChanged();
 
     }
 

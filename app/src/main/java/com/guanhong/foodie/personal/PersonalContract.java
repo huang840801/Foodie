@@ -10,8 +10,6 @@ public interface PersonalContract {
 
         void showArticleUi(Article article);
 
-        void setTabLayoutVisibility(boolean visible);
-
     }
 
     interface Presenter extends BasePresenter {

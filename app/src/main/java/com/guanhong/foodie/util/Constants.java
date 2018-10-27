@@ -5,8 +5,6 @@ public class Constants {
     public static final String TAG = "Huang";
     public static final String CODING_TIME = "codingTime";
 
-    public static final String userDefaultImage = "http://images.gamme.com.tw/news2/2012/31/97/p5_WnaadlKSW.jpg";
-
     // RecyclerView Adapter
     public static final int VIEWTYPE_NORMAL = 1;
     public static final int VIEWTYPE_LOADING = 2;

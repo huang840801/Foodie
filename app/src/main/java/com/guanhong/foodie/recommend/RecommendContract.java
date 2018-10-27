@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public interface RecommendContract {
 
-
     interface View extends BaseView<Presenter> {
 
         void showAllRestaurantList(ArrayList<Restaurant> restaurantArrayList);

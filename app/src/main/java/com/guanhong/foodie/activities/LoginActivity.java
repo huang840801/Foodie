@@ -138,7 +138,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
                     userData.edit()
                             .putString("userId", user.getUid())
-//                            .putString("userName", mName)
                             .commit();
                     Intent intent = new Intent(LoginActivity.this, FoodieActivity.class);
                     startActivity(intent);
@@ -254,14 +253,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 String message = task.isSuccessful() ? "註冊成功" : "該用戶已存在";
                 Log.d(Constants.TAG, "  message: " + message);
                 Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-                if (task.isSuccessful()) {
 
-//                    FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
-//                    DatabaseReference myRef = userDatabase.getReference("user");
-//              else {
-//                    Toast.makeText(LoginActivity.this, "該用戶已存在!", Toast.LENGTH_SHORT).show();
-
-                }
             }
         });
 

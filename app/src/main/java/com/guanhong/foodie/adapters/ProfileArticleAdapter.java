@@ -27,14 +27,9 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
 
     private ProfileContract.Presenter mPresenter;
     private ArrayList<Article> mArticleArrayList;
-//    private ArrayList<Bitmap> mBitmapList;
-    private Context mContext;
-//    private Typeface mTypeface;
-
 
     public ProfileArticleAdapter(ArrayList<Article> articleArrayList, ProfileContract.Presenter presenter) {
         mArticleArrayList = articleArrayList;
-//        mBitmapList = new ArrayList<>();
         mPresenter = presenter;
         Log.d(Constants.TAG, " mArticleArrayList " + mArticleArrayList.size());
     }
@@ -42,8 +37,8 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        mContext = parent.getContext();
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_profile_article, parent, false);
+        Context context = parent.getContext();
+        View view = LayoutInflater.from(context).inflate(R.layout.item_profile_article, parent, false);
         return new ProfileArticleAdapter.ProfileArticleHolder(view);
     }
 
@@ -59,29 +54,20 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
         holder.getRestaurantName().setText(mArticleArrayList.get(position).getRestaurantName());
         holder.getContent().setText(mArticleArrayList.get(position).getContent());
 
-
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy 年 MM月dd日 HH:mm");
         long lcc = Long.valueOf(mArticleArrayList.get(position).getCreatedTime());
         String time = formatter.format(new Date(lcc));
         holder.getCreatedTime().setText(time);
 
-
-
-
         Picasso.get()
                 .load(mArticleArrayList.get(position).getPictures().get(0))
                 .placeholder(R.drawable.animated_rotate_drawable)
                 .error(R.drawable.photo_error)
-//                .transform(new Blur(mContext))
                 .fit()
-//                .resize(500,300)
-//                .centerInside()
                 .transform(new CircleCornerForm())
                 .into(holder.getImageView());
 
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -104,17 +90,6 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
             mCreatedTime = view.findViewById(R.id.textView_profile_article_createdTime);
 
             view.setOnClickListener(this);
-
-            setTypeFace();
-
-        }
-
-        private void setTypeFace() {
-//            mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
-//
-//            mRestaurantName.setTypeface(mTypeface);
-//            mContent.setTypeface(mTypeface);
-//            mCreatedTime.setTypeface(mTypeface);
 
         }
 

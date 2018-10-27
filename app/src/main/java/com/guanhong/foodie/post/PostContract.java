@@ -11,8 +11,6 @@ public interface PostContract {
 
     interface View extends BaseView<Presenter> {
 
-        void setTabLayoutVisibility(boolean visible);
-
         void showAddress(String addressLine, LatLng latLng);
 
         void showPictures(ArrayList<String> stringArrayListExtra);

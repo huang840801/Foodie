@@ -14,7 +14,6 @@ public class Restaurant {
     private String mRestaurantLocation;
     private String mLatLng;
 
-
     public Restaurant() {
 
         mRestaurantPictures = new ArrayList<>();
@@ -23,7 +22,6 @@ public class Restaurant {
         mRestaurantName = "";
         mRestaurantLocation = "";
         mLatLng = "";
-
 
     }
 
@@ -57,14 +55,6 @@ public class Restaurant {
 
     public void setRestaurantLocation(String restaurantLocation) {
         mRestaurantLocation = restaurantLocation;
-    }
-
-    public ArrayList<Article> getArticleArrayList() {
-        return mArticleArrayList;
-    }
-
-    public void setArticleArrayList(ArrayList<Article> articleArrayList) {
-        mArticleArrayList = articleArrayList;
     }
 
     public String getLat_Lng() {

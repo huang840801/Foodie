@@ -31,7 +31,6 @@ public class LikeFragment extends Fragment implements LikeContract.View {
     private LikeContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
     private TextView mTextView;
-//    private Typeface mTypeface;
 
     private Context mContext;
 
@@ -63,9 +62,6 @@ public class LikeFragment extends Fragment implements LikeContract.View {
         super.onViewCreated(view, savedInstanceState);
         Log.d(Constants.TAG, "  LikeFragment onViewCreated");
 
-//        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
-//        mTextView.setTypeface(mTypeface);
-
         mPresenter.start();
     }
 
@@ -82,7 +78,6 @@ public class LikeFragment extends Fragment implements LikeContract.View {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(new LikeArticleAdapter(mPresenter, restaurantArrayList));
-//        mRecyclerView.addItemDecoration(new ArticlePreviewItemDecoration(10));
     }
 
     @Override

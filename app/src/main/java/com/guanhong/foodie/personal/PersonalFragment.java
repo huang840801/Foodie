@@ -57,21 +57,11 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
 
     private PageIndicatorView mPageIndicatorView;
 
-
-    //    private TextView mTitleRestaurantName;
-//    private TextView mTitleLocation;
     private TextView mTitleMenu1;
-    //    private TextView mTitleMenu2;
-//    private TextView mTitleMenu3;
-//    private TextView mTitlePictures;
     private TextView mTitleContent;
-//    private TextView mTitleRating;
 
     private Typeface mTypeface;
 
-    private PersonalPhotoAdapter mPersonalPhotoAdapter;
-
-    private ArrayList<String> mPictureList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,30 +69,12 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
         mContext = getContext();
 
     }
-//    public int[] twoSum(int[] nums, int target) {
-//
-//        int [] sum = new int[2];
-//        int [] test = new int[2];
-//        test=sum.clone();
-//        sum[0]=1;
-//
-//        return sum[1,2];
-//
-//    }
 
-    ArrayList<Integer> sum() {
-
-
-        return new ArrayList<>();
-    }
-
-    public PersonalFragment() {
-    }
+    public PersonalFragment() {}
 
     public static PersonalFragment newInstance() {
         return new PersonalFragment();
     }
-
 
     @Nullable
     @Override
@@ -129,15 +101,8 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
         mAuthorName = view.findViewById(R.id.textView_personal_author_name);
         mCreatedTime = view.findViewById(R.id.textView_personal_createdTime);
         mPageIndicatorView = view.findViewById(R.id.personal_indicator);
-
-//        mTitleRestaurantName = view.findViewById(R.id.personal_restaurant_name);
-//        mTitleLocation = view.findViewById(R.id.personal_restaurant_location);
         mTitleMenu1 = view.findViewById(R.id.textView_menu1);
-//        mTitleMenu2 = view.findViewById(R.id.textView_menu2);
-//        mTitleMenu3 = view.findViewById(R.id.textView_menu3);
-//        mTitlePictures = view.findViewById(R.id.textView_pictures);
         mTitleContent = view.findViewById(R.id.textView_content);
-//        mTitleRating = view.findViewById(R.id.textView_rating_bar);
 
         return view;
     }
@@ -151,8 +116,6 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter.start();
-//        setTabLayoutVisibility(false);
-//        setTypeFace();
     }
 
     @Override
@@ -175,16 +138,10 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
         mTextViewMenu3.setTypeface(mTypeface);
         mTextViewPrice3.setTypeface(mTypeface);
         mTextViewContent.setTypeface(mTypeface);
-//        mTitleRestaurantName.setTypeface(mTypeface);
-//        mTitleLocation.setTypeface(mTypeface);
         mTitleMenu1.setTypeface(mTypeface);
-//        mTitleMenu2.setTypeface(mTypeface);
-//        mTitleMenu3.setTypeface(mTypeface);
-//        mTitlePictures.setTypeface(mTypeface);
         mTitleContent.setTypeface(mTypeface);
         mAuthor.setTypeface(mTypeface);
         mAuthorName.setTypeface(mTypeface);
-//        mTitleRating.setTypeface(mTypeface);
     }
 
     @Override
@@ -205,10 +162,8 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
             mTextViewMenu1.setText(article.getMenus().get(0).getDishName());
             mTextViewPrice1.setText(article.getMenus().get(0).getDishPrice());
 
-//            mTitleMenu2.setVisibility(View.GONE);
             mTextViewMenu2.setVisibility(View.GONE);
             mTextViewPrice2.setVisibility(View.GONE);
-//            mTitleMenu3.setVisibility(View.GONE);
             mTextViewMenu3.setVisibility(View.GONE);
             mTextViewPrice3.setVisibility(View.GONE);
 
@@ -219,7 +174,6 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
             mTextViewMenu2.setText(article.getMenus().get(1).getDishName());
             mTextViewPrice2.setText(article.getMenus().get(1).getDishPrice());
 
-//            mTitleMenu3.setVisibility(View.GONE);
             mTextViewMenu3.setVisibility(View.GONE);
             mTextViewPrice3.setVisibility(View.GONE);
         } else if (article.getMenus().size() == 3) {
@@ -232,7 +186,6 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
         }
 
         setPhotoRecyclerView(article);
-
 
         mTextViewContent.setText(article.getContent());
 
@@ -297,9 +250,4 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
         });
     }
 
-    @Override
-    public void setTabLayoutVisibility(boolean visible) {
-//        ((FoodieActivity) getActivity()).setTabLayoutVisibility(visible);
-
-    }
 }

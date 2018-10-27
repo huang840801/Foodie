@@ -16,15 +16,12 @@ public class CircleCornerForm implements Transformation {
     @Override
     public Bitmap transform(Bitmap bitmap) {
 
-//        bitmap=BlurBitmapUtil.blurBitmap(mContext, bitmap, 20);
 
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
 
         int left = 0;
         int top = 0;
-        int right = width;
-        int bottom = height;
         final float roundPx = (float) (height / 40);   //角度
 
 
@@ -33,7 +30,7 @@ public class CircleCornerForm implements Transformation {
         Canvas canvas = new Canvas(output);
         int color = 0xff424242;
         Paint paint = new Paint();
-        Rect rect = new Rect(left, top, right, bottom);
+        Rect rect = new Rect(left, top, width, height);
         final RectF rectF = new RectF(rect);
 
         paint.setAntiAlias(true);
@@ -43,7 +40,6 @@ public class CircleCornerForm implements Transformation {
         canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN)); //兩圖交互顯示 mode (相交）
         canvas.drawBitmap(bitmap, rect, rect, paint);
-
 
         bitmap.recycle();
         return output;
