@@ -29,6 +29,9 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
 
     public RestaurantPresenter(RestaurantContract.View restaurantView, Restaurant restaurant) {
 
+        Log.d("RestaurantPresenter ", "  mRestaurant.getLat_Lng()   = " + restaurant.getLat_Lng());
+
+
         mRestaurantView = checkNotNull(restaurantView, "detailView cannot be null!");
         mRestaurantView.setPresenter(this);
 

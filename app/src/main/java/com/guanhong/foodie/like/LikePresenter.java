@@ -76,7 +76,7 @@ public class LikePresenter implements LikeContract.Presenter {
 
                     Restaurant restaurant = new Restaurant();
 
-                    restaurant.setLat_Lng((String) dataSnapshot.child(Constants.LAT_LNG).getValue());
+                    restaurant.setLat_Lng((String) dataSnapshot.child(Constants.LIKE_LAT_LNG).getValue());
                     restaurant.setRestaurantLocation((String) dataSnapshot.child(Constants.RESTAURANT_LOCATION).getValue());
                     restaurant.setRestaurantName((String) dataSnapshot.child(Constants.RESTAURANT_NAME).getValue());
                     try {

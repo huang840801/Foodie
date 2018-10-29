@@ -65,7 +65,8 @@ dependencies {
     implementation'com.wang.avi:library:1.0.0'
     implementation'com.nineoldandroids:library:2.4.0'
     implementation 'com.xujinyang.BiuEditText:library:1.4.1'
-
+    testCompile "org.mockito:mockito-core:2.8.9"
+    androidTestCompile "org.mockito:mockito-android:2.8.9"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

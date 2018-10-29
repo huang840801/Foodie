@@ -235,7 +235,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
     }
 
-    private void checkInformation() {
+    public void checkInformation() {
         Log.d(Constants.TAG, " namelength = " + mEditTextRestaurantName.getText().toString().length());
 
         if ("".equals(mEditTextRestaurantName.getText().toString())) {

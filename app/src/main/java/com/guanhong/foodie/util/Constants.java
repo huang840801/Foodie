@@ -74,6 +74,7 @@ public class Constants {
     //Table key : like
     public static final String RESTAURANT_LOCATION = "restaurantLocation";
     public static final String RESTAURANT_PICTURES = "restaurantPictures";
+    public static final String LIKE_LAT_LNG = "lat_Lng";
 
 
     //Date format

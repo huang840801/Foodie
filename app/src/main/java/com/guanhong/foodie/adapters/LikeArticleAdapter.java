@@ -26,6 +26,9 @@ public class LikeArticleAdapter extends RecyclerView.Adapter {
 
     public LikeArticleAdapter(LikeContract.Presenter presenter, ArrayList<Restaurant> restaurantArrayList) {
         mRestaurantArrayList = restaurantArrayList;
+        Log.d("LikeArticleAdapter", "" + mRestaurantArrayList.get(0).getRestaurantName());
+        Log.d("LikeArticleAdapter", "" + mRestaurantArrayList.get(0).getLat_Lng());
+        Log.d("LikeArticleAdapter", "" + mRestaurantArrayList.get(0).getRestaurantLocation());
         mPresenter = presenter;
     }
 

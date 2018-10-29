@@ -13,7 +13,6 @@ import com.guanhong.foodie.like.LikePresenter;
 import com.guanhong.foodie.map.MapFragment;
 import com.guanhong.foodie.map.MapPresenter;
 import com.guanhong.foodie.objects.Article;
-import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.personal.PersonalFragment;
 import com.guanhong.foodie.personal.PersonalPresenter;
@@ -137,49 +136,6 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     }
 
     @Override
-    public void transToRestaurant(Restaurant restaurant, ArrayList<Comment> comments) {
-        Log.d("restaurant ", " FoodiePresenter : " + restaurant);
-        Log.d("myCommentsBug ", "  FoodiePresenter  comments.size = " + comments.size());
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        if (mRestaurantFragment == null) {
-            mRestaurantFragment = RestaurantFragment.newInstance();
-        }
-
-        mRestaurantPresenter = new RestaurantPresenter(mRestaurantFragment, restaurant, comments);
-
-        if (!mRestaurantFragment.isAdded()) {
-            fragmentTransaction.add(R.id.fragment_container, mRestaurantFragment, RESTAURANT);
-        } else {
-            fragmentTransaction.show(mRestaurantFragment);
-        }
-        fragmentTransaction.addToBackStack(null);
-
-        mFoodieView.setTabLayoutVisibility(false);
-        fragmentTransaction.commit();
-
-    }
-
-    @Override
-    public void transToRestaurant(Restaurant restaurant) {
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        if (mRestaurantFragment == null) {
-            mRestaurantFragment = RestaurantFragment.newInstance();
-        }
-
-        mRestaurantPresenter = new RestaurantPresenter(mRestaurantFragment, restaurant);
-
-        if (!mRestaurantFragment.isAdded()) {
-            fragmentTransaction.add(R.id.fragment_container, mRestaurantFragment, RESTAURANT);
-        } else {
-            fragmentTransaction.show(mRestaurantFragment);
-        }
-        fragmentTransaction.addToBackStack(null);
-
-        mFoodieView.setTabLayoutVisibility(false);
-        fragmentTransaction.commit();
-    }
-
-    @Override
     public void transToPostArticle() {
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         if (mPostFragment == null) {
@@ -223,11 +179,33 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     }
 
     @Override
+    public void transToRestaurant(Restaurant restaurant) {
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+//        fragmentTransaction.setCustomAnimations(R.anim.trans_to_restaurant, R.anim.trans_to_restaurant);
+
+        if (mRestaurantFragment == null) {
+            mRestaurantFragment = RestaurantFragment.newInstance();
+        }
+
+        mRestaurantPresenter = new RestaurantPresenter(mRestaurantFragment, restaurant);
+
+        if (!mRestaurantFragment.isAdded()) {
+            fragmentTransaction.add(R.id.fragment_container, mRestaurantFragment, RESTAURANT);
+        } else {
+            fragmentTransaction.show(mRestaurantFragment);
+        }
+        fragmentTransaction.addToBackStack(null);
+
+        mFoodieView.setTabLayoutVisibility(false);
+        fragmentTransaction.commit();
+    }
+
+    @Override
     public void transToPersonalArticle(Article article) {
 
 
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.fragment_transition, R.anim.fragment_transition);
+        fragmentTransaction.setCustomAnimations(R.anim.trans_to_personal, R.anim.trans_to_personal);
 
         mPersonalFragment = PersonalFragment.newInstance();
         mPersonalPresenter = new PersonalPresenter(mPersonalFragment, article);
@@ -253,7 +231,6 @@ public class FoodiePresenter implements FoodieContract.Presenter {
             mFoodieView.setTabLayoutVisibility(true);
         }
     }
-
 
 
 }
