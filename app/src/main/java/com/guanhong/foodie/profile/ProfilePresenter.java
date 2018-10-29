@@ -56,11 +56,11 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     @Override
     public void getMyArticleData() {
 
-        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-        final String uid = userData.getString("userId", "");
+        SharedPreferences userData = mContext.getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
+        final String uid = userData.getString(Constants.USER_ID, "");
 //
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("article");
+        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.ARTICLE);
         Query query = databaseReference;
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -68,32 +68,32 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 mArticleArrayList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 //
-                    if (snapshot.child("author").child("id").getValue().equals(uid)) {
+                    if (snapshot.child(Constants.AUTHOR).child(Constants.ID).getValue().equals(uid)) {
                         Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("createdTime").getValue());
 
                         final Article article = new Article();
                         final Author author = new Author();
-                        author.setId((String) snapshot.child("author").child("id").getValue());
-                        author.setImage((String) snapshot.child("author").child("image").getValue());
-                        author.setName((String) snapshot.child("author").child("name").getValue());
+                        author.setId((String) snapshot.child(Constants.AUTHOR).child(Constants.ID).getValue());
+                        author.setImage((String) snapshot.child(Constants.AUTHOR).child(Constants.IMAGE).getValue());
+                        author.setName((String) snapshot.child(Constants.AUTHOR).child(Constants.NAME).getValue());
                         article.setAuthor(author);
-                        article.setRestaurantName((String) snapshot.child("restaurantName").getValue());
-                        article.setContent((String) snapshot.child("content").getValue());
-                        article.setLocation((String) snapshot.child("location").getValue());
-                        article.setCreatedTime(String.valueOf(snapshot.child("createdTime").getValue()));
-                        article.setStarCount(Integer.parseInt("" + snapshot.child("starCount").getValue()));
+                        article.setRestaurantName((String) snapshot.child(Constants.RESTAURANT_NAME).getValue());
+                        article.setContent((String) snapshot.child(Constants.CONTENT).getValue());
+                        article.setLocation((String) snapshot.child(Constants.LOCATION).getValue());
+                        article.setCreatedTime(String.valueOf(snapshot.child(Constants.CREATEDTIME).getValue()));
+                        article.setStarCount(Integer.parseInt("" + snapshot.child(Constants.STARCOUNT).getValue()));
 
                         ArrayList<String> pictures = new ArrayList<>();
-                        for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
-                            pictures.add((String) (snapshot.child("pictures").child(String.valueOf(i)).getValue()));
+                        for (int i = 0; i < snapshot.child(Constants.PICTURES).getChildrenCount(); i++) {
+                            pictures.add((String) (snapshot.child(Constants.PICTURES).child(String.valueOf(i)).getValue()));
                         }
                         article.setPictures(pictures);
 
                         ArrayList<Menu> menuList = new ArrayList<>();
-                        for (int i = 0; i < snapshot.child("menus").getChildrenCount(); i++) {
+                        for (int i = 0; i < snapshot.child(Constants.MENUS).getChildrenCount(); i++) {
                             Menu menu = new Menu();
-                            menu.setDishName((String) snapshot.child("menus").child(String.valueOf(i)).child("dishName").getValue());
-                            menu.setDishPrice((String) snapshot.child("menus").child(String.valueOf(i)).child("dishPrice").getValue());
+                            menu.setDishName((String) snapshot.child(Constants.MENUS).child(String.valueOf(i)).child(Constants.DISHNAME).getValue());
+                            menu.setDishPrice((String) snapshot.child(Constants.MENUS).child(String.valueOf(i)).child(Constants.DISHPRICE).getValue());
                             menuList.add(menu);
                         }
                         article.setMenus(menuList);
@@ -120,7 +120,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         Log.d(" updateUserImage  ", " getUserId  " + UserManager.getInstance().getUserId());
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference databaseReference = firebaseDatabase.getReference("user");
+        final DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.USER);
 
 
         StorageReference storageReference;
@@ -144,7 +144,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                     Log.d("updateUserImage ", " isSuccessful " + downloadUri);
                     Log.d("updateUserImage ", " getUserId " + UserManager.getInstance().getUserId());
 
-                    databaseReference.child(UserManager.getInstance().getUserId()).child("image").setValue(downloadUri + "");
+                    databaseReference.child(UserManager.getInstance().getUserId()).child(Constants.IMAGE).setValue(downloadUri + "");
                     mProfileView.showUserNewPicture(downloadUri);
                 }
 
@@ -156,12 +156,12 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
     @Override
     public void getUserData() {
-        SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
-        final String uid = userData.getString("userId", "");
+        SharedPreferences userData = mContext.getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
+        final String uid = userData.getString(Constants.USER_ID, "");
         Log.d(Constants.TAG, " ProfilePresenteruid = " + uid);
 
         FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = userDatabase.getReference("user");
+        DatabaseReference myRef = userDatabase.getReference(Constants.USER);
         Query query = myRef;
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -175,9 +175,9 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                         Log.d(Constants.TAG, " ProfilePresenterDataSnapshot : " + snapshot.child("name").getValue());
                         User user = new User();
 
-                        String name = snapshot.child("name").getValue().toString();
-                        String email = snapshot.child("email").getValue().toString();
-                        String image = snapshot.child("image").getValue().toString();
+                        String name = snapshot.child(Constants.NAME).getValue().toString();
+                        String email = snapshot.child(Constants.EMAIL).getValue().toString();
+                        String image = snapshot.child(Constants.IMAGE).getValue().toString();
 
                         user.setName(name);
                         user.setEmail(email);

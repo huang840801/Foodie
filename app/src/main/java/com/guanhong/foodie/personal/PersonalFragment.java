@@ -23,6 +23,7 @@ import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.PersonalPhotoAdapter;
 import com.guanhong.foodie.objects.Article;
+import com.guanhong.foodie.util.Constants;
 import com.rd.PageIndicatorView;
 
 import java.text.SimpleDateFormat;
@@ -127,7 +128,7 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
     }
 
     private void setTypeFace() {
-        mTypeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/GenJyuuGothicX-Bold.ttf");
+        mTypeface = Typeface.createFromAsset(mContext.getAssets(), Constants.TYPAFACE);
 
         mTextViewRestaurantName.setTypeface(mTypeface);
         mTextViewRestaurantLocation.setTypeface(mTypeface);
@@ -151,7 +152,7 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
         mTextViewRestaurantLocation.setText(article.getLocation());
         mAuthorName.setText(article.getAuthor().getName());
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy 年 MM月dd日 HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.DATE_FORMAT);
         long lcc = Long.valueOf(article.getCreatedTime());
         String time = formatter.format(new Date(lcc));
         mCreatedTime.setText(time);

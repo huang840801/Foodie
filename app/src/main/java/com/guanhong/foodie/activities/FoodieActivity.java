@@ -60,7 +60,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FoodieActivity extends BaseActivity implements FoodieContract.View, TabLayout.OnTabSelectedListener {
+public class FoodieActivity extends BaseActivity implements
+        FoodieContract.View,
+        TabLayout.OnTabSelectedListener {
 
     private FoodieContract.Presenter mPresenter;
 
@@ -98,13 +100,19 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         if (intent.getExtras() != null) {
 
-            Log.d(Constants.TAG, "onCreate: address : " + intent.getExtras().getString("address"));
-            Log.d(Constants.TAG, "onCreate: lat : " + intent.getExtras().getString("lat"));
-            Log.d(Constants.TAG, "onCreate: lng : " + intent.getExtras().getString("lng"));
+            Log.d(Constants.TAG, "onCreate: address : " + intent
+                    .getExtras()
+                    .getString("address"));
+            Log.d(Constants.TAG, "onCreate: lat : " + intent
+                    .getExtras()
+                    .getString("lat"));
+            Log.d(Constants.TAG, "onCreate: lng : " + intent
+                    .getExtras()
+                    .getString("lng"));
 
-            String address = intent.getExtras().getString("address");
-            String lat = intent.getExtras().getString("lat");
-            String lng = intent.getExtras().getString("lng");
+            String address = intent.getExtras().getString(Constants.ADDRESS);
+            String lat = intent.getExtras().getString(Constants.LAT);
+            String lng = intent.getExtras().getString(Constants.LNG);
             LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
 
             transToPostArticle(address, latLng);
@@ -113,15 +121,17 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     }
 
     private void saveUserData() {
-        SharedPreferences userData = this.getSharedPreferences("userData", Context.MODE_PRIVATE);
+        SharedPreferences userData = this.getSharedPreferences(
+                Constants.USER_DATA,
+                Context.MODE_PRIVATE);
 
-        final String userId = userData.getString("userId", "");
+        final String userId = userData.getString(Constants.USER_ID, "");
 
         Log.d(Constants.TAG, " SharedPreferences userUid : " + userId);
 //        Log.d(Constants.TAG, " userImage : " + image);
 
         FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = userDatabase.getReference("user");
+        DatabaseReference myRef = userDatabase.getReference(Constants.USER);
         Query query = myRef;
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -136,10 +146,10 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
                         Log.d(Constants.TAG, " FoodieActivityDataSnapshot : " + snapshot.child("name").getValue());
 
                         User user = new User();
-                        user.setEmail((String) snapshot.child("email").getValue());
-                        user.setId((String) snapshot.child("id").getValue());
-                        user.setImage((String) snapshot.child("image").getValue());
-                        user.setName((String) snapshot.child("name").getValue());
+                        user.setEmail((String) snapshot.child(Constants.EMAIL).getValue());
+                        user.setId((String) snapshot.child(Constants.ID).getValue());
+                        user.setImage((String) snapshot.child(Constants.IMAGE).getValue());
+                        user.setName((String) snapshot.child(Constants.NAME).getValue());
 
                         UserManager.getInstance().setUserData(user);
 
@@ -176,7 +186,11 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
         };
 
         setTabLayout();
-        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mTitles, mFragmentList, this);
+        mViewPagerAdapter = new ViewPagerAdapter(
+                getSupportFragmentManager(),
+                mTitles,
+                mFragmentList,
+                this);
         mViewPager.setAdapter(mViewPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
 
@@ -244,11 +258,15 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     }
 
     private boolean hasReadPermissions() {
-        return (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        return (ContextCompat.checkSelfPermission(
+                getBaseContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
     }
 
     private boolean hasWritePermissions() {
-        return (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        return (ContextCompat.checkSelfPermission(
+                getBaseContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
     }
 
 
@@ -337,15 +355,16 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
     }
 
-    public void transToPostArticle() {
-        mPresenter.transToPostArticle();
-    }
 
     public void transToPostChildMap() {
 
         Intent intent = new Intent(FoodieActivity.this, MapActivity.class);
         startActivityForResult(intent, Constants.CHILD_MAP_REQUEST_CODE);
 
+    }
+
+    public void transToPostArticle() {
+        mPresenter.transToPostArticle();
     }
 
     public void transToPostArticle(String addressLine, LatLng latLng) {
@@ -355,7 +374,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
     public void transToPersonalArticle(Article article) {
         mPresenter.transToPersonalArticle(article);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -381,13 +399,19 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
                 mPresenter.getPostRestaurantPictures(pictures);
             } else if (requestCode == Constants.CHILD_MAP_REQUEST_CODE) {
-                Log.d("CHILD_MAP_REQUEST_CODE", " address " + data.getExtras().getString("address"));
-                Log.d("CHILD_MAP_REQUEST_CODE", " lat " + data.getExtras().getString("lat"));
-                Log.d("CHILD_MAP_REQUEST_CODE", " lng " + data.getExtras().getString("lng"));
+                Log.d("CHILD_MAP_REQUEST_CODE", " address " + data.getExtras().getString(Constants.ADDRESS));
+                Log.d("CHILD_MAP_REQUEST_CODE", " lat " + data.getExtras().getString(Constants.LAT));
+                Log.d("CHILD_MAP_REQUEST_CODE", " lng " + data.getExtras().getString(Constants.LNG));
 
-                LatLng latLng = new LatLng(Double.parseDouble(data.getExtras().getString("lat")), Double.parseDouble(data.getExtras().getString("lng")));
+                LatLng latLng = new LatLng(
+                        Double.parseDouble(
+                                data.getExtras().getString("lat")),
+                        Double.parseDouble(
+                                data.getExtras().getString("lng")));
 
-                mPresenter.transToPostArticle(data.getExtras().getString("address"), latLng);
+                mPresenter.transToPostArticle(
+                        data.getExtras().getString(Constants.ADDRESS),
+                        latLng);
 
             }
         }
@@ -405,7 +429,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         PhotoPickerIntent intent = new PhotoPickerIntent(FoodieActivity.this);
         intent.setSelectModel(SelectModel.MULTI);
-        intent.setType("image/*");
+        intent.setType(Constants.IMAGE_TYPE);
 
         intent.setMaxTotal(1);
         intent.setSelectedPaths(picturesList);
@@ -422,7 +446,7 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View,
 
         PhotoPickerIntent intent = new PhotoPickerIntent(FoodieActivity.this);
         intent.setSelectModel(SelectModel.MULTI);
-        intent.setType("image/*");
+        intent.setType(Constants.IMAGE_TYPE);
 
         intent.setMaxTotal(10);
         intent.setSelectedPaths(picturesList);

@@ -83,7 +83,9 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
             public void onClick(View view) {
                 requestLocationPermissions();
 
-                if (status.isProviderEnabled(LocationManager.GPS_PROVIDER) && status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                if (status.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                        &&
+                        status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                     //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
                     if (mGoogleApiClient != null) {
                         if (mGoogleApiClient.isConnected()) {
@@ -91,15 +93,15 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
                             getMyLocation();
                         } else {
                             Toast.makeText(MapActivity.this,
-                                    " Google地圖無法連接 ", Toast.LENGTH_LONG).show();
+                                    R.string.map_cannot_connect, Toast.LENGTH_LONG).show();
                         }
                     } else {
                         Toast.makeText(MapActivity.this,
-                                "mGoogleApiClient == null", Toast.LENGTH_LONG).show();
+                                R.string.no_map_sevice, Toast.LENGTH_LONG).show();
                     }
 
                 } else {
-                    Toast.makeText(MapActivity.this, "請開啟定位", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MapActivity.this, R.string.please_open_gps, Toast.LENGTH_LONG).show();
                     getService = true; //確認開啟定位服務
                     startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); //開啟設定頁面
                 }
@@ -150,7 +152,7 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
                     List<Address> addressList = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
 
                     if (addressList.size() == 0) {
-                        Toast.makeText(this, "查無地址", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.cannot_find_address, Toast.LENGTH_SHORT).show();
                     } else {
 
                         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
@@ -174,15 +176,12 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
                 Log.d(Constants.TAG, "getMyLocation: " + String.valueOf(mLastLocation.getLatitude()) + "\n"
                         + String.valueOf(mLastLocation.getLongitude()));
 
-//                Toast.makeText(mContext, "getMyLocation : " + mLastLocation.getLatitude() + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
             } else {
                 Log.d(Constants.TAG, " mLastLocation == null");
 
             }
         } catch (SecurityException e) {
-
-            Toast.makeText(this, "SecurityException:\n" + mLastLocation.getLatitude() + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
-
+            Log.d(Constants.TAG, " catch SecurityException");
         }
     }
 
@@ -284,7 +283,7 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
                             List<Address> addressList = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
 
                             if (addressList.size() == 0) {
-                                Toast.makeText(MapActivity.this, "查無地址", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MapActivity.this, R.string.cannot_find_address, Toast.LENGTH_SHORT).show();
 
                             } else {
                                 showDialog(addressList.get(0).getAddressLine(0), latLng);
@@ -324,9 +323,9 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
                 final Intent intent = new Intent(MapActivity.this, FoodieActivity.class);
                 Bundle bundle = new Bundle();
 
-                bundle.putString("address", addressLine);
-                bundle.putString("lat", String.valueOf(latLng.latitude));
-                bundle.putString("lng", String.valueOf(latLng.longitude));
+                bundle.putString(Constants.ADDRESS, addressLine);
+                bundle.putString(Constants.LAT, String.valueOf(latLng.latitude));
+                bundle.putString(Constants.LNG, String.valueOf(latLng.longitude));
 
                 intent.putExtras(bundle);
 

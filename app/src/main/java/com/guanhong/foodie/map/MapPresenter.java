@@ -55,7 +55,7 @@ public class MapPresenter implements MapContract.Presenter {
         final Restaurant restaurant = new Restaurant();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
+        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.RESTAURANT);
 
         Query query = databaseReference.child(latLng);
 
@@ -67,14 +67,14 @@ public class MapPresenter implements MapContract.Presenter {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
-                    restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
-                    restaurant.setStarCount(Integer.valueOf(snapshot.child("starCount").getValue().toString()));
-                    restaurant.setLat_Lng(snapshot.child("lat_lng").getValue().toString());
+                    restaurant.setRestaurantLocation(snapshot.child(Constants.LOCATION).getValue().toString());
+                    restaurant.setRestaurantName(snapshot.child(Constants.RESTAURANT_NAME).getValue().toString());
+                    restaurant.setStarCount(Integer.valueOf(snapshot.child(Constants.STARCOUNT).getValue().toString()));
+                    restaurant.setLat_Lng(snapshot.child(Constants.LAT_LNG).getValue().toString());
 
                     ArrayList<String> pictures = new ArrayList<>();
-                    for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
-                        pictures.add(snapshot.child("pictures").child(String.valueOf(i)).getValue() + "");
+                    for (int i = 0; i < snapshot.child(Constants.PICTURES).getChildrenCount(); i++) {
+                        pictures.add(snapshot.child(Constants.PICTURES).child(String.valueOf(i)).getValue() + "");
                     }
                     restaurant.setRestaurantPictures(pictures);
                 }
@@ -95,7 +95,7 @@ public class MapPresenter implements MapContract.Presenter {
     public void createCustomMarker(Context context, String title) {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
+        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.RESTAURANT);
         Query query = databaseReference;
 
         View marker = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker_layout, null);
@@ -117,9 +117,9 @@ public class MapPresenter implements MapContract.Presenter {
     @Override
     public void addMarker() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
+        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.RESTAURANT);
 
-        Query query = databaseReference.orderByChild("content");
+        Query query = databaseReference.orderByChild(Constants.CONTENT);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

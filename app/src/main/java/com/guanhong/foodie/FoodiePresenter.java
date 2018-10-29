@@ -19,8 +19,6 @@ import com.guanhong.foodie.personal.PersonalFragment;
 import com.guanhong.foodie.personal.PersonalPresenter;
 import com.guanhong.foodie.post.PostFragment;
 import com.guanhong.foodie.post.PostPresenter;
-import com.guanhong.foodie.postchildmap.PostChildMapFragment;
-import com.guanhong.foodie.postchildmap.PostChildMapPresenter;
 import com.guanhong.foodie.profile.ProfileFragment;
 import com.guanhong.foodie.profile.ProfilePresenter;
 import com.guanhong.foodie.recommend.RecommendFragment;
@@ -54,7 +52,6 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     private LikeFragment mLikeFragment;
     private RestaurantFragment mRestaurantFragment;
     private PostFragment mPostFragment;
-    private PostChildMapFragment mPostChildMapFragment;
     private PersonalFragment mPersonalFragment;
 
 
@@ -63,7 +60,6 @@ public class FoodiePresenter implements FoodieContract.Presenter {
     private RestaurantPresenter mRestaurantPresenter;
     private LikePresenter mLikePresenter;
     private PostPresenter mPostPresenter;
-    private PostChildMapPresenter mPostChildMapPresenter;
     private PersonalPresenter mPersonalPresenter;
 
     private ViewPager mViewPager;
@@ -203,7 +199,6 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
         fragmentTransaction.commit();
     }
-
 
     @Override
     public void transToPostArticle(String addressLine, LatLng latLng) {

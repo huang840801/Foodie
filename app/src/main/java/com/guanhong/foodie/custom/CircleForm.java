@@ -5,6 +5,7 @@ import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import com.guanhong.foodie.util.Constants;
 import com.squareup.picasso.Transformation;
 
 public class CircleForm implements Transformation {
@@ -33,6 +34,6 @@ public class CircleForm implements Transformation {
 
     @Override
     public String key() {
-        return "circle";
+        return Constants.BITMAP_CIRCLE_KEY;
     }
 }

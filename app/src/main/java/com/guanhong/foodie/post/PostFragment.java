@@ -240,62 +240,62 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
         if ("".equals(mEditTextRestaurantName.getText().toString())) {
 
-            Toast.makeText(mContext, "店名必填!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.restaurant_name_cannot_be_empty, Toast.LENGTH_SHORT).show();
 
         } else if ((mEditTextRestaurantName.getText().toString()).contains(" ")) {
 
-            Toast.makeText(mContext, "店名不能有空白!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.restaurant_name_cannot_contain_empty, Toast.LENGTH_SHORT).show();
 
         } else if ("".equals(mTextViewRestaurantLocation.getText().toString())) {
 
-            Toast.makeText(mContext, "位置必填!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.location_cannot_be_empty, Toast.LENGTH_SHORT).show();
 
         } else if ("".equals(mEditTextMenu1.getText().toString())) {
 
-            Toast.makeText(mContext, "菜名必填!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.dish_name_cannot_be_empty, Toast.LENGTH_SHORT).show();
 
         } else if ((mEditTextMenu1.getText().toString()).contains(" ")) {
 
-            Toast.makeText(mContext, "菜單不能有空白!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.dish_name_cannot_contain_empty, Toast.LENGTH_SHORT).show();
 
         } else if ("".equals(mEditTextPrice1.getText().toString())) {
 
-            Toast.makeText(mContext, "價格必填!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.dish_price_cannot_be_empty, Toast.LENGTH_SHORT).show();
 
         } else if (mPictureList.size() == 0) {
 
-            Toast.makeText(mContext, "至少要有一張照片!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.at_least_one_photo, Toast.LENGTH_SHORT).show();
 
         } else if ("".equals(mEditTextContent.getText().toString())) {
 
-            Toast.makeText(mContext, "內容必填!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.content_cannot_be_empty, Toast.LENGTH_SHORT).show();
 
         } else if (mEditTextMenu2.getText().toString().length() > 0 || mEditTextPrice2.getText().toString().length() > 0) {
 
             if ("".equals(mEditTextMenu2.getText().toString())) {
 
-                Toast.makeText(mContext, "菜單必填!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, R.string.dish_name_cannot_be_empty, Toast.LENGTH_SHORT).show();
 
             } else if ((mEditTextMenu2.getText().toString()).contains(" ")) {
 
-                Toast.makeText(mContext, "菜單不能有空白!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, R.string.dish_name_cannot_contain_empty, Toast.LENGTH_SHORT).show();
 
             } else if ("".equals(mEditTextPrice2.getText().toString())) {
 
-                Toast.makeText(mContext, "價格必填!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, R.string.dish_price_cannot_be_empty, Toast.LENGTH_SHORT).show();
 
             } else if (mEditTextMenu3.getText().toString().length() > 0 || mEditTextPrice3.getText().toString().length() > 0) {
                 if ("".equals(mEditTextMenu3.getText().toString())) {
 
-                    Toast.makeText(mContext, "菜單必填!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.dish_name_cannot_be_empty, Toast.LENGTH_SHORT).show();
 
                 } else if ((mEditTextMenu3.getText().toString()).contains(" ")) {
 
-                    Toast.makeText(mContext, "菜單不能有空白!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.dish_name_cannot_contain_empty, Toast.LENGTH_SHORT).show();
 
                 } else if ("".equals(mEditTextPrice3.getText().toString())) {
 
-                    Toast.makeText(mContext, "價格必填!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.dish_price_cannot_be_empty, Toast.LENGTH_SHORT).show();
 
                 } else {
                     mAvLoadingIndicatorView.setVisibility(View.VISIBLE);

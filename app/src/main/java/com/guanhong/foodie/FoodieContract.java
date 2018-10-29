@@ -29,6 +29,8 @@ public interface FoodieContract {
 
         void transToRestaurant(Restaurant restaurant, ArrayList<Comment> comments);
 
+        void transToRestaurant(Restaurant restaurant);
+
         void transToPostArticle();
 
         void transToPostArticle(String addressLine, LatLng latLng);
@@ -39,6 +41,5 @@ public interface FoodieContract {
 
         void checkRestaurantExists();
 
-        void transToRestaurant(Restaurant restaurant);
     }
 }

@@ -149,7 +149,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference likeDataBase = firebaseDatabase.getReference("like").child(UserManager.getInstance().getUserId());
+        DatabaseReference likeDataBase = firebaseDatabase.getReference(Constants.LIKE).child(UserManager.getInstance().getUserId());
         Query query = likeDataBase;
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -192,13 +192,13 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                     uploadMyLikedArticleToFirebase(mRestaurant.getLat_Lng(), mRestaurant);
                     isLike = true;
 
-                    Toast.makeText(mContext, "已加入我的收藏", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.add_to_like, Toast.LENGTH_SHORT).show();
                 } else {
                     holder.getBookmark().setImageResource(R.drawable.bookmark_unselected);
                     deleteMyLikedArticleToFirebase(mRestaurant.getLat_Lng());
                     isLike = false;
 
-                    Toast.makeText(mContext, "已從我的收藏移除", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.remove_from_like, Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -232,7 +232,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
                     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-                    DatabaseReference restaurantDataBase = firebaseDatabase.getReference("comment");
+                    DatabaseReference restaurantDataBase = firebaseDatabase.getReference(Constants.COMMENT);
                     restaurantDataBase.child(mRestaurant.getLat_Lng()).child(System.currentTimeMillis() + "").setValue(comment1);
 
                     holder.getEditTextComment().setText("");
@@ -248,7 +248,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference likeDataBase = firebaseDatabase.getReference("like");
+        DatabaseReference likeDataBase = firebaseDatabase.getReference(Constants.LIKE);
         likeDataBase.child(UserManager.getInstance().getUserId()).child(latLng).removeValue();
     }
 
@@ -257,7 +257,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference likeDataBase = firebaseDatabase.getReference("like");
+        DatabaseReference likeDataBase = firebaseDatabase.getReference(Constants.LIKE);
         likeDataBase.child(UserManager.getInstance().getUserId()).child(latLng).setValue(restaurant);
 
     }
@@ -272,7 +272,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
     private void getArticleFromFirebase(final RestaurantMainItemViewHolder holder) {
         Log.d(Constants.TAG, " RestaurantMainAdapter: " + mRestaurant.getLat_Lng());
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(mRestaurant.getLat_Lng());
+        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.RESTAURANT).child(mRestaurant.getLat_Lng());
 
         Query query = databaseReference.orderByValue();
         query.addValueEventListener(new ValueEventListener() {
@@ -284,9 +284,9 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot);
-                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("author").child("id").getValue());
-                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("author").child("image").getValue());
-                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("author").child("name").getValue());
+                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("author").child(Constants.ID).getValue());
+                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("author").child(Constants.IMAGE).getValue());
+                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("author").child(Constants.NAME).getValue());
                     Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("starCount").getValue());
                     Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("location").getValue());
                     Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("createdTime").getValue());
@@ -294,31 +294,31 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                     final Article article = new Article();
 
                     Author author = new Author();
-                    author.setId((String) snapshot.child("author").child("id").getValue());
-                    author.setImage((String) snapshot.child("author").child("image").getValue());
-                    author.setName((String) snapshot.child("author").child("name").getValue());
+                    author.setId((String) snapshot.child(Constants.AUTHOR).child(Constants.ID).getValue());
+                    author.setImage((String) snapshot.child(Constants.AUTHOR).child(Constants.IMAGE).getValue());
+                    author.setName((String) snapshot.child(Constants.AUTHOR).child(Constants.NAME).getValue());
 
                     article.setAuthor(author);
-                    article.setRestaurantName((String) snapshot.child("restaurantName").getValue());
-                    article.setContent((String) snapshot.child("content").getValue());
-                    article.setLat_lng((String) snapshot.child("lat_lng").getValue());
-                    article.setLocation((String) snapshot.child("location").getValue());
-                    article.setStarCount(Integer.parseInt(String.valueOf(snapshot.child("starCount").getValue())));
-                    article.setCreatedTime(String.valueOf(snapshot.child("createdTime").getValue()));
+                    article.setRestaurantName((String) snapshot.child(Constants.RESTAURANT_NAME).getValue());
+                    article.setContent((String) snapshot.child(Constants.CONTENT).getValue());
+                    article.setLat_lng((String) snapshot.child(Constants.LAT_LNG).getValue());
+                    article.setLocation((String) snapshot.child(Constants.LOCATION).getValue());
+                    article.setStarCount(Integer.parseInt(String.valueOf(snapshot.child(Constants.STARCOUNT).getValue())));
+                    article.setCreatedTime(String.valueOf(snapshot.child(Constants.CREATEDTIME).getValue()));
 
                     ArrayList<Menu> menus = new ArrayList<>();
-                    for (int i = 0; i < snapshot.child("menus").getChildrenCount(); i++) {
+                    for (int i = 0; i < snapshot.child(Constants.MENUS).getChildrenCount(); i++) {
                         Menu menu = new Menu();
-                        menu.setDishName((String) snapshot.child("menus").child(String.valueOf(i)).child("dishName").getValue());
-                        menu.setDishPrice((String) snapshot.child("menus").child(String.valueOf(i)).child("dishPrice").getValue());
+                        menu.setDishName((String) snapshot.child(Constants.MENUS).child(String.valueOf(i)).child(Constants.DISHNAME).getValue());
+                        menu.setDishPrice((String) snapshot.child(Constants.MENUS).child(String.valueOf(i)).child(Constants.DISHPRICE).getValue());
                         menus.add(menu);
                     }
 
                     article.setMenus(menus);
 
                     ArrayList<String> pictures = new ArrayList<>();
-                    for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
-                        pictures.add((String) snapshot.child("pictures").child(String.valueOf(i)).getValue());
+                    for (int i = 0; i < snapshot.child(Constants.PICTURES).getChildrenCount(); i++) {
+                        pictures.add((String) snapshot.child(Constants.PICTURES).child(String.valueOf(i)).getValue());
                     }
 
                     article.setPictures(pictures);
@@ -475,7 +475,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                     .into(holder.getImageAuthorImage());
         }
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy 年 MM月dd日 HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.DATE_FORMAT);
         long lcc = Long.valueOf(mComments.get(i).getCreatedTime());
         String time = formatter.format(new Date(lcc));
         holder.getTextCreatedTime().setText(time);

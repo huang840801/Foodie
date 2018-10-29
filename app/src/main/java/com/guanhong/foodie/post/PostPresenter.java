@@ -45,10 +45,10 @@ public class PostPresenter implements PostContract.Presenter {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-        DatabaseReference restaurantDataBase = firebaseDatabase.getReference("restaurant");
+        DatabaseReference restaurantDataBase = firebaseDatabase.getReference(Constants.RESTAURANT);
         restaurantDataBase.child(article.getLat_lng()).push().setValue(article);
 
-        DatabaseReference articleDataBase = firebaseDatabase.getReference("article");
+        DatabaseReference articleDataBase = firebaseDatabase.getReference(Constants.ARTICLE);
         articleDataBase.push().setValue(article);
 
         mPostView.transToMap();

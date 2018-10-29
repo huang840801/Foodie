@@ -43,6 +43,25 @@
     <string name="recommend_forth">選</string>
     <string name="guanhong">GuanHong</string>
     <string name="i_want_post">我要評論</string>
+    <string name="cannot_find_address">查無地址</string>
+    <string name="map_cannot_connect">Google地圖無法連接</string>
+    <string name="no_map_sevice">沒有地圖服務</string>
+    <string name="please_open_gps">請開啟定位</string>
+    <string name="password_cannot_less_than_six">密碼不能小於六碼!</string>
+    <string name="email_pattern_wrong">Email 格式錯誤!</string>
+    <string name="login_fail">登入失敗!</string>
+    <string name="register_success">註冊成功</string>
+    <string name="account_already_exist">該用戶已存在</string>
+    <string name="add_to_like">已加入我的收藏</string>
+    <string name="remove_from_like">已從我的收藏移除</string>
+    <string name="restaurant_name_cannot_be_empty">店名必填!</string>
+    <string name="restaurant_name_cannot_contain_empty">店名不能有空白!</string>
+    <string name="location_cannot_be_empty">位置必填!</string>
+    <string name="dish_name_cannot_be_empty">菜名必填!</string>
+    <string name="dish_name_cannot_contain_empty">菜單不能有空白!</string>
+    <string name="dish_price_cannot_be_empty">價格必填!</string>
+    <string name="at_least_one_photo">至少要有一張照片!</string>
+    <string name="content_cannot_be_empty">內容必填!</string>
 
 
 </resources>

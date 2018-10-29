@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.objects.Restaurant;
+import com.guanhong.foodie.util.Constants;
 
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class SearchPresenter implements SearchContract.Presenter {
         mSearchString = s;
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant");
+        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.RESTAURANT);
 
         Query query = databaseReference;
         query.addValueEventListener(new ValueEventListener() {
@@ -85,7 +86,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
         for (int i = 0; i < keyArrayList.size(); i++) {
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(keyArrayList.get(i));
+            DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.RESTAURANT).child(keyArrayList.get(i));
 
             Query query = databaseReference;
             query.addValueEventListener(new ValueEventListener() {
@@ -95,7 +96,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                        if (snapshot.child("restaurantName").getValue().toString().contains(mSearchString) || snapshot.child("location").getValue().toString().contains(mSearchString)) {
+                        if (snapshot.child(Constants.RESTAURANT_NAME).getValue().toString().contains(mSearchString) || snapshot.child(Constants.LOCATION).getValue().toString().contains(mSearchString)) {
 
                             Log.d("SearchPresenter", " getRestaurantData: " + snapshot.child("location").getValue());
                             Log.d("SearchPresenter", " getRestaurantData: " + snapshot.child("restaurantName").getValue());
@@ -104,14 +105,14 @@ public class SearchPresenter implements SearchContract.Presenter {
                             Log.d("SearchPresenter", " getRestaurantData dataSnapshot: " + dataSnapshot.getChildrenCount());
 
                             Restaurant restaurant = new Restaurant();
-                            restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
-                            restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
-                            restaurant.setLat_Lng(snapshot.child("lat_lng").getValue().toString());
-                            restaurant.setStarCount(Integer.valueOf(snapshot.child("starCount").getValue().toString()));
+                            restaurant.setRestaurantName(snapshot.child(Constants.RESTAURANT_NAME).getValue().toString());
+                            restaurant.setRestaurantLocation(snapshot.child(Constants.LOCATION).getValue().toString());
+                            restaurant.setLat_Lng(snapshot.child(Constants.LAT_LNG).getValue().toString());
+                            restaurant.setStarCount(Integer.valueOf(snapshot.child(Constants.STARCOUNT).getValue().toString()));
 
                             ArrayList<String> pictures = new ArrayList<>();
-                            for (int k = 0; k < snapshot.child("pictures").getChildrenCount(); k++) {
-                                pictures.add(snapshot.child("pictures").child(String.valueOf(k)).getValue().toString());
+                            for (int k = 0; k < snapshot.child(Constants.PICTURES).getChildrenCount(); k++) {
+                                pictures.add(snapshot.child(Constants.PICTURES).child(String.valueOf(k)).getValue().toString());
                             }
 
                             restaurant.setRestaurantPictures(pictures);

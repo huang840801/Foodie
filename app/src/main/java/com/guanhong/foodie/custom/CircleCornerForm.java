@@ -8,6 +8,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
+import com.guanhong.foodie.util.Constants;
 import com.squareup.picasso.Transformation;
 
 
@@ -28,14 +29,13 @@ public class CircleCornerForm implements Transformation {
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
 
         Canvas canvas = new Canvas(output);
-        int color = 0xff424242;
         Paint paint = new Paint();
         Rect rect = new Rect(left, top, width, height);
         final RectF rectF = new RectF(rect);
 
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);   //填充背景
-        paint.setColor(color);
+        paint.setColor(Constants.COLOR);
         paint.setStrokeWidth(20);
         canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN)); //兩圖交互顯示 mode (相交）
@@ -47,6 +47,6 @@ public class CircleCornerForm implements Transformation {
 
     @Override
     public String key() {
-        return "roundcorner";
+        return Constants.BITMAP_ROUND_CORNER_KEY;
     }
 }

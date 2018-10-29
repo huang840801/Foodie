@@ -28,7 +28,6 @@ public interface ProfileContract {
 
         void updateUserImageToFireBaseStorage(ArrayList<String> pictures);
 
-
         void getUserData();
 
         void openPersonalArticle(Article article);

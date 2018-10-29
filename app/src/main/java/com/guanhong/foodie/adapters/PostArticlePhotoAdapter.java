@@ -37,7 +37,7 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
         mPhotosList = stringArrayListExtra;
         mBitmapList = new ArrayList<>();
         mPresenter = presenter;
-        Log.d(Constants.TAG, "  mPhotosList " + mPhotosList.get(0));
+//        Log.d(Constants.TAG, "  mPhotosList " + mPhotosList.get(0));
 
     }
 

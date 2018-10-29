@@ -13,6 +13,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.objects.Restaurant;
+import com.guanhong.foodie.util.Constants;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class LikePresenter implements LikeContract.Presenter {
         Log.d("LikePresenter ", "userid: " + UserManager.getInstance().getUserId());
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("like").child(UserManager.getInstance().getUserId());
+        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.LIKE).child(UserManager.getInstance().getUserId());
 
         Query query = databaseReference;
         query.addValueEventListener(new ValueEventListener() {
@@ -46,8 +47,6 @@ public class LikePresenter implements LikeContract.Presenter {
 
                     Log.d("LikePresenter ", "loadRestaurantKey : " + snapshot.getKey());
                     mRestaurantKeyArrayList.add(snapshot.getKey());
-
-
                 }
                 loadRestaurant(mRestaurantKeyArrayList);
             }
@@ -68,7 +67,7 @@ public class LikePresenter implements LikeContract.Presenter {
             mRestaurantArrayList.clear();
 
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            DatabaseReference databaseReference = firebaseDatabase.getReference("like").child(UserManager.getInstance().getUserId());
+            DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.LIKE).child(UserManager.getInstance().getUserId());
 
             Query query = databaseReference.child(restaurantKeyArrayList.get(i));
             query.addValueEventListener(new ValueEventListener() {
@@ -77,19 +76,19 @@ public class LikePresenter implements LikeContract.Presenter {
 
                     Restaurant restaurant = new Restaurant();
 
-                    restaurant.setLat_Lng((String) dataSnapshot.child("lat_Lng").getValue());
-                    restaurant.setRestaurantLocation((String) dataSnapshot.child("restaurantLocation").getValue());
-                    restaurant.setRestaurantName((String) dataSnapshot.child("restaurantName").getValue());
+                    restaurant.setLat_Lng((String) dataSnapshot.child(Constants.LAT_LNG).getValue());
+                    restaurant.setRestaurantLocation((String) dataSnapshot.child(Constants.RESTAURANT_LOCATION).getValue());
+                    restaurant.setRestaurantName((String) dataSnapshot.child(Constants.RESTAURANT_NAME).getValue());
                     try {
-                        restaurant.setStarCount(Integer.valueOf(dataSnapshot.child("starCount").getValue().toString()));
+                        restaurant.setStarCount(Integer.valueOf(dataSnapshot.child(Constants.STARCOUNT).getValue().toString()));
                     } catch (NullPointerException e) {
                         Log.d("LikePresenter ", "NullPointerException : ");
 
                     }
 
                     ArrayList<String> pictures = new ArrayList<>();
-                    for (int j = 0; j < dataSnapshot.child("restaurantPictures").getChildrenCount(); j++) {
-                        pictures.add(dataSnapshot.child("restaurantPictures").child(String.valueOf(j)).getValue() + "");
+                    for (int j = 0; j < dataSnapshot.child(Constants.RESTAURANT_PICTURES).getChildrenCount(); j++) {
+                        pictures.add(dataSnapshot.child(Constants.RESTAURANT_PICTURES).child(String.valueOf(j)).getValue() + "");
                     }
                     restaurant.setRestaurantPictures(pictures);
 

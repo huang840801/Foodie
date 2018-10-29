@@ -61,7 +61,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         View v = LayoutInflater.from(mContext).inflate(R.layout.custom_tabview, null);
         ImageView imageView = v.findViewById(R.id.imageView_custom_tab);
         imageView.setImageResource(ints[position]);
-        
+
         Log.d("getTabView ", "  position = " + position);
         return v;
     }

@@ -39,6 +39,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     private TextView mUserEmail;
     private TextView mArticleCount;
     private RecyclerView mRecyclerView;
+    private TextView mCoinCount;
 
     @Nullable
     @Override
@@ -50,13 +51,11 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mUserImageView = v.findViewById(R.id.imageView_user);
         mUserName = v.findViewById(R.id.textView_userName);
         mUserEmail = v.findViewById(R.id.textView_userEmail);
-        TextView coinCount = v.findViewById(R.id.textView_coin_count);
+        mCoinCount = v.findViewById(R.id.textView_coin_count);
         mArticleCount = v.findViewById(R.id.textView_article_count);
-//        mImageViewPost = v.findViewById(R.id.imageView_profile_post_article);
         mRecyclerView = v.findViewById(R.id.recyclerview_profile_article);
 
         mUserImageView.setOnClickListener(this);
-//        mImageViewPost.setOnClickListener(this);
 
         return v;
     }
@@ -136,7 +135,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mUserEmail.setText(user.getEmail());
         if (!"".equals(user.getImage())) {
 
-            Log.d("showUserData ", " userImage 有東西");
+            Log.d("showUserData ", " userImage !=null ");
 
             Picasso.get()
                     .load(user.getImage())

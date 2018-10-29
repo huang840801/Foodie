@@ -88,7 +88,6 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         super.onDestroy();
         Log.d("fragmentflow", "  RestaurantFragment onDestroy");
         ((FoodieActivity) getActivity()).setTabLayoutVisibility(true);
-        ((FoodieActivity) getActivity()).removeRestaurantFragment();
     }
 
     @Override

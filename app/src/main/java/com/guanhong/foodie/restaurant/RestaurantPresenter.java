@@ -61,6 +61,9 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
     @Override
     public void start() {
         getRestaurantComments(mRestaurant.getLat_Lng());
+        Log.d("getRestaurantComments ", "  mRestaurant.getLat_Lng()   = " + mRestaurant.getLat_Lng());
+        Log.d("getRestaurantComments ", "  mRestaurant.getLat_Lng()   = " + mRestaurant.getRestaurantName());
+
     }
 
     private void getRestaurantComments(final String latLng) {
@@ -70,7 +73,7 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
         final ArrayList<Comment> comments = new ArrayList<>();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("comment");
+        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.COMMENT);
 
         Query query = databaseReference;
         query.addValueEventListener(new ValueEventListener() {
@@ -85,13 +88,13 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
                     final Comment comment = new Comment();
                     Author author = new Author();
 
-                    author.setId((String) snapshot.child("author").child("id").getValue());
-                    author.setImage((String) snapshot.child("author").child("image").getValue());
-                    author.setName((String) snapshot.child("author").child("name").getValue());
+                    author.setId((String) snapshot.child(Constants.AUTHOR).child(Constants.ID).getValue());
+                    author.setImage((String) snapshot.child(Constants.AUTHOR).child(Constants.IMAGE).getValue());
+                    author.setName((String) snapshot.child(Constants.AUTHOR).child(Constants.NAME).getValue());
 
                     comment.setAuthor(author);
-                    comment.setComment((String) snapshot.child("comment").getValue());
-                    comment.setCreatedTime(String.valueOf(snapshot.child("createdTime").getValue()));
+                    comment.setComment((String) snapshot.child(Constants.COMMENT).getValue());
+                    comment.setCreatedTime(String.valueOf(snapshot.child(Constants.CREATEDTIME).getValue()));
 
                     comments.add(comment);
                 }

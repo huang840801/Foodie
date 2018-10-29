@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.objects.Restaurant;
+import com.guanhong.foodie.util.Constants;
 
 import java.util.ArrayList;
 
@@ -37,7 +38,7 @@ public class RecommendPresenter implements RecommendContract.Presenter {
 
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("article");
+        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.ARTICLE);
 
         Query query = databaseReference;
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -57,14 +58,14 @@ public class RecommendPresenter implements RecommendContract.Presenter {
                     if (Integer.valueOf(snapshot.child("starCount").getValue().toString()) == 5) {
                         Restaurant restaurant = new Restaurant();
 
-                        restaurant.setRestaurantName(snapshot.child("restaurantName").getValue().toString());
-                        restaurant.setRestaurantLocation(snapshot.child("location").getValue().toString());
-                        restaurant.setStarCount(Integer.parseInt(snapshot.child("starCount").getValue().toString()));
-                        restaurant.setLat_Lng(snapshot.child("lat_lng").getValue().toString());
+                        restaurant.setRestaurantName(snapshot.child(Constants.RESTAURANT_NAME).getValue().toString());
+                        restaurant.setRestaurantLocation(snapshot.child(Constants.LOCATION).getValue().toString());
+                        restaurant.setStarCount(Integer.parseInt(snapshot.child(Constants.STARCOUNT).getValue().toString()));
+                        restaurant.setLat_Lng(snapshot.child(Constants.LAT_LNG).getValue().toString());
 
                         ArrayList<String> pictures = new ArrayList<>();
-                        for (int i = 0; i < snapshot.child("pictures").getChildrenCount(); i++) {
-                            pictures.add(snapshot.child("pictures").child(String.valueOf(i)).getValue().toString());
+                        for (int i = 0; i < snapshot.child(Constants.PICTURES).getChildrenCount(); i++) {
+                            pictures.add(snapshot.child(Constants.PICTURES).child(String.valueOf(i)).getValue().toString());
                         }
 
                         restaurant.setRestaurantPictures(pictures);

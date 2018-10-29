@@ -7,8 +7,7 @@ public class Comment {
     private String mCreatedTime;
 
     public Comment() {
-//        mId = "";
-//        mArticleId = "";
+
         mAuthor = new Author();
         mComment = "";
         mCreatedTime = "";

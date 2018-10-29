@@ -81,7 +81,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         Log.d(Constants.TAG, " LoginWithFirebase email:  " + user.getEmail());
                         Log.d(Constants.TAG, " LoginWithFirebase name:  " + mName);
                         FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
-                        final DatabaseReference myRef = userDatabase.getReference("user");
+                        final DatabaseReference myRef = userDatabase.getReference(Constants.USER);
 
                         User user1 = new User();
                         user1.setName(mName);
@@ -100,7 +100,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         Log.d(Constants.TAG, " LoginWithFirebase : mName == null ");
 
                         FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
-                        DatabaseReference myRef = userDatabase.getReference("user");
+                        DatabaseReference myRef = userDatabase.getReference(Constants.USER);
                         Query query = myRef;
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -115,10 +115,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                         Log.d(Constants.TAG, " FoodieActivityDataSnapshot : " + snapshot.child("name").getValue());
 
                                         User user = new User();
-                                        user.setEmail((String) snapshot.child("email").getValue());
-                                        user.setId((String) snapshot.child("id").getValue());
-                                        user.setImage((String) snapshot.child("image").getValue());
-                                        user.setName((String) snapshot.child("name").getValue());
+                                        user.setEmail((String) snapshot.child(Constants.EMAIL).getValue());
+                                        user.setId((String) snapshot.child(Constants.ID).getValue());
+                                        user.setImage((String) snapshot.child(Constants.IMAGE).getValue());
+                                        user.setName((String) snapshot.child(Constants.NAME).getValue());
 
                                         UserManager.getInstance().setUserData(user);
 
@@ -135,9 +135,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         });
                     }
 
-                    SharedPreferences userData = mContext.getSharedPreferences("userData", Context.MODE_PRIVATE);
+                    SharedPreferences userData = mContext.getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
                     userData.edit()
-                            .putString("userId", user.getUid())
+                            .putString(Constants.USER_ID, user.getUid())
                             .commit();
                     Intent intent = new Intent(LoginActivity.this, FoodieActivity.class);
                     startActivity(intent);
@@ -198,13 +198,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             } else if (password.length() < 6) {
 
-                Toast.makeText(LoginActivity.this, "密碼不能小於六碼!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.password_cannot_less_than_six, Toast.LENGTH_SHORT).show();
 
             } else if (!email.contains("@")) {
-                Toast.makeText(LoginActivity.this, "Email 格式錯誤!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.email_pattern_wrong, Toast.LENGTH_SHORT).show();
 
             } else {
-
                 register(email, password);
             }
 
@@ -233,16 +232,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void login(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
 
-                    Toast.makeText(LoginActivity.this, "登入失敗!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this,
+                                    R.string.login_fail,
+                                    Toast.LENGTH_SHORT)
+                                    .show();
 
-                }
-            }
-        });
+                        }
+                    }
+                });
     }
 
     private void register(final String email, final String password) {
@@ -250,7 +253,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                String message = task.isSuccessful() ? "註冊成功" : "該用戶已存在";
+                String message = task
+                        .isSuccessful() ? getString(R.string.register_success) : getString(R.string.account_already_exist);
                 Log.d(Constants.TAG, "  message: " + message);
                 Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
 

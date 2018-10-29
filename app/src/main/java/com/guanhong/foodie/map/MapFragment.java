@@ -126,15 +126,15 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
                             getMyLocation();
                         } else {
                             Toast.makeText(mContext,
-                                    "GoogleApiClient is Connected ", Toast.LENGTH_LONG).show();
+                                    R.string.map_cannot_connect, Toast.LENGTH_LONG).show();
                         }
                     } else {
                         Toast.makeText(mContext,
-                                "GoogleApiClient is null", Toast.LENGTH_LONG).show();
+                                R.string.no_map_sevice, Toast.LENGTH_LONG).show();
                     }
 
                 } else {
-                    Toast.makeText(mContext, "請開啟定位", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, R.string.please_open_gps, Toast.LENGTH_LONG).show();
                     getService = true; //確認開啟定位服務
                     startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); //開啟設定頁面
                 }
@@ -170,7 +170,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
             }
         } catch (SecurityException e) {
 
-            Toast.makeText(mContext, "SecurityException:\n" + mLastLocation.getLatitude() + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(mContext, "SecurityException:\n" + mLastLocation.getLatitude() + mLastLocation.getLongitude(), Toast.LENGTH_SHORT).show();
 
             Log.d(Constants.TAG, "SecurityException:\n" + String.valueOf(mLastLocation.getLatitude()) + "\n"
                     + String.valueOf(mLastLocation.getLongitude()));
@@ -304,7 +304,7 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
                 String key = (lat + "_" + lng);
 
                 FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-                DatabaseReference databaseReference = firebaseDatabase.getReference("restaurant").child(key);
+                DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.RESTAURANT).child(key);
 
                 Query query = databaseReference.orderByValue();
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -312,13 +312,13 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                            double lat = Double.parseDouble(snapshot.child("latLng").child("latitude").getValue() + "");
-                            double lng = Double.parseDouble(snapshot.child("latLng").child("longitude").getValue() + "");
+                            double lat = Double.parseDouble(snapshot.child(Constants.LATLNG).child(Constants.LATITUDE).getValue() + "");
+                            double lng = Double.parseDouble(snapshot.child(Constants.LATLNG).child(Constants.LONGITUDE).getValue() + "");
 
                             if (marker.getPosition().longitude == lng && marker.getPosition().latitude == lat) {
 
-                                mRestaurantName = snapshot.child("restaurantName").getValue() + "";
-                                mStarCount = snapshot.child("starCount").getValue() + "";
+                                mRestaurantName = snapshot.child(Constants.RESTAURANT_NAME).getValue() + "";
+                                mStarCount = snapshot.child(Constants.STARCOUNT).getValue() + "";
 
                                 mCustomInfoWindowAdapter.setMarkerData(mRestaurantName, mStarCount);
 
