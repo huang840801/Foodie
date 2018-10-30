@@ -26,10 +26,10 @@
         android:layout_marginLeft="10dp"
         android:background="@drawable/corner_bg_post_edittext"
         android:hint="@string/price"
-        android:typeface="sans"
         android:paddingBottom="2dp"
         android:paddingStart="2dp"
         android:paddingTop="2dp"
+        android:typeface="sans"
         tools:layout_editor_absoluteX="273dp"
         tools:layout_editor_absoluteY="174dp" />
 

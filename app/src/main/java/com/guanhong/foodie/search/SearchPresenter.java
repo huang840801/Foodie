@@ -30,8 +30,6 @@ public class SearchPresenter implements SearchContract.Presenter {
         mSearchView.setPresenter(this);
     }
 
-    public void testMvp(){
-        }
     @Override
     public void start() {
     }

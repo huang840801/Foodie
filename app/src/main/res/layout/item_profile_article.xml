@@ -23,10 +23,10 @@
         android:layout_marginEnd="12dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:ellipsize="end"
         android:gravity="left"
         android:includeFontPadding="false"
         android:maxLines="1"
-        android:ellipsize="end"
         android:text="@string/AppWorks"
         android:textColor="@color/black"
         android:textSize="16dp"
@@ -43,7 +43,6 @@
         android:layout_height="39dp"
         android:layout_marginEnd="12dp"
         android:layout_marginTop="4dp"
-
         android:ellipsize="end"
         android:gravity="left"
         android:maxLines="2"
@@ -61,7 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginTop="4dp"
-
         android:gravity="left"
         android:text="@string/time_preview"
         android:textColor="@color/grey"

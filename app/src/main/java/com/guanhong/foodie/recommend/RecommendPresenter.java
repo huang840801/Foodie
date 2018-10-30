@@ -33,9 +33,6 @@ public class RecommendPresenter implements RecommendContract.Presenter {
         getMyRecommendRestaurant();
     }
 
-    public void testMvp(){
-
-    }
     @Override
     public void getMyRecommendRestaurant() {
 

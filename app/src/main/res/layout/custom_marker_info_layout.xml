@@ -5,11 +5,6 @@
     android:background="@drawable/corners_bg"
     android:orientation="vertical">
 
-    <!--<ImageView-->
-    <!--android:layout_width="55dp"-->
-    <!--android:layout_height="65dp"-->
-    <!--android:layout_marginLeft="8dp"-->
-    <!--android:src="@drawable/custom_marker"/>-->
     <TextView
         android:id="@+id/infoWindow_restaurant_textView"
         android:layout_width="wrap_content"
@@ -18,10 +13,10 @@
         android:layout_marginRight="5dp"
         android:gravity="left"
         android:text="@string/AppWorks"
-        android:typeface="sans"
         android:textColor="@color/main"
         android:textSize="18dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:typeface="sans" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -40,7 +35,7 @@
 
         <ImageView
             android:id="@+id/imageView_marker_star2"
-        android:layout_width="16dp"
+            android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
@@ -49,7 +44,7 @@
 
         <ImageView
             android:id="@+id/imageView_marker_star3"
-         android:layout_width="16dp"
+            android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
@@ -58,7 +53,7 @@
 
         <ImageView
             android:id="@+id/imageView_marker_star4"
-         android:layout_width="16dp"
+            android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
@@ -67,7 +62,7 @@
 
         <ImageView
             android:id="@+id/imageView_marker_star5"
-         android:layout_width="16dp"
+            android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"

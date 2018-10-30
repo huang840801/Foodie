@@ -79,7 +79,6 @@
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginStart="8dp"
-
         app:layout_constraintStart_toEndOf="@+id/imageView_star3"
         app:layout_constraintTop_toTopOf="@+id/imageView_star3"
         app:srcCompat="@drawable/new_star_unselected" />
@@ -89,20 +88,9 @@
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_marginStart="8dp"
-
         app:layout_constraintStart_toEndOf="@+id/imageView_star4"
         app:layout_constraintTop_toTopOf="@+id/imageView_star4"
         app:srcCompat="@drawable/new_star_unselected" />
-
-    <!--<ImageView-->
-    <!--android:id="@+id/imageView2"-->
-    <!--android:layout_width="17dp"-->
-    <!--android:layout_height="20dp"-->
-    <!--android:layout_marginTop="4dp"-->
-    <!--android:padding="2dp"-->
-    <!--app:layout_constraintStart_toStartOf="@+id/imageView_star1"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/imageView_star1"-->
-    <!--app:srcCompat="@drawable/new_yellow_marker" />-->
 
     <TextView
         android:id="@+id/textView_location"
@@ -155,25 +143,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView_article_preview" />
 
-    <!--<EditText-->
-    <!--android:id="@+id/editText_comments"-->
-    <!--android:layout_width="300dp"-->
-    <!--android:layout_height="35dp"-->
-    <!--android:layout_marginStart="12dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--android:background="@drawable/corners_bg"-->
-    <!--android:hint="@string/say_something"-->
-    <!--android:paddingBottom="@dimen/text_padding_bottom"-->
-    <!--android:paddingEnd="@dimen/text_padding_end"-->
-    <!--android:paddingStart="@dimen/text_padding_start"-->
-    <!--android:paddingTop="@dimen/text_padding_top"-->
-    <!--android:textSize="12dp"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintEnd_toStartOf="@+id/imageView_send"-->
-    <!--app:layout_constraintHorizontal_bias="0.0"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/topView"-->
-    <!--app:layout_constraintVertical_bias="1.0" />-->
     <me.james.biuedittext.BiuEditText
         android:id="@+id/editText_comments"
         android:layout_width="300dp"

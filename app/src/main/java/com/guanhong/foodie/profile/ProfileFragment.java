@@ -40,6 +40,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     private TextView mArticleCount;
     private RecyclerView mRecyclerView;
     private TextView mCoinCount;
+    private TextView mPreview;
 
     @Nullable
     @Override
@@ -54,6 +55,9 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
         mCoinCount = v.findViewById(R.id.textView_coin_count);
         mArticleCount = v.findViewById(R.id.textView_article_count);
         mRecyclerView = v.findViewById(R.id.recyclerview_profile_article);
+        mPreview = v.findViewById(R.id.textView_profile_preview);
+
+        mPreview.setVisibility(View.GONE);
 
         mUserImageView.setOnClickListener(this);
 
@@ -148,6 +152,10 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
 
     @Override
     public void showMyArticles(ArrayList<Article> articleArrayList) {
+
+        if (articleArrayList.size() == 0) {
+            mPreview.setVisibility(View.VISIBLE);
+        }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);

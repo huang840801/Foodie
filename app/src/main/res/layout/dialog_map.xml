@@ -15,15 +15,6 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp">
 
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center_horizontal"-->
-        <!--android:background="#FFFFFF"-->
-        <!--android:orientation="vertical"-->
-        <!--android:paddingBottom="10dp"-->
-        <!--android:paddingTop="10dp">-->
-
         <TextView
             android:id="@+id/textView_dialog_address"
             android:layout_width="wrap_content"
@@ -82,5 +73,4 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!--</LinearLayout>-->
 </LinearLayout>

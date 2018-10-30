@@ -10,27 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--<TextView-->
-        <!--android:id="@+id/personal_restaurant_name"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="32dp"-->
-        <!--android:layout_marginTop="16dp"-->
-        <!--android:text="@string/restaurant_name"-->
-        <!--android:textSize="18dp"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/constraint" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/personal_restaurant_location"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/location"-->
-        <!--android:textSize="18dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/textview_personal_restaurant_location"-->
-        <!--app:layout_constraintStart_toStartOf="@+id/personal_restaurant_name"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/textview_personal_restaurant_location" />-->
-
         <TextView
 
             android:id="@+id/textView_personal_restaurant_name"
@@ -45,31 +24,18 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:typeface="sans"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintEnd_toStartOf="@+id/textView_personal_createdTime"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerview_personal_photo" />
 
 
-        <!--<ImageView-->
-        <!--android:id="@+id/imageView_personal_location"-->
-        <!--android:layout_width="40dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:padding="8dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/textview_personal_restaurant_location"-->
-        <!--app:layout_constraintStart_toEndOf="@+id/textview_personal_restaurant_location"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/textview_personal_restaurant_location"-->
-        <!--app:srcCompat="@drawable/marker_yellow" />-->
-
         <TextView
             android:id="@+id/textview_personal_restaurant_location"
-
             android:layout_width="333dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:layout_marginTop="8dp"
-
             android:text="@string/address"
             android:textSize="12dp"
             android:typeface="sans"
@@ -77,25 +43,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/imageView_star1"
             app:layout_constraintTop_toBottomOf="@+id/imageView_star1" />
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/linearlayout">-->
 
-        <!--<LinearLayout-->
-        <!--android:id="@+id/linearLayout"-->
-        <!--android:layout_width="294dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical"-->
-        <!--tools:layout_editor_absoluteX="109dp"-->
-        <!--tools:layout_editor_absoluteY="168dp">-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="8dp"-->
-
-        <!--android:orientation="horizontal">-->
         <View
             android:id="@+id/divider"
             android:layout_width="0dp"
@@ -110,7 +58,6 @@
 
         <TextView
             android:id="@+id/textView_menu1"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -124,20 +71,17 @@
 
         <TextView
             android:id="@+id/textView_personal_menu1"
-
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/what_did_you_eat"
             android:textSize="12dp"
-
             android:typeface="sans"
             app:layout_constraintStart_toStartOf="@+id/textView_menu1"
             app:layout_constraintTop_toBottomOf="@+id/textView_menu1" />
 
         <TextView
             android:id="@+id/textView_personal_price1"
-
             android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
@@ -153,124 +97,54 @@
             app:layout_constraintTop_toTopOf="@+id/textView_personal_menu1"
             app:layout_constraintVertical_bias="0.0" />
 
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="8dp"-->
-
-        <!--android:orientation="horizontal">-->
 
         <TextView
             android:id="@+id/textView_personal_menu2"
-
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/what_did_you_eat"
             android:textSize="12dp"
-
             android:typeface="sans"
             app:layout_constraintStart_toStartOf="@+id/textView_personal_menu1"
             app:layout_constraintTop_toBottomOf="@+id/textView_personal_menu1" />
 
         <TextView
             android:id="@+id/textView_personal_price2"
-
             android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:hint="@string/price"
             android:maxLength="6"
             android:textSize="12dp"
-
             android:typeface="sans"
             app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu2"
             app:layout_constraintEnd_toEndOf="@+id/textView_personal_price1"
             app:layout_constraintTop_toTopOf="@+id/textView_personal_menu2" />
 
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="8dp"-->
-
-        <!--android:orientation="horizontal">-->
 
         <TextView
             android:id="@+id/textView_personal_menu3"
-
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="@string/what_did_you_eat"
             android:textSize="12dp"
-
             android:typeface="sans"
             app:layout_constraintStart_toStartOf="@+id/textView_personal_menu2"
             app:layout_constraintTop_toBottomOf="@+id/textView_personal_menu2" />
 
         <TextView
             android:id="@+id/textView_personal_price3"
-
             android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:hint="@string/price"
             android:maxLength="6"
             android:textSize="12dp"
             android:typeface="sans"
-
             app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu3"
             app:layout_constraintEnd_toEndOf="@+id/textView_personal_price2"
             app:layout_constraintTop_toTopOf="@+id/textView_personal_menu3" />
 
-        <!--</LinearLayout>-->
-
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-
-        <!--</LinearLayout>-->
-
-
-        <!--<ImageView-->
-        <!--android:id="@+id/imageView_personal_addMenu"-->
-        <!--android:layout_width="30dp"-->
-        <!--android:layout_height="30dp"-->
-        <!--android:layout_marginStart="12dp"-->
-
-        <!--android:padding="8dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/textView_personal_price1"-->
-
-        <!--app:layout_constraintStart_toEndOf="@+id/textView_personal_price1"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/textView_personal_price1"-->
-        <!--app:srcCompat="@drawable/add_menu" />-->
-
-        <!--<ImageView-->
-        <!--android:id="@+id/imageView_personal_subtractMenu"-->
-        <!--android:layout_width="23dp"-->
-        <!--android:layout_height="25dp"-->
-        <!--app:srcCompat="@drawable/subtract_menu"-->
-        <!--/>-->
-
-        <!--<ImageView-->
-        <!--android:id="@+id/imageView_personal_add_pictures"-->
-        <!--android:layout_width="40dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:padding="8dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/constraint"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/constraint"-->
-        <!--app:srcCompat="@drawable/picture" />-->
 
         <View
             android:id="@+id/divider1"
@@ -297,7 +171,6 @@
 
         <TextView
             android:id="@+id/textView_personal_content"
-
             android:layout_width="0dp"
             android:layout_height="214dp"
             android:layout_marginBottom="8dp"
@@ -317,84 +190,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_content"
             app:layout_constraintVertical_bias="0.0" />
-
-
-        <!--<RatingBar-->
-        <!--android:id="@+id/ratingBar2"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="16dp"-->
-        <!--android:theme="@style/RatingBar"-->
-        <!--app:layout_constraintStart_toStartOf="@+id/textView_personal_content"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/textView_personal_content" />-->
-
-        <!--<TextView
-                    android:typeface="sans"
--->
-        <!--android:id="@+id/textview_personal_personal"-->
-        <!--android:layout_width="90dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:layout_marginBottom="16dp"-->
-        <!--android:layout_marginTop="16dp"-->
-        <!--android:background="@drawable/corner_bg_post_edittext"-->
-        <!--android:gravity="center"-->
-        <!--android:text="@string/personal"-->
-        <!--android:textSize="20dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/ratingBar2" />-->
-
-
-        <!--<TextView
-                    android:typeface="sans"
--->
-        <!--android:id="@+id/textView_menu2"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-
-        <!--android:text="菜單"-->
-        <!--android:textSize="18dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu2"-->
-        <!--app:layout_constraintStart_toStartOf="@+id/textView_menu1"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/textView_personal_menu2" />-->
-
-        <!--<TextView
-                    android:typeface="sans"
--->
-        <!--android:id="@+id/textView_menu3"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="菜單"-->
-
-        <!--android:textSize="18dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/textView_personal_menu3"-->
-        <!--app:layout_constraintStart_toStartOf="@+id/textView_menu2"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/textView_personal_menu3" />-->
-
-
-        <!--<TextView
-                    android:typeface="sans"
--->
-        <!--android:id="@+id/textView_pictures"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="照片"-->
-        <!--android:textSize="18dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/constraint"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/constraint"-->
-        <!--tools:layout_editor_absoluteX="32dp" />-->
-
-
-        <!--<android.support.constraint.ConstraintLayout-->
-        <!--android:id="@+id/recyclerview_personal_photo"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="0dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent">-->
 
 
         <android.support.v7.widget.RecyclerView
@@ -423,8 +218,6 @@
             app:piv_selectedColor="@color/main"
             app:piv_unselectedColor="#a5cdcdcd" />
 
-        <!--</android.support.constraint.ConstraintLayout>-->
-
         <ImageView
             android:id="@+id/imageView_star1"
             android:layout_width="18dp"
@@ -439,7 +232,6 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginStart="8dp"
-
             android:src="@drawable/new_star_selected"
             app:layout_constraintStart_toEndOf="@+id/imageView_star1"
             app:layout_constraintTop_toTopOf="@+id/imageView_star1" />
@@ -449,7 +241,6 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginStart="8dp"
-
             android:src="@drawable/new_star_selected"
             app:layout_constraintStart_toEndOf="@+id/imageView_star2"
             app:layout_constraintTop_toTopOf="@+id/imageView_star1" />
@@ -459,9 +250,7 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginStart="8dp"
-
             android:src="@drawable/new_star_selected"
-
             app:layout_constraintStart_toEndOf="@+id/imageView_star3"
             app:layout_constraintTop_toTopOf="@+id/imageView_star1" />
 
@@ -470,14 +259,12 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginStart="8dp"
-
             android:src="@drawable/new_star_selected"
             app:layout_constraintStart_toEndOf="@+id/imageView_star4"
             app:layout_constraintTop_toTopOf="@+id/imageView_star1" />
 
         <TextView
             android:id="@+id/textView_personal_author_name"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
@@ -485,13 +272,11 @@
             android:text=""
             android:textSize="12dp"
             android:typeface="sans"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerview_personal_photo" />
 
         <TextView
             android:id="@+id/textView_personal_author"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"

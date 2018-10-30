@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/custom_marker_view"
     android:layout_width="50dp"
-    android:layout_height="wrap_content"
-   >
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imageView_marker"
@@ -15,6 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/pin" />
+
     <TextView
         android:id="@+id/textView_marker_count"
         android:layout_width="30dp"

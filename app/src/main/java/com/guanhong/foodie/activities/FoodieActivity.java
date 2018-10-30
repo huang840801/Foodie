@@ -167,8 +167,8 @@ public class FoodieActivity extends BaseActivity implements
         });
 
     }
-    public void showTestFragment(View v)
-    {
+
+    public void showTestFragment(View v) {
         String fragmentTag = "TestFragment";
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(fragmentTag);
@@ -181,6 +181,7 @@ public class FoodieActivity extends BaseActivity implements
             transaction.commit();
         }
     }
+
     private void init() {
 
         mContext = this;

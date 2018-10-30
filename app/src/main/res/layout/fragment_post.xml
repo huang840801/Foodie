@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-   >
+    android:background="@color/white">
 
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraint_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-     >
+        android:layout_height="wrap_content">
 
 
         <View
@@ -106,25 +104,7 @@
             android:textSize="12dp"
             app:layout_constraintStart_toStartOf="@+id/edittext_post_restaurant_name"
             app:layout_constraintTop_toBottomOf="@+id/edittext_post_restaurant_name" />
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/linearlayout">-->
 
-        <!--<LinearLayout-->
-        <!--android:id="@+id/linearLayout"-->
-        <!--android:layout_width="294dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical"-->
-        <!--tools:layout_editor_absoluteX="109dp"-->
-        <!--tools:layout_editor_absoluteY="168dp">-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="8dp"-->
-
-        <!--android:orientation="horizontal">-->
 
         <EditText
             android:id="@+id/edittext_post_menu1"
@@ -159,14 +139,6 @@
             app:layout_constraintEnd_toEndOf="@+id/textview_post_restaurant_location"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu1" />
 
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="8dp"-->
-
-        <!--android:orientation="horizontal">-->
 
         <EditText
             android:id="@+id/edittext_post_menu2"
@@ -201,14 +173,6 @@
             app:layout_constraintEnd_toEndOf="@+id/edittext_post_price1"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu2" />
 
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="8dp"-->
-
-        <!--android:orientation="horizontal">-->
 
         <EditText
             android:id="@+id/edittext_post_menu3"
@@ -243,52 +207,18 @@
             app:layout_constraintEnd_toEndOf="@+id/edittext_post_price2"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu3" />
 
-        <!--</LinearLayout>-->
-
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-        <!--<include layout="@layout/child_menu"/>-->
-
-        <!--</LinearLayout>-->
-
 
         <ImageView
             android:id="@+id/imageView_post_addMenu"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="12dp"
-
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_price1"
-
             app:layout_constraintStart_toEndOf="@+id/edittext_post_price1"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_price1"
             app:srcCompat="@drawable/add_menu" />
 
-        <!--<ImageView-->
-        <!--android:id="@+id/imageView_post_subtractMenu"-->
-        <!--android:layout_width="23dp"-->
-        <!--android:layout_height="25dp"-->
-        <!--app:srcCompat="@drawable/subtract_menu"-->
-        <!--/>-->
-
-        <!--<ImageView-->
-        <!--android:id="@+id/imageView_post_add_pictures"-->
-        <!--android:layout_width="228dp"-->
-        <!--android:layout_height="150dp"-->
-        <!--android:layout_marginEnd="0dp"-->
-        <!--android:padding="8dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/constraint"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/constraint"-->
-        <!--app:srcCompat="@drawable/picture" />-->
 
         <EditText
             android:id="@+id/edittext_post_content"
@@ -329,30 +259,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu1"
             app:layout_constraintStart_toStartOf="@+id/post_restaurant_location"
             app:layout_constraintTop_toTopOf="@+id/edittext_post_menu1" />
-
-        <!--<TextView-->
-            <!--android:id="@+id/textView_menu2"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-
-            <!--android:text="菜單"-->
-            <!--android:textSize="18dp"-->
-            <!--android:typeface="sans"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu2"-->
-            <!--app:layout_constraintStart_toStartOf="@+id/textView_menu1"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/edittext_post_menu2" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/textView_menu3"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="菜單"-->
-
-            <!--android:textSize="18dp"-->
-            <!--android:typeface="sans"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/edittext_post_menu3"-->
-            <!--app:layout_constraintStart_toStartOf="@+id/textView_menu2"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/edittext_post_menu3" />-->
 
         <TextView
             android:id="@+id/textView_content"
@@ -423,15 +329,6 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <!--<android.support.constraint.ConstraintLayout-->
-            <!--android:id="@+id/constraint"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="#e0000000"-->
-            <!--app:layout_constraintBottom_toBottomOf="constraint_parent"-->
-            <!--app:layout_constraintEnd_toEndOf="constraint_parent"-->
-            <!--app:layout_constraintStart_toStartOf="constraint_parent"-->
-            <!--app:layout_constraintTop_toTopOf="constraint_parent">-->
         <View
             android:id="@+id/loading_background"
             android:layout_width="match_parent"
@@ -452,7 +349,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-        <!--</android.support.constraint.ConstraintLayout>-->
 
 
     </android.support.constraint.ConstraintLayout>
