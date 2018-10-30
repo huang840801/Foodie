@@ -27,6 +27,8 @@ import com.guanhong.foodie.R;
 import com.guanhong.foodie.adapters.RecommendPhotoAdapter;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -43,7 +45,7 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     private TextView mTitleThird;
     private TextView mTitleForth;
 
-    private TextView mRestaurantName;
+    private ShimmerTextView mRestaurantName;
     private TextView mLocation;
     private ImageView mStar1;
     private ImageView mStar2;
@@ -52,6 +54,8 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     private ImageView mStar5;
     private RecyclerView mRecyclerView;
     private ImageView mLabel;
+
+//    private ShimmerTextView mShimmerTextView;
 
     private ArrayList<Restaurant> mRestaurantArrayList = new ArrayList<>();
 
@@ -70,6 +74,7 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         View v = inflater.inflate(R.layout.fragment_recommend, container, false);
         mContext = getContext();
 
+//        mShimmerTextView = v.findViewById(R.id.shimmer_tv);
         mTitleFirst = v.findViewById(R.id.textView_recommend_title_first);
         mTitleSecond = v.findViewById(R.id.textView_recommend_title_second);
         mTitleThird = v.findViewById(R.id.textView_recommend_title_third);
@@ -88,7 +93,14 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         mTitleThird.setVisibility(View.GONE);
         mTitleForth.setVisibility(View.GONE);
 
+
         return v;
+    }
+
+    private void setShimmerText() {
+        Shimmer shimmer = new Shimmer();
+        shimmer.setDuration(3000)
+                .start(mRestaurantName);
     }
 
     public static RecommendFragment newInstance() {
@@ -105,6 +117,7 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setAnimation();
+        setShimmerText();
 
         mPresenter.start();
 
@@ -145,7 +158,6 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
             mContext.startService(intent);
         }
     }
-
 
 
     @Override

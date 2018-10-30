@@ -65,6 +65,9 @@ dependencies {
     implementation'com.wang.avi:library:1.0.0'
     implementation'com.nineoldandroids:library:2.4.0'
     implementation 'com.xujinyang.BiuEditText:library:1.4.1'
+    implementation 'com.romainpiel.shimmer:library:1.4.0@aar'
+
+
     testImplementation "org.mockito:mockito-core:2.8.9"
     androidTestImplementation "org.mockito:mockito-android:2.8.9"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
