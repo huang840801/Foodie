@@ -28,6 +28,7 @@ import com.guanhong.foodie.R;
 import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.objects.User;
 import com.guanhong.foodie.util.Constants;
+import com.wang.avi.AVLoadingIndicatorView;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
@@ -43,6 +44,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private String mName;
     private Context mContext;
+
+    private AVLoadingIndicatorView mAvLoadingIndicatorView;
+    private View mLoadingBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,12 +167,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mSignUpTextView = findViewById(R.id.textView_sign_up);
         mLoginTextView = findViewById(R.id.textView_login);
 
+        mAvLoadingIndicatorView = findViewById(R.id.AVLoadingIndicatorView);
+        mLoadingBackground = findViewById(R.id.loading_background);
+
         mPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         mNameEditText.setVisibility(View.GONE);
         mRegisterButton.setVisibility(View.GONE);
         mLoginTextView.setVisibility(View.GONE);
-
+        mAvLoadingIndicatorView.setVisibility(View.GONE);
+        mLoadingBackground.setVisibility(View.GONE);
     }
 
     @Override
@@ -211,13 +219,24 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             } else {
                 register(email, password);
+                mAvLoadingIndicatorView.setVisibility(View.VISIBLE);
+                mLoadingBackground.setVisibility(View.VISIBLE);
             }
 
         } else if (view.getId() == R.id.button_login) {
-            if ("".equals(email) || "".equals(password)) {
-                Toast.makeText(this, R.string.cannot_be_empty, Toast.LENGTH_SHORT).show();
+            if ("".equals(email)) {
+                Toast.makeText(this, R.string.email_cannot_be_empty, Toast.LENGTH_SHORT).show();
+
+            } else if ("".equals(password)) {
+                Toast.makeText(this, R.string.password_cannot_be_empty, Toast.LENGTH_SHORT).show();
+
+            } else if (!email.contains("@") || !email.contains(".")) {
+                Toast.makeText(LoginActivity.this, R.string.email_pattern_wrong, Toast.LENGTH_SHORT).show();
+
             } else {
                 login(email, password);
+                mAvLoadingIndicatorView.setVisibility(View.VISIBLE);
+                mLoadingBackground.setVisibility(View.VISIBLE);
             }
         } else if (view.getId() == R.id.textView_sign_up) {
             mNameEditText.setVisibility(View.VISIBLE);
@@ -244,6 +263,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()) {
 
+                            mAvLoadingIndicatorView.setVisibility(View.GONE);
+                            mLoadingBackground.setVisibility(View.GONE);
                             Toast.makeText(LoginActivity.this,
                                     R.string.login_fail,
                                     Toast.LENGTH_SHORT)
@@ -259,6 +280,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
+                mAvLoadingIndicatorView.setVisibility(View.GONE);
+                mLoadingBackground.setVisibility(View.GONE);
                 String message = task
                         .isSuccessful() ? getString(R.string.register_success) : getString(R.string.register_fail);
                 Log.d(Constants.TAG, "  message: " + message);
