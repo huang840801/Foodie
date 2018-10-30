@@ -193,14 +193,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         if (view.getId() == R.id.button_register) {
 
-            if ("".equals(email) || "".equals(password) || "".equals(mName)) {
-                Toast.makeText(this, R.string.cannot_be_empty, Toast.LENGTH_SHORT).show();
+            if ("".equals(mName)) {
+                Toast.makeText(this, R.string.name_cannot_be_empty, Toast.LENGTH_SHORT).show();
+
+            } else if ("".equals(email)) {
+                Toast.makeText(this, R.string.email_cannot_be_empty, Toast.LENGTH_SHORT).show();
+
+            } else if ("".equals(password)) {
+                Toast.makeText(this, R.string.password_cannot_be_empty, Toast.LENGTH_SHORT).show();
 
             } else if (password.length() < 6) {
 
                 Toast.makeText(LoginActivity.this, R.string.password_cannot_less_than_six, Toast.LENGTH_SHORT).show();
 
-            } else if (!email.contains("@")) {
+            } else if (!email.contains("@") || !email.contains(".")) {
                 Toast.makeText(LoginActivity.this, R.string.email_pattern_wrong, Toast.LENGTH_SHORT).show();
 
             } else {
@@ -254,7 +260,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 String message = task
-                        .isSuccessful() ? getString(R.string.register_success) : getString(R.string.account_already_exist);
+                        .isSuccessful() ? getString(R.string.register_success) : getString(R.string.register_fail);
                 Log.d(Constants.TAG, "  message: " + message);
                 Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
 

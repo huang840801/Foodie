@@ -14,6 +14,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -165,7 +167,20 @@ public class FoodieActivity extends BaseActivity implements
         });
 
     }
-
+    public void showTestFragment(View v)
+    {
+        String fragmentTag = "TestFragment";
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentByTag(fragmentTag);
+        if (fragment == null || !fragment.isAdded()) {
+            FragmentTransaction transaction = fm.beginTransaction();
+            if (fragment == null) {
+                fragment = new ProfileFragment();
+            }
+            transaction.add(R.id.fragment_container, fragment, fragmentTag);
+            transaction.commit();
+        }
+    }
     private void init() {
 
         mContext = this;

@@ -62,6 +62,10 @@
     <string name="dish_price_cannot_be_empty">價格必填!</string>
     <string name="at_least_one_photo">至少要有一張照片!</string>
     <string name="content_cannot_be_empty">內容必填!</string>
+    <string name="register_fail">註冊失敗</string>
+    <string name="email_cannot_be_empty">信箱不能為空</string>
+    <string name="password_cannot_be_empty">密碼不能為空</string>
+    <string name="name_cannot_be_empty">名字不能為空</string>
 
 
 </resources>
