@@ -168,20 +168,6 @@ public class FoodieActivity extends BaseActivity implements
 
     }
 
-    public void showTestFragment(View v) {
-        String fragmentTag = "TestFragment";
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentByTag(fragmentTag);
-        if (fragment == null || !fragment.isAdded()) {
-            FragmentTransaction transaction = fm.beginTransaction();
-            if (fragment == null) {
-                fragment = new ProfileFragment();
-            }
-            transaction.add(R.id.fragment_container, fragment, fragmentTag);
-            transaction.commit();
-        }
-    }
-
     private void init() {
 
         mContext = this;
@@ -200,7 +186,8 @@ public class FoodieActivity extends BaseActivity implements
                 getResources().getString(R.string.profile),
 
         };
-
+        mPresenter = new FoodiePresenter(this, mViewPager, getSupportFragmentManager());
+        mPresenter.start();
         setTabLayout();
         mViewPagerAdapter = new ViewPagerAdapter(
                 getSupportFragmentManager(),
@@ -215,8 +202,6 @@ public class FoodieActivity extends BaseActivity implements
 
         }
 
-        mPresenter = new FoodiePresenter(this, mViewPager, getSupportFragmentManager());
-        mPresenter.start();
 
         //设置TabLayout点击事件
         mTabLayout.setOnTabSelectedListener(this);
@@ -232,14 +217,19 @@ public class FoodieActivity extends BaseActivity implements
         if (mMapFragment == null) {
             mMapFragment = MapFragment.newInstance();
             mMapPresenter = new MapPresenter(mMapFragment);
+            mMapPresenter.setMainPresenter(mPresenter);
         }
         if (mProfileFragment == null) {
             mProfileFragment = ProfileFragment.newInstance();
             mProfilePresenter = new ProfilePresenter(mProfileFragment, mContext);
+            mProfilePresenter.setMainPresenter(mPresenter);
+
         }
         if (mSearchFragment == null) {
             mSearchFragment = SearchFragment.newInstance();
             mSearchPresenter = new SearchPresenter(mSearchFragment);
+            mSearchPresenter.setMainPresenter(mPresenter);
+
         }
         if (mRecommendFragment == null) {
             mRecommendFragment = RecommendFragment.newInstance();
@@ -248,6 +238,7 @@ public class FoodieActivity extends BaseActivity implements
         if (mLikeFragment == null) {
             mLikeFragment = LikeFragment.newInstance();
             mLikePresenter = new LikePresenter(mLikeFragment);
+            mLikePresenter.setMainPresenter(mPresenter);
         }
 
         mFragmentList.add(mMapFragment);
@@ -291,6 +282,42 @@ public class FoodieActivity extends BaseActivity implements
     }
 
     @Override
+    public void pickMultiplePictures() {
+        ArrayList<String> picturesList = new ArrayList<>();
+
+        PhotoPickerIntent intent = new PhotoPickerIntent(FoodieActivity.this);
+        intent.setSelectModel(SelectModel.MULTI);
+        intent.setType(Constants.IMAGE_TYPE);
+
+        intent.setMaxTotal(10);
+        intent.setSelectedPaths(picturesList);
+
+        startActivityForResult(intent, Constants.MULTIPLE_PICKER);
+    }
+
+    @Override
+    public void transToPostChildMap() {
+
+        Intent intent = new Intent(FoodieActivity.this, MapActivity.class);
+        startActivityForResult(intent, Constants.CHILD_MAP_REQUEST_CODE);
+    }
+
+    @Override
+    public void pickSinglePicture() {
+
+        ArrayList<String> picturesList = new ArrayList<>();
+
+        PhotoPickerIntent intent = new PhotoPickerIntent(FoodieActivity.this);
+        intent.setSelectModel(SelectModel.MULTI);
+        intent.setType(Constants.IMAGE_TYPE);
+
+        intent.setMaxTotal(1);
+        intent.setSelectedPaths(picturesList);
+
+        startActivityForResult(intent, Constants.SINGLE_PICKER);
+    }
+
+    @Override
     public void onBackPressed() {
         Log.d(Constants.TAG, "onBackPressed: ");
         super.onBackPressed();
@@ -301,7 +328,6 @@ public class FoodieActivity extends BaseActivity implements
     public void setPresenter(FoodieContract.Presenter presenter) {
         mPresenter = presenter;
     }
-
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
@@ -371,14 +397,6 @@ public class FoodieActivity extends BaseActivity implements
 
     }
 
-
-    public void transToPostChildMap() {
-
-        Intent intent = new Intent(FoodieActivity.this, MapActivity.class);
-        startActivityForResult(intent, Constants.CHILD_MAP_REQUEST_CODE);
-
-    }
-
     public void transToPostArticle() {
         mPresenter.transToPostArticle();
     }
@@ -439,37 +457,7 @@ public class FoodieActivity extends BaseActivity implements
         onLowMemory();
     }
 
-    public void pickSinglePicture() {
 
-        ArrayList<String> picturesList = new ArrayList<>();
-
-        PhotoPickerIntent intent = new PhotoPickerIntent(FoodieActivity.this);
-        intent.setSelectModel(SelectModel.MULTI);
-        intent.setType(Constants.IMAGE_TYPE);
-
-        intent.setMaxTotal(1);
-        intent.setSelectedPaths(picturesList);
-
-        startActivityForResult(intent, Constants.SINGLE_PICKER);
-
-
-    }
-
-
-    public void pickMultiplePictures() {
-
-        ArrayList<String> picturesList = new ArrayList<>();
-
-        PhotoPickerIntent intent = new PhotoPickerIntent(FoodieActivity.this);
-        intent.setSelectModel(SelectModel.MULTI);
-        intent.setType(Constants.IMAGE_TYPE);
-
-        intent.setMaxTotal(10);
-        intent.setSelectedPaths(picturesList);
-
-        startActivityForResult(intent, Constants.MULTIPLE_PICKER);
-
-    }
 
     public void transToMap() {
         mPresenter.transToMap();

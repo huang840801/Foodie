@@ -31,6 +31,10 @@ public interface ProfileContract {
         void getUserData();
 
         void openPersonalArticle(Article article);
+
+        void pickSinglePicture();
+
+        void transToPersonalArticle(Article article);
     }
 
 

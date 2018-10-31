@@ -86,6 +86,12 @@ public class PostArticlePhotoAdapter extends RecyclerView.Adapter {
 
 
                 Bitmap bitmap = (BitmapFactory.decodeFile(mPhotosList.get(i), getBitmapOption(2)));
+
+                if (bitmap == null) {
+                    mPresenter.showErrorToast();
+                    return;
+                }
+
                 int width = bitmap.getWidth();
                 int height = bitmap.getHeight();
                 int newWidth = 160;

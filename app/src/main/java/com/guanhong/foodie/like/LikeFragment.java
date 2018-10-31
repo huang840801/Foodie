@@ -80,9 +80,4 @@ public class LikeFragment extends Fragment implements LikeContract.View {
         mRecyclerView.setAdapter(new LikeArticleAdapter(mPresenter, restaurantArrayList));
     }
 
-    @Override
-    public void transToRestaurant(Restaurant restaurant) {
-        ((FoodieActivity) getActivity()).transToRestaurant(restaurant);
-
-    }
 }

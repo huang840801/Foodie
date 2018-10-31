@@ -15,6 +15,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.guanhong.foodie.FoodieContract;
+import com.guanhong.foodie.FoodiePresenter;
 import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.util.Constants;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 public class PostPresenter implements PostContract.Presenter {
 
     private PostContract.View mPostView;
+    private FoodieContract.Presenter mMainPresenter;
 
     public PostPresenter(PostContract.View postView) {
 
@@ -67,7 +70,6 @@ public class PostPresenter implements PostContract.Presenter {
             Uri file = Uri.fromFile(new File(pictureList.get(i)));
             final StorageReference myRef = storageReference.child(UserManager.getInstance().getUserId() + file);
 
-            final int finalI = i;
             myRef.putFile(file).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -102,11 +104,40 @@ public class PostPresenter implements PostContract.Presenter {
         mPostView.addPictures();
     }
 
+    @Override
+    public void pickMultiplePictures() {
+        mMainPresenter.pickMultiplePictures();
+    }
+
+    @Override
+    public void transToMap() {
+        mMainPresenter.transToMap();
+    }
+
+    @Override
+    public void transToPostChildMap() {
+        mMainPresenter.transToPostChildMap();
+    }
+
+    @Override
+    public void checkRestaurantExists() {
+        mMainPresenter.checkRestaurantExists();
+    }
+
+    @Override
+    public void showErrorToast() {
+        mPostView.showErrorToast();
+    }
+
     public void setAddress(String addressLine, LatLng latLng) {
         mPostView.showAddress(addressLine, latLng);
     }
 
     public void getPictures(ArrayList<String> stringArrayListExtra) {
         mPostView.showPictures(stringArrayListExtra);
+    }
+
+    public void setMainPresenter(FoodieContract.Presenter presenter) {
+        mMainPresenter = presenter;
     }
 }

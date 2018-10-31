@@ -89,8 +89,4 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
 
     }
 
-    @Override
-    public void transToRestaurant(Restaurant restaurant) {
-        ((FoodieActivity) getActivity()).transToRestaurant(restaurant);
-    }
 }

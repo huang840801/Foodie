@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.guanhong.foodie.Foodie;
+import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.activities.FoodieActivity;
@@ -39,6 +40,7 @@ import java.util.ArrayList;
 public class PostFragment extends Fragment implements PostContract.View, View.OnClickListener, RatingBar.OnRatingBarChangeListener {
 
     private PostContract.Presenter mPresenter;
+
 
     private Context mContext;
     private View mTopView;
@@ -88,7 +90,9 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((FoodieActivity) getActivity()).checkRestaurantExists();
+
+        mPresenter.checkRestaurantExists();
+//        ((FoodieActivity) getActivity()).checkRestaurantExists();
     }
 
     @Nullable
@@ -209,21 +213,30 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
     @Override
     public void addPictures() {
-        ((FoodieActivity) getActivity()).pickMultiplePictures();
+//        ((FoodieActivity) getActivity()).pickMultiplePictures();
+        mPresenter.pickMultiplePictures();
+
     }
 
     @Override
     public void transToMap() {
         mAvLoadingIndicatorView.setVisibility(View.GONE);
         mLoadingBackground.setVisibility(View.GONE);
-        ((FoodieActivity) getActivity()).transToMap();
+//        ((FoodieActivity) getActivity()).transToMap();
+        mPresenter.transToMap();
+    }
+
+    @Override
+    public void showErrorToast() {
+        Toast.makeText(mContext, "照片無法讀取!", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClick(View view) {
 
         if (view.getId() == R.id.imageView_post_location || view.getId() == R.id.textview_post_restaurant_location) {
-            ((FoodieActivity) getActivity()).transToPostChildMap();
+//            ((FoodieActivity) getActivity()).transToPostChildMap();
+            mPresenter.transToPostChildMap();
         }
         if (view.getId() == R.id.imageView_post_addMenu) {
             addMenu();
@@ -439,6 +452,5 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mStarCount = (int) v;
         Log.d(Constants.TAG, "  mStarCount = " + mStarCount);
     }
-
 
 }

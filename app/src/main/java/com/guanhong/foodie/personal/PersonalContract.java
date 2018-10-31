@@ -14,5 +14,6 @@ public interface PersonalContract {
 
     interface Presenter extends BasePresenter {
 
+        void checkRestaurantExists();
     }
 }

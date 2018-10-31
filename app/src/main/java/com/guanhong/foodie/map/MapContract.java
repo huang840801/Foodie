@@ -32,5 +32,9 @@ public interface MapContract {
         void getRestaurantData(String address);
 
         void addMarker();
+
+        void transToPostArticle();
+
+        void transToRestaurant(Restaurant restaurant);
     }
 }

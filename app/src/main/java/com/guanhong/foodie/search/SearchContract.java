@@ -12,7 +12,6 @@ public interface SearchContract {
 
         void showSearchResult(ArrayList<Restaurant> restaurantArrayList);
 
-        void transToRestaurant(Restaurant restaurant);
     }
 
     interface Presenter extends BasePresenter {

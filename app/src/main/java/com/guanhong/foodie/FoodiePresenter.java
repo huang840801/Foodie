@@ -143,6 +143,8 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         }
 
         mPostPresenter = new PostPresenter(mPostFragment);
+        mPostPresenter.setMainPresenter(this);
+
 
         if (!mPostFragment.isAdded()) {
             fragmentTransaction.add(R.id.fragment_container, mPostFragment, POST);
@@ -188,6 +190,8 @@ public class FoodiePresenter implements FoodieContract.Presenter {
         }
 
         mRestaurantPresenter = new RestaurantPresenter(mRestaurantFragment, restaurant);
+        mRestaurantPresenter.setMainPresenter(this);
+
 
         if (!mRestaurantFragment.isAdded()) {
             fragmentTransaction.add(R.id.fragment_container, mRestaurantFragment, RESTAURANT);
@@ -209,6 +213,7 @@ public class FoodiePresenter implements FoodieContract.Presenter {
 
         mPersonalFragment = PersonalFragment.newInstance();
         mPersonalPresenter = new PersonalPresenter(mPersonalFragment, article);
+        mPersonalPresenter.setMainPresenter(this);
 
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.add(R.id.fragment_container, mPersonalFragment, PERSONAL_ARTICLE);
@@ -230,6 +235,26 @@ public class FoodiePresenter implements FoodieContract.Presenter {
             Log.d("fragmentflow", "   mRestaurantFragment == null ");
             mFoodieView.setTabLayoutVisibility(true);
         }
+    }
+
+    @Override
+    public void pickMultiplePictures() {
+        mFoodieView.pickMultiplePictures();
+    }
+
+    @Override
+    public void transToPostChildMap() {
+        mFoodieView.transToPostChildMap();
+    }
+
+    @Override
+    public void pickSinglePicture() {
+        mFoodieView.pickSinglePicture();
+    }
+
+    @Override
+    public void setTabLayoutVisibility(boolean isTabLayoutVisibility) {
+        mFoodieView.setTabLayoutVisibility(isTabLayoutVisibility);
     }
 
 

@@ -21,6 +21,7 @@ public interface PostContract {
 
         void transToMap();
 
+        void showErrorToast();
     }
 
     interface Presenter extends BasePresenter {
@@ -31,5 +32,15 @@ public interface PostContract {
         void uploadImage(ArrayList<String> pictureList);
 
         void addPictures();
+
+        void pickMultiplePictures();
+
+        void transToMap();
+
+        void transToPostChildMap();
+
+        void checkRestaurantExists();
+
+        void showErrorToast();
     }
 }

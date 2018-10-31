@@ -117,7 +117,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
     public void onClick(View view) {
 
         if (view.getId() == R.id.imageView_user) {
-            ((FoodieActivity) getActivity()).pickSinglePicture();
+//            ((FoodieActivity) getActivity()).pickSinglePicture();
+            mPresenter.pickSinglePicture();
         }
     }
 
@@ -174,6 +175,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View, V
 
     @Override
     public void showPersonalArticleUi(Article article) {
-        ((FoodieActivity) getActivity()).transToPersonalArticle(article);
+//        ((FoodieActivity) getActivity()).transToPersonalArticle(article);
+
+        mPresenter.transToPersonalArticle(article);
     }
 }

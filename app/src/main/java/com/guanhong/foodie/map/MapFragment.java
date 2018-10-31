@@ -170,7 +170,8 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
             }
         }
         if (view.getId() == R.id.imageView_map_post_article) {
-            ((FoodieActivity) getActivity()).transToPostArticle();
+//            ((FoodieActivity) getActivity()).transToPostArticle();
+            mPresenter.transToPostArticle();
         }
 
     }
@@ -235,7 +236,16 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
                     .build();
         }
 
-        if (ActivityCompat.checkSelfPermission(mContext, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(
+                mContext,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+        )
+                != PackageManager.PERMISSION_GRANTED
+                &&
+                ActivityCompat.checkSelfPermission(
+                        mContext,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
             //如果沒有授權使用定位就會跳出來這個
             // TODO: Consider calling
 
@@ -383,7 +393,8 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
     @Override
     public void showRestaurantUi(Restaurant restaurant) {
 
-        ((FoodieActivity) getActivity()).transToRestaurant(restaurant);
+        mPresenter.transToRestaurant(restaurant);
+//        ((FoodieActivity) getActivity()).transToRestaurant(restaurant);
 
     }
 

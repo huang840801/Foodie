@@ -11,6 +11,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.guanhong.foodie.FoodieContract;
+import com.guanhong.foodie.FoodiePresenter;
 import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 public class LikePresenter implements LikeContract.Presenter {
 
     private LikeContract.View mLikeView;
+    private FoodieContract.Presenter mMainPresenter;
 
     private ArrayList<String> mRestaurantKeyArrayList = new ArrayList<>();
     private ArrayList<Restaurant> mRestaurantArrayList = new ArrayList<>();
@@ -35,7 +38,7 @@ public class LikePresenter implements LikeContract.Presenter {
 
         Log.d("LikePresenter ", "userid: " + UserManager.getInstance().getUserId());
 
-        if (UserManager.getInstance().getUserId() == null){
+        if (UserManager.getInstance().getUserId() == null) {
             return;
         }
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -118,6 +121,11 @@ public class LikePresenter implements LikeContract.Presenter {
 
     @Override
     public void transToRestaurant(Restaurant restaurant) {
-        mLikeView.transToRestaurant(restaurant);
+//        mLikeView.transToRestaurant(restaurant);
+        mMainPresenter.transToRestaurant(restaurant);
+    }
+
+    public void setMainPresenter(FoodieContract.Presenter presenter) {
+        mMainPresenter = presenter;
     }
 }

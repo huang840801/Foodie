@@ -124,7 +124,8 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
         super.onDestroy();
         Log.d("fragmentflow", "   PersonalFragment onDestroy ");
 
-        ((FoodieActivity) getActivity()).checkRestaurantExists();
+        mPresenter.checkRestaurantExists();
+//        ((FoodieActivity) getActivity()).checkRestaurantExists();
     }
 
     private void setTypeFace() {

@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
 
@@ -22,6 +23,8 @@ public class SearchPresenter implements SearchContract.Presenter {
     private SearchContract.View mSearchView;
     private ArrayList<Restaurant> mRestaurantArrayList = new ArrayList<>();
     private ArrayList<String> mKeyArrayList = new ArrayList<>();
+
+    private FoodieContract.Presenter mMainPresenter;
 
     private String mSearchString;
 
@@ -77,7 +80,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
     @Override
     public void transToRestaurant(Restaurant restaurant) {
-        mSearchView.transToRestaurant(restaurant);
+        mMainPresenter.transToRestaurant(restaurant);
     }
 
     private void getRestaurantData(ArrayList<String> keyArrayList) {
@@ -135,5 +138,9 @@ public class SearchPresenter implements SearchContract.Presenter {
                 }
             });
         }
+    }
+
+    public void setMainPresenter(FoodieContract.Presenter presenter) {
+        mMainPresenter = presenter;
     }
 }

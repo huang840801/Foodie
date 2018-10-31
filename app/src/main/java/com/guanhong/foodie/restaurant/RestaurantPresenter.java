@@ -11,6 +11,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.guanhong.foodie.FoodieContract;
+import com.guanhong.foodie.FoodiePresenter;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Author;
 import com.guanhong.foodie.objects.Comment;
@@ -25,7 +27,9 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
 
     private RestaurantContract.View mRestaurantView;
     private Restaurant mRestaurant;
-    private ArrayList<Comment> mComments;
+
+    private FoodieContract.Presenter mMainPresenter;
+
 
     public RestaurantPresenter(RestaurantContract.View restaurantView, Restaurant restaurant) {
 
@@ -49,16 +53,19 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
         mRestaurantView.transToPost();
     }
 
-    public RestaurantPresenter(RestaurantContract.View restaurantView, Restaurant restaurant, ArrayList<Comment> comments) {
+    @Override
+    public void setTabLayoutVisibility(boolean isTabLayoutVisibility) {
+        mMainPresenter.setTabLayoutVisibility(isTabLayoutVisibility);
+    }
 
+    @Override
+    public void transToPersonalArticle(Article article) {
+        mMainPresenter.transToPersonalArticle(article);
+    }
 
-        mRestaurantView = checkNotNull(restaurantView, "detailView cannot be null!");
-        mRestaurantView.setPresenter(this);
-
-        mRestaurant = restaurant;
-        mComments = comments;
-        Log.d("myCommentsBug ", "  RestaurantPresenter  comments.size = " + comments.size());
-
+    @Override
+    public void transToPostArticle() {
+        mMainPresenter.transToPostArticle();
     }
 
     @Override
@@ -113,5 +120,9 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
 
             }
         });
+    }
+
+    public void setMainPresenter(FoodieContract.Presenter presenter) {
+        mMainPresenter = presenter;
     }
 }

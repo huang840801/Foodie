@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.objects.Author;
 import com.guanhong.foodie.objects.Comment;
@@ -35,6 +36,7 @@ import java.util.List;
 public class MapPresenter implements MapContract.Presenter {
 
     private MapContract.View mMapView;
+    private FoodieContract.Presenter mMainPresenter;
 
     public MapPresenter(MapContract.View mapView) {
 
@@ -156,4 +158,17 @@ public class MapPresenter implements MapContract.Presenter {
         });
     }
 
+    @Override
+    public void transToPostArticle() {
+        mMainPresenter.transToPostArticle();
+    }
+
+    @Override
+    public void transToRestaurant(Restaurant restaurant) {
+        mMainPresenter.transToRestaurant(restaurant);
+    }
+
+    public void setMainPresenter(FoodieContract.Presenter presenter) {
+        mMainPresenter = presenter;
+    }
 }

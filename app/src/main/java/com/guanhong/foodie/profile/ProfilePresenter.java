@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.UserManager;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Author;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 public class ProfilePresenter implements ProfileContract.Presenter {
 
     private ProfileContract.View mProfileView;
+    private FoodieContract.Presenter mMainPresenter;
 
     private Context mContext;
     private ArrayList<Article> mArticleArrayList;
@@ -200,4 +202,17 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         mProfileView.showPersonalArticleUi(article);
     }
 
+    @Override
+    public void pickSinglePicture() {
+        mMainPresenter.pickSinglePicture();
+    }
+
+    @Override
+    public void transToPersonalArticle(Article article) {
+        mMainPresenter.transToPersonalArticle(article);
+    }
+
+    public void setMainPresenter(FoodieContract.Presenter presenter) {
+        mMainPresenter = presenter;
+    }
 }

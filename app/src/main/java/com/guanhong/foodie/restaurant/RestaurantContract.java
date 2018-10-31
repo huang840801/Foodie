@@ -24,6 +24,12 @@ public interface RestaurantContract {
         void openPersonalArticle(Article article);
 
         void transToPost();
+
+        void setTabLayoutVisibility(boolean isTabLayoutVisibility);
+
+        void transToPersonalArticle(Article article);
+
+        void transToPostArticle();
     }
 }
 

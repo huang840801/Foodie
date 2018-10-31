@@ -13,6 +13,11 @@ public interface FoodieContract {
 
         void setTabLayoutVisibility(boolean isTabLayoutVisibility);
 
+        void pickMultiplePictures();
+
+        void transToPostChildMap();
+
+        void pickSinglePicture();
     }
 
     interface Presenter extends BasePresenter {
@@ -41,5 +46,12 @@ public interface FoodieContract {
 
         void checkRestaurantExists();
 
+        void pickMultiplePictures();
+
+        void transToPostChildMap();
+
+        void pickSinglePicture();
+
+        void setTabLayoutVisibility(boolean isTabLayoutVisibility);
     }
 }
