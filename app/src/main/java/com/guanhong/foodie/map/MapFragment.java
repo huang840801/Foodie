@@ -4,13 +4,18 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -57,7 +62,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class MapFragment extends Fragment implements MapContract.View, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MapFragment extends Fragment implements MapContract.View, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     private MapContract.Presenter mPresenter;
 
@@ -112,42 +117,62 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         mPresenter.start();
         mGoogleMapView.onCreate(savedInstanceState);
         checkStatus();
+        checkNetWork();
 
-        mLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requestLocationPermissions();
+        mLocation.setOnClickListener(this);
+        mPostButton.setOnClickListener(this);
+    }
 
-                if (mStatus.isProviderEnabled(LocationManager.GPS_PROVIDER) && mStatus.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                    //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
-                    if (mGoogleApiClient != null) {
-                        if (mGoogleApiClient.isConnected()) {
+    private void checkNetWork() {
 
-                            getMyLocation();
-                        } else {
-                            Toast.makeText(mContext,
-                                    R.string.map_cannot_connect, Toast.LENGTH_LONG).show();
+        ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo == null) {
+            new AlertDialog.Builder(mContext).setMessage("沒有網路")
+                    .setPositiveButton("前往設定網路", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent callNetSettingIntent = new Intent(
+                                    Settings.ACTION_WIFI_SETTINGS);
+                            startActivity(callNetSettingIntent);
                         }
+                    })
+                    .show();
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if (view.getId() == R.id.imageView_map_my_position) {
+            requestLocationPermissions();
+
+            if (mStatus.isProviderEnabled(LocationManager.GPS_PROVIDER) && mStatus.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
+                if (mGoogleApiClient != null) {
+                    if (mGoogleApiClient.isConnected()) {
+
+                        getMyLocation();
                     } else {
                         Toast.makeText(mContext,
-                                R.string.no_map_sevice, Toast.LENGTH_LONG).show();
+                                R.string.map_cannot_connect, Toast.LENGTH_LONG).show();
                     }
-
                 } else {
-                    Toast.makeText(mContext, R.string.please_open_gps, Toast.LENGTH_LONG).show();
-                    getService = true; //確認開啟定位服務
-                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); //開啟設定頁面
+                    Toast.makeText(mContext,
+                            R.string.no_map_sevice, Toast.LENGTH_LONG).show();
                 }
-            }
-        });
 
-        mPostButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((FoodieActivity) getActivity()).transToPostArticle();
+            } else {
+                Toast.makeText(mContext, R.string.please_open_gps, Toast.LENGTH_LONG).show();
+                getService = true; //確認開啟定位服務
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); //開啟設定頁面
             }
-        });
-//        mGoogleMapView.onResume();
+        }
+        if (view.getId() == R.id.imageView_map_post_article) {
+            ((FoodieActivity) getActivity()).transToPostArticle();
+        }
+
     }
 
     private void getMyLocation() {
@@ -210,7 +235,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
                     .build();
         }
 
-
         if (ActivityCompat.checkSelfPermission(mContext, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //如果沒有授權使用定位就會跳出來這個
             // TODO: Consider calling
@@ -227,14 +251,11 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         }
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
-
         mGoogleApiClient.connect();
         Log.d("lifecycle", "  MapFragment onStart");
-
 
     }
 
@@ -261,7 +282,6 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
         Log.d("lifecycle", "  MapFragment onStop");
 
     }
-
 
     @Override
     public void onDestroy() {
@@ -333,11 +353,9 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
                     }
                 });
-
                 return false;
             }
         });
-
 
     }
 
@@ -394,17 +412,15 @@ public class MapFragment extends Fragment implements MapContract.View, OnMapRead
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
+
 
 }

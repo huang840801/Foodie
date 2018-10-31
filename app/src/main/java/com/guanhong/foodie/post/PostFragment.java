@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -41,6 +43,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     private Context mContext;
     private View mTopView;
 
+    private ConstraintLayout mConstraintLayout;
     private EditText mEditTextRestaurantName;
     private TextView mTextViewRestaurantLocation;
     private ImageView mImageViewMarker;
@@ -97,6 +100,8 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mContext = getContext();
         mTopView = rootView.findViewById(R.id.topView);
 
+        mConstraintLayout = rootView.findViewById(R.id.constraint_parent);
+
         mEditTextRestaurantName = rootView.findViewById(R.id.edittext_post_restaurant_name);
         mTextViewRestaurantLocation = rootView.findViewById(R.id.textview_post_restaurant_location);
         mImageViewMarker = rootView.findViewById(R.id.imageView_post_location);
@@ -136,6 +141,7 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         mEditTextMenu3.setVisibility(View.GONE);
         mEditTextPrice3.setVisibility(View.GONE);
 
+        mConstraintLayout.setOnClickListener(this);
         mImageViewMarker.setOnClickListener(this);
         mImageViewAddMenu.setOnClickListener(this);
         mImageViewAddPhoto.setOnClickListener(this);
@@ -217,7 +223,6 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     public void onClick(View view) {
 
         if (view.getId() == R.id.imageView_post_location || view.getId() == R.id.textview_post_restaurant_location) {
-            Log.d(Constants.TAG, "Clicked????");
             ((FoodieActivity) getActivity()).transToPostChildMap();
         }
         if (view.getId() == R.id.imageView_post_addMenu) {
@@ -232,6 +237,13 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
         if (view.getId() == R.id.textview_post_post) {
             checkInformation();
         }
+        if (view.getId() == R.id.constraint_parent) {
+            Log.d(Constants.TAG, "Clicked????");
+
+            InputMethodManager imManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+
 
     }
 

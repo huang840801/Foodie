@@ -62,7 +62,7 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
         Picasso.get()
                 .load(mArticleArrayList.get(position).getPictures().get(0))
                 .placeholder(R.drawable.animated_rotate_drawable)
-                .error(R.drawable.photo_error)
+                .error(R.drawable.photo_error_text)
                 .fit()
                 .transform(new CircleCornerForm())
                 .into(holder.getImageView());

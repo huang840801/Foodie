@@ -80,7 +80,7 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
                     .load(mPictureList.get(positionInPhoto))
                     .fit()
                     .placeholder(R.drawable.animated_rotate_drawable)
-                    .error(R.drawable.photo_error)
+                    .error(R.drawable.photo_error_text)
                     .into(mImagePictures);
 
         }

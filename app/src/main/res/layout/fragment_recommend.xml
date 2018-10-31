@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
-        android:text="ShimmerTextView"
+        android:text="醒醒吧你沒有網路"
         android:textColor="#444"
         android:textSize="22dp"
         android:textStyle="bold"

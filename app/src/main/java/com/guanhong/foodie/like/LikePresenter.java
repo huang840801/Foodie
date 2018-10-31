@@ -35,6 +35,9 @@ public class LikePresenter implements LikeContract.Presenter {
 
         Log.d("LikePresenter ", "userid: " + UserManager.getInstance().getUserId());
 
+        if (UserManager.getInstance().getUserId() == null){
+            return;
+        }
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.LIKE).child(UserManager.getInstance().getUserId());
 

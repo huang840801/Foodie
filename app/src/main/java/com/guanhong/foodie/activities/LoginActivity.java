@@ -53,7 +53,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
 
         init();
-        loginWithFireBase();
+        loginWithFirebase();
 
         mRegisterButton.setOnClickListener(this);
         mLoginButton.setOnClickListener(this);
@@ -62,7 +62,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
-    private void loginWithFireBase() {
+    private void loginWithFirebase() {
 
         mAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
