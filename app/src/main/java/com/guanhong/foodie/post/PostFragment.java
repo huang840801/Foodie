@@ -91,8 +91,8 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     public void onDestroy() {
         super.onDestroy();
 
-        mPresenter.checkRestaurantExists();
-//        ((FoodieActivity) getActivity()).checkRestaurantExists();
+//        mPresenter.checkRestaurantExists();
+        ((FoodieActivity) getActivity()).checkRestaurantExists();
     }
 
     @Nullable
@@ -213,8 +213,8 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
 
     @Override
     public void addPictures() {
-//        ((FoodieActivity) getActivity()).pickMultiplePictures();
-        mPresenter.pickMultiplePictures();
+        ((FoodieActivity) getActivity()).pickMultiplePictures();
+//        mPresenter.pickMultiplePictures();
 
     }
 
@@ -222,8 +222,8 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     public void transToMap() {
         mAvLoadingIndicatorView.setVisibility(View.GONE);
         mLoadingBackground.setVisibility(View.GONE);
-//        ((FoodieActivity) getActivity()).transToMap();
-        mPresenter.transToMap();
+        ((FoodieActivity) getActivity()).transToMap();
+//        mPresenter.transToMap();
     }
 
     @Override
@@ -235,8 +235,8 @@ public class PostFragment extends Fragment implements PostContract.View, View.On
     public void onClick(View view) {
 
         if (view.getId() == R.id.imageView_post_location || view.getId() == R.id.textview_post_restaurant_location) {
-//            ((FoodieActivity) getActivity()).transToPostChildMap();
-            mPresenter.transToPostChildMap();
+            ((FoodieActivity) getActivity()).transToPostChildMap();
+//            mPresenter.transToPostChildMap();
         }
         if (view.getId() == R.id.imageView_post_addMenu) {
             addMenu();

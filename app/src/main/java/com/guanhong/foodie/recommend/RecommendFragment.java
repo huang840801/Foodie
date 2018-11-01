@@ -121,7 +121,6 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
 
         mPresenter.start();
 
-
     }
 
     private void startTimer() {

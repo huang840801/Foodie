@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.guanhong.foodie.Foodie;
@@ -34,6 +35,7 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
     private EditText mEditTextSearch;
     private ImageView mImageViewSearch;
     private RecyclerView mRecyclerView;
+    private TextView mPreviewTextView;
 
     @Nullable
     @Override
@@ -44,6 +46,9 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
         mEditTextSearch = v.findViewById(R.id.editText_search);
         mImageViewSearch = v.findViewById(R.id.imageView_magnifier);
         mRecyclerView = v.findViewById(R.id.search_recyclerView);
+        mPreviewTextView = v.findViewById(R.id.textView_search_preview);
+
+
         return v;
     }
 
@@ -69,7 +74,15 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
     public void onClick(View view) {
         if (view.getId() == R.id.imageView_magnifier) {
             if (!"".equals(mEditTextSearch.getText().toString())) {
-                mPresenter.searchArticles(mEditTextSearch.getText().toString());
+
+                String searchResult = mEditTextSearch.getText().toString();
+
+                if (searchResult.contains(" ")) {
+
+                    searchResult = searchResult.replace(" ", "");
+                }
+
+                mPresenter.searchArticles(searchResult);
             } else {
                 Toast.makeText(mContext, R.string.cannot_be_empty, Toast.LENGTH_SHORT).show();
             }
@@ -81,6 +94,11 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
 
         Log.d("SearchFragment", " result: " + restaurantArrayList.size());
 
+        if (restaurantArrayList.size() == 0) {
+            mPreviewTextView.setVisibility(View.VISIBLE);
+        } else {
+            mPreviewTextView.setVisibility(View.GONE);
+        }
         SearchRestaurantAdapter searchRestaurantAdapter = new SearchRestaurantAdapter(mPresenter, restaurantArrayList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);

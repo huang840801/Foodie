@@ -67,6 +67,7 @@
     <string name="password_cannot_be_empty">密碼不能為空</string>
     <string name="name_cannot_be_empty">名字不能為空</string>
     <string name="profile_preview">沒有任何文章，快來發一篇吧!</string>
+    <string name="search_preview">把關鍵字輸入方框內，按下放大鏡</string>
 
 
 </resources>

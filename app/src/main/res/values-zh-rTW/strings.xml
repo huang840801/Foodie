@@ -3,7 +3,7 @@
     <string name="app_name">Foodie</string>
     <string name="map">Map</string>
     <string name="profile">Profile</string>
-    <string name="search">Search</string>
+    <string name="search">搜尋</string>
     <string name="lottery">Lotto</string>
     <string name="like">Liked</string>
     <string name="title_activity_maps">Map</string>
@@ -64,5 +64,6 @@
     <string name="password_cannot_be_empty">密碼不能為空</string>
     <string name="name_cannot_be_empty">名字不能為空</string>
     <string name="profile_preview">沒有任何文章，快來發一篇吧!</string>
+    <string name="search_preview">把關鍵字輸入方框內，按下放大鏡</string>
 
 </resources>
