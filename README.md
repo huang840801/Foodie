@@ -1,6 +1,6 @@
 # Foodie
- 一款擁有探索，搜尋，收藏，記錄功能的美食地圖 app<br/>
- 歡迎各位美食家們一起加入!
+   一款擁有探索，搜尋，收藏，記錄功能的美食地圖 app<br/>
+   歡迎各位美食家們一起加入!
 
 [<img  src="https://github.com/Wen-Liu/BookShare/raw/master/Screenshot/google-play-badge.png" width="180"  >](https://play.google.com/store/apps/details?id=com.guanhong.foodie)
 
