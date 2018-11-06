@@ -3,7 +3,7 @@
 歡迎各位美食家們一起加入!
 
 <br />
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" width="200">](https://play.google.com/store/apps/details?id=com.guanhong.foodie)
+[<img src="https://github.com/steverichey/google-play-badge-svg/blob/master/img/en_get.svg" width="25%" height="25%">](https://play.google.com/store/apps/details?id=com.guanhong.foodie)
 
 # Features
 
