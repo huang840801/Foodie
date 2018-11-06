@@ -2,8 +2,8 @@
 一款擁有探索，搜尋，收藏，記錄功能的美食地圖 app<br/>
 歡迎各位美食家們一起加入!
 
-<br />
-[<img src="https://github.com/steverichey/google-play-badge-svg/blob/master/img/en_get.svg" width="25%" height="25%">](https://play.google.com/store/apps/details?id=com.guanhong.foodie)
+[<img src="https://github.com/Wen-Liu/BookShare/raw/master/Screenshot/google-play-badge.png" width="180"  >](https://play.google.com/store/apps/details?id=com.guanhong.foodie)
+
 
 # Features
 
