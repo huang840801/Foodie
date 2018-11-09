@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.SearchRestaurantAdapter;
 import com.guanhong.foodie.objects.Restaurant;
 

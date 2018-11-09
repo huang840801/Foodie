@@ -4,12 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.guanhong.foodie.BasePresenter;
-import com.guanhong.foodie.BaseView;
-import com.guanhong.foodie.objects.Comment;
+import com.guanhong.foodie.Base.BasePresenter;
+import com.guanhong.foodie.Base.BaseView;
 import com.guanhong.foodie.objects.Restaurant;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface MapContract {

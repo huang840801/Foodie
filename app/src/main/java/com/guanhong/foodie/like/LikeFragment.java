@@ -3,7 +3,6 @@ package com.guanhong.foodie.like;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.LikeArticleAdapter;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;

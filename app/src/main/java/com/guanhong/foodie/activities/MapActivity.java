@@ -41,6 +41,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.guanhong.foodie.MainActivity.FoodieActivity;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.post.PostFragment;
 import com.guanhong.foodie.util.Constants;
@@ -49,7 +50,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class MapActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback {
+public class MapActivity extends BaseActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, OnMapReadyCallback, View.OnClickListener {
 
     private GoogleMap mGoogleMap;
     private MapView mGoogleMapView;
@@ -78,36 +79,39 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
 
         mGoogleMapView.getMapAsync(this);
 
-        mLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requestLocationPermissions();
+        mLocation.setOnClickListener(this);
 
-                if (status.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                        &&
-                        status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                    //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
-                    if (mGoogleApiClient != null) {
-                        if (mGoogleApiClient.isConnected()) {
+    }
 
-                            getMyLocation();
-                        } else {
-                            Toast.makeText(MapActivity.this,
-                                    R.string.map_cannot_connect, Toast.LENGTH_LONG).show();
-                        }
+    @Override
+    public void onClick(View view) {
+
+        if (view.getId() == R.id.imageView_child_map_my_position) {
+            requestLocationPermissions();
+
+            if (status.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                    &&
+                    status.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+                //如果GPS或網路定位開啟，呼叫locationServiceInitial()更新位置
+                if (mGoogleApiClient != null) {
+                    if (mGoogleApiClient.isConnected()) {
+
+                        getMyLocation();
                     } else {
                         Toast.makeText(MapActivity.this,
-                                R.string.no_map_sevice, Toast.LENGTH_LONG).show();
+                                R.string.map_cannot_connect, Toast.LENGTH_LONG).show();
                     }
-
                 } else {
-                    Toast.makeText(MapActivity.this, R.string.please_open_gps, Toast.LENGTH_LONG).show();
-                    getService = true; //確認開啟定位服務
-                    startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); //開啟設定頁面
+                    Toast.makeText(MapActivity.this,
+                            R.string.no_map_sevice, Toast.LENGTH_LONG).show();
                 }
-            }
-        });
 
+            } else {
+                Toast.makeText(MapActivity.this, R.string.please_open_gps, Toast.LENGTH_LONG).show();
+                getService = true; //確認開啟定位服務
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); //開啟設定頁面
+            }
+        }
 
     }
 
@@ -347,4 +351,5 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
 
         dialog.show();
     }
+
 }

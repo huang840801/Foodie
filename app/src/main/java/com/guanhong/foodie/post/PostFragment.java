@@ -23,10 +23,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.guanhong.foodie.Foodie;
-import com.guanhong.foodie.FoodieContract;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.UserManager;
-import com.guanhong.foodie.activities.FoodieActivity;
+import com.guanhong.foodie.util.UserManager;
+import com.guanhong.foodie.MainActivity.FoodieActivity;
 import com.guanhong.foodie.adapters.PostArticlePhotoAdapter;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Author;

@@ -20,16 +20,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.guanhong.foodie.FoodieContract;
+import com.guanhong.foodie.MainActivity.FoodieContract;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.objects.Author;
-import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -138,11 +134,17 @@ public class MapPresenter implements MapContract.Presenter {
 
                     String lat;
                     String lng;
+                    String test;
                     String key = snapshot.getKey();
 
+                    test = key.substring(0, key.length()-1);
                     lat = key.substring(0, key.indexOf("_")).replace("@", ".");
                     lng = key.substring(key.indexOf("_") + 1).replace("@", ".");
 
+                    Log.d(Constants.TAG, "onDataChangetest : " + test);
+                    Log.d(Constants.TAG, "onDataChangetest : " + key.length());
+                    Log.d(Constants.TAG, "onDataChangetest : " + key);
+//                    Log.d(Constants.TAG, "onDataChange key : " + key);
                     Log.d(Constants.TAG, "onDataChange lat : " + lat);
                     Log.d(Constants.TAG, "onDataChange lng : " + lng);
 

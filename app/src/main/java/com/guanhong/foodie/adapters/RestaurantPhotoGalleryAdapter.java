@@ -1,31 +1,18 @@
 package com.guanhong.foodie.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.util.Constants;
-import com.guanhong.foodie.util.ImageFromLruCache;
-import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {

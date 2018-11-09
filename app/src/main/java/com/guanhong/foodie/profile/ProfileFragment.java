@@ -3,7 +3,6 @@ package com.guanhong.foodie.profile;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,11 +19,9 @@ import android.widget.TextView;
 
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.ProfileArticleAdapter;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.User;
-import com.guanhong.foodie.util.NormalArticleItemDecoration;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

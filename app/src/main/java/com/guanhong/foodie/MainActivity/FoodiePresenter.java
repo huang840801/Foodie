@@ -1,4 +1,4 @@
-package com.guanhong.foodie;
+package com.guanhong.foodie.MainActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.guanhong.foodie.MainActivity.FoodieContract;
+import com.guanhong.foodie.R;
 import com.guanhong.foodie.like.LikeFragment;
 import com.guanhong.foodie.like.LikePresenter;
 import com.guanhong.foodie.map.MapFragment;

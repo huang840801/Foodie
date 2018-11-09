@@ -14,7 +14,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,13 +50,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.activities.FoodieActivity;
+import com.guanhong.foodie.MainActivity.FoodieActivity;
 import com.guanhong.foodie.custom.CustomInfoWindowAdapter;
-import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 

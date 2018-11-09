@@ -1,4 +1,4 @@
-package com.guanhong.foodie;
+package com.guanhong.foodie.util;
 
 import android.util.Log;
 

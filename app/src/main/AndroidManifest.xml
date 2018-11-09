@@ -31,7 +31,7 @@
         <receiver android:name=".MyReceiver"/>
 
         <activity
-            android:name=".activities.FoodieActivity"
+            android:name=".MainActivity.FoodieActivity"
             android:windowSoftInputMode="stateHidden|adjustPan"
             android:screenOrientation="portrait">
 

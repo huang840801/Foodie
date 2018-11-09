@@ -4,8 +4,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -22,8 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.guanhong.foodie.FoodieContract;
-import com.guanhong.foodie.UserManager;
+import com.guanhong.foodie.MainActivity.FoodieContract;
+import com.guanhong.foodie.util.UserManager;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Author;
 import com.guanhong.foodie.objects.Menu;
@@ -31,7 +29,6 @@ import com.guanhong.foodie.objects.User;
 import com.guanhong.foodie.util.Constants;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 

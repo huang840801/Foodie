@@ -1,7 +1,6 @@
 package com.guanhong.foodie.adapters;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
@@ -25,7 +24,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.UserManager;
+import com.guanhong.foodie.util.UserManager;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Author;
 import com.guanhong.foodie.objects.Comment;

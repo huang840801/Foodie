@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.RestaurantMainAdapter;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Comment;

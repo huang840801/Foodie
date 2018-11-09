@@ -1,8 +1,9 @@
-package com.guanhong.foodie;
+package com.guanhong.foodie.MainActivity;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.guanhong.foodie.Base.BasePresenter;
+import com.guanhong.foodie.Base.BaseView;
 import com.guanhong.foodie.objects.Article;
-import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
 
 import java.util.ArrayList;

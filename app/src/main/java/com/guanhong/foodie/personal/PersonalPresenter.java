@@ -4,8 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.util.Log;
 
-import com.guanhong.foodie.FoodieContract;
-import com.guanhong.foodie.FoodiePresenter;
+import com.guanhong.foodie.MainActivity.FoodieContract;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.util.Constants;
 

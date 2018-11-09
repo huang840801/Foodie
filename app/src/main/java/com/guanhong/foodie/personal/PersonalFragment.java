@@ -20,14 +20,12 @@ import android.widget.TextView;
 
 import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.activities.FoodieActivity;
 import com.guanhong.foodie.adapters.PersonalPhotoAdapter;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.util.Constants;
 import com.rd.PageIndicatorView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 
