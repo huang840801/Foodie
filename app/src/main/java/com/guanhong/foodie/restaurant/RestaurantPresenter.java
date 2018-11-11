@@ -29,7 +29,6 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
 
     private FoodieContract.Presenter mMainPresenter;
 
-
     public RestaurantPresenter(RestaurantContract.View restaurantView, Restaurant restaurant) {
 
         Log.d("RestaurantPresenter ", "  mRestaurant.getLat_Lng()   = " + restaurant.getLat_Lng());

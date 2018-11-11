@@ -3,6 +3,7 @@ package com.guanhong.foodie.recommend;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.app.Activity;
+import android.arch.lifecycle.Lifecycle;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -67,6 +68,31 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     private Animation mSecondTextAnimation;
     private Animation mThirdTextAnimation;
     private Animation mForthTextAnimation;
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
+        Log.d(Constants.TAG, "RecommendFragment state = " + (hidden ? "hidden" : "not hidden"));
+
+        if (hidden) {
+            mTitleFirst.setVisibility(View.GONE);
+            mTitleSecond.setVisibility(View.GONE);
+            mTitleThird.setVisibility(View.GONE);
+            mTitleForth.setVisibility(View.GONE);
+        } else {
+            setAnimation();
+        }
+
+    }
+
+    @Override
+    public Lifecycle getLifecycle() {
+        Log.d(Constants.TAG, "RecommendFragment getLifecycle ");
+
+
+        return super.getLifecycle();
+    }
 
     @Nullable
     @Override
