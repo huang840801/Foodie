@@ -8,6 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,7 +26,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.guanhong.foodie.Foodie;
-import com.guanhong.foodie.MyService;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.adapters.RecommendPhotoAdapter;
 import com.guanhong.foodie.objects.Restaurant;
@@ -56,6 +58,9 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     private RecyclerView mRecyclerView;
     private ImageView mLabel;
 
+    private Message mMessage;
+    private Handler mHandler;
+    private Looper mLooper;
 //    private ShimmerTextView mShimmerTextView;
 
     private ArrayList<Restaurant> mRestaurantArrayList = new ArrayList<>();
@@ -172,18 +177,6 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
             }
         }, 1000, 1000 * 5);
     }
-
-
-    private void startMyService() {
-
-        Intent intent = new Intent(mContext, MyService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            mContext.startForegroundService(intent);
-        } else {
-            mContext.startService(intent);
-        }
-    }
-
 
     @Override
     public void showAllRestaurantList(ArrayList<Restaurant> restaurantArrayList) {

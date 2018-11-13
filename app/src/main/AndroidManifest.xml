@@ -25,11 +25,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--<service android:name=".LongRunningService"/>-->
-        <service android:name=".MyService"
-            android:enabled="true"/>
-        <receiver android:name=".MyReceiver"/>
-
         <activity
             android:name=".MainActivity.FoodieActivity"
             android:windowSoftInputMode="stateHidden|adjustPan"
