@@ -32,7 +32,7 @@ import com.guanhong.foodie.R;
 import com.guanhong.foodie.activities.BaseActivity;
 import com.guanhong.foodie.activities.MapActivity;
 import com.guanhong.foodie.util.UserManager;
-import com.guanhong.foodie.ViewPagerAdapter;
+import com.guanhong.foodie.adapters.ViewPagerAdapter;
 import com.guanhong.foodie.like.LikeFragment;
 import com.guanhong.foodie.like.LikePresenter;
 import com.guanhong.foodie.map.MapFragment;
