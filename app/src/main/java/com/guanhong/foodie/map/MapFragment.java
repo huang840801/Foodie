@@ -50,7 +50,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.MainActivity.FoodieActivity;
+import com.guanhong.foodie.mainActivity.FoodieActivity;
 import com.guanhong.foodie.custom.CustomInfoWindowAdapter;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;

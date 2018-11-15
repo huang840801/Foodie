@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
 
     android:background="@color/main"
-    tools:context="com.guanhong.foodie.MainActivity.FoodieActivity">
+    tools:context="com.guanhong.foodie.mainActivity.FoodieActivity">
 
 
     <android.support.design.widget.TabLayout

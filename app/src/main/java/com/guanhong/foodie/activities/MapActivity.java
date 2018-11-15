@@ -41,7 +41,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.guanhong.foodie.MainActivity.FoodieActivity;
+import com.guanhong.foodie.mainActivity.FoodieActivity;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.post.PostFragment;
 import com.guanhong.foodie.util.Constants;

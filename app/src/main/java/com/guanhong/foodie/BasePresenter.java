@@ -1,4 +1,4 @@
-package com.guanhong.foodie.Base;
+package com.guanhong.foodie;
 
 public interface BasePresenter  {
 

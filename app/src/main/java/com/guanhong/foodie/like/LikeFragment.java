@@ -73,7 +73,7 @@ public class LikeFragment extends Fragment implements LikeContract.View {
             mTextView.setVisibility(View.VISIBLE);
         }
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(new LikeArticleAdapter(mPresenter, restaurantArrayList));
     }

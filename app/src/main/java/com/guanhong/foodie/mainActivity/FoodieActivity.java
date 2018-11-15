@@ -1,4 +1,4 @@
-package com.guanhong.foodie.MainActivity;
+package com.guanhong.foodie.mainActivity;
 
 import android.Manifest;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -82,8 +83,20 @@ public class FoodieActivity extends BaseActivity implements
     private String[] mTitles;
     private List<Fragment> mFragmentList = new ArrayList<>();
 
+    private HandlerThread mHandlerThread;
+    private static final class Animals{
+
+    }
+
+//    public class bird extends Animals{
+//
+//    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+//        mHandlerThread.s
 
         super.onCreate(savedInstanceState);
         init();
@@ -113,6 +126,10 @@ public class FoodieActivity extends BaseActivity implements
 
     }
 
+    public void test(){
+        test = "";
+    }
+     static String test;
     private void saveUserData() {
         SharedPreferences userData = this.getSharedPreferences(
                 Constants.USER_DATA,
@@ -136,7 +153,7 @@ public class FoodieActivity extends BaseActivity implements
                         Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot.child("email").getValue());
                         Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot.child("id").getValue());
                         Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot.child("image").getValue());
-                        Log.d(Constants.TAG, " FoodieActivityDataSnapshot : " + snapshot.child("name").getValue());
+                        Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot.child("name").getValue());
 
                         User user = new User();
                         user.setEmail((String) snapshot.child(Constants.EMAIL).getValue());

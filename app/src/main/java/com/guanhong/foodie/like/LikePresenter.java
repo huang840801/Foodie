@@ -10,7 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.guanhong.foodie.MainActivity.FoodieContract;
+import com.guanhong.foodie.mainActivity.FoodieContract;
 import com.guanhong.foodie.util.UserManager;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;

@@ -231,7 +231,7 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
 
     private void setPhotoRecyclerView(Article article) {
 
-        mRecyclerViewPhoto.setLayoutManager(new LinearLayoutManager(Foodie.getAppContext(), LinearLayoutManager.HORIZONTAL, false));
+        mRecyclerViewPhoto.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
 
         mRecyclerViewPhoto.setAdapter(new PersonalPhotoAdapter(article.getPictures()));
         new PagerSnapHelper().attachToRecyclerView(mRecyclerViewPhoto);

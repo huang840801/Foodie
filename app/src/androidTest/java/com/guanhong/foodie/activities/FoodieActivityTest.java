@@ -6,7 +6,7 @@ import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.guanhong.foodie.MainActivity.FoodieActivity;
+import com.guanhong.foodie.mainActivity.FoodieActivity;
 import com.guanhong.foodie.R;
 
 import org.junit.Rule;

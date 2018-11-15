@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.guanhong.foodie.MainActivity.FoodieContract;
+import com.guanhong.foodie.mainActivity.FoodieContract;
 import com.guanhong.foodie.util.UserManager;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.util.Constants;

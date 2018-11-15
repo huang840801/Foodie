@@ -1,7 +1,7 @@
 package com.guanhong.foodie.restaurant;
 
-import com.guanhong.foodie.Base.BasePresenter;
-import com.guanhong.foodie.Base.BaseView;
+import com.guanhong.foodie.BasePresenter;
+import com.guanhong.foodie.BaseView;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.objects.Comment;
 import com.guanhong.foodie.objects.Restaurant;
