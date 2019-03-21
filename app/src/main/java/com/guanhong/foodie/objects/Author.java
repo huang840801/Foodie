@@ -1,5 +1,7 @@
 package com.guanhong.foodie.objects;
 
+import android.os.Bundle;
+
 public class Author {
 
     private String mId;
@@ -10,6 +12,8 @@ public class Author {
         mId = "";
         mImage = "";
         mName = "";
+
+
     }
 
     public String getId() {

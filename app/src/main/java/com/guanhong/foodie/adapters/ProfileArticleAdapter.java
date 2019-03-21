@@ -29,6 +29,7 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
     private ArrayList<Article> mArticleArrayList;
 
     public ProfileArticleAdapter(ArrayList<Article> articleArrayList, ProfileContract.Presenter presenter) {
+
         mArticleArrayList = articleArrayList;
         mPresenter = presenter;
         Log.d(Constants.TAG, " mArticleArrayList " + mArticleArrayList.size());

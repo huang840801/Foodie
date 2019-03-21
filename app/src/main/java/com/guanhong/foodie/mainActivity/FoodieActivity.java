@@ -7,9 +7,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.HandlerThread;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.foamtrace.photopicker.PhotoPickerActivity;
 import com.foamtrace.photopicker.SelectModel;
@@ -83,20 +87,11 @@ public class FoodieActivity extends BaseActivity implements
     private String[] mTitles;
     private List<Fragment> mFragmentList = new ArrayList<>();
 
-    private HandlerThread mHandlerThread;
-    private static final class Animals{
-
-    }
-
-//    public class bird extends Animals{
-//
-//    }
+    private ConstraintLayout mLoadingLayout;
+    private ImageView mLoadingImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-//        mHandlerThread.s
 
         super.onCreate(savedInstanceState);
         init();
@@ -126,10 +121,12 @@ public class FoodieActivity extends BaseActivity implements
 
     }
 
-    public void test(){
+    public void test() {
         test = "";
     }
-     static String test;
+
+    static String test;
+
     private void saveUserData() {
         SharedPreferences userData = this.getSharedPreferences(
                 Constants.USER_DATA,
@@ -185,6 +182,30 @@ public class FoodieActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        mLoadingLayout = findViewById(R.id.loading_layout);
+        mLoadingImageView = findViewById(R.id.loading_image);
+
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.launch);
+
+        mLoadingImageView.setAnimation(animation);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+                mLoadingLayout.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         mTitles = new String[]{
                 getResources().getString(R.string.map),
@@ -464,7 +485,6 @@ public class FoodieActivity extends BaseActivity implements
         super.onDestroy();
         onLowMemory();
     }
-
 
 
     public void transToMap() {

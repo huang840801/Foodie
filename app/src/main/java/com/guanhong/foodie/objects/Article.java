@@ -1,7 +1,11 @@
 package com.guanhong.foodie.objects;
 
+import android.os.Bundle;
+import android.os.Parcelable;
+
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Article {
@@ -28,6 +32,8 @@ public class Article {
         mLatLng = new LatLng(0, 0);
         mLatDashLng = "";
         mCreatedTime = "";
+
+
     }
 
     public Author getAuthor() {
