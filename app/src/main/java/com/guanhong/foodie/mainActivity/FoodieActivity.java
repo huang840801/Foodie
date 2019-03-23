@@ -50,9 +50,7 @@ import com.guanhong.foodie.util.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodieActivity extends BaseActivity implements
-        FoodieContract.View,
-        TabLayout.OnTabSelectedListener {
+public class FoodieActivity extends BaseActivity implements FoodieContract.View {
 
     private FoodieContract.Presenter mPresenter;
     private MapFragment mMapFragment;
@@ -63,6 +61,7 @@ public class FoodieActivity extends BaseActivity implements
 
     private ProfilePresenter mProfilePresenter;
     private TabLayout mTabLayout;
+    private ViewPager mViewPager;
     private List<Fragment> mFragmentList = new ArrayList<>();
     private ConstraintLayout mLoadingLayout;
 
@@ -88,7 +87,6 @@ public class FoodieActivity extends BaseActivity implements
     public void setPresenter(FoodieContract.Presenter presenter) {
         mPresenter = presenter;
     }
-
 
     @Override
     public void pickMultiplePictures() {
@@ -122,81 +120,6 @@ public class FoodieActivity extends BaseActivity implements
         intent.setSelectedPaths(picturesList);
 
         startActivityForResult(intent, Constants.SINGLE_PICKER);
-    }
-
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-        switch (tab.getPosition()) {
-            case 0:
-                if (tab.getCustomView() != null) {
-                    tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.map_selected);
-                }
-                mPresenter.transToMap();
-                break;
-            case 1:
-                if (tab.getCustomView() != null) {
-                    tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.search_selected);
-                }
-                mPresenter.transToSearch();
-                break;
-            case 2:
-                if (tab.getCustomView() != null) {
-                    tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.heart_selected);
-                }
-                mPresenter.transToLike();
-
-                break;
-            case 3:
-                if (tab.getCustomView() != null) {
-                    tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.recommend_selected);
-                }
-                mPresenter.transToRecommend();
-
-                break;
-            case 4:
-                if (tab.getCustomView() != null) {
-                    tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.portrait_selected);
-                }
-                mPresenter.transToProfile();
-                break;
-        }
-    }
-
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-        switch (tab.getPosition()) {
-            default:
-            case 0:
-                if (tab.getCustomView() != null) {
-                    tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.map_normal);
-                }
-                break;
-            case 1:
-                if (tab.getCustomView() != null) {
-                    tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.search_normal);
-                }
-                break;
-            case 2:
-                if (tab.getCustomView() != null) {
-                    tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.heart_normal);
-                }
-                break;
-            case 3:
-                if (tab.getCustomView() != null) {
-                    tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.recommend_normal);
-                }
-                break;
-            case 4:
-                if (tab.getCustomView() != null) {
-                    tab.getCustomView().findViewById(R.id.imageView_custom_tab).setBackgroundResource(R.drawable.portrait_normal);
-                }
-                break;
-        }
-    }
-
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
-
     }
 
     public void transToPostArticle(String addressLine, LatLng latLng) {
@@ -284,9 +207,9 @@ public class FoodieActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
 
         mTabLayout = findViewById(R.id.tab_layout);
+        mViewPager = findViewById(R.id.view_pager);
         mLoadingLayout = findViewById(R.id.loading_layout);
 
-        ViewPager viewPager = findViewById(R.id.view_pager);
         ImageView loadingImageView = findViewById(R.id.loading_image);
 
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.launch);
@@ -306,35 +229,15 @@ public class FoodieActivity extends BaseActivity implements
             }
         });
 
-        String[] titles = new String[]{
-                getResources().getString(R.string.map),
-                getResources().getString(R.string.search),
-                getResources().getString(R.string.like),
-                getResources().getString(R.string.lottery),
-                getResources().getString(R.string.profile),
-        };
-
-        mPresenter = new FoodiePresenter(this, viewPager, getSupportFragmentManager());
+        mPresenter = new FoodiePresenter(this, mViewPager, getSupportFragmentManager());
         mPresenter.start();
-        setTabLayout();
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(
-                getSupportFragmentManager(),
-                titles,
-                mFragmentList,
-                this);
-        viewPager.setAdapter(viewPagerAdapter);
-        mTabLayout.setupWithViewPager(viewPager);
+        setViewPager();
+        mTabLayout.setupWithViewPager(mViewPager);
 
-        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
-            mTabLayout.getTabAt(i).setCustomView(viewPagerAdapter.getTabView(i));
-        }
-        mTabLayout.setOnTabSelectedListener(this);
+        setTabLayoutIcon();
     }
 
-    private void setTabLayout() {
-
-        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        mTabLayout.setTabMode(TabLayout.MODE_FIXED);
+    private void setViewPager() {
 
         if (mMapFragment == null) {
 
@@ -371,6 +274,26 @@ public class FoodieActivity extends BaseActivity implements
         mFragmentList.add(mLikeFragment);
         mFragmentList.add(mRecommendFragment);
         mFragmentList.add(mProfileFragment);
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(
+                getSupportFragmentManager(),
+                mFragmentList);
+        mViewPager.setOffscreenPageLimit(5);
+        mViewPager.setAdapter(viewPagerAdapter);
+    }
+
+    private void setTabLayoutIcon() {
+
+        int[] iconResId = {
+                R.drawable.tab_one,
+                R.drawable.tab_two,
+                R.drawable.tab_three,
+                R.drawable.tab_four,
+                R.drawable.tab_five
+        };
+        for (int i = 0; i < iconResId.length; i++) {
+            mTabLayout.getTabAt(i).setIcon(iconResId[i]);
+        }
     }
 
     private void requestReadAndWritePermissions() {
