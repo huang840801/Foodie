@@ -18,8 +18,8 @@ public class RecommendPresenterTest {
     public void testMvp() {
         RecommendContract.View view = mock(RecommendContract.View.class);
 
-        RecommendPresenter presenter = new RecommendPresenter(view);
-        presenter.start();
+//        RecommendPresenter presenter = new RecommendPresenter(view);
+//        presenter.start();
 
         verify(view, times(1))
                 .showAllRestaurantList(null);

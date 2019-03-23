@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.guanhong.foodie.mainActivity.FoodieContract;
 import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
 
@@ -21,6 +22,7 @@ public class RecommendPresenter implements RecommendContract.Presenter {
 
     private RecommendContract.View mRecommendView;
     private ArrayList<Restaurant> mRestaurantArrayList;
+    private FoodieContract.Presenter mMainPresenter;
 
     public RecommendPresenter(RecommendContract.View recommendView) {
         mRestaurantArrayList = new ArrayList<>();
@@ -84,5 +86,9 @@ public class RecommendPresenter implements RecommendContract.Presenter {
 
             }
         });
+    }
+
+    public void setPresenter(FoodieContract.Presenter presenter) {
+        mMainPresenter = presenter;
     }
 }
