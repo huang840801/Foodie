@@ -14,13 +14,11 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Message;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -44,7 +42,6 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.guanhong.foodie.mainActivity.FoodieActivity;
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.post.PostFragment;
 import com.guanhong.foodie.util.Constants;
 
 import java.io.IOException;
@@ -55,15 +52,7 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
 
     private GoogleMap mGoogleMap;
     private MapView mGoogleMapView;
-    private ImageView mLocation;
-
-    private PostFragment mPostFragment;
-    private FoodieActivity mFoodieActivity;
-
     private GoogleApiClient mGoogleApiClient;
-    private Location mLastLocation;
-    private static final int REQUEST_FINE_LOCATION_PERMISSION = 102;
-    private boolean getService = false;     //是否已開啟定位服務
     private LocationManager status;
 
     @Override
@@ -72,7 +61,7 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
         setContentView(R.layout.activity_child_map);
 
         mGoogleMapView = findViewById(R.id.post_mapView);
-        mLocation = findViewById(R.id.imageView_child_map_my_position);
+        ImageView mLocation = findViewById(R.id.imageView_child_map_my_position);
 
         mGoogleMapView.onCreate(savedInstanceState);
 
@@ -81,7 +70,31 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
         mGoogleMapView.getMapAsync(this);
 
         mLocation.setOnClickListener(this);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mGoogleMapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mGoogleMapView.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mGoogleApiClient.disconnect();
+        mGoogleMapView.onStop();
     }
 
     @Override
@@ -109,36 +122,95 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
 
             } else {
                 Toast.makeText(MapActivity.this, R.string.please_open_gps, Toast.LENGTH_LONG).show();
-                getService = true; //確認開啟定位服務
                 startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); //開啟設定頁面
             }
         }
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
 
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        mGoogleMapView.onResume();
+    public void onConnectionSuspended(int i) {
+
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        mGoogleMapView.onPause();
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        mGoogleApiClient.connect();
+    public void onMapReady(GoogleMap googleMap) {
+
+        mGoogleMap = googleMap;
+
+        mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
+                builder.include(new LatLng(25.042487, 121.564879));
+                LatLngBounds bounds = builder.build();
+
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 200);
+                mGoogleMap.moveCamera(cameraUpdate);
+                mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo((float) 7.5), 2000, null);
+                mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        Geocoder geocoder = new Geocoder(MapActivity.this, Locale.TRADITIONAL_CHINESE);
+
+                        try {
+                            List<Address> addressList = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
+
+                            if (addressList.size() == 0) {
+                                Toast.makeText(MapActivity.this, R.string.cannot_find_address, Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                showDialog(addressList.get(0).getAddressLine(0), latLng);
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mGoogleApiClient.disconnect();
-        mGoogleMapView.onStop();
+    private boolean requestLocationPermissions() {
+
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            return true;
+        }
+
+        int fineLocationPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int coarseLocationPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+
+        if (fineLocationPermissionCheck != PackageManager.PERMISSION_GRANTED && coarseLocationPermissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions((Activity) this,
+                    new String[]{
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    }, Constants.REQUEST_FINE_LOCATION_PERMISSION); // your request code
+            return true;
+        }
+        return false;
+    }
+
+    private void checkStatus() {
+        status = (LocationManager) (this.getSystemService(Context.LOCATION_SERVICE));
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
     }
 
     private void getMyLocation() {
@@ -146,7 +218,7 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
             /* code should explicitly check to see if permission is available
             (with 'checkPermission') or explicitly handle a potential 'SecurityException'
              */
-            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (mLastLocation != null) {
 
                 Geocoder geocoder = new Geocoder(this, Locale.TRADITIONAL_CHINESE);
@@ -176,133 +248,9 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
-                Log.d(Constants.TAG, "getMyLocation: " + String.valueOf(mLastLocation.getLatitude()) + "\n"
-                        + String.valueOf(mLastLocation.getLongitude()));
-
-            } else {
-                Log.d(Constants.TAG, " mLastLocation == null");
-
             }
         } catch (SecurityException e) {
-            Log.d(Constants.TAG, " catch SecurityException");
         }
-    }
-
-    private boolean requestLocationPermissions() {
-        Log.d("Permissions", "requestLocationPermissions");
-
-        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return true;
-        }
-
-        int fineLocationPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
-        int coarseLocationPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-
-        if (fineLocationPermissionCheck != PackageManager.PERMISSION_GRANTED && coarseLocationPermissionCheck != PackageManager.PERMISSION_GRANTED) {
-//            Log.d("Permissions", "hadFineLocationPermissions() && hadCoarseLocationPermissions()");
-            ActivityCompat.requestPermissions((Activity) this,
-                    new String[]{
-                            Manifest.permission.ACCESS_COARSE_LOCATION,
-                            Manifest.permission.ACCESS_FINE_LOCATION
-                    }, Constants.REQUEST_FINE_LOCATION_PERMISSION); // your request code
-            return true;
-        }
-        return false;
-    }
-
-    private void checkStatus() {
-        status = (LocationManager) (this.getSystemService(Context.LOCATION_SERVICE));
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
-
-
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //如果沒有授權使用定位就會跳出來這個
-            // TODO: Consider calling
-
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-
-//            requestLocationPermission(); // 詢問使用者開啟權限
-            return;
-        }
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-
-
-        mGoogleMap = googleMap;
-        Log.d(Constants.TAG, " onMapReady clear");
-        Log.d(Constants.TAG, " onMapReady  PostChildMapFragment GoogleMapView : " + mGoogleMapView);
-
-//        mGoogleMapView.getLayoutParams().height = 1;
-//        mGoogleMapView.getLayoutParams().width = 1;
-//        mGoogleMapView.invalidate();
-//        mGoogleMapView.requestLayout();
-
-        mGoogleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-            @Override
-            public void onMapLoaded() {
-                LatLngBounds.Builder builder = new LatLngBounds.Builder();
-
-                builder.include(new LatLng(25.042487, 121.564879));
-                LatLngBounds bounds = builder.build();
-
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, 200);
-                mGoogleMap.moveCamera(cameraUpdate);
-                mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo((float) 7.5), 2000, null);
-                mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        Geocoder geocoder = new Geocoder(MapActivity.this, Locale.TRADITIONAL_CHINESE);
-
-                        Log.d(Constants.TAG, "  hongtest postchild latitude = " + latLng.latitude);
-                        Log.d(Constants.TAG, "  hongtest postchild longitude = " + latLng.longitude);
-                        try {
-                            List<Address> addressList = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 1);
-
-                            if (addressList.size() == 0) {
-                                Toast.makeText(MapActivity.this, R.string.cannot_find_address, Toast.LENGTH_SHORT).show();
-
-                            } else {
-                                showDialog(addressList.get(0).getAddressLine(0), latLng);
-                            }
-
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                });
-            }
-        });
     }
 
     private void showDialog(final String addressLine, final LatLng latLng) {
@@ -353,5 +301,4 @@ public class MapActivity extends BaseActivity implements GoogleApiClient.Connect
 
         dialog.show();
     }
-
 }

@@ -3,14 +3,12 @@ package com.guanhong.foodie.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.util.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -18,7 +16,6 @@ import java.util.ArrayList;
 public class PersonalPhotoAdapter extends RecyclerView.Adapter {
 
     private ArrayList<String> mPictureList;
-    private Context mContext;
 
     public PersonalPhotoAdapter(ArrayList<String> pictures) {
         mPictureList = pictures;
@@ -27,8 +24,8 @@ public class PersonalPhotoAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        mContext = parent.getContext();
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_personal_article_photo, parent, false);
+
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_personal_article_photo, parent, false);
 
         return new PersonalPhotoAdapter.PersonalArticlePhotoItemViewHolder(view);
     }
@@ -39,7 +36,6 @@ public class PersonalPhotoAdapter extends RecyclerView.Adapter {
         if (holder instanceof PersonalArticlePhotoItemViewHolder) {
             ((PersonalArticlePhotoItemViewHolder) holder).bindData(position);
         }
-
     }
 
     @Override
@@ -54,7 +50,6 @@ public class PersonalPhotoAdapter extends RecyclerView.Adapter {
         public PersonalArticlePhotoItemViewHolder(View view) {
             super(view);
             mImageView = view.findViewById(R.id.imageView_personal_article_photo);
-
         }
 
         public void bindData(int position) {

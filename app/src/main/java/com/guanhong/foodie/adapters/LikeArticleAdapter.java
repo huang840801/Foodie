@@ -1,10 +1,7 @@
 package com.guanhong.foodie.adapters;
 
-import android.content.Context;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,23 +18,18 @@ import java.util.ArrayList;
 
 public class LikeArticleAdapter extends RecyclerView.Adapter {
     private ArrayList<Restaurant> mRestaurantArrayList;
-    private Context mContext;
     private LikeContract.Presenter mPresenter;
 
     public LikeArticleAdapter(LikeContract.Presenter presenter, ArrayList<Restaurant> restaurantArrayList) {
         mRestaurantArrayList = restaurantArrayList;
-        Log.d("LikeArticleAdapter", "" + mRestaurantArrayList.get(0).getRestaurantName());
-        Log.d("LikeArticleAdapter", "" + mRestaurantArrayList.get(0).getLat_Lng());
-        Log.d("LikeArticleAdapter", "" + mRestaurantArrayList.get(0).getRestaurantLocation());
         mPresenter = presenter;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        mContext = parent.getContext();
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_like_article, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_like_article, parent, false);
         return new LikeArticleAdapter.LikeArticleHolder(view);
     }
 
@@ -105,8 +97,6 @@ public class LikeArticleAdapter extends RecyclerView.Adapter {
             holder.mStar4.setImageResource(R.drawable.new_star_unselected);
             holder.mStar5.setImageResource(R.drawable.new_star_unselected);
         }
-
-
     }
 
     @Override
@@ -124,7 +114,6 @@ public class LikeArticleAdapter extends RecyclerView.Adapter {
         private ImageView mStar3;
         private ImageView mStar4;
         private ImageView mStar5;
-
 
         public LikeArticleHolder(View view) {
             super(view);

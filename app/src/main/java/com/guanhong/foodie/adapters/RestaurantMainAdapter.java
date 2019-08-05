@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +46,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
     private RestaurantContract.Presenter mPresenter;
 
     private Restaurant mRestaurant;
-    private ArrayList<Comment> mComments = new ArrayList<>();
+    private ArrayList<Comment> mComments;
 
     private Context mContext;
 
@@ -55,12 +54,9 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
     public RestaurantMainAdapter(RestaurantContract.Presenter presenter, Restaurant restaurant, ArrayList<Comment> comments) {
 
-        Log.d("myCommentsBug ", "  RestaurantMainAdapter comments.size = " + comments.size());
-
         mPresenter = presenter;
         mRestaurant = restaurant;
         mComments = comments;
-
     }
 
     @NonNull
@@ -86,9 +82,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         } else if (holder instanceof RestaurantCommentItemViewHolder) {
             bindCommentItem((RestaurantCommentItemViewHolder) holder, position - 1);
         }
-
     }
-
 
     @Override
     public int getItemCount() {
@@ -149,20 +143,15 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
         DatabaseReference likeDataBase = firebaseDatabase.getReference(Constants.LIKE).child(UserManager.getInstance().getUserId());
-        Query query = likeDataBase;
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        likeDataBase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     if (snapshot.getKey().equals(mRestaurant.getLat_Lng())) {
-                        Log.d("likeDataBase", " snapshot getKey = " + snapshot.getKey());
-                        Log.d("likeDataBase", " Likeeeeee ");
                         holder.getBookmark().setImageResource(R.drawable.bookmark_selected);
                         isLike = true;
-
                     }
-
                 }
             }
 
@@ -210,14 +199,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
                 if (!"".equals(comment)) {
 
-                    Log.d("comment", " getLat_Lng = " + mRestaurant.getLat_Lng());
-                    Log.d("comment", " comment = " + comment);
-                    Log.d("comment", " UserName = " + UserManager.getInstance().getUserName());
-                    Log.d("comment", " UserId = " + UserManager.getInstance().getUserId());
-                    Log.d("comment", " UserImage = " + UserManager.getInstance().getUserImage());
-                    Log.d("comment", " currentTimeMillis = " + System.currentTimeMillis());
-//                    Log.d("comment", " str = " + str);
-
                     final Comment comment1 = new Comment();
 
                     Author author = new Author();
@@ -235,12 +216,9 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                     restaurantDataBase.child(mRestaurant.getLat_Lng()).child(System.currentTimeMillis() + "").setValue(comment1);
 
                     holder.getEditTextComment().setText("");
-
                 }
-
             }
         });
-
     }
 
     private void deleteMyLikedArticleToFirebase(String latLng) {
@@ -253,10 +231,9 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
 
     private void uploadMyLikedArticleToFirebase(String latLng, Restaurant restaurant) {
 
-
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
         DatabaseReference likeDataBase = firebaseDatabase.getReference(Constants.LIKE);
+
         likeDataBase.child(UserManager.getInstance().getUserId()).child(latLng).setValue(restaurant);
 
     }
@@ -269,7 +246,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
     }
 
     private void getArticleFromFirebase(final RestaurantMainItemViewHolder holder) {
-        Log.d(Constants.TAG, " RestaurantMainAdapter: " + mRestaurant.getLat_Lng());
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.RESTAURANT).child(mRestaurant.getLat_Lng());
 
@@ -281,14 +257,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                 ArrayList<Article> articleArrayList = new ArrayList<>();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot);
-                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("author").child(Constants.ID).getValue());
-                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("author").child(Constants.IMAGE).getValue());
-                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("author").child(Constants.NAME).getValue());
-                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("starCount").getValue());
-                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("location").getValue());
-                    Log.d(Constants.TAG, " RestaurantMainAdapter: " + snapshot.child("createdTime").getValue());
 
                     final Article article = new Article();
 
@@ -324,7 +292,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
                     articleArrayList.add(article);
                 }
                 setArticlePreviewRecyclerView(holder, articleArrayList);
-
             }
 
             @Override
@@ -366,7 +333,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         private ImageView mStar5;
         private TextView mRestaurantPosition;
         private RecyclerView mRecyclerViewArticlePreview;
-        //        private EditText mEditTextComment;
         private BiuEditText mBiuEditText;
         private ImageView mButtonSend;
         private PageIndicatorView mPageIndicatorView;
@@ -386,7 +352,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             mStar5 = itemView.findViewById(R.id.imageView_star5);
             mRestaurantPosition = itemView.findViewById(R.id.textView_location);
             mRecyclerViewArticlePreview = itemView.findViewById(R.id.recyclerView_article_preview);
-//            mEditTextComment = itemView.findViewById(R.id.editText_comments);
             mBiuEditText = itemView.findViewById(R.id.editText_comments);
             mButtonSend = itemView.findViewById(R.id.imageView_send);
             mPageIndicatorView = itemView.findViewById(R.id.indicator);
@@ -396,9 +361,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             mImageViewArrowRight = itemView.findViewById(R.id.imageView_arrow_right);
         }
 
-        public ImageView getImageViewArrowRight() {
-            return mImageViewArrowRight;
-        }
 
         public TextView getTextViewPostArticle() {
             return mTextViewPostArticle;
@@ -455,12 +417,7 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
         public PageIndicatorView getPageIndicatorView() {
             return mPageIndicatorView;
         }
-
-        public TextView getTextViewArticleTitle() {
-            return mTextViewArticleTitle;
-        }
     }
-
 
     private void bindCommentItem(RestaurantCommentItemViewHolder holder, int i) {
 
@@ -494,7 +451,6 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             mTextAuthorName = (TextView) itemView.findViewById(R.id.textView_authorName);
             mTextCommentContent = (TextView) itemView.findViewById(R.id.textView_comment_content);
             mTextCreatedTime = (TextView) itemView.findViewById(R.id.textView_comment_createdTime);
-
         }
 
         public ImageView getImageAuthorImage() {
@@ -513,5 +469,4 @@ public class RestaurantMainAdapter extends RecyclerView.Adapter {
             return mTextCreatedTime;
         }
     }
-
 }

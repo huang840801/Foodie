@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -63,128 +62,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
-    private void loginWithFirebase() {
-
-        mAuth = FirebaseAuth.getInstance();
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                final FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-
-                    Log.d(Constants.TAG, " LoginWithFirebase Id:  " + user.getUid());
-                    Log.d(Constants.TAG, " LoginWithFirebase email:  " + user.getEmail());
-                    Log.d(Constants.TAG, " LoginWithFirebase name:  " + mName);
-
-                    //註冊新帳號
-                    if (mName != null && !mName.equals("")) {
-
-
-                        Log.d(Constants.TAG, " LoginWithFirebase : mName != null ");
-
-                        Log.d(Constants.TAG, " LoginWithFirebase Id:  " + user.getUid());
-                        Log.d(Constants.TAG, " LoginWithFirebase email:  " + user.getEmail());
-                        Log.d(Constants.TAG, " LoginWithFirebase name:  " + mName);
-                        FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
-                        final DatabaseReference myRef = userDatabase.getReference(Constants.USER);
-
-                        User user1 = new User();
-                        user1.setName(mName);
-                        user1.setEmail(user.getEmail());
-                        user1.setId(user.getUid());
-                        user1.setImage("");
-
-                        UserManager userManager = UserManager.getInstance();
-
-                        userManager.setUserData(user1);
-
-                        myRef.child(user.getUid()).setValue(user1);
-                    } else {
-                        //用已有的帳號登入
-
-                        Log.d(Constants.TAG, " LoginWithFirebase : mName == null ");
-
-                        FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
-                        DatabaseReference myRef = userDatabase.getReference(Constants.USER);
-                        Query query = myRef;
-                        query.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    if (String.valueOf(snapshot.getKey()).equals(user.getUid())) {
-                                        Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot);
-                                        Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot.getKey());
-                                        Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot.child("email").getValue());
-                                        Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot.child("id").getValue());
-                                        Log.d(Constants.TAG, "FoodieActivityDataSnapshot : " + snapshot.child("image").getValue());
-                                        Log.d(Constants.TAG, " FoodieActivityDataSnapshot : " + snapshot.child("name").getValue());
-
-                                        User user = new User();
-                                        user.setEmail((String) snapshot.child(Constants.EMAIL).getValue());
-                                        user.setId((String) snapshot.child(Constants.ID).getValue());
-                                        user.setImage((String) snapshot.child(Constants.IMAGE).getValue());
-                                        user.setName((String) snapshot.child(Constants.NAME).getValue());
-
-                                        UserManager.getInstance().setUserData(user);
-
-                                    }
-
-
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-                    }
-
-                    SharedPreferences userData = mContext.getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
-                    userData.edit()
-                            .putString(Constants.USER_ID, user.getUid())
-                            .commit();
-                    Intent intent = new Intent(LoginActivity.this, FoodieActivity.class);
-                    startActivity(intent);
-                    finish();
-
-                }
-            }
-        };
-
-    }
-
-
-    private void init() {
-        setContentView(R.layout.activity_login);
-
-        mContext = this;
-
-        mNameEditText = findViewById(R.id.edittext_name);
-        mEmailEditText = findViewById(R.id.edittext_email);
-        mPasswordEditText = findViewById(R.id.edittext_password);
-        mRegisterButton = findViewById(R.id.button_register);
-        mLoginButton = findViewById(R.id.button_login);
-        mSignUpTextView = findViewById(R.id.textView_sign_up);
-        mLoginTextView = findViewById(R.id.textView_login);
-
-        mAvLoadingIndicatorView = findViewById(R.id.AVLoadingIndicatorView);
-        mLoadingBackground = findViewById(R.id.loading_background);
-
-        mPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-
-        mNameEditText.setVisibility(View.GONE);
-        mRegisterButton.setVisibility(View.GONE);
-        mLoginTextView.setVisibility(View.GONE);
-        mAvLoadingIndicatorView.setVisibility(View.GONE);
-        mLoadingBackground.setVisibility(View.GONE);
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthStateListener);
-        Log.d(Constants.TAG, "onStart: ");
     }
 
     @Override
@@ -252,8 +133,101 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             mLoginButton.setVisibility(View.VISIBLE);
             mLoginTextView.setVisibility(View.GONE);
             mSignUpTextView.setVisibility(View.VISIBLE);
-
         }
+    }
+
+    private void init() {
+        setContentView(R.layout.activity_login);
+
+        mContext = this;
+
+        mNameEditText = findViewById(R.id.edittext_name);
+        mEmailEditText = findViewById(R.id.edittext_email);
+        mPasswordEditText = findViewById(R.id.edittext_password);
+        mRegisterButton = findViewById(R.id.button_register);
+        mLoginButton = findViewById(R.id.button_login);
+        mSignUpTextView = findViewById(R.id.textView_sign_up);
+        mLoginTextView = findViewById(R.id.textView_login);
+
+        mAvLoadingIndicatorView = findViewById(R.id.AVLoadingIndicatorView);
+        mLoadingBackground = findViewById(R.id.loading_background);
+
+        mPasswordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
+        mNameEditText.setVisibility(View.GONE);
+        mRegisterButton.setVisibility(View.GONE);
+        mLoginTextView.setVisibility(View.GONE);
+        mAvLoadingIndicatorView.setVisibility(View.GONE);
+        mLoadingBackground.setVisibility(View.GONE);
+    }
+
+    private void loginWithFirebase() {
+
+        mAuth = FirebaseAuth.getInstance();
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                final FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+
+                    //註冊新帳號
+                    if (mName != null && !mName.equals("")) {
+
+                        FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
+                        final DatabaseReference myRef = userDatabase.getReference(Constants.USER);
+
+                        User user1 = new User();
+                        user1.setName(mName);
+                        user1.setEmail(user.getEmail());
+                        user1.setId(user.getUid());
+                        user1.setImage("");
+
+                        UserManager userManager = UserManager.getInstance();
+
+                        userManager.setUserData(user1);
+
+                        myRef.child(user.getUid()).setValue(user1);
+                    } else {
+                        //用已有的帳號登入
+
+                        FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = userDatabase.getReference(Constants.USER);
+                        Query query = myRef;
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    if (String.valueOf(snapshot.getKey()).equals(user.getUid())) {
+
+                                        User user = new User();
+                                        user.setEmail((String) snapshot.child(Constants.EMAIL).getValue());
+                                        user.setId((String) snapshot.child(Constants.ID).getValue());
+                                        user.setImage((String) snapshot.child(Constants.IMAGE).getValue());
+                                        user.setName((String) snapshot.child(Constants.NAME).getValue());
+
+                                        UserManager.getInstance().setUserData(user);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+                    SharedPreferences userData = mContext.getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
+                    userData.edit()
+                            .putString(Constants.USER_ID, user.getUid())
+                            .commit();
+                    Intent intent = new Intent(LoginActivity.this, FoodieActivity.class);
+                    startActivity(intent);
+                    finish();
+
+                }
+            }
+        };
 
     }
 
@@ -270,7 +244,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                     R.string.login_fail,
                                     Toast.LENGTH_SHORT)
                                     .show();
-
                         }
                     }
                 });
@@ -286,12 +259,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 mLoadingBackground.setVisibility(View.GONE);
                 String message = task
                         .isSuccessful() ? getString(R.string.register_success) : getString(R.string.register_fail);
-                Log.d(Constants.TAG, "  message: " + message);
                 Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-
             }
         });
-
     }
-
 }

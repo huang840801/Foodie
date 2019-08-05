@@ -1,10 +1,7 @@
 package com.guanhong.foodie.adapters;
 
-import android.content.Context;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +19,6 @@ import java.util.ArrayList;
 public class SearchRestaurantAdapter extends RecyclerView.Adapter {
 
     private ArrayList<Restaurant> mRestaurantArrayList;
-    private Context mContext;
     private SearchContract.Presenter mPresenter;
 
 
@@ -34,9 +30,8 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        mContext = parent.getContext();
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_search_articles, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_articles, parent, false);
         return new SearchArticleHolder(view);
     }
 
@@ -109,8 +104,6 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-//        return 0;
-        Log.d("Huang ", "SearchRestaurantAdapter " + mRestaurantArrayList.size());
 
         return mRestaurantArrayList.size();
     }
@@ -125,7 +118,6 @@ public class SearchRestaurantAdapter extends RecyclerView.Adapter {
         private ImageView mStar3;
         private ImageView mStar4;
         private ImageView mStar5;
-
 
         public SearchArticleHolder(View view) {
             super(view);

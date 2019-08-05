@@ -1,6 +1,5 @@
 package com.guanhong.foodie.adapters;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,7 +18,6 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
 
     private ArrayList<String> mPictureList;
 
-
     public RestaurantPhotoGalleryAdapter(ArrayList<String> restaurantPictures) {
         this.mPictureList = restaurantPictures;
     }
@@ -27,9 +25,8 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
 
-        View view = LayoutInflater.from(context).inflate(R.layout.item_restaurant_top_photos, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_restaurant_top_photos, parent, false);
         return new RestaurantGalleryItemViewHolder(view);
     }
 
@@ -38,9 +35,7 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
 
         if (holder instanceof RestaurantGalleryItemViewHolder) {
             ((RestaurantGalleryItemViewHolder) holder).bindData(position);
-
         }
-
     }
 
     @Override
@@ -58,7 +53,6 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
             mImagePictures = itemView.findViewById(R.id.imageView_restaurant_top);
         }
 
-
         public void bindData(int position) {
             int positionInPhoto = position % mPictureList.size();
             Log.d(Constants.TAG, "RestaurantPhotoGalleryAdapter: " + mPictureList.get(0));
@@ -69,7 +63,6 @@ public class RestaurantPhotoGalleryAdapter extends RecyclerView.Adapter {
                     .placeholder(R.drawable.animated_rotate_drawable)
                     .error(R.drawable.photo_error_text)
                     .into(mImagePictures);
-
         }
     }
 }

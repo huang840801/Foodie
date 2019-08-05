@@ -1,10 +1,7 @@
 package com.guanhong.foodie.adapters;
 
-import android.content.Context;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.guanhong.foodie.R;
-import com.guanhong.foodie.custom.Blur;
 import com.guanhong.foodie.custom.CircleCornerForm;
 import com.guanhong.foodie.objects.Article;
 import com.guanhong.foodie.profile.ProfileContract;
@@ -32,14 +28,12 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
 
         mArticleArrayList = articleArrayList;
         mPresenter = presenter;
-        Log.d(Constants.TAG, " mArticleArrayList " + mArticleArrayList.size());
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.item_profile_article, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_profile_article, parent, false);
         return new ProfileArticleAdapter.ProfileArticleHolder(view);
     }
 
@@ -91,7 +85,6 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
             mCreatedTime = view.findViewById(R.id.textView_profile_article_createdTime);
 
             view.setOnClickListener(this);
-
         }
 
         public TextView getCreatedTime() {
@@ -115,5 +108,4 @@ public class ProfileArticleAdapter extends RecyclerView.Adapter {
             mPresenter.openPersonalArticle(mArticleArrayList.get(getAdapterPosition()));
         }
     }
-
 }

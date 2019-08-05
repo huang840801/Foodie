@@ -1,10 +1,8 @@
 package com.guanhong.foodie.adapters;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +39,7 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
 
         mContext = parent.getContext();
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_restaurant_article_preview, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_restaurant_article_preview, parent, false);
         return new ArticleItemViewHolder(view);
     }
 
@@ -51,7 +49,6 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
         if (holder instanceof ArticleItemViewHolder) {
             bindMainItem((ArticleItemViewHolder) holder, position);
         }
-
     }
 
     private void bindMainItem(ArticleItemViewHolder holder, int position) {
@@ -69,11 +66,8 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
                 .placeholder(R.drawable.animated_rotate_drawable)
                 .error(R.drawable.photo_error_text)
                 .transform(new Blur(mContext))
-//                .resize(500, 300)
-//                .centerInside()
                 .transform(new CircleCornerForm())
                 .into(holder.getArticlePhoto());
-
     }
 
     @Override
@@ -119,5 +113,4 @@ public class RestaurantArticlePreviewAdapter extends RecyclerView.Adapter {
             mPresenter.openPersonalArticle(mArticleArrayList.get(getAdapterPosition()));
         }
     }
-
 }
