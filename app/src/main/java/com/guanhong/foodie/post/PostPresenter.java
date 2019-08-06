@@ -4,7 +4,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.Continuation;
@@ -23,7 +22,6 @@ import com.guanhong.foodie.util.Constants;
 import java.io.File;
 import java.util.ArrayList;
 
-
 public class PostPresenter implements PostContract.Presenter {
 
     private PostContract.View mPostView;
@@ -33,14 +31,12 @@ public class PostPresenter implements PostContract.Presenter {
 
         mPostView = checkNotNull(postView, "postView cannot be null");
         mPostView.setPresenter(this);
-
     }
 
     @Override
     public void start() {
 
     }
-
 
     @Override
     public void postArticle(final Article article) {
@@ -82,20 +78,16 @@ public class PostPresenter implements PostContract.Presenter {
                 public void onComplete(@NonNull Task<Uri> task) {
                     if (task.isSuccessful()) {
                         Uri downloadUri = task.getResult();
-                        Log.d("MULTIPLE_PICKER ", " isSuccessful " + downloadUri);
                         newPictures.add(String.valueOf(downloadUri));
                         if (newPictures.size() == num) {
                             mPostView.showNewPictures(newPictures);
                         }
-
                     }
-
                 }
 //                                        mPostView.showNewPictures(newPictures);
 
             });
         }
-
     }
 
     @Override

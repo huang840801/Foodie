@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +29,6 @@ import com.guanhong.foodie.util.Constants;
 
 import java.io.File;
 import java.util.ArrayList;
-
 
 public class ProfilePresenter implements ProfileContract.Presenter {
 
@@ -57,18 +55,17 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
         SharedPreferences userData = mContext.getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
         final String uid = userData.getString(Constants.USER_ID, "");
-//
+
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.ARTICLE);
-        Query query = databaseReference;
+        Query query = firebaseDatabase.getReference(Constants.ARTICLE);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 mArticleArrayList.clear();
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//
                     if (snapshot.child(Constants.AUTHOR).child(Constants.ID).getValue().equals(uid)) {
-                        Log.d(Constants.TAG, "ProfilePresenter: " + snapshot.child("createdTime").getValue());
 
                         final Article article = new Article();
                         final Author author = new Author();
@@ -100,9 +97,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                     }
 
                 }
-                Log.d(Constants.TAG, " ProfilePresenter mArticleArrayList = " + mArticleArrayList.size());
                 mProfileView.showMyArticles(mArticleArrayList);
-
             }
 
             @Override
@@ -110,17 +105,13 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
             }
         });
-
     }
 
     @Override
     public void updateUserImageToFireBaseStorage(ArrayList<String> pictures) {
 
-        Log.d(" updateUserImage  ", " getUserId  " + UserManager.getInstance().getUserId());
-
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.USER);
-
 
         StorageReference storageReference;
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -140,13 +131,10 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
                     Uri downloadUri = task.getResult();
-                    Log.d("updateUserImage ", " isSuccessful " + downloadUri);
-                    Log.d("updateUserImage ", " getUserId " + UserManager.getInstance().getUserId());
 
                     databaseReference.child(UserManager.getInstance().getUserId()).child(Constants.IMAGE).setValue(downloadUri + "");
                     mProfileView.showUserNewPicture(downloadUri);
                 }
-
             }
 
         });
@@ -157,21 +145,15 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     public void getUserData() {
         SharedPreferences userData = mContext.getSharedPreferences(Constants.USER_DATA, Context.MODE_PRIVATE);
         final String uid = userData.getString(Constants.USER_ID, "");
-        Log.d(Constants.TAG, " ProfilePresenteruid = " + uid);
 
         FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = userDatabase.getReference(Constants.USER);
-        Query query = myRef;
+        Query query = userDatabase.getReference(Constants.USER);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     if (String.valueOf(snapshot.getKey()).equals(uid)) {
 
-                        Log.d(Constants.TAG, "ProfilePresenterDataSnapshot : " + snapshot.child("email").getValue());
-                        Log.d(Constants.TAG, "ProfilePresenterDataSnapshot : " + snapshot.child("id").getValue());
-                        Log.d(Constants.TAG, "ProfilePresenterDataSnapshot : " + snapshot.child("image").getValue());
-                        Log.d(Constants.TAG, " ProfilePresenterDataSnapshot : " + snapshot.child("name").getValue());
                         User user = new User();
 
                         String name = snapshot.child(Constants.NAME).getValue().toString();

@@ -36,6 +36,4 @@ public interface ProfileContract {
 
         void transToPersonalArticle(Article article);
     }
-
-
 }
