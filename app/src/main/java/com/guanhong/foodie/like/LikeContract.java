@@ -18,6 +18,5 @@ public interface LikeContract {
 
         void transToRestaurant(Restaurant restaurant);
     }
-
 }
 

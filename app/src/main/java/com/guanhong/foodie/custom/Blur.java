@@ -9,11 +9,9 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 
-import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.util.BlurBitmapUtil;
 import com.guanhong.foodie.util.Constants;
 import com.squareup.picasso.Transformation;
-
 
 public class Blur implements Transformation {
 
@@ -26,14 +24,12 @@ public class Blur implements Transformation {
     @Override
     public Bitmap transform(Bitmap bitmap) {
 
-
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
 
         int left = 0;
         int top = 0;
         final float roundPx = (float) (height / 20);   //角度
-
 
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
 
@@ -51,7 +47,6 @@ public class Blur implements Transformation {
         canvas.drawBitmap(bitmap, rect, rect, paint);
 
         output = BlurBitmapUtil.blurBitmap(mContext, bitmap, 20);
-
 
         bitmap.recycle();
         return output;

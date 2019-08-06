@@ -1,7 +1,6 @@
 package com.guanhong.foodie.like;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.common.base.Preconditions;
 import com.google.firebase.database.DataSnapshot;
@@ -17,7 +16,6 @@ import com.guanhong.foodie.util.Constants;
 
 import java.util.ArrayList;
 
-
 public class LikePresenter implements LikeContract.Presenter {
 
     private LikeContract.View mLikeView;
@@ -28,28 +26,23 @@ public class LikePresenter implements LikeContract.Presenter {
 
     @Override
     public void start() {
-        Log.d("LikePresenter ", "start: ");
         loadRestaurantKey();
     }
 
     private void loadRestaurantKey() {
 
-        Log.d("LikePresenter ", "userid: " + UserManager.getInstance().getUserId());
-
         if (UserManager.getInstance().getUserId() == null) {
             return;
         }
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.LIKE).child(UserManager.getInstance().getUserId());
 
-        Query query = databaseReference;
+        Query query = firebaseDatabase.getReference(Constants.LIKE).child(UserManager.getInstance().getUserId());
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mRestaurantKeyArrayList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    Log.d("LikePresenter ", "loadRestaurantKey : " + snapshot.getKey());
                     mRestaurantKeyArrayList.add(snapshot.getKey());
                 }
                 loadRestaurant(mRestaurantKeyArrayList);
@@ -86,7 +79,6 @@ public class LikePresenter implements LikeContract.Presenter {
                     try {
                         restaurant.setStarCount(Integer.valueOf(dataSnapshot.child(Constants.STARCOUNT).getValue().toString()));
                     } catch (NullPointerException e) {
-                        Log.d("LikePresenter ", "NullPointerException : ");
 
                     }
 
@@ -108,7 +100,6 @@ public class LikePresenter implements LikeContract.Presenter {
 
                 }
             });
-
         }
     }
 
@@ -119,7 +110,6 @@ public class LikePresenter implements LikeContract.Presenter {
 
     @Override
     public void transToRestaurant(Restaurant restaurant) {
-//        mLikeView.transToRestaurant(restaurant);
         mMainPresenter.transToRestaurant(restaurant);
     }
 

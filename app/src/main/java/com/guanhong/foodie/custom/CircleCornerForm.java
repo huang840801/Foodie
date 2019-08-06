@@ -11,12 +11,10 @@ import android.graphics.RectF;
 import com.guanhong.foodie.util.Constants;
 import com.squareup.picasso.Transformation;
 
-
 public class CircleCornerForm implements Transformation {
 
     @Override
     public Bitmap transform(Bitmap bitmap) {
-
 
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
@@ -24,7 +22,6 @@ public class CircleCornerForm implements Transformation {
         int left = 0;
         int top = 0;
         final float roundPx = (float) (height / 40);   //角度
-
 
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
 

@@ -1,10 +1,6 @@
 package com.guanhong.foodie.custom;
 
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.Typeface;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +11,6 @@ import com.guanhong.foodie.R;
 import com.guanhong.foodie.util.Constants;
 
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
-
 
     private String mStringRestaurantName;
     private int mStarCount = 0;
@@ -31,9 +26,6 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     @Override
     public View getInfoWindow(final Marker marker) {
 
-        Log.d(Constants.TAG, "CustomInfoWindowAdapter getInfoWindow  " + mStringRestaurantName);
-        Log.d(Constants.TAG, "CustomInfoWindowAdapter getInfoWindow  " + mStarCount);
-
         TextView textViewRestaurantName = mView.findViewById(R.id.infoWindow_restaurant_textView);
         ImageView star1 = mView.findViewById(R.id.imageView_marker_star1);
         ImageView star2 = mView.findViewById(R.id.imageView_marker_star2);
@@ -42,7 +34,6 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         ImageView star5 = mView.findViewById(R.id.imageView_marker_star5);
 
         textViewRestaurantName.setText(mStringRestaurantName);
-//        mTextViewRestaurantName.setTypeface(mTypeface);
         if (mStarCount == 5) {
 
             star1.setImageResource(R.drawable.new_star_selected);
