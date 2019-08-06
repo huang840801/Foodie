@@ -3,11 +3,9 @@ package com.guanhong.foodie.recommend;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -16,7 +14,6 @@ import com.guanhong.foodie.objects.Restaurant;
 import com.guanhong.foodie.util.Constants;
 
 import java.util.ArrayList;
-
 
 public class RecommendPresenter implements RecommendContract.Presenter {
 
@@ -38,24 +35,15 @@ public class RecommendPresenter implements RecommendContract.Presenter {
     @Override
     public void getMyRecommendRestaurant() {
 
-
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.ARTICLE);
 
-        Query query = databaseReference;
+        Query query = firebaseDatabase.getReference(Constants.ARTICLE);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Log.d("RecommendPresenter", " getChildrenCount = " + dataSnapshot.getChildrenCount());
-
                 mRestaurantArrayList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                    Log.d("RecommendPresenter", " snapshot = " + snapshot.child("restaurantName").getValue());
-                    Log.d("RecommendPresenter", " snapshot = " + snapshot.child("location").getValue());
-                    Log.d("RecommendPresenter", " snapshot = " + snapshot.child("starCount").getValue());
-                    Log.d("RecommendPresenter", " snapshot = " + snapshot.child("lat_lng").getValue());
 
                     if (Integer.valueOf(snapshot.child("starCount").getValue().toString()) == 5) {
                         Restaurant restaurant = new Restaurant();
@@ -74,10 +62,7 @@ public class RecommendPresenter implements RecommendContract.Presenter {
 
                         mRestaurantArrayList.add(restaurant);
                     }
-
                 }
-                Log.d("RecommendPresenter", " mRestaurantArrayList = " + mRestaurantArrayList.size());
-
                 mRecommendView.showAllRestaurantList(mRestaurantArrayList);
             }
 

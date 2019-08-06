@@ -3,11 +3,9 @@ package com.guanhong.foodie.restaurant;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -21,7 +19,6 @@ import com.guanhong.foodie.util.Constants;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
 public class RestaurantPresenter implements RestaurantContract.Presenter {
 
     private RestaurantContract.View mRestaurantView;
@@ -30,9 +27,6 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
     private FoodieContract.Presenter mMainPresenter;
 
     public RestaurantPresenter(RestaurantContract.View restaurantView, Restaurant restaurant) {
-
-        Log.d("RestaurantPresenter ", "  mRestaurant.getLat_Lng()   = " + restaurant.getLat_Lng());
-
 
         mRestaurantView = checkNotNull(restaurantView, "detailView cannot be null!");
         mRestaurantView.setPresenter(this);
@@ -43,7 +37,6 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
     @Override
     public void openPersonalArticle(Article article) {
         mRestaurantView.showPersonalArticleUi(article);
-
     }
 
     @Override
@@ -69,28 +62,21 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
     @Override
     public void start() {
         getRestaurantComments(mRestaurant.getLat_Lng());
-        Log.d("getRestaurantComments ", "  mRestaurant.getLat_Lng()   = " + mRestaurant.getLat_Lng());
-        Log.d("getRestaurantComments ", "  mRestaurant.getLat_Lng()   = " + mRestaurant.getRestaurantName());
-
     }
 
     private void getRestaurantComments(final String latLng) {
 
-        Log.d("myCommentsBug ", " MapPresenter getRestaurantComments  ");
-
         final ArrayList<Comment> comments = new ArrayList<>();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.COMMENT);
 
-        Query query = databaseReference;
+        Query query = firebaseDatabase.getReference(Constants.COMMENT);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                Log.d("myCommentsBug ", "  MapPresenter onDataChange comments.size = " + comments.size());
-
                 comments.clear();
+
                 for (DataSnapshot snapshot : dataSnapshot.child(latLng).getChildren()) {
 
                     final Comment comment = new Comment();
@@ -110,7 +96,6 @@ public class RestaurantPresenter implements RestaurantContract.Presenter {
                 Collections.reverse(comments);
 
                 mRestaurantView.showRestaurantUi(mRestaurant, comments);
-
             }
 
             @Override

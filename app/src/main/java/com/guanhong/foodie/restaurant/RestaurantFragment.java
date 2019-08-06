@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +22,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
-
-
 public class RestaurantFragment extends Fragment implements RestaurantContract.View {
 
     private RestaurantContract.Presenter mPresenter;
@@ -33,16 +30,6 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     private AVLoadingIndicatorView mAvLoadingIndicatorView;
 
     public RestaurantFragment() {
-    }
-
-    public static RestaurantFragment newInstance() {
-        return new RestaurantFragment();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
     }
 
     @Nullable
@@ -57,16 +44,10 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("lifecycle", "  RestaurantFragment onResume");
-    }
+    public void onDestroy() {
+        super.onDestroy();
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("lifecycle", "  RestaurantFragment onPause");
-
+        mPresenter.setTabLayoutVisibility(true);
     }
 
     @Override
@@ -79,35 +60,15 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
     @Override
     public void setPresenter(RestaurantContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("fragmentflow", "  RestaurantFragment onDestroy");
-//        ((FoodieActivity) getActivity()).setTabLayoutVisibility(true);
-
-        mPresenter.setTabLayoutVisibility(true);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.d("lifecycle", "  RestaurantFragment onDestroyView");
-//        ((FoodieActivity) getActivity()).removeRestaurantFragment();
-
     }
 
     @Override
     public void showPersonalArticleUi(Article article) {
-//        ((FoodieActivity) getActivity()).transToPersonalArticle(article);
         mPresenter.transToPersonalArticle(article);
     }
 
     @Override
     public void transToPost() {
-//        ((FoodieActivity) getActivity()).transToPostArticle();
         mPresenter.transToPostArticle();
     }
 
@@ -118,5 +79,7 @@ public class RestaurantFragment extends Fragment implements RestaurantContract.V
         mRecyclerView.setAdapter(new RestaurantMainAdapter(mPresenter, restaurant, comments));
     }
 
-
+    public static RestaurantFragment newInstance() {
+        return new RestaurantFragment();
+    }
 }
