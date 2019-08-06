@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ import com.guanhong.foodie.util.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class MapPresenter implements MapContract.Presenter {
 
@@ -48,7 +46,6 @@ public class MapPresenter implements MapContract.Presenter {
 
     @Override
     public void getRestaurantData(String latLng) {
-        Log.d("myCommentsBug ", " MapPresenter getRestaurantData  ");
 
         final Restaurant restaurant = new Restaurant();
 
@@ -57,11 +54,9 @@ public class MapPresenter implements MapContract.Presenter {
 
         Query query = databaseReference.child(latLng);
 
-
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d(Constants.TAG, "MapPresenter getChildrenCount : " + dataSnapshot.getChildrenCount());
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
@@ -78,7 +73,6 @@ public class MapPresenter implements MapContract.Presenter {
                 }
 
                 mMapView.showRestaurantUi(restaurant);
-
             }
 
             @Override
@@ -86,15 +80,10 @@ public class MapPresenter implements MapContract.Presenter {
 
             }
         });
-
     }
 
     @Override
     public void createCustomMarker(Context context, String title) {
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference(Constants.RESTAURANT);
-        Query query = databaseReference;
 
         View marker = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker_layout, null);
 
@@ -109,7 +98,6 @@ public class MapPresenter implements MapContract.Presenter {
         marker.draw(canvas);
 
         mMapView.setMarkerBitmap(bitmap);
-
     }
 
     @Override
@@ -127,29 +115,17 @@ public class MapPresenter implements MapContract.Presenter {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                    Log.d(Constants.TAG, "onDataChange: " + snapshot);
-                    Log.d(Constants.TAG, "onDataChange: " + snapshot.getKey());
-
                     restaurantKey.add(snapshot.getKey());
 
                     String lat;
                     String lng;
-                    String test;
                     String key = snapshot.getKey();
 
-                    test = key.substring(0, key.length()-1);
                     lat = key.substring(0, key.indexOf("_")).replace("@", ".");
                     lng = key.substring(key.indexOf("_") + 1).replace("@", ".");
 
-                    Log.d(Constants.TAG, "onDataChangetest : " + test);
-                    Log.d(Constants.TAG, "onDataChangetest : " + key.length());
-                    Log.d(Constants.TAG, "onDataChangetest : " + key);
-//                    Log.d(Constants.TAG, "onDataChange key : " + key);
-                    Log.d(Constants.TAG, "onDataChange lat : " + lat);
-                    Log.d(Constants.TAG, "onDataChange lng : " + lng);
-
                     locations.add((new LatLng(Double.parseDouble(lat), Double.parseDouble(lng))));
-                    }
+                }
                 mMapView.showMarker(locations);
             }
 

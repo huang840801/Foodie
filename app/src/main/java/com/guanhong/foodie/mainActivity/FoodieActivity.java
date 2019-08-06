@@ -84,6 +84,12 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View 
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        onLowMemory();
+    }
+
+    @Override
     public void setPresenter(FoodieContract.Presenter presenter) {
         mPresenter = presenter;
     }
@@ -120,10 +126,6 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View 
         intent.setSelectedPaths(picturesList);
 
         startActivityForResult(intent, Constants.SINGLE_PICKER);
-    }
-
-    public void transToPostArticle(String addressLine, LatLng latLng) {
-        mPresenter.transToPostArticle(addressLine, latLng);
     }
 
     @Override
@@ -164,10 +166,24 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View 
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        onLowMemory();
+    public void transToPostArticle(String addressLine, LatLng latLng) {
+        mPresenter.transToPostArticle(addressLine, latLng);
+    }
+
+    public void setTabLayoutVisibility(boolean isVisible) {
+        mTabLayout.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));
+    }
+
+    public void transToMap() {
+        mPresenter.transToMap();
+    }
+
+    public void checkRestaurantExists() {
+        mPresenter.checkRestaurantExists();
+    }
+
+    public void transToRestaurant(Restaurant restaurant) {
+        mPresenter.transToRestaurant(restaurant);
     }
 
     private void saveUserData() {
@@ -318,21 +334,5 @@ public class FoodieActivity extends BaseActivity implements FoodieContract.View 
         return (ContextCompat.checkSelfPermission(
                 getBaseContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-    }
-
-    public void setTabLayoutVisibility(boolean isVisible) {
-        mTabLayout.setVisibility(isVisible ? (View.VISIBLE) : (View.GONE));
-    }
-
-    public void transToMap() {
-        mPresenter.transToMap();
-    }
-
-    public void checkRestaurantExists() {
-        mPresenter.checkRestaurantExists();
-    }
-
-    public void transToRestaurant(Restaurant restaurant) {
-        mPresenter.transToRestaurant(restaurant);
     }
 }

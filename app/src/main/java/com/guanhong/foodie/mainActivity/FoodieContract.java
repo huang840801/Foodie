@@ -33,8 +33,6 @@ public interface FoodieContract {
 
         void transToSearch();
 
-//        void transToRestaurant(Restaurant restaurant, ArrayList<Comment> comments);
-
         void transToRestaurant(Restaurant restaurant);
 
         void transToPostArticle();
