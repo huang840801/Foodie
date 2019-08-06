@@ -14,6 +14,7 @@ import java.nio.charset.MalformedInputException;
 import java.util.concurrent.Executors;
 
 public class ImageFromLruCache {
+
     public void set(ImageView imageView, String imageUrl) {
 
         Bitmap bitmap = (Bitmap) Foodie.getLruCache().get(imageUrl);

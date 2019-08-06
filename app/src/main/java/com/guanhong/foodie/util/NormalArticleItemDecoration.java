@@ -14,8 +14,6 @@ public class NormalArticleItemDecoration extends RecyclerView.ItemDecoration {
         outRect.left = mSpace;
         outRect.right = mSpace;
         outRect.bottom = mSpace;
-
-
     }
 
     public NormalArticleItemDecoration(int space) {

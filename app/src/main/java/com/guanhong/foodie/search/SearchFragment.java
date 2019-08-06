@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import com.guanhong.foodie.adapters.SearchRestaurantAdapter;
 import com.guanhong.foodie.objects.Restaurant;
 
 import java.util.ArrayList;
-
 
 public class SearchFragment extends Fragment implements SearchContract.View, View.OnClickListener {
 
@@ -47,12 +45,7 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
         mRecyclerView = v.findViewById(R.id.search_recyclerView);
         mPreviewTextView = v.findViewById(R.id.textView_search_preview);
 
-
         return v;
-    }
-
-    public static SearchFragment newInstance() {
-        return new SearchFragment();
     }
 
     @Override
@@ -65,7 +58,6 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
         super.onViewCreated(view, savedInstanceState);
 
         mPresenter.start();
-
         mImageViewSearch.setOnClickListener(this);
     }
 
@@ -91,8 +83,6 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
     @Override
     public void showSearchResult(ArrayList<Restaurant> restaurantArrayList) {
 
-        Log.d("SearchFragment", " result: " + restaurantArrayList.size());
-
         if (restaurantArrayList.size() == 0) {
             mPreviewTextView.setVisibility(View.VISIBLE);
         } else {
@@ -103,7 +93,9 @@ public class SearchFragment extends Fragment implements SearchContract.View, Vie
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(searchRestaurantAdapter);
         searchRestaurantAdapter.notifyDataSetChanged();
-
     }
 
+    public static SearchFragment newInstance() {
+        return new SearchFragment();
+    }
 }

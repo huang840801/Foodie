@@ -1,7 +1,5 @@
 package com.guanhong.foodie.util;
 
-import android.util.Log;
-
 import com.guanhong.foodie.objects.User;
 
 public class UserManager {
@@ -26,13 +24,7 @@ public class UserManager {
         return userManager;
     }
 
-//    private UserManager() {
-//    }
-
     public void setUserData(User user) {
-        Log.d("UserManager", user.getId());
-        Log.d("UserManager", user.getName());
-        Log.d("UserManager", user.getEmail());
         mUserId = user.getId();
         mUserName = user.getName();
         mUserImage = user.getImage();

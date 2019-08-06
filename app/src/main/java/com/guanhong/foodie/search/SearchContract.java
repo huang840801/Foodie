@@ -11,7 +11,6 @@ public interface SearchContract {
     interface View extends BaseView<Presenter> {
 
         void showSearchResult(ArrayList<Restaurant> restaurantArrayList);
-
     }
 
     interface Presenter extends BasePresenter {

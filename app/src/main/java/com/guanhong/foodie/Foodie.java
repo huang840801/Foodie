@@ -3,15 +3,11 @@ package com.guanhong.foodie;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Environment;
 import android.util.LruCache;
-
-import java.io.File;
 
 public class Foodie extends Application {
     private static Context mContext;
     private static LruCache mLruCache;
-
 
     @Override
     public void onCreate() {
@@ -22,6 +18,10 @@ public class Foodie extends Application {
 
     public static Context getAppContext() {
         return mContext;
+    }
+
+    public static LruCache getLruCache() {
+        return mLruCache;
     }
 
     private void initLruCache() {
@@ -36,9 +36,4 @@ public class Foodie extends Application {
             }
         };
     }
-
-    public static LruCache getLruCache() {
-        return mLruCache;
-    }
-
 }

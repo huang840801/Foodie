@@ -18,7 +18,6 @@ public class ArticlePreviewItemDecoration extends RecyclerView.ItemDecoration {
         if (parent.getChildAdapterPosition(view) == 0) {
             outRect.left = 0;
         }
-
     }
 
     public ArticlePreviewItemDecoration(int space) {
