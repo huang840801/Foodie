@@ -9,7 +9,6 @@ public interface PersonalContract {
     interface View extends BaseView<Presenter> {
 
         void showArticleUi(Article article);
-
     }
 
     interface Presenter extends BasePresenter {

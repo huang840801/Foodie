@@ -11,14 +11,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.guanhong.foodie.Foodie;
 import com.guanhong.foodie.R;
 import com.guanhong.foodie.adapters.PersonalPhotoAdapter;
 import com.guanhong.foodie.objects.Article;
@@ -27,7 +25,6 @@ import com.rd.PageIndicatorView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 public class PersonalFragment extends Fragment implements PersonalContract.View {
 
@@ -59,14 +56,10 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
     private TextView mTitleMenu1;
     private TextView mTitleContent;
 
-    private Typeface mTypeface;
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getContext();
-
     }
 
     public PersonalFragment() {}
@@ -120,28 +113,8 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("fragmentflow", "   PersonalFragment onDestroy ");
 
         mPresenter.checkRestaurantExists();
-//        ((FoodieActivity) getActivity()).checkRestaurantExists();
-    }
-
-    private void setTypeFace() {
-        mTypeface = Typeface.createFromAsset(mContext.getAssets(), Constants.TYPAFACE);
-
-        mTextViewRestaurantName.setTypeface(mTypeface);
-        mTextViewRestaurantLocation.setTypeface(mTypeface);
-        mTextViewMenu1.setTypeface(mTypeface);
-        mTextViewPrice1.setTypeface(mTypeface);
-        mTextViewMenu2.setTypeface(mTypeface);
-        mTextViewPrice2.setTypeface(mTypeface);
-        mTextViewMenu3.setTypeface(mTypeface);
-        mTextViewPrice3.setTypeface(mTypeface);
-        mTextViewContent.setTypeface(mTypeface);
-        mTitleMenu1.setTypeface(mTypeface);
-        mTitleContent.setTypeface(mTypeface);
-        mAuthor.setTypeface(mTypeface);
-        mAuthorName.setTypeface(mTypeface);
     }
 
     @Override
@@ -229,6 +202,24 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
         }
     }
 
+    private void setTypeFace() {
+        Typeface mTypeface = Typeface.createFromAsset(mContext.getAssets(), Constants.TYPAFACE);
+
+        mTextViewRestaurantName.setTypeface(mTypeface);
+        mTextViewRestaurantLocation.setTypeface(mTypeface);
+        mTextViewMenu1.setTypeface(mTypeface);
+        mTextViewPrice1.setTypeface(mTypeface);
+        mTextViewMenu2.setTypeface(mTypeface);
+        mTextViewPrice2.setTypeface(mTypeface);
+        mTextViewMenu3.setTypeface(mTypeface);
+        mTextViewPrice3.setTypeface(mTypeface);
+        mTextViewContent.setTypeface(mTypeface);
+        mTitleMenu1.setTypeface(mTypeface);
+        mTitleContent.setTypeface(mTypeface);
+        mAuthor.setTypeface(mTypeface);
+        mAuthorName.setTypeface(mTypeface);
+    }
+
     private void setPhotoRecyclerView(Article article) {
 
         mRecyclerViewPhoto.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
@@ -249,5 +240,4 @@ public class PersonalFragment extends Fragment implements PersonalContract.View 
             }
         });
     }
-
 }

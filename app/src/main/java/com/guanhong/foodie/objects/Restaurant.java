@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Restaurant {
 
     private ArrayList<String> mRestaurantPictures;
-    private ArrayList<Article> mArticleArrayList;
     private int mStarCount;
     private String mRestaurantName;
     private String mRestaurantLocation;
@@ -14,12 +13,10 @@ public class Restaurant {
     public Restaurant() {
 
         mRestaurantPictures = new ArrayList<>();
-        mArticleArrayList = new ArrayList<>();
         mStarCount = -1;
         mRestaurantName = "";
         mRestaurantLocation = "";
         mLatLng = "";
-
     }
 
     public ArrayList<String> getRestaurantPictures() {
